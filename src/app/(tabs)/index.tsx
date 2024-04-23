@@ -1,27 +1,19 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import styled from "styled-components/native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { View } from "@/components/Themed";
 import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 const Title = styled(Text)`
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors["yellow-500"]};
 `;
 
 export default function TabOneScreen() {
   const { toggleTheme } = useStyledTheme();
 
   return (
-    <View style={styles.container}>
+    <View>
       <Title onPress={toggleTheme}>HI Felas</Title>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
     </View>
   );
 }

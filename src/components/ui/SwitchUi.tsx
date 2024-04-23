@@ -18,16 +18,17 @@ export const SwitchContainerUi = ({
 };
 
 type Props = {
-  onSwitch: (isEnabled: boolean, variableValue?: string) => void;
+  onSwitch: (isEnabled: boolean) => void;
+  value: boolean;
 } & ComponentPropsWithoutRef<typeof Switch>;
 
-export const SwitchUi = ({ onSwitch, ...rest }: Props) => {
-  const [isEnabled, setIsEnabled] = useState(false);
+export const SwitchUi = ({ onSwitch, value, ...rest }: Props) => {
+  const [isEnabled, setIsEnabled] = useState(value);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const theme = useTheme();
 
   useEffect(() => {
-    onSwitch(isEnabled);
+    if (onSwitch) onSwitch(isEnabled);
   }, [isEnabled, onSwitch]);
 
   return (

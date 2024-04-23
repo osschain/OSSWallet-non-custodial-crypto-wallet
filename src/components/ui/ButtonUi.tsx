@@ -4,7 +4,7 @@ import styled, { DefaultTheme } from "styled-components/native";
 
 type Variant = "primary" | "secondary" | "red";
 type Background = "blue-500" | "bg-third" | "red-500";
-type TextColor = "bg-primary" | "text-primary";
+type TextColor = "pure-white" | "text-primary";
 
 type ButtonStyles = {
   [key in Variant]: {
@@ -16,7 +16,7 @@ type ButtonStyles = {
 const buttonStyles: ButtonStyles = {
   primary: {
     background: "blue-500",
-    color: "bg-primary",
+    color: "pure-white",
   },
   secondary: {
     background: "bg-third",

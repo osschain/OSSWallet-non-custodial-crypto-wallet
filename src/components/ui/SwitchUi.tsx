@@ -37,7 +37,7 @@ export const SwitchUi = ({ onSwitch, ...rest }: Props) => {
         true: theme.colors["blue-500"],
       }}
       thumbColor={
-        isEnabled ? theme.colors["bg-primary"] : theme.colors["bg-primary"]
+        isEnabled ? theme.colors["pure-white"] : theme.colors["pure-white"]
       }
       style={{
         transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }], // Adjust size here

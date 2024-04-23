@@ -21,6 +21,7 @@ declare module "styled-components/native" {
       "red-700": string;
       "red-500": string;
       "red-100": string;
+      "pure-white": string;
     };
     // prettier-ignore
     spaces: {

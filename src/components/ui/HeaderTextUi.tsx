@@ -3,12 +3,12 @@ import { styled, DefaultTheme } from "styled-components/native";
 
 type Sizes = "2xl" | "xl" | "lg" | "md" | "sm";
 
-interface PropsType {
+interface Props {
   size: Sizes;
   theme: DefaultTheme;
 }
 
-export const HeaderTextUi = styled(Text)<PropsType>`
+export const HeaderTextUi = styled(Text)<Props>`
   ${({ size, theme }) => `
     font-family:  ${theme.fonts["heading"]};
     font-size: ${theme.fontSizes[`header-${size}`]}; 

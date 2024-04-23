@@ -68,7 +68,6 @@ declare module "styled-components/native" {
         "lg": string;
         "md": string;
         "sm": string;
-        "xs": string;
     }
   }
 }

@@ -18,7 +18,6 @@ export const lineHeights = {
     "lg": "26px",
     "md": "24px",
     "sm": "22px",
-    "xs": "18px"
   };
 
 export const fontSizes = {

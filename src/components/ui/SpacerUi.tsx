@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { DefaultTheme, styled } from "styled-components/native";
 
-type Sizes = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
+type Sizes = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
 type Positions = "top" | "left" | "right" | "bottom";
 
 interface PropsType {
@@ -10,11 +10,9 @@ interface PropsType {
   theme: DefaultTheme;
 }
 
-export const SpacerUi = styled(View)<PropsType>`
-  ${({ position, size, theme }) => `margin-${position}: ${theme.spaces[size]}`}
+const SpacerUi = styled(View)<PropsType>`
+  ${({ position = "top", size = "md", theme }) =>
+    `margin-${position}: ${theme.spaces[size]}`}
 `;
 
-SpacerUi.defaultProps = {
-  position: "top",
-  size: "md",
-};
+export default SpacerUi;

@@ -11,6 +11,16 @@ export const fontWeights = {
   "medium": 500,
 };
 
+// prettier-ignore
+export const lineHeights = {
+    "2xl": "32px",
+    "xl": "28px",
+    "lg": "26px",
+    "md": "24px",
+    "sm": "22px",
+    "xs": "18px"
+  };
+
 export const fontSizes = {
   "header-2xl": "24px",
   "header-xl": "20px",

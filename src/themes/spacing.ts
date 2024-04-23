@@ -1,10 +1,4 @@
 // prettier-ignore
-export const lineHeights = {
-  "title": "28px",
-  "copy": "20px",
-};
-
-// prettier-ignore
 export const spaces = {
   "sm": "2px",
   "md": "4px",

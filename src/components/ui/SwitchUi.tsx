@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useEffect, useState } from "react";
+import React, { ComponentPropsWithoutRef, useEffect, useState } from "react";
 import { View, Switch } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
@@ -8,11 +8,20 @@ const SwitchContainer = styled(View)`
   width: auto;
 `;
 
+export const SwitchContainerUi = ({
+  children,
+  ...rest
+}: {
+  children: React.ReactNode;
+} & ComponentPropsWithoutRef<typeof View>) => {
+  return <SwitchContainer {...rest}>{children}</SwitchContainer>;
+};
+
 type Props = {
   onSwitch: (isEnabled: boolean, variableValue?: string) => void;
-} & ComponentPropsWithoutRef<typeof View>;
+} & ComponentPropsWithoutRef<typeof Switch>;
 
-const SwitchUi = ({ onSwitch, ...rest }: Props) => {
+export const SwitchUi = ({ onSwitch, ...rest }: Props) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const theme = useTheme();
@@ -22,24 +31,21 @@ const SwitchUi = ({ onSwitch, ...rest }: Props) => {
   }, [isEnabled, onSwitch]);
 
   return (
-    <SwitchContainer {...rest}>
-      <Switch
-        trackColor={{
-          false: theme.colors["bg-second"],
-          true: theme.colors["blue-500"],
-        }}
-        thumbColor={
-          isEnabled ? theme.colors["bg-primary"] : theme.colors["bg-primary"]
-        }
-        style={{
-          transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }], // Adjust size here
-        }}
-        ios_backgroundColor={theme.colors["bg-second"]}
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
-    </SwitchContainer>
+    <Switch
+      trackColor={{
+        false: theme.colors["bg-second"],
+        true: theme.colors["blue-500"],
+      }}
+      thumbColor={
+        isEnabled ? theme.colors["bg-primary"] : theme.colors["bg-primary"]
+      }
+      style={{
+        transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }], // Adjust size here
+      }}
+      ios_backgroundColor={theme.colors["bg-second"]}
+      onValueChange={toggleSwitch}
+      value={isEnabled}
+      {...rest}
+    />
   );
 };
-
-export default SwitchUi;

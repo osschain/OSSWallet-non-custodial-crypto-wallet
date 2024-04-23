@@ -1,12 +1,14 @@
+// prettier-ignore
 export const fonts = {
-  body: "Inter",
-  heading: "Inter",
+  "body": "Inter",
+  "heading": "Inter",
 };
 
+// prettier-ignore
 export const fontWeights = {
-  semi: 600,
-  regular: 400,
-  medium: 500,
+  "semi": 600,
+  "regular": 400,
+  "medium": 500,
 };
 
 export const fontSizes = {

@@ -5,13 +5,13 @@ type Sizes = "lg" | "md" | "sm";
 type Weights = "medium" | "regular";
 
 interface Props {
-  size: Sizes;
+  size?: Sizes;
   theme: DefaultTheme;
-  weight: Weights;
+  weight?: Weights;
 }
 
 export const BodyTextUi = styled(Text)<Props>`
-  ${({ size, theme, weight }) => `
+  ${({ size = "md", theme, weight = "regular" }) => `
       font-family:  ${theme.fonts["body"]};
       font-size: ${theme.fontSizes[`body-${size}`]}; 
       font-weight: ${theme.fontWeights[weight]};
@@ -19,10 +19,5 @@ export const BodyTextUi = styled(Text)<Props>`
       color: ${theme.colors["text-primary"]};
     `}
 `;
-
-BodyTextUi.defaultProps = {
-  size: "md",
-  weight: "regular",
-};
 
 export default BodyTextUi;

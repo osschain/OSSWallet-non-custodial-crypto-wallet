@@ -15,7 +15,7 @@ type StyledThemeType = {
 
 const StyledThemeContext = createContext<StyledThemeType>({
   toggleTheme: () => {},
-  theme: {},
+  theme: lightTheme,
 });
 
 type modes = "light" | "dark";

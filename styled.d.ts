@@ -40,6 +40,7 @@ declare module "styled-components/native" {
       "xl": string;
       "2xl": string;
       "3xl": string;
+      "4xl": string;
     };
     fontSizes: {
       "header-2xl": string;

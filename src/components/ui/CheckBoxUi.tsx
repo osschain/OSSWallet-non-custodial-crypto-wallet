@@ -1,6 +1,5 @@
 import Checkbox from "expo-checkbox";
 import { ComponentPropsWithoutRef, useEffect, useState } from "react";
-import { View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
 const StyledCheckBox = styled(Checkbox)`

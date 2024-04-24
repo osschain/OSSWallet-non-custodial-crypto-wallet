@@ -1,6 +1,5 @@
 import { Entypo, Feather } from "@expo/vector-icons";
 import { ComponentPropsWithoutRef } from "react";
-import { View } from "react-native-reanimated/lib/typescript/Animated";
 import { useTheme } from "styled-components/native";
 
 import {

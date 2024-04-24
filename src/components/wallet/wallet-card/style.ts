@@ -1,0 +1,79 @@
+import { LinearGradient } from "expo-linear-gradient";
+import styled from "styled-components/native";
+
+import BodyTextUi from "@/components/ui/BodyTextUi";
+import HeaderTextUi from "@/components/ui/HeaderTextUi";
+
+export const Card = styled.View`
+  padding: ${($props) => $props.theme.spaces["xl"]};
+  position: relative;
+`;
+export const BackgroundGradient = styled(LinearGradient)`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  border-radius: ${($props) => $props.theme.sizes["lg"]};
+`;
+export const Header = styled.View``;
+
+export const UserName = styled(HeaderTextUi)`
+  color: ${($props) => $props.theme.colors["pure-white"]};
+  text-transform: uppercase;
+`;
+
+export const WalletAdressContainer = styled.View`
+  flex-direction: row;
+  gap: ${($props) => $props.theme.spaces["lg"]};
+`;
+export const WalletAdress = styled(BodyTextUi)`
+  color: ${($props) => $props.theme.colors["pure-white"]};
+`;
+
+export const CopyAddres = styled.TouchableOpacity``;
+
+export const MoneyAmount = styled(HeaderTextUi)`
+  color: ${($props) => $props.theme.colors["pure-white"]};
+  font-size: 28px;
+  font-weight: ${($props) => $props.theme.fontWeights["bold"]};
+`;
+
+export const Buttons = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  gap: ${($props) => $props.theme.spaces["4xl"]};
+`;
+// prettier-ignore
+export const Button = styled.TouchableOpacity`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  gap: ${($props) => $props.theme.spaces["lg"]};
+  position: relative;
+  align-items: center;
+  padding: ${($props) => $props.theme.spaces["xl"]} ${($props) => $props.theme.spaces["2xl"]};
+
+`;
+export const ButtonIcon = styled.View``;
+export const ButtonText = styled(BodyTextUi)`
+  color: ${($props) => $props.theme.colors["pure-white"]};
+`;
+export const ButtonBacground = styled.View`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+
+  background-color: ${($props) => $props.theme.colors["pure-white"]};
+  opacity: 0.2;
+  border-radius: ${($props) => $props.theme.sizes["lg"]};
+`;
+
+export const TopRight = styled.TouchableOpacity`
+  position: absolute;
+  color: ${($props) => $props.theme.colors["pure-white"]};
+  top: ${($props) => $props.theme.spaces["xl"]};
+  right: ${($props) => $props.theme.spaces["xl"]};
+`;

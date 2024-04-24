@@ -30,7 +30,7 @@ type Props = {
   onRecieve: () => void;
   onSend: () => void;
   onOptions: () => void;
-} & ComponentPropsWithoutRef<typeof View>;
+} & ComponentPropsWithoutRef<typeof Card>;
 
 export default function WalletCard({
   userName = "Ton Wallet",
@@ -39,10 +39,11 @@ export default function WalletCard({
   onRecieve = () => {},
   onSend = () => {},
   onOptions = () => {},
+  ...rest
 }: Props) {
   const theme = useTheme();
   return (
-    <Card>
+    <Card {...rest}>
       <BackgroundGradient
         colors={["#1566DF", "#21C5DB"]}
         start={{ x: 0, y: 0 }}

@@ -71,7 +71,7 @@ export const ButtonBacground = styled.View`
   border-radius: ${($props) => $props.theme.sizes["lg"]};
 `;
 
-export const TopRight = styled.TouchableOpacity`
+export const Options = styled.TouchableOpacity`
   position: absolute;
   color: ${($props) => $props.theme.colors["pure-white"]};
   top: ${($props) => $props.theme.spaces["xl"]};

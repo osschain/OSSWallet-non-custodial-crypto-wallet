@@ -1,4 +1,6 @@
 import { Entypo, Feather } from "@expo/vector-icons";
+import { ComponentPropsWithoutRef } from "react";
+import { View } from "react-native-reanimated/lib/typescript/Animated";
 import { useTheme } from "styled-components/native";
 
 import {
@@ -15,13 +17,29 @@ import {
   ButtonIcon,
   ButtonText,
   MoneyAmount,
-  TopRight,
+  Options,
 } from "./style";
 
 import SpacerUi from "@/components/ui/SpacerUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
-export default function WalletCard() {
+type Props = {
+  userName: string;
+  walletAddres: string;
+  moneyAmount: string;
+  onRecieve: () => void;
+  onSend: () => void;
+  onOptions: () => void;
+} & ComponentPropsWithoutRef<typeof View>;
+
+export default function WalletCard({
+  userName = "Ton Wallet",
+  walletAddres = "EQDHirLoAYIhplO....",
+  moneyAmount = "$ 1520,056",
+  onRecieve = () => {},
+  onSend = () => {},
+  onOptions = () => {},
+}: Props) {
   const theme = useTheme();
   return (
     <Card>
@@ -31,10 +49,10 @@ export default function WalletCard() {
         end={{ x: 1, y: 0 }}
       />
       <Header>
-        <UserName size="lg">Ton Wallet</UserName>
+        <UserName size="lg">{userName}</UserName>
         <SpacerUi size="lg">
           <WalletAdressContainer>
-            <WalletAdress size="sm">EQDHirLoAYIhplO....</WalletAdress>
+            <WalletAdress size="sm">{walletAddres}</WalletAdress>
             <CopyAddres>
               <Feather
                 name="copy"
@@ -45,12 +63,12 @@ export default function WalletCard() {
           </WalletAdressContainer>
         </SpacerUi>
         <SpacerUi size="xl">
-          <MoneyAmount size="2xl">$ 1520,056</MoneyAmount>
+          <MoneyAmount size="2xl">{moneyAmount}</MoneyAmount>
         </SpacerUi>
       </Header>
       <SpacerUi size="4xl">
         <Buttons>
-          <Button>
+          <Button onPress={onRecieve}>
             <ButtonIcon>
               <Feather
                 name="arrow-down-left"
@@ -61,7 +79,7 @@ export default function WalletCard() {
             <ButtonText>Receive</ButtonText>
             <ButtonBacground />
           </Button>
-          <Button>
+          <Button onPress={onSend}>
             <ButtonText>Send</ButtonText>
             <ButtonIcon>
               <Feather
@@ -74,13 +92,13 @@ export default function WalletCard() {
           </Button>
         </Buttons>
       </SpacerUi>
-      <TopRight>
+      <Options onPress={onOptions}>
         <Entypo
           name="dots-three-vertical"
           size={pixelToNumber(theme.sizes["xl"])}
           color={theme.colors["pure-white"]}
         />
-      </TopRight>
+      </Options>
     </Card>
   );
 }

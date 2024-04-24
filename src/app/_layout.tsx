@@ -1,11 +1,10 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+import useFont from "@/hooks/useFonts";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
 
 export {
@@ -22,10 +21,7 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    Inter: require("@/assets/fonts/Inter.ttf"),
-    ...FontAwesome.font,
-  });
+  const { fontsLoaded: loaded, fontError: error } = useFont();
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {

@@ -84,7 +84,7 @@ export default function HistoryItem({
     return (
       <Feather
         name={name}
-        size={pixelToNumber(theme.sizes["lg"])}
+        size={pixelToNumber(theme.sizes["xl"])}
         color={color}
       />
     );

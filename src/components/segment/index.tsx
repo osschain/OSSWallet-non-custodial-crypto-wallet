@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ComponentPropsWithoutRef } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -8,6 +8,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
+import { View } from "react-native-reanimated/lib/typescript/Animated";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -45,10 +46,17 @@ type Props = {
   options: string[];
   selectedOption: string;
   onOptionPress?: (option: string) => void;
-};
+} & ComponentPropsWithoutRef<typeof Container>;
+
+const defaultOptions = ["first", "second", "third"];
 
 const SegmentedControl: React.FC<Props> = React.memo(
-  ({ options, selectedOption, onOptionPress }) => {
+  ({
+    options = defaultOptions,
+    selectedOption = defaultOptions[0],
+    onOptionPress,
+    ...rest
+  }) => {
     const { width: windowWidth } = useWindowDimensions();
 
     const internalPadding = 20;
@@ -75,6 +83,7 @@ const SegmentedControl: React.FC<Props> = React.memo(
             paddingLeft: internalPadding / 2,
           },
         ]}
+        {...rest}
       >
         <ActiveBox
           style={[

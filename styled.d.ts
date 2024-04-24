@@ -55,6 +55,7 @@ declare module "styled-components/native" {
     };
     // prettier-ignore
     fontWeights: {
+      'bold': number;
       "semi": number;
       "regular": number;
       "medium": number;

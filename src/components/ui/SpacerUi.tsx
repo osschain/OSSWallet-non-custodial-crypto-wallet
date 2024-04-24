@@ -5,8 +5,8 @@ type Sizes = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
 type Positions = "top" | "left" | "right" | "bottom";
 
 interface PropsType {
-  position: Positions;
-  size: Sizes;
+  position?: Positions;
+  size?: Sizes;
   theme: DefaultTheme;
 }
 

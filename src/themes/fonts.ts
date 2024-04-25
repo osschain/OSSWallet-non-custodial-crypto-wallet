@@ -11,6 +11,8 @@ export const fontWeights = {
 };
 
 export const lineHeights = {
+  "4xl": "32px",
+  "3xl": "32px",
   "2xl": "32px",
   xl: "28px",
   lg: "26px",
@@ -20,6 +22,8 @@ export const lineHeights = {
 
 export const fontSizes = {
   header: {
+    "4xl": "48px",
+    "3xl": "40px",
     "2xl": "24px",
     xl: "20px",
     lg: "18px",

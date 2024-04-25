@@ -29,6 +29,7 @@ interface Spacing {
   xl: string;
   "2xl": string;
   "3xl": string;
+  "3.5xl": string;
   "4xl": string;
 }
 
@@ -43,6 +44,8 @@ interface Sizes {
 }
 
 interface HeaderFontSizes {
+  "4xl": string;
+  "3xl": string;
   "2xl": string;
   xl: string;
   lg: string;
@@ -74,6 +77,8 @@ interface Fonts {
 }
 
 interface LineHeights {
+  "4xl": string;
+  "3xl": string;
   "2xl": string;
   xl: string;
   lg: string;

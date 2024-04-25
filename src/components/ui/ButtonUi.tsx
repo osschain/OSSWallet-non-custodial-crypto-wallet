@@ -39,7 +39,8 @@ const getTextColor = (variant: Variant): TextColor => {
 const Button = styled(Pressable)<{ variant: Variant; theme: DefaultTheme }>`
   ${({ variant, theme }) => `
       padding: ${theme.sizes.xl} 0px;
-      background: ${theme.colors[getBackground(variant)]};  
+      background: ${theme.colors[getBackground(variant)]};
+      border-radius:   ${theme.sizes["md"]}
   `}
 `;
 

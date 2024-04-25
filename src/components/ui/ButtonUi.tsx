@@ -1,6 +1,13 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
-import { GestureResponderEvent, Pressable, Text } from "react-native";
+import {
+  GestureResponderEvent,
+  Pressable,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
+
+import { getFontStyle } from "@/util/themeUtils";
 
 type Variant = "primary" | "secondary" | "red";
 type Background = "blue-500" | "bg-third" | "red-500";
@@ -36,7 +43,10 @@ const getTextColor = (variant: Variant): TextColor => {
   return buttonStyles[variant].color;
 };
 
-const Button = styled(Pressable)<{ variant: Variant; theme: DefaultTheme }>`
+const Button = styled(TouchableOpacity)<{
+  variant: Variant;
+  theme: DefaultTheme;
+}>`
   ${({ variant, theme }) => `
       padding: ${theme.sizes.xl} 0px;
       background: ${theme.colors[getBackground(variant)]};
@@ -47,6 +57,7 @@ const Button = styled(Pressable)<{ variant: Variant; theme: DefaultTheme }>`
 const ButtonText = styled(Text)<{ variant: Variant; theme: DefaultTheme }>`
   ${({ variant, theme }) => `
       color: ${theme.colors[getTextColor(variant)]};  
+      font-family: ${getFontStyle(theme, "heading", "medium")};
       text-align: center;
   `}
 `;

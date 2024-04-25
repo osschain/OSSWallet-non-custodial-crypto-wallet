@@ -26,7 +26,7 @@ export const colorsDark = {
   "text-second": "#BFC3C9",
   "bg-primary": "#141A21",
   "bg-second": "#1C232C",
-  "bg-third": "#212931",
+  "bg-third": "#F3F9FE",
   "border-color": "#39404F",
   "bg-input": "#222222",
   "light-100": "#0D1117",

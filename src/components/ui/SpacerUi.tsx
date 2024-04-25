@@ -1,7 +1,9 @@
 import { View } from "react-native";
 import { DefaultTheme, styled } from "styled-components/native";
 
-type Sizes = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
+import { SizesType } from "@/theme/types";
+
+type Sizes = SizesType;
 type Positions = "top" | "left" | "right" | "bottom";
 
 interface PropsType {

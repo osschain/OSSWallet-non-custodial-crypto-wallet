@@ -66,7 +66,7 @@ type Props = {
   variant?: Variant;
   onPress?: (e: GestureResponderEvent) => void;
   children: ReactNode;
-} & ComponentPropsWithoutRef<typeof Pressable>;
+} & ComponentPropsWithoutRef<typeof Button>;
 
 function ButtonUi({ variant = "primary", onPress, children, ...rest }: Props) {
   return (

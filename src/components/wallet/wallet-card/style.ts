@@ -19,7 +19,6 @@ export const BackgroundGradient = styled(LinearGradient)`
 export const Header = styled.View``;
 
 export const UserName = styled(HeaderTextUi)`
-  color: ${({ theme }) => theme.colors["pure-white"]};
   text-transform: uppercase;
 `;
 
@@ -27,9 +26,7 @@ export const WalletAdressContainer = styled.View`
   flex-direction: row;
   gap: ${({ theme }) => theme.spaces["lg"]};
 `;
-export const WalletAdress = styled(BodyTextUi)`
-  color: ${({ theme }) => theme.colors["pure-white"]};
-`;
+export const WalletAdress = styled(BodyTextUi)``;
 
 export const CopyAddres = styled.TouchableOpacity``;
 
@@ -56,9 +53,7 @@ export const Button = styled.TouchableOpacity`
 
 `;
 export const ButtonIcon = styled.View``;
-export const ButtonText = styled(BodyTextUi)`
-  color: ${({ theme }) => theme.colors["pure-white"]};
-`;
+export const ButtonText = styled(BodyTextUi)``;
 export const ButtonBacground = styled.View`
   position: absolute;
   left: 0;

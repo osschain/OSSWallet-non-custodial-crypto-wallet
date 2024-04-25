@@ -34,9 +34,7 @@ const Logo = styled.Image`
 `;
 
 const AssetName = styled(HeaderTextUi)``;
-const AssetAmount = styled(BodyTextUi)`
-  color: ${({ theme }) => theme.colors["text-second"]};
-`;
+const AssetAmount = styled(BodyTextUi)``;
 const RightContent = styled.View``;
 const UsdAmount = styled(BodyTextUi)``;
 
@@ -62,7 +60,7 @@ export default function AssetItem({
         </ImageContainer>
         <View>
           <AssetName size="md">{assetName}</AssetName>
-          <AssetAmount size="sm" weight="medium">
+          <AssetAmount size="sm" weight="medium" color="text-second">
             {assetAmount}
           </AssetAmount>
         </View>

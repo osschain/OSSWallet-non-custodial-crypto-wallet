@@ -49,7 +49,9 @@ export default function WalletCard({
         end={{ x: 1, y: 0 }}
       />
       <Header>
-        <UserName size="lg">{userName}</UserName>
+        <UserName size="lg" color="pure-white">
+          {userName}
+        </UserName>
         <SpacerUi size="lg">
           <WalletAdressContainer>
             <WalletAdress size="sm">{walletAddres}</WalletAdress>
@@ -76,11 +78,11 @@ export default function WalletCard({
                 color={theme.colors["pure-white"]}
               />
             </ButtonIcon>
-            <ButtonText>Receive</ButtonText>
+            <ButtonText color="pure-white">Receive</ButtonText>
             <ButtonBacground />
           </Button>
           <Button onPress={onSend}>
-            <ButtonText>Send</ButtonText>
+            <ButtonText color="pure-white">Send</ButtonText>
             <ButtonIcon>
               <Feather
                 name="arrow-down-right"

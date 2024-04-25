@@ -66,7 +66,7 @@ export default function HistoryItem({
         <IconContainer>{iconVariant()}</IconContainer>
         <View>
           <Label size="md">{variant}:</Label>
-          <AssetAmount size="sm" weight="medium">
+          <AssetAmount size="sm" weight="medium" color="text-second">
             {walletAddress}
           </AssetAmount>
         </View>

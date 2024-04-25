@@ -1,51 +1,22 @@
-import { Entypo, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { ComponentPropsWithoutRef } from "react";
 import { View } from "react-native";
-import styled, { useTheme } from "styled-components/native";
+import { useTheme } from "styled-components/native";
 
-import BodyTextUi from "../ui/BodyTextUi";
-import HeaderTextUi from "../ui/HeaderTextUi";
+import {
+  Item,
+  LeftContent,
+  RightContent,
+  Label,
+  IconContainer,
+  AssetAmount,
+  Amount,
+} from "./style";
 
 import { defaultImage } from "@/util/DefaultImage";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
-const Item = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${({ theme }) => theme.spaces["xl"]};
-  border-radius: ${({ theme }) => theme.sizes["md"]};
-`;
-const LeftContent = styled.View`
-  flex-direction: row;
-  gap: ${({ theme }) => theme.spaces["xl"]};
-`;
-
-const IconContainer = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: ${({ theme }) => theme.sizes["4xl"]};
-  height: ${({ theme }) => theme.sizes["4xl"]};
-  border-radius: ${({ theme }) => theme.sizes["md"]};
-  background-color: #f2eff6;
-`;
-
-const Label = styled(HeaderTextUi)`
-  text-transform: capitalize;
-`;
-const AssetAmount = styled(BodyTextUi)`
-  color: ${({ theme }) => theme.colors["text-second"]};
-`;
-const RightContent = styled.View``;
-
-const Amount = styled(HeaderTextUi)<{ variant: variants }>`
-  color: ${(props) =>
-    props.variant === "recieved"
-      ? props.theme.colors["green-500"]
-      : props.theme.colors["red-500"]};
-`;
-
-type variants = "recieved" | "send" | "error";
+export type variants = "recieved" | "send" | "error";
 
 type Props = {
   variant: variants;

@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode, forwardRef } from "react";
 import { GestureResponderEvent, Text, TouchableOpacity } from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
 
@@ -63,12 +63,14 @@ type Props = {
   children: ReactNode;
 } & ComponentPropsWithoutRef<typeof Button>;
 
-function ButtonUi({ variant = "primary", onPress, children, ...rest }: Props) {
-  return (
-    <Button variant={variant} onPress={onPress} {...rest}>
-      <ButtonText variant={variant}>{children}</ButtonText>
-    </Button>
-  );
-}
+const ButtonUi = forwardRef<TouchableOpacity, Props>(
+  ({ variant = "primary", onPress, children, ...rest }, ref) => {
+    return (
+      <Button ref={ref} variant={variant} onPress={onPress} {...rest}>
+        <ButtonText variant={variant}>{children}</ButtonText>
+      </Button>
+    );
+  }
+);
 
 export default ButtonUi;

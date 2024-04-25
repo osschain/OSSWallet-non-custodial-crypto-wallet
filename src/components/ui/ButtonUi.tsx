@@ -1,10 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
-import {
-  GestureResponderEvent,
-  Pressable,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { GestureResponderEvent, Text, TouchableOpacity } from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { getFontStyle } from "@/util/themeUtils";
@@ -44,10 +39,10 @@ const getTextColor = (variant: Variant): TextColor => {
 };
 
 const Button = styled(TouchableOpacity)<{
-  variant: Variant;
+  variant?: Variant;
   theme: DefaultTheme;
 }>`
-  ${({ variant, theme }) => `
+  ${({ variant = "primary", theme }) => `
       padding: ${theme.sizes.xl} 0px;
       background: ${theme.colors[getBackground(variant)]};
       border-radius:   ${theme.sizes["md"]}

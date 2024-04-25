@@ -10,9 +10,9 @@ import { getFontStyle } from "@/util/themeUtils";
 
 interface Props {
   size?: HeaderFontSizesType;
-  weight: FontWeightsType;
+  weight?: FontWeightsType;
   theme: DefaultTheme;
-  color: ColorsType;
+  color?: ColorsType;
 }
 
 export const HeaderTextUi = styled(Text)<Props>`

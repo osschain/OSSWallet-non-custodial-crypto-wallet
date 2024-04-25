@@ -1,9 +1,9 @@
 import { View } from "react-native";
 import { DefaultTheme, styled } from "styled-components/native";
 
-import { SizesType } from "@/theme/types";
+import { SpacingType } from "@/theme/types";
 
-type Sizes = SizesType;
+type Sizes = SpacingType;
 type Positions = "top" | "left" | "right" | "bottom";
 
 interface PropsType {

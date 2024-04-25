@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
+import AuthProvider from "@/providers/AuthProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
 
 export {
@@ -44,14 +45,17 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
-        <StyledThemeProvider>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-          </Stack>
-        </StyledThemeProvider>
-      </BottomSheetModalProvider>
+      <AuthProvider>
+        <BottomSheetModalProvider>
+          <StyledThemeProvider>
+            <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+            </Stack>
+          </StyledThemeProvider>
+        </BottomSheetModalProvider>
+      </AuthProvider>
     </GestureHandlerRootView>
   );
 }

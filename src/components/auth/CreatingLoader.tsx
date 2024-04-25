@@ -1,11 +1,7 @@
-import { useCallback, useEffect } from "react";
-import { StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { , useEffect } from "react";
 import Animated, {
   Easing,
-  Keyframe,
-  interpolate,
   useAnimatedStyle,
-  useDerivedValue,
   useSharedValue,
   withRepeat,
   withTiming,
@@ -21,7 +17,7 @@ const Header = styled.View`
   flex: 1;
 `;
 
-const Logo = styled(Animated.Image)`
+const SettingImage = styled(Animated.Image)`
   width: 100px;
   height: 100px;
 `;
@@ -60,11 +56,12 @@ export default function CreatingLoader() {
     return () => {
       animation.value = 0;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Header>
-      <Logo
+      <SettingImage
         style={[animationStyle]}
         resizeMode="contain"
         source={require("@/assets/images/setting.png")}

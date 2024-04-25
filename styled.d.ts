@@ -69,6 +69,7 @@ interface FontWeights {
   semi: number;
   regular: number;
   medium: number;
+  extra: number;
 }
 
 interface Fonts {

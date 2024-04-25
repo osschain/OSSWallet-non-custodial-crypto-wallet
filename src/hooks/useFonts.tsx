@@ -7,7 +7,7 @@ export default function useFont() {
     "Inter-500": require("@/assets/fonts/Inter-Medium.ttf"),
     "Inter-light": require("@/assets/fonts/Inter-Light.ttf"),
     "Inter-600": require("@/assets/fonts/Inter-Semi.ttf"),
-    "Inter-extraBold": require("@/assets/fonts/Inter-ExtraBold.ttf"),
+    "Inter-800": require("@/assets/fonts/Inter-ExtraBold.ttf"),
     "Inter-700": require("@/assets/fonts/Inter-Bold.ttf"),
   });
 

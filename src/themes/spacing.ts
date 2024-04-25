@@ -5,5 +5,6 @@ export const spaces = {
   xl: "16px",
   "2xl": "20px",
   "3xl": "24px",
+  "3.5xl": "32px",
   "4xl": "48px",
 };

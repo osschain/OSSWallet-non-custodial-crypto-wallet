@@ -1,9 +1,11 @@
 import { DefaultTheme } from "styled-components/native";
 
+import { FontWeightsType, FontsType } from "@/theme/types";
+
 export const getFontStyle = (
   theme: DefaultTheme,
-  fontFamilyKey: "heading" | "body",
-  fontWeightKey: "bold" | "semi" | "regular" | "medium"
+  fontFamilyKey: FontsType,
+  fontWeightKey: FontWeightsType
 ) => {
   const fontFamily = theme.fonts[fontFamilyKey];
   const fontWeight = theme.fontWeights[fontWeightKey];

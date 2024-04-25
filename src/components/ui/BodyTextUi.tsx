@@ -1,21 +1,20 @@
 import { Text } from "react-native";
 import { DefaultTheme, styled } from "styled-components/native";
 
+import { BodyFontSizesType, FontWeightsType } from "../../../styled";
+
 import { getFontStyle } from "@/util/themeUtils";
 
-type Sizes = "lg" | "md" | "sm";
-type Weights = "medium" | "regular";
-
 interface Props {
-  size?: Sizes;
+  size?: BodyFontSizesType;
   theme: DefaultTheme;
-  weight?: Weights;
+  weight?: FontWeightsType;
 }
 
 export const BodyTextUi = styled(Text)<Props>`
   ${({ size = "md", theme, weight = "regular" }) => `
       font-family: ${getFontStyle(theme, "heading", weight)};;
-      font-size: ${theme.fontSizes[`body-${size}`]}; 
+      font-size: ${theme.fontSizes.body[size]}; 
       line-height: ${theme.lineHeights[`${size}`]};
       color: ${theme.colors["text-primary"]};
     `}

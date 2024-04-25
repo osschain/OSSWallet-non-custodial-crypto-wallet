@@ -16,6 +16,7 @@ export default function AuthLayout() {
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="CreateWallet" options={{ headerShown: false }} />
     </Stack>
   );
 }

@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -55,7 +56,9 @@ export default function auth() {
       </Header>
       <Footer>
         <ConnectWallet variant="secondary">Connect Wallet</ConnectWallet>
-        <CreateNew>Create New</CreateNew>
+        <Link href="/auth/CreateWallet" asChild>
+          <CreateNew>Create New</CreateNew>
+        </Link>
       </Footer>
     </Container>
   );

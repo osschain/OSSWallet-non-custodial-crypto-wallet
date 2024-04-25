@@ -27,7 +27,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         alert("🔐 Here's your value 🔐 \n" + key);
         setMasterKey(key);
       } else {
-        alert("No values stored under that key.");
+        console.log("No values stored under that key.");
       }
       setLoading(false);
     }

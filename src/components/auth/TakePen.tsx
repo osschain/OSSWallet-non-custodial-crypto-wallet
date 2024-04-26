@@ -79,13 +79,14 @@ export default function TakePen() {
 
         <SpacerUi size="3.5xl">
           <HeaderText size="2xl" weight="extra">
-            Making a wallet...
+            Take a pen and paper
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="4xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            TON wallet allows you to make fast and secure blockchain-based
-            payments without intermediaries.
+            Get ready to write down the secret key. This is the only way to
+            regain access to the wallet. It is safest not to store the key on
+            the devices.
           </DescriptionText>
         </SpacerUi>
       </Header>

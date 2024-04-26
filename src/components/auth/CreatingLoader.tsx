@@ -1,4 +1,3 @@
-import { , useEffect } from "react";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -10,6 +9,7 @@ import styled from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useEffect } from "react";
 
 const Header = styled.View`
   align-items: center;

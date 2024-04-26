@@ -21,7 +21,7 @@ const InputContainer = styled.View`
 
 const Input = styled.TextInput`
   border-radius: 14px;
-  padding: ${({ theme }) => theme.spaces["xl"]} ${({ theme }) => theme.spaces["xl"]};
+  padding: ${({ theme }) => theme.spaces["xl"]} 0;
 
   flex: 1;
   color: ${({ theme }) => theme.colors["text-second"]};

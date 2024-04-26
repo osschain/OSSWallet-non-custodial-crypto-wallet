@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { useState } from "react";
+import { Alert, View } from "react-native";
 import styled from "styled-components/native";
 
 import TextInputUi from "../ui/TextInputUi";
@@ -35,7 +36,43 @@ const Continue = styled(ButtonUi)``;
 
 const TextInput = styled(TextInputUi)``;
 
-export default function CheckMasterKey() {
+type Props = {
+  phrases: { label: string; order: number }[];
+};
+
+const defaultPhrases = [
+  { label: "car", order: 4 },
+  { label: "window", order: 7 },
+  { label: "home", order: 11 },
+];
+
+export default function CheckMasterKey({ phrases = defaultPhrases }: Props) {
+  const [inputResults, setInputResults] = useState(
+    Array(phrases.length).fill(false)
+  );
+
+  const checkPhrase = (text: string, phrase: string, index: number) => {
+    const isMatch = text.toLowerCase() === phrase.toLowerCase();
+    const newResults = [...inputResults];
+    newResults[index] = isMatch;
+    setInputResults(newResults);
+    return isMatch;
+  };
+
+  const allPhrasesMatched = inputResults.every((result) => result);
+
+  const onContinuePress = () => {
+    if (allPhrasesMatched) {
+      Alert.alert("Title", "nnot working", [
+        { text: "It's working", onPress: () => console.log("OK Pressed") },
+      ]);
+    } else {
+      Alert.alert("oops!", "Phrases are not correct", [
+        { text: "ok", onPress: () => console.log("OK") },
+      ]);
+    }
+  };
+
   return (
     <>
       <SpacerUi size="4xl" />
@@ -46,52 +83,34 @@ export default function CheckMasterKey() {
         />
         <SpacerUi size="3.5xl">
           <HeaderText size="3xl" weight="extra">
-            Crypto Wallet
+            Let's check
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            Write these 12 words in exactly that order and hide them in a safe
-            place.
+            To make sure you spelled the words correctly, enter words 6, 16 and
+            18
           </DescriptionText>
         </SpacerUi>
       </Header>
       <SpacerUi size="2xl" />
-      <View>
-        <TextInput
-          left={
-            <View>
-              <BodyTextUi color="text-second" weight="medium">
-                4 .
-              </BodyTextUi>
-            </View>
-          }
-        />
-        <SpacerUi size="xl">
+      {phrases.map(({ label, order }, index) => (
+        <SpacerUi size="xl" key={order}>
           <TextInput
             left={
               <View>
                 <BodyTextUi color="text-second" weight="medium">
-                  8 .
+                  {order} .
                 </BodyTextUi>
               </View>
             }
+            onChangeText={(text) => checkPhrase(text, label, index)}
           />
         </SpacerUi>
-        <SpacerUi size="xl">
-          <TextInput
-            left={
-              <View>
-                <BodyTextUi color="text-second" weight="medium">
-                  1 .
-                </BodyTextUi>
-              </View>
-            }
-          />
-        </SpacerUi>
-      </View>
+      ))}
+
       <Footer>
-        <Continue>Continue</Continue>
+        <Continue onPress={onContinuePress}>Continue</Continue>
       </Footer>
     </>
   );

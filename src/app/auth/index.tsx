@@ -37,7 +37,7 @@ const ConnectWallet = styled(ButtonUi)``;
 
 const CreateNew = styled(ButtonUi)``;
 
-export default function auth() {
+export default function Auth() {
   return (
     <Container>
       <Header>
@@ -56,7 +56,7 @@ export default function auth() {
       </Header>
       <Footer>
         <ConnectWallet variant="secondary">Connect Wallet</ConnectWallet>
-        <Link href="/auth/wallet-create" asChild>
+        <Link href="/auth/seed-creating" asChild>
           <CreateNew>Create New</CreateNew>
         </Link>
       </Footer>

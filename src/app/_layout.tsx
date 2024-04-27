@@ -45,18 +45,18 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <AuthProvider>
-        <BottomSheetModalProvider>
-          <StyledThemeProvider>
+      <StyledThemeProvider>
+        <AuthProvider>
+          <BottomSheetModalProvider>
             <Stack>
               <Stack.Screen name="index" options={{ headerShown: false }} />
               <Stack.Screen name="auth" options={{ headerShown: false }} />
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen name="modal" options={{ presentation: "modal" }} />
             </Stack>
-          </StyledThemeProvider>
-        </BottomSheetModalProvider>
-      </AuthProvider>
+          </BottomSheetModalProvider>
+        </AuthProvider>
+      </StyledThemeProvider>
     </GestureHandlerRootView>
   );
 }

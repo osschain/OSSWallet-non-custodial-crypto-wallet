@@ -1,14 +1,9 @@
-import { Redirect, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { useTheme } from "styled-components/native";
 
-import { useAuth } from "@/providers/AuthProvider";
-
 export default function AuthLayout() {
-  const { seed } = useAuth();
   const theme = useTheme();
-  if (seed) {
-    return <Redirect href="/" />;
-  }
+
   return (
     <Stack
       screenOptions={{
@@ -16,7 +11,9 @@ export default function AuthLayout() {
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="wallet-create" options={{ headerShown: false }} />
+      <Stack.Screen name="seed-creating" options={{ headerShown: false }} />
+      <Stack.Screen name="seed-back-uping" options={{ headerShown: false }} />
+      <Stack.Screen name="seed-checking" options={{ headerShown: false }} />
     </Stack>
   );
 }

@@ -56,7 +56,7 @@ export default function auth() {
       </Header>
       <Footer>
         <ConnectWallet variant="secondary">Connect Wallet</ConnectWallet>
-        <Link href="/auth/CreateWallet" asChild>
+        <Link href="/auth/wallet-create" asChild>
           <CreateNew>Create New</CreateNew>
         </Link>
       </Footer>

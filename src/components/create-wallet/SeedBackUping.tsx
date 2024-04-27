@@ -1,12 +1,14 @@
 import { View } from "react-native";
+import { FadeInRight } from "react-native-reanimated";
 import styled, { useTheme } from "styled-components/native";
+
+import { AnimatedContainer } from "../ui/Container";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
-import { Container } from "../ui/Container";
 
 const Header = styled.View`
   align-items: center;
@@ -61,12 +63,16 @@ const Continue = styled(ButtonUi)``;
 
 type Props = {
   seed: string[];
+  onContinue: () => void;
 };
 
-export default function SeedBackUping({ seed = defaultSeed }: Props) {
+export default function SeedBackUping({
+  seed = defaultSeed,
+  onContinue = () => {},
+}: Props) {
   const theme = useTheme();
   return (
-    <Container>
+    <AnimatedContainer entering={FadeInRight.duration(300)}>
       <SpacerUi size="4xl" />
       <Header>
         <Logo
@@ -109,8 +115,8 @@ export default function SeedBackUping({ seed = defaultSeed }: Props) {
         />
       </View>
       <Footer>
-        <Continue>Continue</Continue>
+        <Continue onPress={onContinue}>Continue</Continue>
       </Footer>
-    </Container>
+    </AnimatedContainer>
   );
 }

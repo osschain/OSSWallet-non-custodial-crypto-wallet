@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
+import { FadeInRight } from "react-native-reanimated";
 import styled from "styled-components/native";
 
 import TextInputUi from "../ui/TextInputUi";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
+import { AnimatedContainer } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { Container } from "../ui/Container";
 
 const Header = styled.View`
   align-items: center;
@@ -28,7 +29,7 @@ const DescriptionText = styled(BodyTextUi)`
 `;
 
 const Footer = styled.View`
-  margin-top: 88px;
+  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
 `;
 
 const Continue = styled(ButtonUi)``;
@@ -37,6 +38,7 @@ const TextInput = styled(TextInputUi)``;
 
 type Props = {
   words: { word: string; order: number }[];
+  onContinue: () => void;
 };
 
 const defaultWords = [
@@ -45,7 +47,10 @@ const defaultWords = [
   { word: "home", order: 11 },
 ];
 
-export default function SeedChecking({ words = defaultWords }: Props) {
+export default function SeedChecking({
+  words = defaultWords,
+  onContinue = () => {},
+}: Props) {
   const [inputResults, setInputResults] = useState(
     Array(words.length).fill(false)
   );
@@ -62,9 +67,7 @@ export default function SeedChecking({ words = defaultWords }: Props) {
 
   const onContinuePress = () => {
     if (allPhrasesMatched) {
-      Alert.alert("Title", "nnot working", [
-        { text: "It's working", onPress: () => console.log("OK Pressed") },
-      ]);
+      onContinue();
     } else {
       Alert.alert("oops!", "Phrases are not correct", [
         { text: "ok", onPress: () => console.log("OK") },
@@ -73,47 +76,57 @@ export default function SeedChecking({ words = defaultWords }: Props) {
   };
 
   return (
-    <Container>
-      <ScrollView style={{ height: 1 }}>
-        <SpacerUi size="4xl" />
-        <Header>
-          <Logo
-            resizeMode="contain"
-            source={require("@/assets/images/cpu.png")}
-          />
-          <SpacerUi size="3.5xl">
-            <HeaderText size="3xl" weight="extra">
-              Let's check
-            </HeaderText>
-          </SpacerUi>
-          <SpacerUi size="xl">
-            <DescriptionText size="lg" color="text-second" weight="regular">
-              To make sure you spelled the words correctly, enter words 6, 16
-              and 18
-            </DescriptionText>
-          </SpacerUi>
-        </Header>
-        <SpacerUi size="2xl" />
-        {words.map(
-          ({ word, order }: { word: string; order: number }, index: number) => (
-            <SpacerUi size="xl" key={order}>
-              <TextInput
-                left={
-                  <View>
-                    <BodyTextUi color="text-second" weight="medium">
-                      {order} .
-                    </BodyTextUi>
-                  </View>
-                }
-                onChangeText={(text) => checkPhrase(text, word, index)}
-              />
+    <AnimatedContainer entering={FadeInRight.duration(300)}>
+      <ScrollView
+        contentContainerStyle={{
+          minHeight: "100%",
+          justifyContent: "space-between",
+        }}
+      >
+        <SpacerUi size="4xl">
+          <Header>
+            <Logo
+              resizeMode="contain"
+              source={require("@/assets/images/cpu.png")}
+            />
+            <SpacerUi size="3.5xl">
+              <HeaderText size="3xl" weight="extra">
+                Let's check
+              </HeaderText>
             </SpacerUi>
-          )
-        )}
+            <SpacerUi size="xl">
+              <DescriptionText size="lg" color="text-second" weight="regular">
+                To make sure you spelled the words correctly, enter words 6, 16
+                and 18
+              </DescriptionText>
+            </SpacerUi>
+          </Header>
+          <SpacerUi size="2xl" />
+          {words.map(
+            (
+              { word, order }: { word: string; order: number },
+              index: number
+            ) => (
+              <SpacerUi size="xl" key={order}>
+                <TextInput
+                  left={
+                    <View>
+                      <BodyTextUi color="text-second" weight="medium">
+                        {order} .
+                      </BodyTextUi>
+                    </View>
+                  }
+                  onChangeText={(text) => checkPhrase(text, word, index)}
+                />
+              </SpacerUi>
+            )
+          )}
+        </SpacerUi>
+
         <Footer>
           <Continue onPress={onContinuePress}>Continue</Continue>
         </Footer>
       </ScrollView>
-    </Container>
+    </AnimatedContainer>
   );
 }

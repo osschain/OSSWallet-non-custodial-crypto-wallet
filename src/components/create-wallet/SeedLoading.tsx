@@ -8,9 +8,9 @@ import Animated, {
 } from "react-native-reanimated";
 import styled from "styled-components/native";
 
+import { Container } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { Container } from "../ui/Container";
 
 const Loader = styled.View`
   align-items: center;

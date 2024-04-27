@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Animated, {
   Easing,
+  FadeInRight,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
@@ -9,12 +10,11 @@ import Animated, {
 } from "react-native-reanimated";
 import styled from "styled-components/native";
 
-import BodyTextUi from "../ui/BodyTextUi";
-import ButtonUi from "../ui/ButtonUi";
-
+import BodyTextUi from "@/components/ui/BodyTextUi";
+import ButtonUi from "@/components/ui/ButtonUi";
+import { AnimatedContainer } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { Container } from "../ui/Container";
 
 const Header = styled.View`
   align-items: center;
@@ -36,7 +36,7 @@ const HeaderText = styled(HeaderTextUi)`
 
 const Footer = styled.View`
   margin-top: auto;
-  margin-bottom: 48px;
+  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 
@@ -73,7 +73,7 @@ export default function SeedBackUpPreparing({ onContinue = () => {} }: Props) {
   }, []);
 
   return (
-    <Container>
+    <AnimatedContainer entering={FadeInRight.duration(300)}>
       <Header>
         <PenImage
           style={[animationStyle]}
@@ -97,6 +97,6 @@ export default function SeedBackUpPreparing({ onContinue = () => {} }: Props) {
       <Footer>
         <Continue onPress={onContinue}>Continue</Continue>
       </Footer>
-    </Container>
+    </AnimatedContainer>
   );
 }

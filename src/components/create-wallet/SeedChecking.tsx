@@ -8,6 +8,7 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { Container } from "../ui/Container";
 
 const Header = styled.View`
   align-items: center;
@@ -35,18 +36,18 @@ const Continue = styled(ButtonUi)``;
 const TextInput = styled(TextInputUi)``;
 
 type Props = {
-  phrases: { label: string; order: number }[];
+  words: { word: string; order: number }[];
 };
 
-const defaultPhrases = [
-  { label: "car", order: 4 },
-  { label: "window", order: 7 },
-  { label: "home", order: 11 },
+const defaultWords = [
+  { word: "car", order: 4 },
+  { word: "window", order: 7 },
+  { word: "home", order: 11 },
 ];
 
-export default function CheckMasterKey({ phrases = defaultPhrases }: Props) {
+export default function SeedChecking({ words = defaultWords }: Props) {
   const [inputResults, setInputResults] = useState(
-    Array(phrases.length).fill(false)
+    Array(words.length).fill(false)
   );
 
   const checkPhrase = (text: string, phrase: string, index: number) => {
@@ -72,7 +73,7 @@ export default function CheckMasterKey({ phrases = defaultPhrases }: Props) {
   };
 
   return (
-    <>
+    <Container>
       <ScrollView style={{ height: 1 }}>
         <SpacerUi size="4xl" />
         <Header>
@@ -93,24 +94,26 @@ export default function CheckMasterKey({ phrases = defaultPhrases }: Props) {
           </SpacerUi>
         </Header>
         <SpacerUi size="2xl" />
-        {phrases.map(({ label, order }, index) => (
-          <SpacerUi size="xl" key={order}>
-            <TextInput
-              left={
-                <View>
-                  <BodyTextUi color="text-second" weight="medium">
-                    {order} .
-                  </BodyTextUi>
-                </View>
-              }
-              onChangeText={(text) => checkPhrase(text, label, index)}
-            />
-          </SpacerUi>
-        ))}
+        {words.map(
+          ({ word, order }: { word: string; order: number }, index: number) => (
+            <SpacerUi size="xl" key={order}>
+              <TextInput
+                left={
+                  <View>
+                    <BodyTextUi color="text-second" weight="medium">
+                      {order} .
+                    </BodyTextUi>
+                  </View>
+                }
+                onChangeText={(text) => checkPhrase(text, word, index)}
+              />
+            </SpacerUi>
+          )
+        )}
         <Footer>
           <Continue onPress={onContinuePress}>Continue</Continue>
         </Footer>
       </ScrollView>
-    </>
+    </Container>
   );
 }

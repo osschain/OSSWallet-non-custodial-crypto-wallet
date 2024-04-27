@@ -4,9 +4,9 @@ import { useTheme } from "styled-components/native";
 import { useAuth } from "@/providers/AuthProvider";
 
 export default function AuthLayout() {
-  const { masterKey } = useAuth();
+  const { seed } = useAuth();
   const theme = useTheme();
-  if (masterKey) {
+  if (seed) {
     return <Redirect href="/" />;
   }
   return (
@@ -16,7 +16,7 @@ export default function AuthLayout() {
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="CreateWallet" options={{ headerShown: false }} />
+      <Stack.Screen name="wallet-create" options={{ headerShown: false }} />
     </Stack>
   );
 }

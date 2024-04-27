@@ -10,6 +10,7 @@ import styled from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { Container } from "../ui/Container";
 
 const Loader = styled.View`
   align-items: center;
@@ -26,7 +27,7 @@ const LoaderText = styled(HeaderTextUi)`
   /* font-size: 40px; */
 `;
 
-export default function CreatingLoader() {
+export default function SeedLoading() {
   const animation = useSharedValue(0);
 
   const animationStyle = useAnimatedStyle(() => {
@@ -56,18 +57,20 @@ export default function CreatingLoader() {
   }, []);
 
   return (
-    <Loader>
-      <SettingImage
-        style={[animationStyle]}
-        resizeMode="contain"
-        source={require("@/assets/images/setting.png")}
-      />
+    <Container>
+      <Loader>
+        <SettingImage
+          style={[animationStyle]}
+          resizeMode="contain"
+          source={require("@/assets/images/setting.png")}
+        />
 
-      <SpacerUi size="3.5xl">
-        <LoaderText size="2xl" weight="extra">
-          Making a wallet...
-        </LoaderText>
-      </SpacerUi>
-    </Loader>
+        <SpacerUi size="3.5xl">
+          <LoaderText size="2xl" weight="extra">
+            Making a wallet...
+          </LoaderText>
+        </SpacerUi>
+      </Loader>
+    </Container>
   );
 }

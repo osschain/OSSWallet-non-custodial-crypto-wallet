@@ -6,6 +6,7 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
+import { Container } from "../ui/Container";
 
 const Header = styled.View`
   align-items: center;
@@ -39,9 +40,9 @@ const Footer = styled.View`
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 
-const MasterKeyList = styled.FlatList``;
+const SeedList = styled.FlatList``;
 
-const defaultMasterKey = [
+const defaultSeed = [
   "apple",
   "banana",
   "carrot",
@@ -59,13 +60,13 @@ const defaultMasterKey = [
 const Continue = styled(ButtonUi)``;
 
 type Props = {
-  masterKey: string[];
+  seed: string[];
 };
 
-export default function MasterKeyView({ masterKey = defaultMasterKey }: Props) {
+export default function SeedBackUping({ seed = defaultSeed }: Props) {
   const theme = useTheme();
   return (
-    <>
+    <Container>
       <SpacerUi size="4xl" />
       <Header>
         <Logo
@@ -86,8 +87,8 @@ export default function MasterKeyView({ masterKey = defaultMasterKey }: Props) {
       </Header>
       <SpacerUi size="2xl" />
       <View style={{ flexDirection: "row" }}>
-        <MasterKeyList
-          data={masterKey}
+        <SeedList
+          data={seed}
           numColumns={2}
           columnWrapperStyle={{
             justifyContent: "space-between",
@@ -110,6 +111,6 @@ export default function MasterKeyView({ masterKey = defaultMasterKey }: Props) {
       <Footer>
         <Continue>Continue</Continue>
       </Footer>
-    </>
+    </Container>
   );
 }

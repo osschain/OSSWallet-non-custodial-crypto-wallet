@@ -14,6 +14,7 @@ import ButtonUi from "../ui/ButtonUi";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { Container } from "../ui/Container";
 
 const Header = styled.View`
   align-items: center;
@@ -41,7 +42,7 @@ const Footer = styled.View`
 
 const Continue = styled(ButtonUi)``;
 
-export default function MasterKeyBackUp() {
+export default function SeedBackUpPreparing() {
   const animation = useSharedValue(0);
 
   const animationStyle = useAnimatedStyle(() => {
@@ -70,7 +71,7 @@ export default function MasterKeyBackUp() {
   }, []);
 
   return (
-    <>
+    <Container>
       <Header>
         <PenImage
           style={[animationStyle]}
@@ -94,6 +95,6 @@ export default function MasterKeyBackUp() {
       <Footer>
         <Continue>Continue</Continue>
       </Footer>
-    </>
+    </Container>
   );
 }

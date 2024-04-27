@@ -8,33 +8,33 @@ import {
 } from "react";
 
 type AuthData = {
-  masterKey: string | null;
+  seed: string | null;
   loading: boolean;
 };
 
 const AuthContext = createContext<AuthData>({
-  masterKey: null,
+  seed: null,
   loading: true,
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-  const [masterKey, setMasterKey] = useState<string | null>(null);
+  const [seed, setSeed] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    async function getMasterKey() {
-      const key = await SecureStore.getItemAsync("masterKey");
+    async function getseed() {
+      const key = await SecureStore.getItemAsync("seed");
       if (key) {
         alert("🔐 Here's your value 🔐 \n" + key);
-        setMasterKey(key);
+        setSeed(key);
       } else {
         console.log("No values stored under that key.");
       }
       setLoading(false);
     }
-    getMasterKey();
+    getseed();
   }, []);
   return (
-    <AuthContext.Provider value={{ loading, masterKey }}>
+    <AuthContext.Provider value={{ loading, seed }}>
       {children}
     </AuthContext.Provider>
   );

@@ -41,8 +41,10 @@ const Footer = styled.View`
 `;
 
 const Continue = styled(ButtonUi)``;
-
-export default function SeedBackUpPreparing() {
+type Props = {
+  onContinue: () => void;
+};
+export default function SeedBackUpPreparing({ onContinue = () => {} }: Props) {
   const animation = useSharedValue(0);
 
   const animationStyle = useAnimatedStyle(() => {
@@ -93,7 +95,7 @@ export default function SeedBackUpPreparing() {
         </SpacerUi>
       </Header>
       <Footer>
-        <Continue>Continue</Continue>
+        <Continue onPress={onContinue}>Continue</Continue>
       </Footer>
     </Container>
   );

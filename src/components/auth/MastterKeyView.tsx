@@ -62,7 +62,7 @@ type Props = {
   masterKey: string[];
 };
 
-export default function MasterKey({ masterKey = defaultMasterKey }: Props) {
+export default function MasterKeyView({ masterKey = defaultMasterKey }: Props) {
   const theme = useTheme();
   return (
     <>

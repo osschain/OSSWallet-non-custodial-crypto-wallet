@@ -40,7 +40,8 @@ const Footer = styled.View`
 `;
 
 const Continue = styled(ButtonUi)``;
-export default function TakePen() {
+
+export default function MasterKeyBackUp() {
   const animation = useSharedValue(0);
 
   const animationStyle = useAnimatedStyle(() => {

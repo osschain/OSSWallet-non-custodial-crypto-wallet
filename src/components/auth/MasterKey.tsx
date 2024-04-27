@@ -22,10 +22,11 @@ const HeaderText = styled(HeaderTextUi)`
 
 const Phrase = styled(BodyTextUi)`
   flex: 1;
+  padding: 2px;
   border-color: ${({ theme }) => theme.colors["border-color"]};
-  border-bottom-width: 1px;
+  border-width: 1px;
   text-align: center;
-  border-radius: ${({ theme }) => theme.spaces["sm"]};
+  border-radius: ${({ theme }) => theme.spaces["lg"]};
 `;
 
 const DescriptionText = styled(BodyTextUi)`

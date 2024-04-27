@@ -1,10 +1,11 @@
 import { View } from "react-native";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 const Header = styled.View`
   align-items: center;
@@ -19,37 +20,49 @@ const HeaderText = styled(HeaderTextUi)`
   /* font-size: 40px; */
 `;
 
+const Phrase = styled(BodyTextUi)`
+  flex: 1;
+  border-color: ${({ theme }) => theme.colors["border-color"]};
+  border-bottom-width: 1px;
+  text-align: center;
+  border-radius: ${({ theme }) => theme.spaces["sm"]};
+`;
+
 const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
 
 const Footer = styled.View`
   margin-top: auto;
-  margin-bottom: 48px;
+  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 
 const MasterKeyList = styled.FlatList``;
 
-const randomWords = [
-  { key: "apple" },
-  { key: "banana" },
-  { key: "carrot" },
-  { key: "dog" },
-  { key: "elephant" },
-  { key: "fountain" },
+const defaultMasterKey = [
+  "apple",
+  "banana",
+  "carrot",
+  "dog",
+  "elephant",
+  "fountain",
+  "guitar",
+  "helicopter",
+  "iguana",
+  "jellyfish",
+  "kangaroo",
+  "laptop",
 ];
-const another = [
-  { key: "guitar" },
-  { key: "helicopter" },
-  { key: "iguana" },
-  { key: "jellyfish" },
-  { key: "kangaroo" },
-  { key: "laptop" },
-];
+
 const Continue = styled(ButtonUi)``;
 
-export default function MasterKey() {
+type Props = {
+  masterKey: string[];
+};
+
+export default function MasterKey({ masterKey = defaultMasterKey }: Props) {
+  const theme = useTheme();
   return (
     <>
       <SpacerUi size="4xl" />
@@ -73,29 +86,23 @@ export default function MasterKey() {
       <SpacerUi size="2xl" />
       <View style={{ flexDirection: "row" }}>
         <MasterKeyList
-          style={{ width: "60%" }}
-          data={randomWords}
-          contentContainerStyle={{ gap: 20, padding: 10 }}
+          data={masterKey}
+          numColumns={2}
+          columnWrapperStyle={{
+            justifyContent: "space-between",
+            gap: pixelToNumber(theme.spaces["2xl"]),
+          }}
+          contentContainerStyle={{
+            gap: 20,
+            padding: 10,
+          }}
           renderItem={({ item, index }) => (
-            <BodyTextUi size="lg" weight="medium">
+            <Phrase size="lg" weight="medium">
               <BodyTextUi color="text-second" size="lg" weight="medium">
-                {index + 1} .
-              </BodyTextUi>{" "}
-              {item.key}
-            </BodyTextUi>
-          )}
-        />
-
-        <MasterKeyList
-          data={another}
-          contentContainerStyle={{ gap: 20, padding: 10 }}
-          renderItem={({ item, index }) => (
-            <BodyTextUi size="lg" weight="medium">
-              <BodyTextUi color="text-second" size="lg" weight="medium">
-                {index + 7} .
-              </BodyTextUi>{" "}
-              {item.key}
-            </BodyTextUi>
+                {index + 1}.
+              </BodyTextUi>
+              {` ${item}`}
+            </Phrase>
           )}
         />
       </View>

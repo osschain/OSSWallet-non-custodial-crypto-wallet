@@ -12,7 +12,7 @@ const Index = () => {
   }
 
   if (!seed) {
-    return <Redirect href="/auth" />;
+    return <Redirect href="/auth/" />;
   }
 };
 

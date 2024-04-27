@@ -1,5 +1,4 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
-import { View } from "react-native";
 import styled from "styled-components/native";
 
 import { getFontStyle } from "@/util/themeUtils";

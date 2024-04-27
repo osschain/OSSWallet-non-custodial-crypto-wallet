@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 import styled from "styled-components/native";
 
 import TextInputUi from "../ui/TextInputUi";
@@ -27,9 +27,7 @@ const DescriptionText = styled(BodyTextUi)`
 `;
 
 const Footer = styled.View`
-  margin-top: auto;
-  margin-bottom: 48px;
-  gap: ${({ theme }) => theme.spaces["xl"]};
+  margin-top: 88px;
 `;
 
 const Continue = styled(ButtonUi)``;
@@ -75,43 +73,44 @@ export default function CheckMasterKey({ phrases = defaultPhrases }: Props) {
 
   return (
     <>
-      <SpacerUi size="4xl" />
-      <Header>
-        <Logo
-          resizeMode="contain"
-          source={require("@/assets/images/cpu.png")}
-        />
-        <SpacerUi size="3.5xl">
-          <HeaderText size="3xl" weight="extra">
-            Let's check
-          </HeaderText>
-        </SpacerUi>
-        <SpacerUi size="xl">
-          <DescriptionText size="lg" color="text-second" weight="regular">
-            To make sure you spelled the words correctly, enter words 6, 16 and
-            18
-          </DescriptionText>
-        </SpacerUi>
-      </Header>
-      <SpacerUi size="2xl" />
-      {phrases.map(({ label, order }, index) => (
-        <SpacerUi size="xl" key={order}>
-          <TextInput
-            left={
-              <View>
-                <BodyTextUi color="text-second" weight="medium">
-                  {order} .
-                </BodyTextUi>
-              </View>
-            }
-            onChangeText={(text) => checkPhrase(text, label, index)}
+      <ScrollView style={{ height: 1 }}>
+        <SpacerUi size="4xl" />
+        <Header>
+          <Logo
+            resizeMode="contain"
+            source={require("@/assets/images/cpu.png")}
           />
-        </SpacerUi>
-      ))}
-
-      <Footer>
-        <Continue onPress={onContinuePress}>Continue</Continue>
-      </Footer>
+          <SpacerUi size="3.5xl">
+            <HeaderText size="3xl" weight="extra">
+              Let's check
+            </HeaderText>
+          </SpacerUi>
+          <SpacerUi size="xl">
+            <DescriptionText size="lg" color="text-second" weight="regular">
+              To make sure you spelled the words correctly, enter words 6, 16
+              and 18
+            </DescriptionText>
+          </SpacerUi>
+        </Header>
+        <SpacerUi size="2xl" />
+        {phrases.map(({ label, order }, index) => (
+          <SpacerUi size="xl" key={order}>
+            <TextInput
+              left={
+                <View>
+                  <BodyTextUi color="text-second" weight="medium">
+                    {order} .
+                  </BodyTextUi>
+                </View>
+              }
+              onChangeText={(text) => checkPhrase(text, label, index)}
+            />
+          </SpacerUi>
+        ))}
+        <Footer>
+          <Continue onPress={onContinuePress}>Continue</Continue>
+        </Footer>
+      </ScrollView>
     </>
   );
 }

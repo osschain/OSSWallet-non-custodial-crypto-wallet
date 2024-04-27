@@ -5,7 +5,6 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { defaultImage } from "@/util/DefaultImage";
 
 const Header = styled.View`
   align-items: center;

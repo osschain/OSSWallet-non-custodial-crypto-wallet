@@ -1,4 +1,7 @@
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { useTheme } from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -6,11 +9,8 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import { Container } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { pixelToNumber } from "@/util/pixelToNumber";
-import { useEffect, useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
-import { router } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 const Header = styled.View`
   align-items: center;

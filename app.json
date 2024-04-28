@@ -31,7 +31,13 @@
     },
     "plugins": [
       "expo-router",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow $(osswallet) to use Face ID."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

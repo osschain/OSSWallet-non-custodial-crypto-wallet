@@ -11,31 +11,6 @@ import { AnimatedContainer } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
-const Header = styled.View`
-  align-items: center;
-`;
-
-const Logo = styled.Image`
-  width: 100px;
-  height: 100px;
-`;
-
-const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
-`;
-
-const DescriptionText = styled(BodyTextUi)`
-  text-align: center;
-`;
-
-const Footer = styled.View`
-  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
-`;
-
-const Continue = styled(ButtonUi)``;
-
-const TextInput = styled(TextInputUi)``;
-
 type Props = {
   words: { word: string; order: number }[];
   onContinue: () => void;
@@ -47,10 +22,10 @@ const defaultWords = [
   { word: "home", order: 11 },
 ];
 
-export default function SeedChecking({
+const SeedChecking = ({
   words = defaultWords,
   onContinue = () => {},
-}: Props) {
+}: Props) => {
   const [inputResults, setInputResults] = useState(
     Array(words.length).fill(false)
   );
@@ -129,4 +104,31 @@ export default function SeedChecking({
       </ScrollView>
     </AnimatedContainer>
   );
-}
+};
+
+const Header = styled.View`
+  align-items: center;
+`;
+
+const Logo = styled.Image`
+  width: 100px;
+  height: 100px;
+`;
+
+const HeaderText = styled(HeaderTextUi)`
+  /* font-size: 40px; */
+`;
+
+const DescriptionText = styled(BodyTextUi)`
+  text-align: center;
+`;
+
+const Footer = styled.View`
+  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
+`;
+
+const Continue = styled(ButtonUi)``;
+
+const TextInput = styled(TextInputUi)``;
+
+export default SeedChecking;

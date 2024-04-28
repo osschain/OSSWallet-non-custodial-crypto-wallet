@@ -12,22 +12,7 @@ import { Container } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
-const Loader = styled.View`
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-`;
-
-const SettingImage = styled(Animated.Image)`
-  width: 100px;
-  height: 100px;
-`;
-
-const LoaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
-`;
-
-export default function SeedLoading() {
+const SeedLoading = () => {
   const animation = useSharedValue(0);
 
   const animationStyle = useAnimatedStyle(() => {
@@ -73,4 +58,21 @@ export default function SeedLoading() {
       </Loader>
     </Container>
   );
-}
+};
+
+const Loader = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+`;
+
+const SettingImage = styled(Animated.Image)`
+  width: 100px;
+  height: 100px;
+`;
+
+const LoaderText = styled(HeaderTextUi)`
+  /* font-size: 40px; */
+`;
+
+export default SeedLoading;

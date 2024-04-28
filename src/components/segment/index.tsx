@@ -12,35 +12,6 @@ import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 
-const Container = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 55px;
-  border-bottom-width: 0.2px;
-  border-color: ${($props) => $props.theme.colors["blue-500"]};
-`;
-
-const SegmentLabel = styled(BodyTextUi)<{ isActive: boolean }>`
-  color: ${(props) =>
-    props.isActive
-      ? props.theme.colors["blue-500"]
-      : props.theme.colors["text-second"]};
-`;
-
-const LabelContainer = styled(TouchableOpacity)`
-  justify-content: center;
-  align-items: center;
-`;
-
-const ActiveBox = styled(Animated.View)`
-  position: absolute;
-  border-radius: 10px;
-  height: 4px;
-  bottom: -2px;
-  background-color: blue;
-`;
-
 type Props = {
   options: string[];
   selectedOption: string;
@@ -132,4 +103,33 @@ const styles = StyleSheet.create({
   },
 });
 
-export { SegmentedControl };
+const Container = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  border-bottom-width: 0.2px;
+  border-color: ${($props) => $props.theme.colors["blue-500"]};
+`;
+
+const SegmentLabel = styled(BodyTextUi)<{ isActive: boolean }>`
+  color: ${(props) =>
+    props.isActive
+      ? props.theme.colors["blue-500"]
+      : props.theme.colors["text-second"]};
+`;
+
+const LabelContainer = styled(TouchableOpacity)`
+  justify-content: center;
+  align-items: center;
+`;
+
+const ActiveBox = styled(Animated.View)`
+  position: absolute;
+  border-radius: 10px;
+  height: 4px;
+  bottom: -2px;
+  background-color: blue;
+`;
+
+export default SegmentedControl;

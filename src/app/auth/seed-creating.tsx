@@ -9,10 +9,10 @@ import { mockedSeed } from "@/util/mock";
 
 type States = "loading" | "preparing";
 
-export default function SeedCreating() {
+function SeedCreating() {
   const [state, setState] = useState<States>("loading");
-  // const [words, setWords] = useState<{ word: string; order: number }[]>([]);
   const { addSeed } = useAuth();
+
   useEffect(() => {
     const generateSeed = async () => {
       setTimeout(() => {
@@ -37,3 +37,5 @@ export default function SeedCreating() {
     </SafeAreaView>
   );
 }
+
+export default SeedCreating;

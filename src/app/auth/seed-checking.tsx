@@ -33,7 +33,7 @@ const getRandomWords = (seed: string | null) => {
 
 const inputResults = Array(wordsCount).fill(false);
 
-export default function SeedChecking() {
+function SeedChecking() {
   const { seed } = useAuth();
   const words = getRandomWords(seed);
 
@@ -134,3 +134,5 @@ const Footer = styled.View`
 const Continue = styled(ButtonUi)``;
 
 const TextInput = styled(TextInputUi)``;
+
+export default SeedChecking;

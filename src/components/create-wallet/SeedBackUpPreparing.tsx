@@ -16,35 +16,11 @@ import { AnimatedContainer } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
-const Header = styled.View`
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-`;
-const DescriptionText = styled(BodyTextUi)`
-  text-align: center;
-`;
-
-const PenImage = styled(Animated.Image)`
-  width: 100px;
-  height: 100px;
-`;
-
-const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
-`;
-
-const Footer = styled.View`
-  margin-top: auto;
-  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
-  gap: ${({ theme }) => theme.spaces["xl"]};
-`;
-
 const Continue = styled(ButtonUi)``;
 type Props = {
   onContinue: () => void;
 };
-export default function SeedBackUpPreparing({ onContinue = () => {} }: Props) {
+const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
   const animation = useSharedValue(0);
 
   const animationStyle = useAnimatedStyle(() => {
@@ -99,4 +75,30 @@ export default function SeedBackUpPreparing({ onContinue = () => {} }: Props) {
       </Footer>
     </AnimatedContainer>
   );
-}
+};
+
+const Header = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+`;
+const DescriptionText = styled(BodyTextUi)`
+  text-align: center;
+`;
+
+const PenImage = styled(Animated.Image)`
+  width: 100px;
+  height: 100px;
+`;
+
+const HeaderText = styled(HeaderTextUi)`
+  /* font-size: 40px; */
+`;
+
+const Footer = styled.View`
+  margin-top: auto;
+  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
+  gap: ${({ theme }) => theme.spaces["xl"]};
+`;
+
+export default SeedBackUpPreparing;

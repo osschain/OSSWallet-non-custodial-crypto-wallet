@@ -37,7 +37,7 @@ const LeftContent = styled.View`
   margin: 0 ${({ theme }) => theme.spaces["lg"]};
 `;
 
-export default function TextInputUi({ left, right, ...rest }: Props) {
+const TextInputUi = ({ left, right, ...rest }: Props) => {
   return (
     <InputContainer>
       {left && <LeftContent>{left}</LeftContent>}
@@ -45,4 +45,6 @@ export default function TextInputUi({ left, right, ...rest }: Props) {
       {right && <RightContent>{right}</RightContent>}
     </InputContainer>
   );
-}
+};
+
+export default TextInputUi;

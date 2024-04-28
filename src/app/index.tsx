@@ -4,7 +4,7 @@ import { ActivityIndicator } from "react-native";
 
 import { useAuth } from "@/providers/AuthProvider";
 
-const Index = () => {
+function Index() {
   const { seed, loading } = useAuth();
 
   if (loading) {
@@ -14,6 +14,6 @@ const Index = () => {
   if (!seed) {
     return <Redirect href="/auth/" />;
   }
-};
+}
 
 export default Index;

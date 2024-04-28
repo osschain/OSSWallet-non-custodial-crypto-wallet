@@ -8,6 +8,33 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { defaultImage } from "@/util/DefaultImage";
 
+function Auth() {
+  return (
+    <Container>
+      <Header>
+        <Logo resizeMode="contain" source={{ uri: defaultImage }} />
+        <SpacerUi size="3.5xl">
+          <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
+            Crypto Wallet
+          </HeaderText>
+        </SpacerUi>
+        <SpacerUi size="4xl">
+          <DescriptionText size="lg" color="text-second" weight="regular">
+            TON wallet allows you to make fast and secure blockchain-based
+            payments without intermediaries.
+          </DescriptionText>
+        </SpacerUi>
+      </Header>
+      <Footer>
+        <ConnectWallet variant="secondary">Connect Wallet</ConnectWallet>
+        <Link href="/auth/seed-creating" asChild>
+          <CreateNew>Create New</CreateNew>
+        </Link>
+      </Footer>
+    </Container>
+  );
+}
+
 const Header = styled.View`
   align-items: center;
   justify-content: center;
@@ -37,29 +64,4 @@ const ConnectWallet = styled(ButtonUi)``;
 
 const CreateNew = styled(ButtonUi)``;
 
-export default function Auth() {
-  return (
-    <Container>
-      <Header>
-        <Logo resizeMode="contain" source={{ uri: defaultImage }} />
-        <SpacerUi size="3.5xl">
-          <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
-            Crypto Wallet
-          </HeaderText>
-        </SpacerUi>
-        <SpacerUi size="4xl">
-          <DescriptionText size="lg" color="text-second" weight="regular">
-            TON wallet allows you to make fast and secure blockchain-based
-            payments without intermediaries.
-          </DescriptionText>
-        </SpacerUi>
-      </Header>
-      <Footer>
-        <ConnectWallet variant="secondary">Connect Wallet</ConnectWallet>
-        <Link href="/auth/seed-creating" asChild>
-          <CreateNew>Create New</CreateNew>
-        </Link>
-      </Footer>
-    </Container>
-  );
-}
+export default Auth;

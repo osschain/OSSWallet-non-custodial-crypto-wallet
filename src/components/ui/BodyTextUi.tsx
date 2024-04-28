@@ -16,7 +16,7 @@ interface Props {
   weight?: FontWeightsType;
 }
 
-export const BodyTextUi = styled(Text)<Props>`
+const BodyTextUi = styled(Text)<Props>`
   ${({ color = "text-primary", size = "md", theme, weight = "regular" }) => `
       font-family: ${getFontStyle(theme, "heading", weight)};;
       font-size: ${theme.fontSizes.body[size]}; 

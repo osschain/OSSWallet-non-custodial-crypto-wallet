@@ -25,13 +25,13 @@ type Props = {
   amount: string;
 } & ComponentPropsWithoutRef<typeof Item>;
 
-export default function HistoryItem({
+const HistoryItem = ({
   variant = "send",
   uri = defaultImage,
   walletAddress = "Can't Find Wallet Adress",
   amount = "2.5",
   ...rest
-}: Props) {
+}: Props) => {
   const theme = useTheme();
   const iconVariant = () => {
     type Names = "arrow-down-right" | "x" | "arrow-up-right";
@@ -80,4 +80,6 @@ export default function HistoryItem({
       )}
     </Item>
   );
-}
+};
+
+export default HistoryItem;

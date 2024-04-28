@@ -6,20 +6,6 @@ import styled from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 
-const HeaderContainer = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-  padding: ${($props) => $props.theme.spaces["3xl"]};
-`;
-
-const HeaderLeft = styled(View)``;
-const HeaderMiddle = styled(View)``;
-
-const HeaderRight = styled(View)`
-  flex-direction: row;
-  gap: ${($props) => $props.theme.spaces["3xl"]};
-`;
-
 const SecondHeader = () => {
   return (
     <SafeAreaView>
@@ -51,5 +37,19 @@ const SecondHeader = () => {
     </SafeAreaView>
   );
 };
+
+const HeaderContainer = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: ${($props) => $props.theme.spaces["3xl"]};
+`;
+
+const HeaderLeft = styled(View)``;
+const HeaderMiddle = styled(View)``;
+
+const HeaderRight = styled(View)`
+  flex-direction: row;
+  gap: ${($props) => $props.theme.spaces["3xl"]};
+`;
 
 export default SecondHeader;

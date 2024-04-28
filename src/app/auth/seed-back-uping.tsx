@@ -12,43 +12,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
-const Header = styled.View`
-  align-items: center;
-`;
-
-const Logo = styled.Image`
-  width: 100px;
-  height: 100px;
-`;
-
-const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
-`;
-
-const Phrase = styled(BodyTextUi)`
-  flex: 1;
-  padding: 2px;
-  border-color: ${({ theme }) => theme.colors["border-color"]};
-  border-width: 1px;
-  text-align: center;
-  border-radius: ${({ theme }) => theme.spaces["lg"]};
-`;
-
-const DescriptionText = styled(BodyTextUi)`
-  text-align: center;
-`;
-
-const Footer = styled.View`
-  margin-top: auto;
-  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
-  gap: ${({ theme }) => theme.spaces["xl"]};
-`;
-
-const SeedList = styled.FlatList``;
-
-const Continue = styled(ButtonUi)``;
-
-export default function SeedBackUping() {
+function SeedBackUping() {
   const theme = useTheme();
   const [seed, setSeed] = useState<string[] | null>(null);
   const { seed: mySeed } = useAuth();
@@ -116,3 +80,41 @@ export default function SeedBackUping() {
     </SafeAreaView>
   );
 }
+
+const Header = styled.View`
+  align-items: center;
+`;
+
+const Logo = styled.Image`
+  width: 100px;
+  height: 100px;
+`;
+
+const HeaderText = styled(HeaderTextUi)`
+  /* font-size: 40px; */
+`;
+
+const Phrase = styled(BodyTextUi)`
+  flex: 1;
+  padding: 2px;
+  border-color: ${({ theme }) => theme.colors["border-color"]};
+  border-width: 1px;
+  text-align: center;
+  border-radius: ${({ theme }) => theme.spaces["lg"]};
+`;
+
+const DescriptionText = styled(BodyTextUi)`
+  text-align: center;
+`;
+
+const Footer = styled.View`
+  margin-top: auto;
+  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
+  gap: ${({ theme }) => theme.spaces["xl"]};
+`;
+
+const SeedList = styled.FlatList``;
+
+const Continue = styled(ButtonUi)``;
+
+export default SeedBackUping;

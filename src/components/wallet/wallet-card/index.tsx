@@ -31,7 +31,7 @@ type Props = {
   onOptions: () => void;
 } & ComponentPropsWithoutRef<typeof Card>;
 
-export default function WalletCard({
+const WalletCard = ({
   userName = "Ton Wallet",
   walletAddres = "EQDHirLoAYIhplO....",
   moneyAmount = "$ 1520,056",
@@ -39,7 +39,7 @@ export default function WalletCard({
   onSend = () => {},
   onOptions = () => {},
   ...rest
-}: Props) {
+}: Props) => {
   const theme = useTheme();
   return (
     <Card {...rest}>
@@ -103,4 +103,6 @@ export default function WalletCard({
       </Options>
     </Card>
   );
-}
+};
+
+export default WalletCard;

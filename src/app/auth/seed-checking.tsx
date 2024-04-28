@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
@@ -12,81 +11,44 @@ import TextInputUi from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { shuffle } from "@/util/shuffle";
 
-const Header = styled.View`
-  align-items: center;
-`;
+const wordsCount = 3;
+const seedArrayWithOrder = (seed: string) => {
+  return seed
+    .trim()
+    .split(/\s+/)
+    .map((word, index) => {
+      return {
+        word,
+        order: index + 1,
+      };
+    });
+};
 
-const Logo = styled.Image`
-  width: 100px;
-  height: 100px;
-`;
+const getRandomWords = (seed: string | null) => {
+  if (!seed) return;
+  const seedArray = seedArrayWithOrder(seed);
+  const shuffledSeed = shuffle(seedArray);
+  return shuffledSeed.slice(0, wordsCount);
+};
 
-const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
-`;
-
-const DescriptionText = styled(BodyTextUi)`
-  text-align: center;
-`;
-
-const Footer = styled.View`
-  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
-`;
-
-const Continue = styled(ButtonUi)``;
-
-const TextInput = styled(TextInputUi)``;
+const inputResults = Array(wordsCount).fill(false);
 
 export default function SeedChecking() {
   const { seed } = useAuth();
-  const [words, setWords] = useState<{ word: string; order: number }[] | null>(
-    null
-  );
-  const [inputResults, setInputResults] = useState(
-    Array(words?.length).fill(false)
-  );
+  const words = getRandomWords(seed);
 
-  useEffect(() => {
-    if (seed) {
-      setWords(getRandomWords(seed));
-    }
-  }, [seed]);
-
-  const checkPhrase = (text: string, phrase: string, index: number) => {
-    const isMatch = text.toLowerCase() === phrase.toLowerCase();
-    const newResults = [...inputResults];
-    newResults[index] = isMatch;
-    setInputResults(newResults);
-    return isMatch;
+  const checkWord = (text: string, word: string, index: number) => {
+    const isMatch = text.toLowerCase() === word.toLowerCase();
+    inputResults[index] = isMatch;
   };
 
-  const createOrderedSeedArray = (seed: string) => {
-    return seed
-      .trim()
-      .split(/\s+/)
-      .map((word, index) => {
-        return {
-          word,
-          order: index + 1,
-        };
-      });
-  };
-
-  const getRandomWords = (seed: string) => {
-    const count = 3;
-    const seedArray = createOrderedSeedArray(seed);
-    const shuffledSeed = shuffle(seedArray);
-    return shuffledSeed.slice(0, count);
-  };
-
-  const allPhrasesMatched = inputResults.every((result) => result);
+  const allWordsMatched = inputResults.every((result) => result);
 
   const onContinuePress = () => {
-    if (allPhrasesMatched) {
+    if (allWordsMatched) {
+      Alert.alert("oops!", "Words are  correct");
     } else {
-      Alert.alert("oops!", "Phrases are not correct", [
-        { text: "ok", onPress: () => console.log("OK") },
-      ]);
+      Alert.alert("oops!", "Words are not correct");
     }
   };
 
@@ -132,7 +94,7 @@ export default function SeedChecking() {
                         </BodyTextUi>
                       </View>
                     }
-                    onChangeText={(text) => checkPhrase(text, word, index)}
+                    onChangeText={(text) => checkWord(text, word, index)}
                   />
                 </SpacerUi>
               )
@@ -147,3 +109,28 @@ export default function SeedChecking() {
     </SafeAreaView>
   );
 }
+
+const Header = styled.View`
+  align-items: center;
+`;
+
+const Logo = styled.Image`
+  width: 100px;
+  height: 100px;
+`;
+
+const HeaderText = styled(HeaderTextUi)`
+  /* font-size: 40px; */
+`;
+
+const DescriptionText = styled(BodyTextUi)`
+  text-align: center;
+`;
+
+const Footer = styled.View`
+  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
+`;
+
+const Continue = styled(ButtonUi)``;
+
+const TextInput = styled(TextInputUi)``;

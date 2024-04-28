@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
-import { FadeInRight } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
+import { Container } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import TextInputUi from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { getRandomInt } from "@/util/getRandomInt";
-import { Container } from "@/components/ui/Container";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { shuffle } from "@/util/shuffle";
 
 const Header = styled.View`
   align-items: center;
@@ -49,8 +48,7 @@ export default function SeedChecking() {
 
   useEffect(() => {
     if (seed) {
-      const seedArray = seed.trim().split(/\s+/);
-      setWords(getWords(seedArray));
+      setWords(getRandomWords(seed));
     }
   }, [seed]);
 
@@ -62,20 +60,23 @@ export default function SeedChecking() {
     return isMatch;
   };
 
-  const getWords = (seed: string[]) => {
-    const count = 3;
-    const seedLength = seed.length;
-    const randomSeedWords: { word: string; order: number }[] = [];
-
-    for (let i = 1; i <= count; i++) {
-      const index = getRandomInt(seedLength);
-      randomSeedWords.push({
-        word: seed[index],
-        order: index,
+  const createOrderedSeedArray = (seed: string) => {
+    return seed
+      .trim()
+      .split(/\s+/)
+      .map((word, index) => {
+        return {
+          word,
+          order: index + 1,
+        };
       });
-    }
+  };
 
-    return randomSeedWords;
+  const getRandomWords = (seed: string) => {
+    const count = 3;
+    const seedArray = createOrderedSeedArray(seed);
+    const shuffledSeed = shuffle(seedArray);
+    return shuffledSeed.slice(0, count);
   };
 
   const allPhrasesMatched = inputResults.every((result) => result);

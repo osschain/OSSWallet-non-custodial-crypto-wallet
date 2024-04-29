@@ -1,4 +1,5 @@
-import { Alert, ScrollView, View } from "react-native";
+import { router } from "expo-router";
+import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
 
@@ -46,9 +47,10 @@ function SeedChecking() {
 
   const onContinuePress = () => {
     if (allWordsMatched) {
-      Alert.alert("oops!", "Words are  correct");
+      // todo remove it after create password setup
+      router.push("/auth/password-setup");
     } else {
-      Alert.alert("oops!", "Words are not correct");
+      router.push("/auth/password-setup");
     }
   };
 
@@ -80,25 +82,27 @@ function SeedChecking() {
               </SpacerUi>
             </Header>
             <SpacerUi size="2xl" />
-            {words?.map(
-              (
-                { word, order }: { word: string; order: number },
-                index: number
-              ) => (
-                <SpacerUi size="xl" key={order}>
-                  <TextInput
-                    left={
-                      <View>
-                        <BodyTextUi color="text-second" weight="medium">
-                          {order} .
-                        </BodyTextUi>
-                      </View>
-                    }
-                    onChangeText={(text) => checkWord(text, word, index)}
-                  />
-                </SpacerUi>
-              )
-            )}
+            <Body>
+              {words?.map(
+                (
+                  { word, order }: { word: string; order: number },
+                  index: number
+                ) => (
+                  <SpacerUi size="xl" key={order}>
+                    <TextInput
+                      left={
+                        <View>
+                          <BodyTextUi color="text-second" weight="medium">
+                            {order} .
+                          </BodyTextUi>
+                        </View>
+                      }
+                      onChangeText={(text) => checkWord(text, word, index)}
+                    />
+                  </SpacerUi>
+                )
+              )}
+            </Body>
           </SpacerUi>
 
           <Footer>
@@ -130,8 +134,10 @@ const DescriptionText = styled(BodyTextUi)`
 const Footer = styled.View`
   margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
 `;
-
-const Continue = styled(ButtonUi)``;
+const Body = styled.View``;
+const Continue = styled(ButtonUi)`
+  margin-top: 100px;
+`;
 
 const TextInput = styled(TextInputUi)``;
 

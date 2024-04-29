@@ -2,8 +2,8 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import SeedBackUpPreparing from "@/components/create-wallet/SeedBackUpPreparing";
-import SeedLoading from "@/components/create-wallet/SeedLoading";
+import SeedBackUpPreparing from "@/components/auth/SeedBackUpPreparing";
+import SeedLoading from "@/components/auth/SeedLoading";
 import { useAuth } from "@/providers/AuthProvider";
 import { mockedSeed } from "@/util/mock";
 

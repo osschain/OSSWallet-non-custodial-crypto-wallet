@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
+import { pixelToNumber } from "@/util/pixelToNumber";
 import { getFontStyle } from "@/util/themeUtils";
 
 type Props = {
@@ -16,11 +17,11 @@ const InputContainer = styled.View`
   border-color: ${({ theme }) => theme.colors["border-color"]};
   background-color: ${({ theme }) => theme.colors["bg-input"]};
 `;
-// prettier-ignore
 
+// prettier-ignore
 const Input = styled.TextInput`
   border-radius: 14px;
-  padding: ${({ theme }) => theme.spaces["xl"]} 0;
+  padding: ${({ theme }) => theme.spaces["xl"]} ${({ theme }) => theme.spaces["lg"]};
 
   flex: 1;
   color: ${({ theme }) => theme.colors["text-second"]};
@@ -29,12 +30,12 @@ const Input = styled.TextInput`
 
 const RightContent = styled.View`
   justify-content: center;
-  margin: 0 ${({ theme }) => theme.spaces["lg"]};
+  margin-right: ${({ theme }) => theme.spaces["lg"]};
 `;
 
 const LeftContent = styled.View`
   justify-content: center;
-  margin: 0 ${({ theme }) => theme.spaces["lg"]};
+  margin-left: ${({ theme }) => theme.spaces["lg"]};
 `;
 
 const TextInputUi = ({ left, right, ...rest }: Props) => {

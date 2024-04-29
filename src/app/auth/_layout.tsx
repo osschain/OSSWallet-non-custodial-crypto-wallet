@@ -14,6 +14,7 @@ export default function AuthLayout() {
       <Stack.Screen name="seed-creating" options={{ headerShown: false }} />
       <Stack.Screen name="seed-back-uping" options={{ headerShown: false }} />
       <Stack.Screen name="seed-checking" options={{ headerShown: false }} />
+      <Stack.Screen name="password-setup" options={{ headerShown: false }} />
     </Stack>
   );
 }

@@ -63,7 +63,7 @@ function SeedChecking() {
             justifyContent: "space-between",
           }}
         >
-          <SpacerUi size="4xl">
+          <SpacerUi size="4xl" style={{ flex: 1 }}>
             <Header>
               <Logo
                 resizeMode="contain"
@@ -106,7 +106,9 @@ function SeedChecking() {
           </SpacerUi>
 
           <Footer>
-            <Continue onPress={onContinuePress}>Continue</Continue>
+            <SpacerUi size="2xl">
+              <Continue onPress={onContinuePress}>Continue</Continue>
+            </SpacerUi>
           </Footer>
         </ScrollView>
       </Container>
@@ -135,9 +137,7 @@ const Footer = styled.View`
   margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
 `;
 const Body = styled.View``;
-const Continue = styled(ButtonUi)`
-  margin-top: 100px;
-`;
+const Continue = styled(ButtonUi)``;
 
 const TextInput = styled(TextInputUi)``;
 

@@ -1,5 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { router } from "expo-router";
 import { useForm } from "react-hook-form";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,6 +15,7 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import TextInputUi from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
+import { useState } from "react";
 
 type FormValues = {
   password: string;
@@ -33,6 +35,9 @@ const passwordSchema = yup.object().shape({
 
 function SeedChecking() {
   const theme = useTheme();
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isConfirmShown, setIsConfirmShown] = useState(false);
+
   const { addPassword } = useAuth();
   const {
     control,
@@ -44,6 +49,7 @@ function SeedChecking() {
 
   const continueHandler = ({ password }: FormValues) => {
     addPassword(password);
+    router.push("/auth/congretulation");
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -76,14 +82,15 @@ function SeedChecking() {
             <SpacerUi size="4xl" />
             <Body>
               <ControlLTextInputUi
-                secureTextEntry
+                secureTextEntry={!isPasswordShown}
                 name="password"
                 control={control}
                 errors={errors}
                 placeholder="Password"
                 right={
                   <Feather
-                    name="eye"
+                    onPress={() => setIsPasswordShown((prev) => !prev)}
+                    name={!isPasswordShown ? "eye-off" : "eye"}
                     size={24}
                     color={theme.colors["text-primary"]}
                   />
@@ -91,14 +98,15 @@ function SeedChecking() {
               />
               <SpacerUi size="2xl" />
               <ControlLTextInputUi
-                secureTextEntry
+                secureTextEntry={!isConfirmShown}
                 name="confirmPassword"
                 control={control}
                 errors={errors}
                 placeholder="Confirm Password"
                 right={
                   <Feather
-                    name="eye"
+                    onPress={() => setIsConfirmShown((prev) => !prev)}
+                    name={!isConfirmShown ? "eye-off" : "eye"}
                     size={24}
                     color={theme.colors["text-primary"]}
                   />

@@ -1,17 +1,47 @@
 import { Feather } from "@expo/vector-icons";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { useTheme } from "styled-components/native";
+import * as yup from "yup";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import { Container } from "@/components/ui/Container";
+import ControlLTextInputUi from "@/components/ui/ControllTexInputUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import TextInputUi from "@/components/ui/TextInputUi";
 
+type FormValues = {
+  password: string;
+  confirmPassword: string;
+};
+
+const passwordSchema = yup.object().shape({
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must contain at least 8 characters"),
+  confirmPassword: yup
+    .string()
+    .required("Please confirm your password")
+    .oneOf([yup.ref("password")], "Passwords must match"),
+});
+
 function SeedChecking() {
   const theme = useTheme();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(passwordSchema),
+  });
+
+  const continueHandler = ({ password }: FormValues) => {};
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Container>
@@ -21,7 +51,8 @@ function SeedChecking() {
             justifyContent: "space-between",
           }}
         >
-          <SpacerUi size="4xl">
+          <View>
+            <SpacerUi size="4xl" />
             <Header>
               <Logo
                 resizeMode="contain"
@@ -38,12 +69,14 @@ function SeedChecking() {
                   create Strong Password
                 </DescriptionText>
               </SpacerUi>
-
-              <SpacerUi size="4xl" />
             </Header>
+            <SpacerUi size="4xl" />
             <Body>
-              <TextInput
+              <ControlLTextInputUi
                 secureTextEntry
+                name="password"
+                control={control}
+                errors={errors}
                 placeholder="Password"
                 right={
                   <Feather
@@ -54,8 +87,11 @@ function SeedChecking() {
                 }
               />
               <SpacerUi size="2xl" />
-              <TextInput
+              <ControlLTextInputUi
                 secureTextEntry
+                name="confirmPassword"
+                control={control}
+                errors={errors}
                 placeholder="Confirm Password"
                 right={
                   <Feather
@@ -66,10 +102,14 @@ function SeedChecking() {
                 }
               />
             </Body>
-          </SpacerUi>
+          </View>
 
           <Footer>
-            <Continue>Continue</Continue>
+            <SpacerUi size="2xl">
+              <Continue onPress={handleSubmit(continueHandler)}>
+                Continue
+              </Continue>
+            </SpacerUi>
           </Footer>
         </ScrollView>
       </Container>
@@ -104,7 +144,7 @@ const Footer = styled.View`
 `;
 
 const Continue = styled(ButtonUi)`
-  margin-top: 100px;
+  /* margin-top: 100px; */
 `;
 
 const TextInput = styled(TextInputUi)``;

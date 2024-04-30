@@ -1,7 +1,6 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
-import styled, { useTheme } from "styled-components/native";
+import styled from "styled-components/native";
 
-import { pixelToNumber } from "@/util/pixelToNumber";
 import { getFontStyle } from "@/util/themeUtils";
 
 type Props = {

@@ -12,6 +12,8 @@ type AuthData = {
   loading: boolean;
   addSeed: (seed: string) => void;
   clearSeed: () => void;
+  password: string | null;
+  addPassword: (password: string) => void;
 };
 
 const AuthContext = createContext<AuthData>({
@@ -19,11 +21,14 @@ const AuthContext = createContext<AuthData>({
   loading: true,
   addSeed: () => {},
   clearSeed: () => {},
+  password: null,
+  addPassword: () => {},
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
   const [seed, setSeed] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [password, setPassword] = useState<string | null>(null);
 
   const addSeed = (seed: string) => {
     setSeed(seed);
@@ -31,6 +36,10 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
   const clearSeed = () => {
     setSeed(null);
+  };
+
+  const addPassword = (password: string) => {
+    setPassword(password);
   };
 
   useEffect(() => {
@@ -47,7 +56,9 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     getseed();
   }, []);
   return (
-    <AuthContext.Provider value={{ loading, seed, addSeed, clearSeed }}>
+    <AuthContext.Provider
+      value={{ loading, seed, addSeed, clearSeed, password, addPassword }}
+    >
       {children}
     </AuthContext.Provider>
   );

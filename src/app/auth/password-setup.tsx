@@ -13,6 +13,7 @@ import ControlLTextInputUi from "@/components/ui/ControllTexInputUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import TextInputUi from "@/components/ui/TextInputUi";
+import { useAuth } from "@/providers/AuthProvider";
 
 type FormValues = {
   password: string;
@@ -32,7 +33,7 @@ const passwordSchema = yup.object().shape({
 
 function SeedChecking() {
   const theme = useTheme();
-
+  const { addPassword } = useAuth();
   const {
     control,
     handleSubmit,
@@ -41,7 +42,9 @@ function SeedChecking() {
     resolver: yupResolver(passwordSchema),
   });
 
-  const continueHandler = ({ password }: FormValues) => {};
+  const continueHandler = ({ password }: FormValues) => {
+    addPassword(password);
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Container>

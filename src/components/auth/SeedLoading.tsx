@@ -8,7 +8,6 @@ import Animated, {
 } from "react-native-reanimated";
 import styled from "styled-components/native";
 
-import { Container } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
@@ -59,6 +58,11 @@ const SeedLoading = () => {
     </Container>
   );
 };
+
+const Container = styled.View`
+  flex: 1;
+  padding: 0 ${({ theme }) => theme.spaces["xl"]};
+`;
 
 const Loader = styled.View`
   align-items: center;

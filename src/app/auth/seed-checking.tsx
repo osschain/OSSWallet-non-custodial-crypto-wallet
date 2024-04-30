@@ -5,7 +5,6 @@ import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
-import { Container } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import TextInputUi from "@/components/ui/TextInputUi";
@@ -63,7 +62,7 @@ function SeedChecking() {
             justifyContent: "space-between",
           }}
         >
-          <SpacerUi size="4xl" style={{ flex: 1 }}>
+          <SpacerUi size="4xl">
             <Header>
               <Logo
                 resizeMode="contain"
@@ -115,6 +114,11 @@ function SeedChecking() {
     </SafeAreaView>
   );
 }
+
+const Container = styled.View`
+  flex: 1;
+  padding: 0 ${({ theme }) => theme.spaces["xl"]};
+`;
 
 const Header = styled.View`
   align-items: center;

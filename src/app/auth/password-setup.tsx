@@ -1,6 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from "expo-router";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,13 +10,10 @@ import * as yup from "yup";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
-import { Container } from "@/components/ui/Container";
-import ControlLTextInputUi from "@/components/ui/ControllTexInputUi";
+import ControllTextInputUi from "@/components/ui/ControllTexInputUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import TextInputUi from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { useState } from "react";
 
 type FormValues = {
   password: string;
@@ -33,7 +31,7 @@ const passwordSchema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords must match"),
 });
 
-function SeedChecking() {
+function PasswordSetup() {
   const theme = useTheme();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmShown, setIsConfirmShown] = useState(false);
@@ -81,7 +79,7 @@ function SeedChecking() {
             </Header>
             <SpacerUi size="4xl" />
             <Body>
-              <ControlLTextInputUi
+              <ControllTextInputUi
                 secureTextEntry={!isPasswordShown}
                 name="password"
                 control={control}
@@ -97,7 +95,7 @@ function SeedChecking() {
                 }
               />
               <SpacerUi size="2xl" />
-              <ControlLTextInputUi
+              <ControllTextInputUi
                 secureTextEntry={!isConfirmShown}
                 name="confirmPassword"
                 control={control}
@@ -127,6 +125,11 @@ function SeedChecking() {
     </SafeAreaView>
   );
 }
+
+const Container = styled.View`
+  flex: 1;
+  padding: 0 ${({ theme }) => theme.spaces["xl"]};
+`;
 
 const Header = styled.View`
   align-items: center;
@@ -158,6 +161,4 @@ const Continue = styled(ButtonUi)`
   /* margin-top: 100px; */
 `;
 
-const TextInput = styled(TextInputUi)``;
-
-export default SeedChecking;
+export default PasswordSetup;

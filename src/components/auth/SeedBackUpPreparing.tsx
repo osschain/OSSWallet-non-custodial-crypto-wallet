@@ -12,7 +12,6 @@ import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
-import { AnimatedContainer } from "@/components/ui/Container";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
@@ -49,7 +48,7 @@ const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
   }, []);
 
   return (
-    <AnimatedContainer entering={FadeInRight.duration(300)}>
+    <Container entering={FadeInRight.duration(300)}>
       <Header>
         <PenImage
           style={[animationStyle]}
@@ -73,9 +72,13 @@ const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
       <Footer>
         <Continue onPress={onContinue}>Continue</Continue>
       </Footer>
-    </AnimatedContainer>
+    </Container>
   );
 };
+const Container = styled(Animated.View)`
+  flex: 1;
+  padding: 0 ${({ theme }) => theme.spaces["xl"]};
+`;
 
 const Header = styled.View`
   align-items: center;

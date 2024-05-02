@@ -7,45 +7,63 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Alert } from "react-native";
 
 import { mockedSeed } from "@/util/mock";
 
 type AuthData = {
   seed: string | null;
   loading: boolean;
+  encryptedSeed: string | null;
   addSeed: (seed: string) => void;
   clearSeed: () => void;
   password: string | null;
   addPassword: (password: string) => void;
   setUpSeed: () => void;
+  checkPassword: (password: string) => Promise<boolean>;
 };
 
 const AuthContext = createContext<AuthData>({
   seed: null,
   loading: true,
+  encryptedSeed: null,
   addSeed: () => {},
   clearSeed: () => {},
   password: null,
   addPassword: () => {},
   setUpSeed: () => {},
+  checkPassword: () => Promise.resolve(false),
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
+  const [encryptedSeed, setEncryptedSeed] = useState<null | string>(null);
   const [seed, setSeed] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [password, setPassword] = useState<string | null>("12345678");
+  const [password, setPassword] = useState<string | null>(null);
 
   useEffect(() => {
     async function getseed() {
       if (!password) return;
 
-      await decryptAndSaveSeed(password);
+      const seed = await decryptSeed(password);
 
-      setLoading(false);
+      if (!seed) return;
+
+      setSeed(seed);
     }
 
     getseed();
   }, [password]);
+
+  useEffect(() => {
+    const getEnryptedSeed = async () => {
+      const encryptedSeed = await SecureStore.getItem("seed");
+      setEncryptedSeed(encryptedSeed);
+      setLoading(false);
+    };
+
+    getEnryptedSeed();
+  }, []);
 
   const addSeed = (seed: string) => {
     setSeed(seed);
@@ -59,15 +77,17 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     return CryptoES.AES.encrypt(seed, password).toString();
   };
 
-  const decryptAndSaveSeed = async (password: string) => {
+  const decryptSeed = async (password: string) => {
     const encryptedSeed = await SecureStore.getItem("seed");
 
     if (!encryptedSeed) return;
 
-    const decrypted = CryptoES.AES.decrypt(encryptedSeed, password);
-    const seed = decrypted.toString(CryptoES.enc.Utf8);
-
-    setSeed(seed);
+    try {
+      const decrypted = CryptoES.AES.decrypt(encryptedSeed, password);
+      return decrypted.toString(CryptoES.enc.Utf8);
+    } catch {
+      Alert.alert("ops..", "Password is not Correct");
+    }
   };
 
   const saveEncryptedSeed = async (encryptedSeed: string, password: string) => {
@@ -84,6 +104,16 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     await saveEncryptedSeed(encryptedSeed, password);
   };
 
+  const checkPassword = async (password: string) => {
+    const seed = await decryptSeed(password);
+
+    if (seed) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const addPassword = (password: string) => {
     setPassword(password);
   };
@@ -98,6 +128,8 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         password,
         addPassword,
         setUpSeed,
+        checkPassword,
+        encryptedSeed,
       }}
     >
       {children}

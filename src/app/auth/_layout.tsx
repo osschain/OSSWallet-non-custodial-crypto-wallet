@@ -35,6 +35,11 @@ export default function AuthLayout() {
             name="enter-password"
             options={{ headerShown: false }}
           />
+
+          <Stack.Screen
+            name="connect-wallet"
+            options={{ headerShown: false }}
+          />
         </Stack>
       </Container>
     </SafeAreaView>

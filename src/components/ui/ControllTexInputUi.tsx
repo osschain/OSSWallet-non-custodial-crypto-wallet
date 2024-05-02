@@ -4,7 +4,7 @@ import { Control, Controller } from "react-hook-form";
 import BodyTextUi from "./BodyTextUi";
 
 import SpacerUi from "@/components/ui/SpacerUi";
-import TextInputUi from "@/components/ui/TextInputUi";
+import { TextInputUi } from "@/components/ui/TextInputUi";
 
 type propsType = {
   control: Control<any>;

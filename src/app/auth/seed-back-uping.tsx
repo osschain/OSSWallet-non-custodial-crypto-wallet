@@ -29,7 +29,7 @@ function SeedBackUping() {
           source={require("@/assets/images/cpu.png")}
         />
         <SpacerUi size="3.5xl">
-          <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
+          <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
             Crypto Wallet
           </HeaderText>
         </SpacerUi>
@@ -78,18 +78,17 @@ const SeedWrapper = styled.View`
 `;
 
 const Body = styled.View`
-  align-items: center;
-
   flex: 1;
 `;
 
 const Logo = styled.Image`
   width: 100px;
   height: 100px;
+  margin: 0 auto;
 `;
 
 const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
+  text-align: center;
 `;
 
 const Phrase = styled(BodyTextUi)`

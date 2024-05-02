@@ -21,7 +21,7 @@ const InputContainer = styled.View`
 const Input = styled.TextInput`
   border-radius: 14px;
   padding: ${({ theme }) => theme.spaces["xl"]} ${({ theme }) => theme.spaces["lg"]};
-
+  
   flex: 1;
   color: ${({ theme }) => theme.colors["text-second"]};
   font-family: ${({ theme }) => getFontStyle(theme, "body", "medium")};
@@ -30,6 +30,13 @@ const Input = styled.TextInput`
 const RightContent = styled.View`
   justify-content: center;
   margin-right: ${({ theme }) => theme.spaces["lg"]};
+  margin-bottom: ${({ theme }) => theme.spaces["lg"]};
+`;
+
+const RightAreaContent = styled.View`
+  justify-content: flex-end;
+  margin-right: ${({ theme }) => theme.spaces["lg"]};
+  margin-bottom: ${({ theme }) => theme.spaces["lg"]};
 `;
 
 const LeftContent = styled.View`
@@ -37,7 +44,7 @@ const LeftContent = styled.View`
   margin-left: ${({ theme }) => theme.spaces["lg"]};
 `;
 
-const TextInputUi = ({ left, right, ...rest }: Props) => {
+export const TextInputUi = ({ left, right, ...rest }: Props) => {
   return (
     <InputContainer>
       {left && <LeftContent>{left}</LeftContent>}
@@ -47,4 +54,12 @@ const TextInputUi = ({ left, right, ...rest }: Props) => {
   );
 };
 
-export default TextInputUi;
+export const TextAreaInputUi = ({ left, right, ...rest }: Props) => {
+  return (
+    <InputContainer>
+      {left && <LeftContent>{left}</LeftContent>}
+      <Input {...rest} textAlignVertical="top" />
+      {right && <RightAreaContent>{right}</RightAreaContent>}
+    </InputContainer>
+  );
+};

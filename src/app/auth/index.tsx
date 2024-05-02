@@ -26,7 +26,9 @@ function Auth() {
         </SpacerUi>
       </Body>
       <Footer>
-        <ConnectWallet variant="secondary">Connect Wallet</ConnectWallet>
+        <Link href="/auth/connect-wallet" asChild>
+          <ConnectWallet variant="secondary">Connect Wallet</ConnectWallet>
+        </Link>
         <Link href="/auth/seed-creating" asChild>
           <CreateNew>Create New</CreateNew>
         </Link>

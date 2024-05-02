@@ -77,7 +77,6 @@ const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
 };
 const Container = styled(Animated.View)`
   flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
 `;
 
 const Header = styled.View`
@@ -85,6 +84,7 @@ const Header = styled.View`
   justify-content: center;
   flex: 1;
 `;
+
 const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;

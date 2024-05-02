@@ -51,81 +51,62 @@ function EnterPassowrd() {
     }
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <ScrollView
-          contentContainerStyle={{
-            minHeight: "100%",
-            justifyContent: "center",
-          }}
-        >
-          <View style={{ flex: 1, justifyContent: "center" }}>
-            <SpacerUi size="4xl" />
-            <Header>
-              <Logo
-                resizeMode="contain"
-                source={require("@/assets/images/unlock.png")}
-              />
-              <SpacerUi size="3.5xl">
-                <HeaderText size="2xl" weight="extra">
-                  Enter Your Password
-                </HeaderText>
-              </SpacerUi>
-            </Header>
-            <SpacerUi size="4xl" />
-            <Body>
-              <ControllTextInputUi
-                secureTextEntry={!isPasswordShown}
-                name="password"
-                control={control}
-                errors={errors}
-                placeholder="Password"
-                right={
-                  <Feather
-                    onPress={() => setIsPasswordShown((prev) => !prev)}
-                    name={!isPasswordShown ? "eye-off" : "eye"}
-                    size={24}
-                    color={theme.colors["text-primary"]}
-                  />
-                }
-              />
-            </Body>
-          </View>
+    <>
+      <Body>
+        <SpacerUi size="4xl">
+          <Logo
+            resizeMode="contain"
+            source={require("@/assets/images/unlock.png")}
+          />
+          <SpacerUi size="3.5xl">
+            <HeaderText size="2xl" weight="extra">
+              Enter Your Password
+            </HeaderText>
+          </SpacerUi>
+        </SpacerUi>
 
-          <Footer>
-            <SpacerUi size="2xl">
-              <Continue onPress={handleSubmit(continueHandler)}>
-                Continue
-              </Continue>
-            </SpacerUi>
-          </Footer>
-        </ScrollView>
-      </Container>
-    </SafeAreaView>
+        <SpacerUi size="4xl">
+          <ControllTextInputUi
+            secureTextEntry={!isPasswordShown}
+            name="password"
+            control={control}
+            errors={errors}
+            placeholder="Password"
+            right={
+              <Feather
+                onPress={() => setIsPasswordShown((prev) => !prev)}
+                name={!isPasswordShown ? "eye-off" : "eye"}
+                size={24}
+                color={theme.colors["text-primary"]}
+              />
+            }
+          />
+        </SpacerUi>
+      </Body>
+
+      <Footer>
+        <SpacerUi size="2xl">
+          <Continue onPress={handleSubmit(continueHandler)}>Continue</Continue>
+        </SpacerUi>
+      </Footer>
+    </>
   );
 }
 
-const Container = styled.View`
+const Body = styled.View`
   flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-`;
-
-const Header = styled.View`
-  align-items: center;
   justify-content: center;
 `;
 
 const Logo = styled.Image`
   width: 100px;
   height: 100px;
+  margin: 0 auto;
 `;
 
 const HeaderText = styled(HeaderTextUi)`
   /* font-size: 40px; */
-`;
-
-const Body = styled(View)`
-  /* font-size: 40px; */
+  text-align: center;
 `;
 
 const DescriptionText = styled(BodyTextUi)`
@@ -133,7 +114,7 @@ const DescriptionText = styled(BodyTextUi)`
 `;
 
 const Footer = styled.View`
-  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
+  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
 `;
 
 const Continue = styled(ButtonUi)`

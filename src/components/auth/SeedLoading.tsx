@@ -41,7 +41,7 @@ const SeedLoading = () => {
   }, []);
 
   return (
-    <Container>
+    <>
       <Loader>
         <SettingImage
           style={[animationStyle]}
@@ -55,14 +55,9 @@ const SeedLoading = () => {
           </LoaderText>
         </SpacerUi>
       </Loader>
-    </Container>
+    </>
   );
 };
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-`;
 
 const Loader = styled.View`
   align-items: center;

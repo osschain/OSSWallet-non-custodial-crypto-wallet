@@ -1,6 +1,5 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import SeedBackUpPreparing from "@/components/auth/SeedBackUpPreparing";
 import SeedLoading from "@/components/auth/SeedLoading";
@@ -25,7 +24,7 @@ function SeedCreating() {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <>
       {state === "loading" && <SeedLoading />}
       {state === "preparing" && (
         <SeedBackUpPreparing
@@ -34,7 +33,7 @@ function SeedCreating() {
           }}
         />
       )}
-    </SafeAreaView>
+    </>
   );
 }
 

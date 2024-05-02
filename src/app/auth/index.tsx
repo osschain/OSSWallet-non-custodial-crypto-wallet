@@ -1,4 +1,5 @@
 import { Link } from "expo-router";
+import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -6,10 +7,11 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { defaultImage } from "@/util/DefaultImage";
+
 function Auth() {
   return (
-    <Container>
-      <Header>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <Body>
         <Logo resizeMode="contain" source={{ uri: defaultImage }} />
         <SpacerUi size="3.5xl">
           <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
@@ -22,23 +24,18 @@ function Auth() {
             payments without intermediaries.
           </DescriptionText>
         </SpacerUi>
-      </Header>
+      </Body>
       <Footer>
         <ConnectWallet variant="secondary">Connect Wallet</ConnectWallet>
         <Link href="/auth/seed-creating" asChild>
           <CreateNew>Create New</CreateNew>
         </Link>
       </Footer>
-    </Container>
+    </ScrollView>
   );
 }
 
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-`;
-
-const Header = styled.View`
+const Body = styled.View`
   align-items: center;
   justify-content: center;
   flex: 1;
@@ -58,8 +55,8 @@ const DescriptionText = styled(BodyTextUi)`
 `;
 
 const Footer = styled.View`
-  margin-top: auto;
-  margin-bottom: 48px;
+  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
+
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 

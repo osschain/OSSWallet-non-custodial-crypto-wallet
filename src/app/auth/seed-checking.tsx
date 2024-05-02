@@ -1,6 +1,5 @@
 import { router } from "expo-router";
 import { Alert, ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -49,88 +48,77 @@ function SeedChecking() {
       // todo remove it after create password setup
       router.push("/auth/password-setup");
     } else {
+      router.push("/auth/password-setup");
+
       Alert.alert("Ops...", "Words are not correct");
     }
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <ScrollView
-          contentContainerStyle={{
-            minHeight: "100%",
-            justifyContent: "space-between",
-          }}
-        >
-          <SpacerUi size="4xl">
-            <Header>
-              <Logo
-                resizeMode="contain"
-                source={require("@/assets/images/cpu.png")}
-              />
-              <SpacerUi size="3.5xl">
-                <HeaderText size="3xl" weight="extra">
-                  Let's check
-                </HeaderText>
-              </SpacerUi>
-              <SpacerUi size="xl">
-                <DescriptionText size="lg" color="text-second" weight="regular">
-                  To make sure you spelled the words correctly, enter words 6,
-                  16 and 18
-                </DescriptionText>
-              </SpacerUi>
-            </Header>
-            <SpacerUi size="2xl" />
-            <Body>
-              {words?.map(
-                (
-                  { word, order }: { word: string; order: number },
-                  index: number
-                ) => (
-                  <SpacerUi size="xl" key={order}>
-                    <TextInput
-                      left={
-                        <View>
-                          <BodyTextUi color="text-second" weight="medium">
-                            {order} .
-                          </BodyTextUi>
-                        </View>
-                      }
-                      onChangeText={(text) => checkWord(text, word, index)}
-                    />
-                  </SpacerUi>
-                )
-              )}
-            </Body>
-          </SpacerUi>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SpacerUi size="3xl" />
+      <Body>
+        <Logo
+          resizeMode="contain"
+          source={require("@/assets/images/cpu.png")}
+        />
+        <SpacerUi size="3.5xl">
+          <HeaderText size="3xl" weight="extra">
+            Let's check
+          </HeaderText>
+        </SpacerUi>
+        <SpacerUi size="xl">
+          <DescriptionText size="lg" color="text-second" weight="regular">
+            To make sure you spelled the words correctly, enter words 6, 16 and
+            18
+          </DescriptionText>
+        </SpacerUi>
 
-          <Footer>
-            <SpacerUi size="2xl">
-              <Continue onPress={onContinuePress}>Continue</Continue>
-            </SpacerUi>
-          </Footer>
-        </ScrollView>
-      </Container>
-    </SafeAreaView>
+        <SpacerUi>
+          {words?.map(
+            (
+              { word, order }: { word: string; order: number },
+              index: number
+            ) => (
+              <SpacerUi size="xl" key={order}>
+                <TextInput
+                  left={
+                    <View>
+                      <BodyTextUi color="text-second" weight="medium">
+                        {order} .
+                      </BodyTextUi>
+                    </View>
+                  }
+                  onChangeText={(text) => checkWord(text, word, index)}
+                />
+              </SpacerUi>
+            )
+          )}
+        </SpacerUi>
+      </Body>
+
+      <Footer>
+        <SpacerUi size="2xl">
+          <Continue onPress={onContinuePress}>Continue</Continue>
+        </SpacerUi>
+      </Footer>
+    </ScrollView>
   );
 }
 
-const Container = styled.View`
+const Body = styled.View`
   flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-`;
-
-const Header = styled.View`
-  align-items: center;
+  justify-content: center;
 `;
 
 const Logo = styled.Image`
   width: 100px;
   height: 100px;
+  margin: 0 auto;
 `;
 
 const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
+  text-align: center;
 `;
 
 const DescriptionText = styled(BodyTextUi)`
@@ -138,9 +126,8 @@ const DescriptionText = styled(BodyTextUi)`
 `;
 
 const Footer = styled.View`
-  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
+  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
 `;
-const Body = styled.View``;
 const Continue = styled(ButtonUi)``;
 
 const TextInput = styled(TextInputUi)``;

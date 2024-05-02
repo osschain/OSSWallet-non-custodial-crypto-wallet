@@ -1,8 +1,7 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import styled, { useTheme } from "styled-components/native";
+import { Dimensions, ScrollView } from "react-native";
+import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -12,7 +11,6 @@ import { useAuth } from "@/providers/AuthProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 function SeedBackUping() {
-  const theme = useTheme();
   const [seed, setSeed] = useState<string[] | null>(null);
   const { seed: mySeed } = useAuth();
 
@@ -23,70 +21,66 @@ function SeedBackUping() {
   }, [mySeed]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <SpacerUi size="4xl" />
-        <Header>
-          <Logo
-            resizeMode="contain"
-            source={require("@/assets/images/cpu.png")}
-          />
-          <SpacerUi size="3.5xl">
-            <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
-              Crypto Wallet
-            </HeaderText>
-          </SpacerUi>
-          <SpacerUi size="xl">
-            <DescriptionText size="lg" color="text-second" weight="regular">
-              Write these 12 words in exactly that order and hide them in a safe
-              place.
-            </DescriptionText>
-          </SpacerUi>
-        </Header>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SpacerUi size="4xl" />
+      <Body>
+        <Logo
+          resizeMode="contain"
+          source={require("@/assets/images/cpu.png")}
+        />
+        <SpacerUi size="3.5xl">
+          <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
+            Crypto Wallet
+          </HeaderText>
+        </SpacerUi>
+        <SpacerUi size="xl">
+          <DescriptionText size="lg" color="text-second" weight="regular">
+            Write these 12 words in exactly that order and hide them in a safe
+            place.
+          </DescriptionText>
+        </SpacerUi>
         <SpacerUi size="2xl" />
-        <View style={{ flexDirection: "row" }}>
-          <SeedList
-            data={seed}
-            numColumns={2}
-            columnWrapperStyle={{
-              justifyContent: "space-between",
-              gap: pixelToNumber(theme.spaces["2xl"]),
-            }}
-            contentContainerStyle={{
-              gap: 20,
-              padding: 10,
-            }}
-            renderItem={({ item, index }) => (
-              <Phrase size="lg" weight="medium">
+
+        <SeedWrapper>
+          {seed?.map((word, index) => {
+            return (
+              <Phrase size="lg" weight="medium" key={word}>
                 <BodyTextUi color="text-second" size="lg" weight="medium">
                   {index + 1}.
                 </BodyTextUi>
-                {` ${item}`}
+                {` ${word}`}
               </Phrase>
-            )}
-          />
-        </View>
-        <Footer>
-          <Continue
-            onPress={() => {
-              router.push("/auth/seed-checking");
-            }}
-          >
-            Continue
-          </Continue>
-        </Footer>
-      </Container>
-    </SafeAreaView>
+            );
+          })}
+        </SeedWrapper>
+      </Body>
+
+      <Footer>
+        <Continue
+          onPress={() => {
+            router.push("/auth/seed-checking");
+          }}
+        >
+          Continue
+        </Continue>
+      </Footer>
+    </ScrollView>
   );
 }
 
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
+const windowWidth = Dimensions.get("window").width;
+
+const SeedWrapper = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spaces["2xl"]};
+  flex-wrap: wrap;
 `;
 
-const Header = styled.View`
+const Body = styled.View`
   align-items: center;
+
+  flex: 1;
 `;
 
 const Logo = styled.Image`
@@ -99,7 +93,8 @@ const HeaderText = styled(HeaderTextUi)`
 `;
 
 const Phrase = styled(BodyTextUi)`
-  flex: 1;
+  flex-basis: ${({ theme }) =>
+    windowWidth / 2 - pixelToNumber(theme.spaces["xl"]) * 2 - 12}px;
   padding: 2px;
   border-color: ${({ theme }) => theme.colors["border-color"]};
   border-width: 1px;
@@ -112,8 +107,7 @@ const DescriptionText = styled(BodyTextUi)`
 `;
 
 const Footer = styled.View`
-  margin-top: auto;
-  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
+  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 

@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useEffect } from "react";
-import { Image } from "react-native";
+import { Image, ScrollView } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -20,8 +20,8 @@ const Congretulation = () => {
     router.push("/(wallet)");
   };
   return (
-    <Container>
-      <Header>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <Body>
         <PenImage
           resizeMode="contain"
           source={require("@/assets/images/pocket.png")}
@@ -37,24 +37,20 @@ const Congretulation = () => {
             Your wallet successfully created.
           </DescriptionText>
         </SpacerUi>
-      </Header>
+      </Body>
       <Footer>
         <Continue onPress={continueHandler}>Go To The Wallet</Continue>
       </Footer>
-    </Container>
+    </ScrollView>
   );
 };
 
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-`;
-
-const Header = styled.View`
+const Body = styled.View`
   align-items: center;
   justify-content: center;
   flex: 1;
 `;
+
 const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
@@ -69,8 +65,8 @@ const HeaderText = styled(HeaderTextUi)`
 `;
 
 const Footer = styled.View`
-  margin-top: auto;
-  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
+  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
+
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 

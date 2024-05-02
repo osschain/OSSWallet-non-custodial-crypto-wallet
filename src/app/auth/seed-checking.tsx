@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { Alert, ScrollView, View } from "react-native";
+import { ActivityIndicator, Alert, ScrollView, View } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -54,6 +54,10 @@ function SeedChecking() {
     }
   };
 
+  if (!words) {
+    return <ActivityIndicator style={{ marginTop: 64 }} />;
+  }
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SpacerUi size="3xl" />
@@ -69,8 +73,8 @@ function SeedChecking() {
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            To make sure you spelled the words correctly, enter words 6, 16 and
-            18
+            To make sure you spelled the words correctly, enter words{" "}
+            {words[0].order} , {words[1].order} and {words[2].order}
           </DescriptionText>
         </SpacerUi>
 

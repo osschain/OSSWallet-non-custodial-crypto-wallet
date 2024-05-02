@@ -1,3 +1,4 @@
+import CryptoES from "crypto-es";
 import * as SecureStore from "expo-secure-store";
 import {
   PropsWithChildren,
@@ -7,6 +8,8 @@ import {
   useState,
 } from "react";
 
+import { mockedSeed } from "@/util/mock";
+
 type AuthData = {
   seed: string | null;
   loading: boolean;
@@ -14,6 +17,7 @@ type AuthData = {
   clearSeed: () => void;
   password: string | null;
   addPassword: (password: string) => void;
+  setUpSeed: () => void;
 };
 
 const AuthContext = createContext<AuthData>({
@@ -23,12 +27,25 @@ const AuthContext = createContext<AuthData>({
   clearSeed: () => {},
   password: null,
   addPassword: () => {},
+  setUpSeed: () => {},
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
   const [seed, setSeed] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [password, setPassword] = useState<string | null>(null);
+  const [password, setPassword] = useState<string | null>("12345678");
+
+  useEffect(() => {
+    async function getseed() {
+      if (!password) return;
+
+      await decryptAndSaveSeed(password);
+
+      setLoading(false);
+    }
+
+    getseed();
+  }, [password]);
 
   const addSeed = (seed: string) => {
     setSeed(seed);
@@ -38,26 +55,50 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     setSeed(null);
   };
 
+  const encryptSeed = async (seed: string, password: string) => {
+    return CryptoES.AES.encrypt(seed, password).toString();
+  };
+
+  const decryptAndSaveSeed = async (password: string) => {
+    const encryptedSeed = await SecureStore.getItem("seed");
+
+    if (!encryptedSeed) return;
+
+    const decrypted = CryptoES.AES.decrypt(encryptedSeed, password);
+    const seed = decrypted.toString(CryptoES.enc.Utf8);
+
+    setSeed(seed);
+  };
+
+  const saveEncryptedSeed = async (encryptedSeed: string, password: string) => {
+    if (!encryptedSeed) return;
+    await SecureStore.setItemAsync("seed", encryptedSeed);
+  };
+
+  const setUpSeed = async () => {
+    if (!password) return;
+    // todo seed create logic
+    const seed = mockedSeed;
+    const encryptedSeed = await encryptSeed(seed, password);
+
+    await saveEncryptedSeed(encryptedSeed, password);
+  };
+
   const addPassword = (password: string) => {
     setPassword(password);
   };
 
-  useEffect(() => {
-    async function getseed() {
-      const key = await SecureStore.getItemAsync("seed");
-      if (key) {
-        alert("🔐 Here's your value 🔐 \n" + key);
-        setSeed(key);
-      } else {
-        console.log("No values stored under that key.");
-      }
-      setLoading(false);
-    }
-    getseed();
-  }, []);
   return (
     <AuthContext.Provider
-      value={{ loading, seed, addSeed, clearSeed, password, addPassword }}
+      value={{
+        loading,
+        seed,
+        addSeed,
+        clearSeed,
+        password,
+        addPassword,
+        setUpSeed,
+      }}
     >
       {children}
     </AuthContext.Provider>

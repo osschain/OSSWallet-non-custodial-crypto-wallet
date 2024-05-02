@@ -72,6 +72,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   }, []);
 
   const addSeed = (seed: string) => {
+    console.log(seed);
     setSeed(seed);
   };
 
@@ -102,9 +103,8 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   };
 
   const setUpSeed = async () => {
-    if (!password) return;
-    // todo seed create logic
-    const seed = mockedSeed;
+    if (!password || !seed) return;
+
     const encryptedSeed = await encryptSeed(seed, password);
 
     await saveEncryptedSeed(encryptedSeed, password);

@@ -1,20 +1,17 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
-import { Pressable } from "react-native";
-import { useTheme } from "styled-components/native";
+import { Tabs, router } from "expo-router";
+
+import { useAuth } from "@/providers/AuthProvider";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
 
 export default function TabLayout() {
-  const theme = useTheme();
+  const { seed } = useAuth();
+  if (!seed) {
+    router.push("/auth/");
+  }
+
   return (
-    <Tabs sceneContainerStyle={{ backgroundColor: theme.colors["bg-primary"] }}>
+    <Tabs>
       <Tabs.Screen
         name="home"
         options={{

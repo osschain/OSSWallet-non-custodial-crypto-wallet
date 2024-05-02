@@ -3,7 +3,6 @@ import { useTheme } from "styled-components/native";
 
 export default function AuthLayout() {
   const theme = useTheme();
-
   return (
     <Stack
       screenOptions={{
@@ -16,6 +15,7 @@ export default function AuthLayout() {
       <Stack.Screen name="seed-checking" options={{ headerShown: false }} />
       <Stack.Screen name="password-setup" options={{ headerShown: false }} />
       <Stack.Screen name="congretulation" options={{ headerShown: false }} />
+      <Stack.Screen name="enter-password" options={{ headerShown: false }} />
     </Stack>
   );
 }

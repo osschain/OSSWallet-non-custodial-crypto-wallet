@@ -35,7 +35,7 @@ function PasswordSetup() {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmShown, setIsConfirmShown] = useState(false);
 
-  const { addPassword } = useAuth();
+  const { encryptAndSaveSeed } = useAuth();
   const {
     control,
     handleSubmit,
@@ -45,7 +45,7 @@ function PasswordSetup() {
   });
 
   const continueHandler = ({ password }: FormValues) => {
-    addPassword(password);
+    encryptAndSaveSeed(password);
     router.push("/auth/congretulation");
   };
   return (

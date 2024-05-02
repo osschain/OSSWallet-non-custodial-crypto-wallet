@@ -1,5 +1,4 @@
 import { router } from "expo-router";
-import { useEffect } from "react";
 import { Image, ScrollView } from "react-native";
 import styled from "styled-components/native";
 
@@ -7,15 +6,8 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { useAuth } from "@/providers/AuthProvider";
 
 const Congretulation = () => {
-  const { setUpSeed } = useAuth();
-
-  useEffect(() => {
-    setUpSeed();
-  }, []);
-
   const continueHandler = () => {
     router.push("/(wallet)");
   };

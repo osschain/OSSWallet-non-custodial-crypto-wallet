@@ -5,22 +5,18 @@ import { ActivityIndicator } from "react-native";
 import { useAuth } from "@/providers/AuthProvider";
 
 function Index() {
-  const { seed, loading, password, encryptedSeed } = useAuth();
+  const { loading, encryptedSeed, seed } = useAuth();
 
   if (loading) {
     return <ActivityIndicator style={{ marginTop: 64 }} />;
   }
 
-  if (encryptedSeed && !password) {
+  if (encryptedSeed && !seed) {
     return <Redirect href="/auth/enter-password" />;
   }
 
-  if (!seed) {
+  if (!encryptedSeed) {
     return <Redirect href="/auth/" />;
-  }
-
-  if (seed) {
-    return <Redirect href="/(wallet)/" />;
   }
 }
 

@@ -28,7 +28,7 @@ function EnterPassowrd() {
   const theme = useTheme();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
-  const { addPassword, checkPassword } = useAuth();
+  const { checkPassword, decryptAndSaveSeed } = useAuth();
   const {
     control,
     handleSubmit,
@@ -41,7 +41,7 @@ function EnterPassowrd() {
     const passwordMatch = await checkPassword(password);
 
     if (passwordMatch) {
-      addPassword(password);
+      await decryptAndSaveSeed(password);
       router.push("/(wallet)/");
     } else {
       Alert.alert("...ops", "password is not correct");

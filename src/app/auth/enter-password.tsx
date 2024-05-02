@@ -3,12 +3,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from "expo-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Alert, ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Alert, ScrollView } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 import * as yup from "yup";
 
-import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import ControllTextInputUi from "@/components/ui/ControllTexInputUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
@@ -41,8 +39,7 @@ function EnterPassowrd() {
 
   const continueHandler = async ({ password }: FormValues) => {
     const passwordMatch = await checkPassword(password);
-    console.log(password);
-    console.log(passwordMatch);
+
     if (passwordMatch) {
       addPassword(password);
       router.push("/(wallet)/");
@@ -51,7 +48,7 @@ function EnterPassowrd() {
     }
   };
   return (
-    <>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Body>
         <SpacerUi size="4xl">
           <Logo
@@ -89,7 +86,7 @@ function EnterPassowrd() {
           <Continue onPress={handleSubmit(continueHandler)}>Continue</Continue>
         </SpacerUi>
       </Footer>
-    </>
+    </ScrollView>
   );
 }
 
@@ -106,10 +103,6 @@ const Logo = styled.Image`
 
 const HeaderText = styled(HeaderTextUi)`
   /* font-size: 40px; */
-  text-align: center;
-`;
-
-const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
 

@@ -1,5 +1,4 @@
 import { Stack } from "expo-router";
-import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { useTheme } from "styled-components/native";
 

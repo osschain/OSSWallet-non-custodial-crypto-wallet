@@ -14,6 +14,7 @@ import { mockedSeed } from "@/util/mock";
 type AuthData = {
   seed: string | null;
   loading: boolean;
+  seedLoading: boolean;
   encryptedSeed: string | null;
   addSeed: (seed: string) => void;
   clearSeed: () => void;
@@ -27,6 +28,7 @@ const AuthContext = createContext<AuthData>({
   seed: null,
   loading: true,
   encryptedSeed: null,
+  seedLoading: false,
   addSeed: () => {},
   clearSeed: () => {},
   password: null,
@@ -39,17 +41,22 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const [encryptedSeed, setEncryptedSeed] = useState<null | string>(null);
   const [seed, setSeed] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [seedLoading, setSeedLoading] = useState(false);
+
   const [password, setPassword] = useState<string | null>(null);
 
   useEffect(() => {
+    SecureStore.deleteItemAsync("seed");
     async function getseed() {
       if (!password) return;
 
+      setSeedLoading(true);
       const seed = await decryptSeed(password);
 
       if (!seed) return;
 
       setSeed(seed);
+      setSeedLoading(false);
     }
 
     getseed();
@@ -130,6 +137,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         setUpSeed,
         checkPassword,
         encryptedSeed,
+        seedLoading,
       }}
     >
       {children}

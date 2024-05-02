@@ -46,7 +46,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const [password, setPassword] = useState<string | null>(null);
 
   useEffect(() => {
-    SecureStore.deleteItemAsync("seed");
     async function getseed() {
       if (!password) return;
 

@@ -42,9 +42,9 @@ function SeedChecking() {
     inputResults[index] = isMatch;
   };
 
-  const allWordsMatched = inputResults.every((result) => result);
-
   const onContinuePress = () => {
+    const allWordsMatched = inputResults.every((result) => result);
+
     if (allWordsMatched) {
       // todo remove it after create password setup
       router.push("/auth/password-setup");

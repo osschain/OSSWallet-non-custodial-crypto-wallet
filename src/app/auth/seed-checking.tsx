@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
 
@@ -49,7 +49,7 @@ function SeedChecking() {
       // todo remove it after create password setup
       router.push("/auth/password-setup");
     } else {
-      router.push("/auth/password-setup");
+      Alert.alert("Ops...", "Words are not correct");
     }
   };
 

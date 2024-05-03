@@ -48,8 +48,6 @@ function SeedChecking() {
       // todo remove it after create password setup
       router.push("/auth/password-setup");
     } else {
-      router.push("/auth/password-setup");
-
       Alert.alert("Ops...", "Words are not correct");
     }
   };

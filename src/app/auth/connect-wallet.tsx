@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Alert, ScrollView } from "react-native";
 import styled from "styled-components/native";
 import * as Yup from "yup";
@@ -8,6 +9,7 @@ import * as Yup from "yup";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
@@ -28,26 +30,56 @@ function ConnetWallet() {
   const [seed, setSeed] = useState<string>("");
   const { addSeed } = useAuth();
 
-  const handleConnectWallet = () => {
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const handlePresentModalPress = () => {
+    bottomSheetRef.current?.present();
+  };
+
+  const validateSchema = async (testString: string) => {
+    const isValidate = await seedPhraseSchema
+      .validate(testString)
+      .then(() => {
+        return true;
+      })
+      .catch(() => {
+        return false;
+      });
+
+    return isValidate;
+  };
+
+  const scannerHandler = async (data: string) => {
+    const isValidate = await validateSchema(data);
+    bottomSheetRef.current?.close();
+
+    if (isValidate) {
+      setSeed(data);
+    } else {
+      Alert.alert("ops...", "Scanned Seed is not valid try other");
+    }
+  };
+
+  const handleConnectWallet = async () => {
     const testString =
       "word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11 word12";
 
-    seedPhraseSchema
-      .validate(testString)
-      .then((valid) => {
-        addSeed(valid.trim());
-        router.push("/auth/password-setup");
-      })
-      .catch(() => {
-        Alert.alert(
-          "ops...",
-          "Seed Phrase does not have correct format, make sure to put 12 word and remove extra spaces"
-        );
-      });
+    const isValidate = await validateSchema(testString);
+
+    if (isValidate) {
+      addSeed(testString.trim());
+      router.push("/auth/password-setup");
+    } else {
+      Alert.alert(
+        "ops...",
+        "Seed Phrase does not have correct format, make sure to put 12 word and remove extra spaces"
+      );
+    }
   };
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScannerModalUi ref={bottomSheetRef} onBarcodeScanner={scannerHandler} />
+
       <SpacerUi size="4xl" />
       <Body>
         <Logo
@@ -71,7 +103,14 @@ function ConnetWallet() {
             onChangeText={(text) => setSeed(text)}
             multiline
             numberOfLines={10}
-            right={<Ionicons name="scan" size={24} color="black" />}
+            right={
+              <Ionicons
+                name="scan"
+                size={24}
+                color="black"
+                onPress={handlePresentModalPress}
+              />
+            }
           />
         </SpacerUi>
       </Body>

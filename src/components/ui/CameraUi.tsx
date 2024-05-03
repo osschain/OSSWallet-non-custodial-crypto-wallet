@@ -1,10 +1,10 @@
 import { CameraView, useCameraPermissions } from "expo-camera/next";
 import { ComponentPropsWithRef } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
+import styled from "styled-components/native";
 
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import styled from "styled-components/native";
 
 const Container = styled.View`
   flex: 1;

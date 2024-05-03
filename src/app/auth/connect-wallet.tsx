@@ -60,13 +60,10 @@ function ConnetWallet() {
   };
 
   const handleConnectWallet = async () => {
-    const testString =
-      "word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11 word12";
-
-    const isValidate = await validateSchema(testString);
+    const isValidate = await validateSchema(seed);
 
     if (isValidate) {
-      addSeed(testString.trim());
+      addSeed(seed.trim());
       router.push("/auth/password-setup");
     } else {
       Alert.alert(

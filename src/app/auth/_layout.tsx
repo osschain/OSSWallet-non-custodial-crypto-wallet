@@ -1,9 +1,17 @@
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { useTheme } from "styled-components/native";
 
+import { useAuth } from "@/providers/AuthProvider";
+
 export default function AuthLayout() {
   const theme = useTheme();
+  const { encryptedSeed } = useAuth();
+
+  if (encryptedSeed) {
+    return <Redirect href="/enter-password" />;
+  }
+
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: theme.colors["bg-primary"] }}
@@ -29,10 +37,6 @@ export default function AuthLayout() {
           />
           <Stack.Screen
             name="congretulation"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="enter-password"
             options={{ headerShown: false }}
           />
 

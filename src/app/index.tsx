@@ -12,7 +12,7 @@ function Index() {
   }
 
   if (encryptedSeed && !seed) {
-    return <Redirect href="/auth/enter-password" />;
+    return <Redirect href="/enter-password" />;
   }
 
   if (!encryptedSeed) {

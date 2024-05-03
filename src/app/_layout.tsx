@@ -53,6 +53,10 @@ function RootLayoutNav() {
               <Stack.Screen name="auth" options={{ headerShown: false }} />
               <Stack.Screen name="(wallet)" options={{ headerShown: false }} />
               <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+              <Stack.Screen
+                name="enter-password"
+                options={{ headerShown: false }}
+              />
             </Stack>
           </BottomSheetModalProvider>
         </AuthProvider>

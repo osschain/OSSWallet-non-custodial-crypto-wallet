@@ -1,12 +1,10 @@
-import { Link, Redirect, Stack, router } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { Redirect, Stack, router } from "expo-router";
+import { Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { useTheme } from "styled-components/native";
 
 import { useAuth } from "@/providers/AuthProvider";
-import DefaultHeader from "@/components/layout/DefaultHeader";
-import SecondHeader from "@/components/layout/SecondHeader";
-import { Pressable } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
 export default function AuthLayout() {
   const theme = useTheme();
@@ -47,6 +45,7 @@ export default function AuthLayout() {
           <Stack.Screen name="seed-checking" />
           <Stack.Screen name="password-setup" />
           <Stack.Screen name="congretulation" />
+
           <Stack.Screen name="connect-wallet" />
         </Stack>
       </Container>

@@ -12,7 +12,7 @@ export default function AuthLayout() {
     return <Redirect href="/enter-password" />;
   }
 
-  if (seed) {
+  if (seed && encryptedSeed) {
     return <Redirect href="/(wallet)" />;
   }
 

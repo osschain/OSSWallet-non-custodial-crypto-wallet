@@ -1,10 +1,10 @@
+import { Wallet } from "ethers";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 
 import SeedBackUpPreparing from "@/components/auth/SeedBackUpPreparing";
 import SeedLoading from "@/components/auth/SeedLoading";
 import { useAuth } from "@/providers/AuthProvider";
-import { mockedSeed } from "@/util/mock";
 
 type States = "loading" | "preparing";
 
@@ -15,11 +15,12 @@ function SeedCreating() {
   useEffect(() => {
     const generateSeed = async () => {
       setTimeout(() => {
+        const wallet = Wallet.createRandom();
+        const seed = wallet.mnemonic?.phrase;
         setState("preparing");
-        addSeed(mockedSeed);
-      }, 1000);
+        addSeed(seed as string);
+      }, 0);
     };
-
     generateSeed();
   }, []);
 

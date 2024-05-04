@@ -1,4 +1,3 @@
-import CryptoES from "crypto-es";
 import * as SecureStore from "expo-secure-store";
 import {
   PropsWithChildren,
@@ -19,6 +18,7 @@ type AuthData = {
   encryptAndSaveSeed: (password: string) => void;
   checkPassword: (password: string) => Promise<boolean>;
   decryptAndSaveSeed: (password: string) => void;
+  removeEncryptedSeed: () => void;
 };
 
 const AuthContext = createContext<AuthData>({
@@ -30,6 +30,7 @@ const AuthContext = createContext<AuthData>({
   encryptAndSaveSeed: (password: string) => {},
   decryptAndSaveSeed: () => {},
   checkPassword: () => Promise.resolve(false),
+  removeEncryptedSeed: () => {},
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
@@ -51,6 +52,11 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     const encryptedSeed = await SecureStore.getItem("seed");
 
     return encryptedSeed;
+  };
+
+  const removeEncryptedSeed = () => {
+    SecureStore.deleteItemAsync("seed");
+    setEncryptedSeed(null);
   };
 
   const addSeed = (seed: string) => {
@@ -103,6 +109,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         checkPassword,
         encryptedSeed,
         decryptAndSaveSeed,
+        removeEncryptedSeed,
       }}
     >
       {children}

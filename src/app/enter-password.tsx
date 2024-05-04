@@ -1,6 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Redirect, router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, ScrollView } from "react-native";
@@ -29,7 +30,13 @@ function EnterPassowrd() {
   const theme = useTheme();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
-  const { checkPassword, decryptAndSaveSeed, seed } = useAuth();
+  const {
+    checkPassword,
+    decryptAndSaveSeed,
+    seed,
+    encryptedSeed,
+    removeEncryptedSeed,
+  } = useAuth();
   const {
     control,
     handleSubmit,
@@ -52,6 +59,11 @@ function EnterPassowrd() {
   if (seed) {
     return <Redirect href="/(wallet)" />;
   }
+
+  if (!encryptedSeed) {
+    return <Redirect href="/auth/" />;
+  }
+
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: theme.colors["bg-primary"] }}
@@ -95,6 +107,10 @@ function EnterPassowrd() {
               <Continue onPress={handleSubmit(continueHandler)}>
                 Continue
               </Continue>
+            </SpacerUi>
+
+            <SpacerUi size="2xl">
+              <Continue onPress={removeEncryptedSeed}>Remove Session</Continue>
             </SpacerUi>
           </Footer>
         </ScrollView>

@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 
 import { useAuth } from "@/providers/AuthProvider";
 
-export default function Home() {
+export default function Swap() {
   const { seed } = useAuth();
 
   return (

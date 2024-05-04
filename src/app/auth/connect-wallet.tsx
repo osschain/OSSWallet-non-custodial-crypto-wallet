@@ -1,10 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { Mnemonic } from "ethers";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { Alert, ScrollView } from "react-native";
 import styled from "styled-components/native";
-import * as Yup from "yup";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -13,18 +13,6 @@ import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
-
-const seedPhraseSchema = Yup.string()
-  .required("Seed phrase is required")
-  .trim() // Remove leading/trailing whitespace
-  .matches(/^\s*(\w+\s){11}\w+\s*$/, "Invalid seed phrase format") // 12 words separated by spaces
-  .test("validWords", "Invalid words found in seed phrase", (value) => {
-    const words = value.split(" ");
-    return words.every((word) => {
-      // Use a comprehensive BIP-39 word list for validation
-      return Yup.ref("bip39Words");
-    });
-  });
 
 function ConnetWallet() {
   const [seed, setSeed] = useState<string>("");
@@ -35,21 +23,12 @@ function ConnetWallet() {
     bottomSheetRef.current?.present();
   };
 
-  const validateSchema = async (testString: string) => {
-    const isValidate = await seedPhraseSchema
-      .validate(testString)
-      .then(() => {
-        return true;
-      })
-      .catch(() => {
-        return false;
-      });
-
-    return isValidate;
+  const validateSeed = (seed: string) => {
+    return Mnemonic.isValidMnemonic(seed);
   };
 
   const scannerHandler = async (data: string) => {
-    const isValidate = await validateSchema(data);
+    const isValidate = validateSeed(data);
     bottomSheetRef.current?.close();
 
     if (isValidate) {
@@ -59,8 +38,8 @@ function ConnetWallet() {
     }
   };
 
-  const handleConnectWallet = async () => {
-    const isValidate = await validateSchema(seed);
+  const handleConnectWallet = () => {
+    const isValidate = validateSeed(seed);
 
     if (isValidate) {
       addSeed(seed.trim());

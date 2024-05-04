@@ -7,6 +7,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import useFont from "@/hooks/useFonts";
 import AuthProvider from "@/providers/AuthProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
+import "react-native-get-random-values";
+import "@ethersproject/shims";
+// eslint-disable-next-line import/order
 
 export {
   // Catch any errors thrown by the Layout component.

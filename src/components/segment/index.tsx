@@ -1,13 +1,5 @@
-import React, { ComponentPropsWithoutRef } from "react";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  useWindowDimensions,
-} from "react-native";
-import Animated, {
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated";
+import React, { ComponentPropsWithoutRef, useState } from "react";
+import { TouchableOpacity, useWindowDimensions } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -28,22 +20,20 @@ const SegmentedControl: React.FC<Props> = React.memo(
     ...rest
   }) => {
     const { width: windowWidth } = useWindowDimensions();
-
+    const [slOption, setslOption] = useState(selectedOption);
     const internalPadding = 20;
     const segmentedControlWidth = windowWidth;
 
     const itemWidth =
       (segmentedControlWidth - internalPadding) / options.length;
 
-    const rStyle = useAnimatedStyle(() => {
-      return {
-        left: withTiming(
-          itemWidth * options.indexOf(selectedOption) +
-            internalPadding / 2 +
-            itemWidth / 4
-        ),
-      };
-    }, [selectedOption, options, itemWidth]);
+    // const rStyle = useAnimatedStyle(() => {
+    //   return {
+    //     left: withTiming(
+    //       itemWidth * options.indexOf(slOption) + itemWidth / 2.5
+    //     ),
+    //   };
+    // }, [slOption, options, itemWidth]);
 
     return (
       <Container
@@ -55,21 +45,22 @@ const SegmentedControl: React.FC<Props> = React.memo(
         ]}
         {...rest}
       >
-        <ActiveBox
+        {/* <ActiveBox
           style={[
             {
-              width: itemWidth / 2,
+              width: itemWidth / 3,
               backgroundColor: "red",
             },
             rStyle,
             styles.activeBox,
           ]}
-        />
+        /> */}
         {options.map((option) => {
           return (
             <LabelContainer
               onPress={() => {
                 onOptionPress?.(option);
+                setslOption(option);
               }}
               key={option}
               style={[
@@ -79,7 +70,7 @@ const SegmentedControl: React.FC<Props> = React.memo(
               ]}
             >
               <SegmentLabel
-                isActive={option === selectedOption}
+                isActive={option === slOption}
                 size="lg"
                 weight="medium"
               >
@@ -93,15 +84,15 @@ const SegmentedControl: React.FC<Props> = React.memo(
   }
 );
 
-const styles = StyleSheet.create({
-  activeBox: {
-    position: "absolute",
-    borderRadius: 10,
-    height: 4,
-    bottom: -2,
-    backgroundColor: "blue",
-  },
-});
+// const styles = StyleSheet.create({
+//   activeBox: {
+//     position: "absolute",
+//     borderRadius: 10,
+//     height: 4,
+//     bottom: -2,
+//     backgroundColor: "blue",
+//   },
+// });
 
 const Container = styled.View`
   flex-direction: row;
@@ -124,12 +115,12 @@ const LabelContainer = styled(TouchableOpacity)`
   align-items: center;
 `;
 
-const ActiveBox = styled(Animated.View)`
-  position: absolute;
-  border-radius: 10px;
-  height: 4px;
-  bottom: -2px;
-  background-color: blue;
-`;
+// const ActiveBox = styled(Animated.View)`
+//   position: absolute;
+//   border-radius: 10px;
+//   height: 4px;
+//   bottom: -2px;
+//   background-color: blue;
+// `;
 
 export default SegmentedControl;

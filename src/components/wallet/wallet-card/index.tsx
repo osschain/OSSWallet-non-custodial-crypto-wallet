@@ -54,7 +54,9 @@ const WalletCard = ({
         </UserName>
         <SpacerUi size="lg">
           <WalletAdressContainer>
-            <WalletAdress size="sm">{walletAddres}</WalletAdress>
+            <WalletAdress size="sm" color="pure-white">
+              {walletAddres}
+            </WalletAdress>
             <CopyAddres>
               <Feather
                 name="copy"
@@ -85,7 +87,7 @@ const WalletCard = ({
             <ButtonText color="pure-white">Send</ButtonText>
             <ButtonIcon>
               <Feather
-                name="arrow-down-right"
+                name="arrow-up-right"
                 size={pixelToNumber(theme.sizes["lg"])}
                 color={theme.colors["pure-white"]}
               />

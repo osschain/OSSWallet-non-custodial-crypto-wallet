@@ -23,6 +23,9 @@ export default function TabLayout() {
         tabBarActiveTintColor: theme.colors["text-primary"],
         tabBarInactiveTintColor: theme.colors["text-second"],
       }}
+      sceneContainerStyle={{
+        backgroundColor: theme.colors["bg-primary"],
+      }}
     >
       <Tabs.Screen
         name="home"
@@ -58,6 +61,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
+          headerShown: false,
           href: null,
         }}
       />

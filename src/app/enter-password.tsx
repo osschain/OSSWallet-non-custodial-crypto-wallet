@@ -1,7 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Redirect, router } from "expo-router";
-import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, ScrollView } from "react-native";
@@ -57,7 +56,7 @@ function EnterPassowrd() {
   };
 
   if (seed) {
-    return <Redirect href="/(wallet)" />;
+    return <Redirect href="/(wallet)/home" />;
   }
 
   if (!encryptedSeed) {

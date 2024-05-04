@@ -6,12 +6,12 @@ import styled from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 
-const DefaultHeader = () => {
+const DefaultHeader = ({ title }: { title: string }) => {
   return (
     <SafeAreaView>
       <HeaderContainer>
         <HeaderLeft>
-          <HeaderTextUi size="xl">Tegro Wallet</HeaderTextUi>
+          <HeaderTextUi size="xl">{title}</HeaderTextUi>
         </HeaderLeft>
 
         <HeaderRight>

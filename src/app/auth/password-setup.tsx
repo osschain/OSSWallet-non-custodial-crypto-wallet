@@ -51,7 +51,7 @@ function PasswordSetup() {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Body>
-        <SpacerUi size="4xl">
+        <SpacerUi size="xl">
           <Logo
             resizeMode="contain"
             source={require("@/assets/images/unlock.png")}

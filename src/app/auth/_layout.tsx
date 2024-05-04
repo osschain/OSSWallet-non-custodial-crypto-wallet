@@ -1,8 +1,12 @@
-import { Redirect, Stack } from "expo-router";
+import { Link, Redirect, Stack, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { useTheme } from "styled-components/native";
 
 import { useAuth } from "@/providers/AuthProvider";
+import DefaultHeader from "@/components/layout/DefaultHeader";
+import SecondHeader from "@/components/layout/SecondHeader";
+import { Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function AuthLayout() {
   const theme = useTheme();
@@ -26,28 +30,24 @@ export default function AuthLayout() {
             contentStyle: {
               backgroundColor: theme.colors["bg-primary"],
             },
+            header: () => {
+              return (
+                <HeaderContainer>
+                  <Pressable onPress={() => router.back()}>
+                    <Ionicons name="chevron-back" size={24} color="black" />
+                  </Pressable>
+                </HeaderContainer>
+              );
+            },
           }}
         >
           <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="seed-creating" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="seed-back-uping"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="seed-checking" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="password-setup"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="congretulation"
-            options={{ headerShown: false }}
-          />
-
-          <Stack.Screen
-            name="connect-wallet"
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="seed-creating" />
+          <Stack.Screen name="seed-back-uping" />
+          <Stack.Screen name="seed-checking" />
+          <Stack.Screen name="password-setup" />
+          <Stack.Screen name="congretulation" />
+          <Stack.Screen name="connect-wallet" />
         </Stack>
       </Container>
     </SafeAreaView>
@@ -58,4 +58,8 @@ const Container = styled.View`
   flex: 1;
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
   background-color: ${({ theme }) => theme.colors["bg-primary"]};
+`;
+
+const HeaderContainer = styled.View`
+  margin-top: ${($props) => $props.theme.spaces["3xl"]};
 `;

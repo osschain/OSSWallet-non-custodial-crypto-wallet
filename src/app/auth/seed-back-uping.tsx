@@ -22,7 +22,7 @@ function SeedBackUping() {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SpacerUi size="4xl" />
+      <SpacerUi size="xl" />
       <Body>
         <Logo
           resizeMode="contain"

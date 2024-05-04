@@ -58,7 +58,7 @@ function SeedChecking() {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SpacerUi size="3xl" />
+      <SpacerUi size="xl" />
       <Body>
         <Logo
           resizeMode="contain"

@@ -77,7 +77,7 @@ function ConnetWallet() {
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <ScannerModalUi ref={bottomSheetRef} onBarcodeScanner={scannerHandler} />
 
-      <SpacerUi size="4xl" />
+      <SpacerUi size="xl" />
       <Body>
         <Logo
           resizeMode="contain"

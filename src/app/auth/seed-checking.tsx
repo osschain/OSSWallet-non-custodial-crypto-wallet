@@ -9,6 +9,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { shuffle } from "@/util/shuffle";
+import { useLanguage } from "@/providers/LanguageProvider";
 
 const wordsCount = 3;
 const seedArrayWithOrder = (seed: string) => {
@@ -33,6 +34,8 @@ const getRandomWords = (seed: string | null) => {
 const inputResults = Array(wordsCount).fill(false);
 
 function SeedChecking() {
+  const { i18n } = useLanguage();
+
   const { seed } = useAuth();
   const words = getRandomWords(seed);
 
@@ -66,13 +69,13 @@ function SeedChecking() {
         />
         <SpacerUi size="3.5xl">
           <HeaderText size="3xl" weight="extra">
-            Let's check
+            {i18n.t("auth.seed-checking.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            To make sure you spelled the words correctly, enter words{" "}
-            {words[0].order} , {words[1].order} and {words[2].order}
+            {i18n.t("auth.seed-checking.description")} {words[0].order},{" "}
+            {words[1].order} {i18n.t("shared.and")} {words[2].order}
           </DescriptionText>
         </SpacerUi>
 

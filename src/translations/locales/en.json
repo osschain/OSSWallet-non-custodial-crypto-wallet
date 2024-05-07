@@ -4,7 +4,7 @@
         "header": "Crypto Wallet",
         "description": "TON wallet allows you to make fast and secure blockchain-based payments without intermediaries.",
         "connect-wallet": "Connect Wallet",
-        "create-new": "Create-New"
+        "create-new": "Create New"
       },
       "seed-creating": {
         "header": "Take a pen and paper",
@@ -30,5 +30,9 @@
         "header": "Create Password",
         "description": "We Will use your Password for secure your Seed Phrase, so createStrong Password"
       }
+    },
+    "shared": {
+      "continue": "Continue",
+      "and": "and"
     }
 }

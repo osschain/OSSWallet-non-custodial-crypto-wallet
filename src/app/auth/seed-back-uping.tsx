@@ -9,11 +9,12 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
+import { useLanguage } from "@/providers/LanguageProvider";
 
 function SeedBackUping() {
   const [seed, setSeed] = useState<string[] | null>(null);
   const { seed: mySeed } = useAuth();
-
+  const { i18n } = useLanguage();
   useEffect(() => {
     if (mySeed) {
       setSeed(mySeed.trim().split(/\s+/));
@@ -30,13 +31,12 @@ function SeedBackUping() {
         />
         <SpacerUi size="3.5xl">
           <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
-            Crypto Wallet
+            {i18n.t("auth.seed-back-uping.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            Write these 12 words in exactly that order and hide them in a safe
-            place.
+            {i18n.t("auth.seed-back-uping.description")}
           </DescriptionText>
         </SpacerUi>
         <SpacerUi size="2xl" />

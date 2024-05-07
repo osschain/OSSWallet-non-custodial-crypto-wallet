@@ -1,5 +1,4 @@
 import { Link } from "expo-router";
-import { useEffect } from "react";
 import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 
@@ -11,7 +10,7 @@ import { useLanguage } from "@/providers/LanguageProvider";
 import { defaultImage } from "@/util/DefaultImage";
 
 function Auth() {
-  const { i18n, setLocale } = useLanguage();
+  const { i18n } = useLanguage();
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -24,17 +23,18 @@ function Auth() {
         </SpacerUi>
         <SpacerUi size="4xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            TON wallet allows you to make fast and secure blockchain-based
-            payments without intermediaries.
+            {i18n.t("auth.main.description")}
           </DescriptionText>
         </SpacerUi>
       </Body>
       <Footer>
         <Link href="/auth/connect-wallet" asChild>
-          <ConnectWallet variant="secondary">Connect Wallet</ConnectWallet>
+          <ConnectWallet variant="secondary">
+            {i18n.t("auth.main.connect-wallet")}
+          </ConnectWallet>
         </Link>
         <Link href="/auth/seed-creating" asChild>
-          <CreateNew>Create New</CreateNew>
+          <CreateNew>{i18n.t("auth.main.create-new")}</CreateNew>
         </Link>
       </Footer>
     </ScrollView>

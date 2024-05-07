@@ -13,6 +13,7 @@ import ControllTextInputUi from "@/components/ui/ControllTexInputUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
+import { useLanguage } from "@/providers/LanguageProvider";
 
 type FormValues = {
   password: string;
@@ -32,6 +33,7 @@ const passwordSchema = yup.object().shape({
 
 function PasswordSetup() {
   const theme = useTheme();
+  const { i18n } = useLanguage();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmShown, setIsConfirmShown] = useState(false);
 
@@ -58,13 +60,12 @@ function PasswordSetup() {
           />
           <SpacerUi size="3.5xl">
             <HeaderText size="3xl" weight="extra">
-              Create Password
+              {i18n.t("auth.password-setup.header")}
             </HeaderText>
           </SpacerUi>
           <SpacerUi size="xl">
             <DescriptionText size="lg" color="text-second" weight="regular">
-              We Will use your Password for secure your Seed Phrase, so create
-              Strong Password
+              {i18n.t("auth.password-setup.description")}
             </DescriptionText>
           </SpacerUi>
         </SpacerUi>

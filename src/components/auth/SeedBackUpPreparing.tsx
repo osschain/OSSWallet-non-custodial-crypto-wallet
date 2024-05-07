@@ -14,12 +14,14 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useLanguage } from "@/providers/LanguageProvider";
 
 const Continue = styled(ButtonUi)``;
 type Props = {
   onContinue: () => void;
 };
 const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
+  const { i18n } = useLanguage();
   const animation = useSharedValue(0);
 
   const animationStyle = useAnimatedStyle(() => {
@@ -58,19 +60,17 @@ const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
 
         <SpacerUi size="3.5xl">
           <HeaderText size="2xl" weight="extra">
-            Take a pen and paper
+            {i18n.t("auth.seed-creating.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="4xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            Get ready to write down the secret key. This is the only way to
-            regain access to the wallet. It is safest not to store the key on
-            the devices.
+            {i18n.t("auth.seed-creating.description")}
           </DescriptionText>
         </SpacerUi>
       </Header>
       <Footer>
-        <Continue onPress={onContinue}>Continue</Continue>
+        <Continue onPress={onContinue}> {i18n.t("shared.continue")}</Continue>
       </Footer>
     </Container>
   );

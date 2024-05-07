@@ -13,10 +13,12 @@ import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
+import { useLanguage } from "@/providers/LanguageProvider";
 
 function ConnetWallet() {
   const [seed, setSeed] = useState<string>("");
   const { addSeed } = useAuth();
+  const { i18n } = useLanguage();
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const handlePresentModalPress = () => {
@@ -64,13 +66,12 @@ function ConnetWallet() {
         />
         <SpacerUi size="3.5xl">
           <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
-            Enter the secret key
+            {i18n.t("auth.connect-wallet.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            To restore access, enter the 24 secret words you received when
-            creating a wallet
+            {i18n.t("auth.connect-wallet.description")}
           </DescriptionText>
         </SpacerUi>
         <SpacerUi size="2xl">

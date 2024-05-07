@@ -6,8 +6,10 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useLanguage } from "@/providers/LanguageProvider";
 
 const Congretulation = () => {
+  const { i18n } = useLanguage();
   const continueHandler = () => {
     router.push("/(wallet)");
   };
@@ -21,12 +23,12 @@ const Congretulation = () => {
 
         <SpacerUi size="3.5xl">
           <HeaderText size="2xl" weight="extra">
-            Congratulations
+            {i18n.t("auth.congretulation.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            Your wallet successfully created.
+            {i18n.t("auth.congretulation.description")}
           </DescriptionText>
         </SpacerUi>
       </Body>

@@ -1,6 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Redirect, router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, ScrollView } from "react-native";
@@ -107,7 +108,11 @@ function EnterPassowrd() {
                 Continue
               </Continue>
             </SpacerUi>
-
+            <SpacerUi size="2xl">
+              <Continue onPress={() => SecureStore.deleteItemAsync("seed")}>
+                Remove Session
+              </Continue>
+            </SpacerUi>
             <SpacerUi size="2xl">
               <Continue onPress={removeEncryptedSeed}>Remove Session</Continue>
             </SpacerUi>

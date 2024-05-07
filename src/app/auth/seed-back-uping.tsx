@@ -12,7 +12,7 @@ import { useLanguage } from "@/providers/LanguageProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 function SeedBackUping() {
-  const [words, setWords] = useState<string[] | null>(null);
+  const [words, setWords] = useState<string[]>([]);
   const { seed: mySeed } = useAuth();
   const { i18n } = useLanguage();
   useEffect(() => {
@@ -42,7 +42,7 @@ function SeedBackUping() {
         <SpacerUi size="2xl" />
 
         <SeedWrapper>
-          {words?.map((word, index) => {
+          {words.map((word, index) => {
             return (
               <Phrase size="lg" weight="medium" key={index}>
                 <BodyTextUi color="text-second" size="lg" weight="medium">

@@ -24,8 +24,7 @@ const seedArrayWithOrder = (seed: string) => {
     });
 };
 
-const getRandomWords = (seed: string | null) => {
-  if (!seed) return;
+const getRandomWords = (seed: string) => {
   const seedArray = seedArrayWithOrder(seed);
   const shuffledSeed = shuffle(seedArray);
   return shuffledSeed.slice(0, wordsCount);
@@ -37,7 +36,7 @@ function SeedChecking() {
   const { i18n } = useLanguage();
 
   const { seed } = useAuth();
-  const words = getRandomWords(seed);
+  const words = getRandomWords(seed as string);
 
   const checkWord = (text: string, word: string, index: number) => {
     const isMatch = text.toLowerCase() === word.toLowerCase();
@@ -57,10 +56,6 @@ function SeedChecking() {
       );
     }
   };
-
-  if (!words) {
-    return <ActivityIndicator style={{ marginTop: 64 }} />;
-  }
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -89,7 +84,7 @@ function SeedChecking() {
               index: number
             ) => (
               <SpacerUi size="xl" key={order}>
-                <TextInput
+                <TextInputUi
                   left={
                     <View>
                       <BodyTextUi color="text-second" weight="medium">

@@ -97,7 +97,6 @@ function ConnetWallet() {
 
       <Footer>
         <Continue onPress={handleConnectWallet}>
-          {" "}
           {i18n.t("auth.connect-wallet.connect-wallet")}
         </Continue>
       </Footer>

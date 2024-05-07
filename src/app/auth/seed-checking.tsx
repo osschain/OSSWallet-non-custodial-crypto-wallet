@@ -8,8 +8,8 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { shuffle } from "@/util/shuffle";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { shuffle } from "@/util/shuffle";
 
 const wordsCount = 3;
 const seedArrayWithOrder = (seed: string) => {
@@ -107,7 +107,9 @@ function SeedChecking() {
 
       <Footer>
         <SpacerUi size="2xl">
-          <Continue onPress={onContinuePress}>Continue</Continue>
+          <Continue onPress={onContinuePress}>
+            {i18n.t("shared.continue")}
+          </Continue>
         </SpacerUi>
       </Footer>
     </ScrollView>

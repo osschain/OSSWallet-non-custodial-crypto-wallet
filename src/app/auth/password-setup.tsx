@@ -112,7 +112,9 @@ function PasswordSetup() {
 
       <Footer>
         <SpacerUi size="2xl">
-          <Continue onPress={handleSubmit(continueHandler)}>Continue</Continue>
+          <Continue onPress={handleSubmit(continueHandler)}>
+            {i18n.t("shared.continue")}
+          </Continue>
         </SpacerUi>
       </Footer>
     </ScrollView>

@@ -61,7 +61,7 @@ function SeedBackUping() {
             router.push("/auth/seed-checking");
           }}
         >
-          Continue
+          {i18n.t("shared.continue")}
         </Continue>
       </Footer>
     </ScrollView>

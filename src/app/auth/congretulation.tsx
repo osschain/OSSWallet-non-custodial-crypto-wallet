@@ -33,7 +33,9 @@ const Congretulation = () => {
         </SpacerUi>
       </Body>
       <Footer>
-        <Continue onPress={continueHandler}>Go To The Wallet</Continue>
+        <Continue onPress={continueHandler}>
+          {i18n.t("auth.congretulation.go-to-the-wallet")}
+        </Continue>
       </Footer>
     </ScrollView>
   );

@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 
 import SeedBackUpPreparing from "@/components/auth/SeedBackUpPreparing";
 import SeedLoading from "@/components/auth/SeedLoading";
-import { useAuth } from "@/providers/AuthProvider";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useAuth } from "@/providers/AuthProvider";
 import { useLanguage } from "@/providers/LanguageProvider";
 
 type States = "loading" | "preparing";

@@ -23,7 +23,8 @@
       },
       "congretulation": {
         "header": "Congratulations",
-        "description": "Your wallet successfully created."
+        "description": "Your wallet successfully created.",
+        "go-to-the-wallet": "Go To The Wallet"
       },
       "connect-wallet": {
         "header": "Enter the secret key",

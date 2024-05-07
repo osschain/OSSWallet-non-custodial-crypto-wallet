@@ -10,10 +10,11 @@ import styled from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useLanguage } from "@/providers/LanguageProvider";
 
 const SeedLoading = () => {
   const animation = useSharedValue(0);
-
+  const { i18n } = useLanguage();
   const animationStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -51,7 +52,7 @@ const SeedLoading = () => {
 
         <SpacerUi size="3.5xl">
           <LoaderText size="2xl" weight="extra">
-            Making a wallet...
+            {i18n.t("auth.seed-creating.making-wallet")}
           </LoaderText>
         </SpacerUi>
       </Loader>

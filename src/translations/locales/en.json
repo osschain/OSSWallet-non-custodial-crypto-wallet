@@ -9,7 +9,8 @@
       "seed-creating": {
         "header": "Take a pen and paper",
         "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key onthe devices.",
-        "no-seed-error": "Sorry we can't generate seed, go back and try again"
+        "no-seed-error": "Sorry we can't generate seed, go back and try again",
+        "making-wallet": "Making a Wallet..."
       },
       "seed-checking": {
         "header": "Let's check",
@@ -28,7 +29,8 @@
         "header": "Enter the secret key",
         "description": "To restore access, enter the 24 secret words you received whencreating a wallet",
         "scannned-error":"Scanned Seed is not valid try other",
-        "format-error":"Seed Phrase does not have correct format, make sure to put 12 word and remove extra spaces"
+        "format-error":"Seed Phrase does not have correct format, make sure to put 12 word and remove extra spaces",
+        "connect-wallet": "Connect Wallet"
       },
       "password-setup": {
         "header": "Create Password",

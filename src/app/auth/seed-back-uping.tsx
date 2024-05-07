@@ -8,16 +8,16 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { pixelToNumber } from "@/util/pixelToNumber";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 function SeedBackUping() {
-  const [seed, setSeed] = useState<string[] | null>(null);
+  const [words, setWords] = useState<string[] | null>(null);
   const { seed: mySeed } = useAuth();
   const { i18n } = useLanguage();
   useEffect(() => {
     if (mySeed) {
-      setSeed(mySeed.trim().split(/\s+/));
+      setWords(mySeed.trim().split(/\s+/));
     }
   }, [mySeed]);
 
@@ -42,9 +42,9 @@ function SeedBackUping() {
         <SpacerUi size="2xl" />
 
         <SeedWrapper>
-          {seed?.map((word, index) => {
+          {words?.map((word, index) => {
             return (
-              <Phrase size="lg" weight="medium" key={word}>
+              <Phrase size="lg" weight="medium" key={index}>
                 <BodyTextUi color="text-second" size="lg" weight="medium">
                   {index + 1}.
                 </BodyTextUi>

@@ -8,11 +8,13 @@
       },
       "seed-creating": {
         "header": "Take a pen and paper",
-        "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key onthe devices."
+        "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key onthe devices.",
+        "no-seed-error": "Sorry we can't generate seed, go back and try again"
       },
       "seed-checking": {
         "header": "Let's check",
-        "description": "To make sure you spelled the words correctly, enter words"
+        "description": "To make sure you spelled the words correctly, enter words",
+        "checking-error": "Words are not correct"
       }, 
       "seed-back-uping": {
         "header": "Crypto Wallet",
@@ -24,15 +26,26 @@
       },
       "connect-wallet": {
         "header": "Enter the secret key",
-        "description": "To restore access, enter the 24 secret words you received whencreating a wallet"
+        "description": "To restore access, enter the 24 secret words you received whencreating a wallet",
+        "scannned-error":"Scanned Seed is not valid try other",
+        "format-error":"Seed Phrase does not have correct format, make sure to put 12 word and remove extra spaces"
       },
       "password-setup": {
         "header": "Create Password",
-        "description": "We Will use your Password for secure your Seed Phrase, so createStrong Password"
+        "description": "We Will use your Password for secure your Seed Phrase, so createStrong Password",
+        "password-setup-header": "Create Password", 
+        "password-setup-description": "We Will use your Password for secure your Seed Phrase, so create Strong Password", 
+        "password-required": "Password is required",
+        "password-min-length": "Password must contain at least 8 characters",
+        "password-confirm-required": "Please confirm your password",
+        "password-match": "Passwords must match"
       }
     },
     "shared": {
       "continue": "Continue",
-      "and": "and"
+      "and": "and",
+      "error-label": "ops...",
+      "password": "Password",
+      "confirm-password": "Confirm Password"
     }
 }

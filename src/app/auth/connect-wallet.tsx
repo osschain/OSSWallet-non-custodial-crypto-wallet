@@ -36,7 +36,10 @@ function ConnetWallet() {
     if (isValidate) {
       setSeed(data);
     } else {
-      Alert.alert("ops...", "Scanned Seed is not valid try other");
+      Alert.alert(
+        i18n.t("shared.error-label"),
+        i18n.t("auth.connect-wallet.scanned-error")
+      );
     }
   };
 
@@ -48,8 +51,8 @@ function ConnetWallet() {
       router.push("/auth/password-setup");
     } else {
       Alert.alert(
-        "ops...",
-        "Seed Phrase does not have correct format, make sure to put 12 word and remove extra spaces"
+        i18n.t("shared.error-label"),
+        i18n.t("auth.connect-wallet.format-error")
       );
     }
   };

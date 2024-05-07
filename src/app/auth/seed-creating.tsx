@@ -5,24 +5,42 @@ import { useEffect, useState } from "react";
 import SeedBackUpPreparing from "@/components/auth/SeedBackUpPreparing";
 import SeedLoading from "@/components/auth/SeedLoading";
 import { useAuth } from "@/providers/AuthProvider";
+import MessageUi from "@/components/ui/MessageUi";
+import SpacerUi from "@/components/ui/SpacerUi";
+import { useLanguage } from "@/providers/LanguageProvider";
 
 type States = "loading" | "preparing";
 
 function SeedCreating() {
   const [state, setState] = useState<States>("loading");
   const { addSeed } = useAuth();
-
+  const { i18n } = useLanguage();
+  const [isError, setIserror] = useState(false);
   useEffect(() => {
     const generateSeed = async () => {
       setTimeout(() => {
         const wallet = Wallet.createRandom();
         const seed = wallet.mnemonic?.phrase;
+
+        if (!seed) {
+          setIserror(true);
+          return;
+        }
+
         setState("preparing");
         addSeed(seed as string);
       }, 0);
     };
     generateSeed();
   }, []);
+
+  if (isError) {
+    return (
+      <SpacerUi size="4xl">
+        <MessageUi>{i18n.t("auth.seed-creating.no-seed-error")}</MessageUi>
+      </SpacerUi>
+    );
+  }
 
   return (
     <>

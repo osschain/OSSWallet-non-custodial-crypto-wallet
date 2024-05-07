@@ -1,7 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ScrollView } from "react-native";
 import styled, { useTheme } from "styled-components/native";
@@ -20,17 +20,6 @@ type FormValues = {
   confirmPassword: string;
 };
 
-const passwordSchema = yup.object().shape({
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "Password must contain at least 8 characters"),
-  confirmPassword: yup
-    .string()
-    .required("Please confirm your password")
-    .oneOf([yup.ref("password")], "Passwords must match"),
-});
-
 function PasswordSetup() {
   const theme = useTheme();
   const { i18n } = useLanguage();
@@ -38,6 +27,23 @@ function PasswordSetup() {
   const [isConfirmShown, setIsConfirmShown] = useState(false);
 
   const { encryptAndSaveSeed } = useAuth();
+
+  const passwordSchema = useMemo(() => {
+    return yup.object().shape({
+      password: yup
+        .string()
+        .required(i18n.t("auth.password-setup.password-required"))
+        .min(8, i18n.t("auth.password-setup.password-min-length")),
+      confirmPassword: yup
+        .string()
+        .required(i18n.t("auth.password-setup.password-confirm-required"))
+        .oneOf(
+          [yup.ref("password")],
+          i18n.t("auth.password-setup.password-match")
+        ),
+    });
+  }, [i18n]);
+
   const {
     control,
     handleSubmit,
@@ -75,7 +81,7 @@ function PasswordSetup() {
             name="password"
             control={control}
             errors={errors}
-            placeholder="Password"
+            placeholder={i18n.t("shared.password")}
             right={
               <Feather
                 onPress={() => setIsPasswordShown((prev) => !prev)}
@@ -91,7 +97,7 @@ function PasswordSetup() {
             name="confirmPassword"
             control={control}
             errors={errors}
-            placeholder="Confirm Password"
+            placeholder={i18n.t("shared.confirm-password")}
             right={
               <Feather
                 onPress={() => setIsConfirmShown((prev) => !prev)}

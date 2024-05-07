@@ -51,7 +51,10 @@ function SeedChecking() {
       // todo remove it after create password setup
       router.push("/auth/password-setup");
     } else {
-      Alert.alert("Ops...", "Words are not correct");
+      Alert.alert(
+        i18n.t("shared.error-label"),
+        i18n.t("auth.seed-checking.checking-error")
+      );
     }
   };
 

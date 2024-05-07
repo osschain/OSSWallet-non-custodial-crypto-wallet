@@ -1,0 +1,29 @@
+{
+"auth": {
+      "main": {
+        "header": "Crypto Wallet1ს",
+        "description": "კარგი ვოლეტი",
+        "connect-wallet": "არსებულის დაკავშირება",
+        "create-new": "ახალის შექმნა"
+      },
+      "seed-creating": {
+
+      },
+      "seed-checking": {
+
+      }, 
+      "seed-back-uping": {
+
+      },
+      "congretulation": {
+
+      },
+      "connect-wallet": {
+        "header": "შეიყვანეთ საიდუმლო ფრაზა",
+        "description": "იმისათვის რომ მიიღოთ წვდომა შეიყვანეთ საიდუმლო ფრაზა 12 ან 24 ციფრიანი"
+      },
+      "password-setup": {
+
+      }
+    }
+}

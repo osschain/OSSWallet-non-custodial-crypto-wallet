@@ -1,0 +1,34 @@
+{
+    "auth": {
+      "main": {
+        "header": "Crypto Wallet",
+        "description": "TON wallet allows you to make fast and secure blockchain-based payments without intermediaries.",
+        "connect-wallet": "Connect Wallet",
+        "create-new": "Create-New"
+      },
+      "seed-creating": {
+        "header": "Take a pen and paper",
+        "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key onthe devices."
+      },
+      "seed-checking": {
+        "header": "Let's check",
+        "description": "To make sure you spelled the words correctly, enter words"
+      }, 
+      "seed-back-uping": {
+        "header": "Crypto Wallet",
+        "description": "Write these 12 words in exactly that order and hide them in a safeplace."
+      },
+      "congretulation": {
+        "header": "Congratulations",
+        "description": "Your wallet successfully created."
+      },
+      "connect-wallet": {
+        "header": "Enter the secret key",
+        "description": "To restore access, enter the 24 secret words you received whencreating a wallet"
+      },
+      "password-setup": {
+        "header": "Create Password",
+        "description": "We Will use your Password for secure your Seed Phrase, so createStrong Password"
+      }
+    }
+}

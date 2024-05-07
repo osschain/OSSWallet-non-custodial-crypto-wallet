@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
 import AuthProvider from "@/providers/AuthProvider";
+import LanguageProvider from "@/providers/LanguageProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
 import "react-native-get-random-values";
 import "@ethersproject/shims";
@@ -49,20 +50,28 @@ function RootLayoutNav() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StyledThemeProvider>
-        <AuthProvider>
-          <BottomSheetModalProvider>
-            <Stack>
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-              <Stack.Screen name="auth" options={{ headerShown: false }} />
-              <Stack.Screen name="(wallet)" options={{ headerShown: false }} />
-              <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-              <Stack.Screen
-                name="enter-password"
-                options={{ headerShown: false }}
-              />
-            </Stack>
-          </BottomSheetModalProvider>
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <BottomSheetModalProvider>
+              <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+                <Stack.Screen name="auth" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="(wallet)"
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="modal"
+                  options={{ presentation: "modal" }}
+                />
+                <Stack.Screen
+                  name="enter-password"
+                  options={{ headerShown: false }}
+                />
+              </Stack>
+            </BottomSheetModalProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </StyledThemeProvider>
     </GestureHandlerRootView>
   );

@@ -1,4 +1,5 @@
 import { Link } from "expo-router";
+import { useEffect } from "react";
 import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 
@@ -6,16 +7,19 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useLanguage } from "@/providers/LanguageProvider";
 import { defaultImage } from "@/util/DefaultImage";
 
 function Auth() {
+  const { i18n, setLocale } = useLanguage();
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Body>
         <Logo resizeMode="contain" source={{ uri: defaultImage }} />
         <SpacerUi size="3.5xl">
           <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
-            Crypto Wallet
+            {i18n.t("auth.main.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="4xl">

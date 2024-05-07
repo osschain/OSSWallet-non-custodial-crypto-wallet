@@ -19,37 +19,37 @@ export default function AuthLayout() {
   }
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: theme.colors["bg-primary"] }}
-    >
-      <Container>
-        <Stack
-          screenOptions={{
-            contentStyle: {
-              backgroundColor: theme.colors["bg-primary"],
-            },
-            header: () => {
-              return (
-                <HeaderContainer>
-                  <Pressable onPress={() => router.back()}>
-                    <Ionicons name="chevron-back" size={24} color="black" />
-                  </Pressable>
-                </HeaderContainer>
-              );
-            },
-          }}
-        >
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="seed-creating" />
-          <Stack.Screen name="seed-back-uping" />
-          <Stack.Screen name="seed-checking" />
-          <Stack.Screen name="password-setup" />
-          <Stack.Screen name="congretulation" />
+    <Container>
+      <Stack
+        screenOptions={{
+          contentStyle: {
+            backgroundColor: theme.colors["bg-primary"],
+          },
+          headerStyle: {},
+          headerShadowVisible: false,
+          title: "",
 
-          <Stack.Screen name="connect-wallet" />
-        </Stack>
-      </Container>
-    </SafeAreaView>
+          // header: () => {
+          //   return (
+          //     <HeaderContainer>
+          //       <Pressable onPress={() => router.back()}>
+          //         <Ionicons name="chevron-back" size={24} color="black" />
+          //       </Pressable>
+          //     </HeaderContainer>
+          //   );
+          // },
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="seed-creating" />
+        <Stack.Screen name="seed-back-uping" />
+        <Stack.Screen name="seed-checking" />
+        <Stack.Screen name="password-setup" />
+        <Stack.Screen name="congretulation" />
+
+        <Stack.Screen name="connect-wallet" />
+      </Stack>
+    </Container>
   );
 }
 
@@ -57,8 +57,4 @@ const Container = styled.View`
   flex: 1;
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
   background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const HeaderContainer = styled.View`
-  margin-top: ${($props) => $props.theme.spaces["3xl"]};
 `;

@@ -8,6 +8,7 @@ import HistoryItem from "@/components/history/history-item";
 import SegmentedControl from "@/components/segment";
 import SpacerUi from "@/components/ui/SpacerUi";
 import WalletCard from "@/components/wallet/wallet-card";
+import { router } from "expo-router";
 
 type Segment = "Assets" | "NFT";
 
@@ -20,7 +21,7 @@ export default function Home() {
     <ScrollView>
       <Animated.View entering={FadeInRight.duration(300)}>
         <Container>
-          <WalletCard />
+          <WalletCard onHistory={() => router.push("/(wallet)/home/history")} />
         </Container>
         <SpacerUi size="3xl">
           <SegmentedControl

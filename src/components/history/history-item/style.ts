@@ -9,7 +9,6 @@ export const Item = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: ${({ theme }) => theme.spaces["xl"]};
   border-radius: ${({ theme }) => theme.sizes["md"]};
 `;
 export const LeftContent = styled.View`

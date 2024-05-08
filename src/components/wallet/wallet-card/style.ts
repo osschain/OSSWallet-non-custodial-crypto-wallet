@@ -39,7 +39,7 @@ export const MoneyAmount = styled(HeaderTextUi)`
 export const Buttons = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  gap: ${({ theme }) => theme.spaces["4xl"]};
+  gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 // prettier-ignore
 export const Button = styled.TouchableOpacity`

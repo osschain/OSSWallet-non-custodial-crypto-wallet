@@ -1,4 +1,4 @@
-import { Entypo, Feather } from "@expo/vector-icons";
+import { Entypo, Feather, MaterialIcons } from "@expo/vector-icons";
 import { ComponentPropsWithoutRef } from "react";
 import { useTheme } from "styled-components/native";
 
@@ -7,9 +7,6 @@ import {
   BackgroundGradient,
   Header,
   UserName,
-  WalletAdressContainer,
-  WalletAdress,
-  CopyAddres,
   Buttons,
   Button,
   ButtonBacground,
@@ -29,6 +26,7 @@ type Props = {
   onRecieve: () => void;
   onSend: () => void;
   onOptions: () => void;
+  onHistory: () => void;
 } & ComponentPropsWithoutRef<typeof Card>;
 
 const WalletCard = ({
@@ -38,6 +36,7 @@ const WalletCard = ({
   onRecieve = () => {},
   onSend = () => {},
   onOptions = () => {},
+  onHistory = () => {},
   ...rest
 }: Props) => {
   const theme = useTheme();
@@ -52,20 +51,6 @@ const WalletCard = ({
         <UserName size="lg" color="pure-white">
           {userName}
         </UserName>
-        <SpacerUi size="lg">
-          <WalletAdressContainer>
-            <WalletAdress size="sm" color="pure-white">
-              {walletAddres}
-            </WalletAdress>
-            <CopyAddres>
-              <Feather
-                name="copy"
-                size={pixelToNumber(theme.sizes["lg"])}
-                color={theme.colors["pure-white"]}
-              />
-            </CopyAddres>
-          </WalletAdressContainer>
-        </SpacerUi>
         <SpacerUi size="xl">
           <MoneyAmount size="2xl">{moneyAmount}</MoneyAmount>
         </SpacerUi>
@@ -89,6 +74,17 @@ const WalletCard = ({
               <Feather
                 name="arrow-up-right"
                 size={pixelToNumber(theme.sizes["lg"])}
+                color={theme.colors["pure-white"]}
+              />
+            </ButtonIcon>
+            <ButtonBacground />
+          </Button>
+          <Button onPress={onHistory}>
+            <ButtonText color="pure-white">History</ButtonText>
+            <ButtonIcon>
+              <MaterialIcons
+                name="history"
+                size={pixelToNumber(theme.sizes["xl"])}
                 color={theme.colors["pure-white"]}
               />
             </ButtonIcon>

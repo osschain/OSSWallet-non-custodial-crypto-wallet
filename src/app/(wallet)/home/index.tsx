@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useState } from "react";
 import { ScrollView } from "react-native";
 import Animated, { FadeInRight } from "react-native-reanimated";
@@ -8,7 +9,6 @@ import HistoryItem from "@/components/history/history-item";
 import SegmentedControl from "@/components/segment";
 import SpacerUi from "@/components/ui/SpacerUi";
 import WalletCard from "@/components/wallet/wallet-card";
-import { router } from "expo-router";
 
 type Segment = "Assets" | "NFT";
 
@@ -21,7 +21,10 @@ export default function Home() {
     <ScrollView>
       <Animated.View entering={FadeInRight.duration(300)}>
         <Container>
-          <WalletCard onHistory={() => router.push("/(wallet)/home/history")} />
+          <WalletCard
+            onHistory={() => router.push("/(wallet)/home/history")}
+            onRecieve={() => router.push("/(wallet)/home/recieve")}
+          />
         </Container>
         <SpacerUi size="3xl">
           <SegmentedControl

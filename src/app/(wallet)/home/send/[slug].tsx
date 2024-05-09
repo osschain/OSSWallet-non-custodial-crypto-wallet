@@ -1,5 +1,7 @@
+import { AntDesign, Feather } from "@expo/vector-icons";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { Image } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -7,35 +9,38 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { defaultImage } from "@/util/DefaultImage";
 import { chains } from "@/util/mock";
+import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 
-export default function ChainDetails() {
+export default function SendChain() {
   const { slug } = useLocalSearchParams();
   const chain = chains.find((chain) => chain.id === Number(slug as string));
   return (
     <Container>
       <Stack.Screen options={{ title: chain?.title }} />
-      <SpacerUi size="4xl">
-        <MessageUi>
-          check adress before send, you can't refund after send {chain?.title}
-        </MessageUi>
-      </SpacerUi>
-      <SpacerUi size="4xl" />
-      <Details>
-        <ChainDescription>
-          <Image source={{ uri: defaultImage }} width={27} height={27} />
-          <HeaderTextUi weight="medium" size="xl">
-            {chain?.title}
-          </HeaderTextUi>
-        </ChainDescription>
-        <SpacerUi size="2xl">
-          <TextInputUi placeholder="write Adress here" />
-        </SpacerUi>
-        <SpacerUi size="xl">
-          <Button variant="secondary">Send</Button>
-        </SpacerUi>
-      </Details>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <Body>
+          <SpacerUi size="3xl">
+            <MessageUi>Check Adress Before Send, you cen't refund it</MessageUi>
+          </SpacerUi>
+
+          <SpacerUi size="2xl">
+            <HeaderTextUi>For Whom</HeaderTextUi>
+            <SpacerUi size="lg">
+              <TextInputUi placeholder="Enter Adress" />
+            </SpacerUi>
+          </SpacerUi>
+          <SpacerUi size="2xl">
+            <SpacerUi size="lg">
+              <AssetQuantityInputUi placeholder="Enter Adress" />
+            </SpacerUi>
+          </SpacerUi>
+        </Body>
+
+        <Footer>
+          <Button variant="primary">SEND</Button>
+        </Footer>
+      </ScrollView>
     </Container>
   );
 }
@@ -46,19 +51,23 @@ const Container = styled.View`
   background-color: ${({ theme }) => theme.colors["bg-primary"]};
 `;
 
-const Details = styled.View`
+const Body = styled.View`
   flex: 1;
-  /* justify-content: center; */
-  /* align-items: center; */
 `;
 
-const ChainDescription = styled.View`
-  flex-direction: row;
-  justify-content: center;
+const AdressContainer = styled.View``;
+
+const Adress = styled(MessageUi)`
+  padding: ${({ theme }) => theme.spaces["xl"]};
+  border: 1px;
+  border-radius: ${({ theme }) => theme.sizes["sm"]};
+  border-color: ${({ theme }) => theme.colors["border-color"]};
+`;
+
+const Footer = styled.View`
+  margin: ${({ theme }) => theme.spaces["2xl"]} 0;
+
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 
-const Button = styled(ButtonUi)`
-  padding-top: 13px;
-  padding-bottom: 13px;
-`;
+const Button = styled(ButtonUi)``;

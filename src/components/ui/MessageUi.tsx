@@ -5,9 +5,9 @@ import BodyTextUi from "./BodyTextUi";
 
 type Props = ComponentPropsWithoutRef<typeof Container>;
 
-export default function MessageUi({ children }: Props) {
+export default function MessageUi({ children, ...rest }: Props) {
   return (
-    <Container>
+    <Container {...rest}>
       <BodyTextUi style={{ textAlign: "center" }} color="text-second">
         {children}
       </BodyTextUi>

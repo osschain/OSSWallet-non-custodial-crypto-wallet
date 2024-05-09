@@ -30,7 +30,6 @@ const Input = styled.TextInput`
 const RightContent = styled.View`
   justify-content: center;
   margin-right: ${({ theme }) => theme.spaces["lg"]};
-  margin-bottom: ${({ theme }) => theme.spaces["lg"]};
 `;
 
 const RightAreaContent = styled.View`

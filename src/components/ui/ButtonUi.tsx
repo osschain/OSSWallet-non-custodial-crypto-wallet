@@ -1,5 +1,10 @@
 import { ComponentPropsWithoutRef, ReactNode, forwardRef } from "react";
-import { GestureResponderEvent, Text, TouchableOpacity } from "react-native";
+import {
+  GestureResponderEvent,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import styled, { DefaultTheme } from "styled-components/native";
 
 import { getFontStyle } from "@/util/themeUtils";
@@ -38,6 +43,10 @@ const getTextColor = (variant: Variant): TextColor => {
   return buttonStyles[variant].color;
 };
 
+const Icon = styled.View`
+  margin-left: ${({ theme }) => theme.spaces["xl"]};
+`;
+
 const Button = styled(TouchableOpacity)<{
   variant?: Variant;
   theme: DefaultTheme;
@@ -59,15 +68,25 @@ const ButtonText = styled(Text)<{ variant: Variant; theme: DefaultTheme }>`
 
 type Props = {
   variant?: Variant;
+  icon?: ReactNode;
   onPress?: (e: GestureResponderEvent) => void;
   children: ReactNode;
 } & ComponentPropsWithoutRef<typeof Button>;
 
 const ButtonUi = forwardRef<TouchableOpacity, Props>(
-  ({ variant = "primary", onPress, children, ...rest }, ref) => {
+  ({ variant = "primary", onPress, icon, children, ...rest }, ref) => {
     return (
       <Button ref={ref} variant={variant} onPress={onPress} {...rest}>
-        <ButtonText variant={variant}>{children}</ButtonText>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
+          <ButtonText variant={variant}>{children}</ButtonText>
+          {icon && <Icon>{icon}</Icon>}
+        </View>
       </Button>
     );
   }

@@ -34,7 +34,7 @@ export default function History() {
       </SpacerUi>
       {history.map((hstory) => {
         return (
-          <SpacerUi size="xl">
+          <SpacerUi size="xl" key={hstory.id}>
             <HistoryItem
               walletAddress={hstory.walletAddress}
               variant={hstory.send ? "send" : "recieved"}

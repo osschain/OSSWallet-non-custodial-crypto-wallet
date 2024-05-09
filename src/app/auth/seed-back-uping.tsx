@@ -22,53 +22,61 @@ function SeedBackUping() {
   }, [mySeed]);
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SpacerUi size="xl" />
-      <Body>
-        <Logo
-          resizeMode="contain"
-          source={require("@/assets/images/cpu.png")}
-        />
-        <SpacerUi size="3.5xl">
-          <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
-            {i18n.t("auth.seed-back-uping.header")}
-          </HeaderText>
-        </SpacerUi>
-        <SpacerUi size="xl">
-          <DescriptionText size="lg" color="text-second" weight="regular">
-            {i18n.t("auth.seed-back-uping.description")}
-          </DescriptionText>
-        </SpacerUi>
-        <SpacerUi size="2xl" />
+    <Container>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SpacerUi size="xl" />
+        <Body>
+          <Logo
+            resizeMode="contain"
+            source={require("@/assets/images/cpu.png")}
+          />
+          <SpacerUi size="3.5xl">
+            <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
+              {i18n.t("auth.seed-back-uping.header")}
+            </HeaderText>
+          </SpacerUi>
+          <SpacerUi size="xl">
+            <DescriptionText size="lg" color="text-second" weight="regular">
+              {i18n.t("auth.seed-back-uping.description")}
+            </DescriptionText>
+          </SpacerUi>
+          <SpacerUi size="2xl" />
 
-        <SeedWrapper>
-          {words.map((word, index) => {
-            return (
-              <Phrase size="lg" weight="medium" key={index}>
-                <BodyTextUi color="text-second" size="lg" weight="medium">
-                  {index + 1}.
-                </BodyTextUi>
-                {` ${word}`}
-              </Phrase>
-            );
-          })}
-        </SeedWrapper>
-      </Body>
+          <SeedWrapper>
+            {words.map((word, index) => {
+              return (
+                <Phrase size="lg" weight="medium" key={index}>
+                  <BodyTextUi color="text-second" size="lg" weight="medium">
+                    {index + 1}.
+                  </BodyTextUi>
+                  {` ${word}`}
+                </Phrase>
+              );
+            })}
+          </SeedWrapper>
+        </Body>
 
-      <Footer>
-        <Continue
-          onPress={() => {
-            router.push("/auth/seed-checking");
-          }}
-        >
-          {i18n.t("shared.continue")}
-        </Continue>
-      </Footer>
-    </ScrollView>
+        <Footer>
+          <Continue
+            onPress={() => {
+              router.push("/auth/seed-checking");
+            }}
+          >
+            {i18n.t("shared.continue")}
+          </Continue>
+        </Footer>
+      </ScrollView>
+    </Container>
   );
 }
 
 const windowWidth = Dimensions.get("window").width;
+
+const Container = styled.View`
+  flex: 1;
+  padding: 0 ${({ theme }) => theme.spaces["xl"]};
+  background-color: ${({ theme }) => theme.colors["bg-primary"]};
+`;
 
 const SeedWrapper = styled.View`
   flex-direction: row;

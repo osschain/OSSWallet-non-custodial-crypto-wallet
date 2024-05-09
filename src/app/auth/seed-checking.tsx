@@ -58,58 +58,66 @@ function SeedChecking() {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SpacerUi size="xl" />
-      <Body>
-        <Logo
-          resizeMode="contain"
-          source={require("@/assets/images/cpu.png")}
-        />
-        <SpacerUi size="3.5xl">
-          <HeaderText size="3xl" weight="extra">
-            {i18n.t("auth.seed-checking.header")}
-          </HeaderText>
-        </SpacerUi>
-        <SpacerUi size="xl">
-          <DescriptionText size="lg" color="text-second" weight="regular">
-            {i18n.t("auth.seed-checking.description")} {words[0].order},{" "}
-            {words[1].order} {i18n.t("shared.and")} {words[2].order}
-          </DescriptionText>
-        </SpacerUi>
+    <Container>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SpacerUi size="xl" />
+        <Body>
+          <Logo
+            resizeMode="contain"
+            source={require("@/assets/images/cpu.png")}
+          />
+          <SpacerUi size="3.5xl">
+            <HeaderText size="3xl" weight="extra">
+              {i18n.t("auth.seed-checking.header")}
+            </HeaderText>
+          </SpacerUi>
+          <SpacerUi size="xl">
+            <DescriptionText size="lg" color="text-second" weight="regular">
+              {i18n.t("auth.seed-checking.description")} {words[0].order},{" "}
+              {words[1].order} {i18n.t("shared.and")} {words[2].order}
+            </DescriptionText>
+          </SpacerUi>
 
-        <SpacerUi>
-          {words?.map(
-            (
-              { word, order }: { word: string; order: number },
-              index: number
-            ) => (
-              <SpacerUi size="xl" key={order}>
-                <TextInputUi
-                  left={
-                    <View>
-                      <BodyTextUi color="text-second" weight="medium">
-                        {order} .
-                      </BodyTextUi>
-                    </View>
-                  }
-                  onChangeText={(text) => checkWord(text, word, index)}
-                />
-              </SpacerUi>
-            )
-          )}
-        </SpacerUi>
-      </Body>
+          <SpacerUi>
+            {words?.map(
+              (
+                { word, order }: { word: string; order: number },
+                index: number
+              ) => (
+                <SpacerUi size="xl" key={order}>
+                  <TextInputUi
+                    left={
+                      <View>
+                        <BodyTextUi color="text-second" weight="medium">
+                          {order} .
+                        </BodyTextUi>
+                      </View>
+                    }
+                    onChangeText={(text) => checkWord(text, word, index)}
+                  />
+                </SpacerUi>
+              )
+            )}
+          </SpacerUi>
+        </Body>
 
-      <Footer>
-        <SpacerUi size="2xl">
-          <Continue onPress={onContinuePress}>
-            {i18n.t("shared.continue")}
-          </Continue>
-        </SpacerUi>
-      </Footer>
-    </ScrollView>
+        <Footer>
+          <SpacerUi size="2xl">
+            <Continue onPress={onContinuePress}>
+              {i18n.t("shared.continue")}
+            </Continue>
+          </SpacerUi>
+        </Footer>
+      </ScrollView>
+    </Container>
   );
 }
+
+const Container = styled.View`
+  flex: 1;
+  padding: 0 ${({ theme }) => theme.spaces["xl"]};
+  background-color: ${({ theme }) => theme.colors["bg-primary"]};
+`;
 
 const Body = styled.View`
   flex: 1;

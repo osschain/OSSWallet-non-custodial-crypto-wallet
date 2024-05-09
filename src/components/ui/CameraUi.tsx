@@ -1,4 +1,4 @@
-import { CameraView, useCameraPermissions } from "expo-camera/next";
+import { CameraView, useCameraPermissions } from "expo-camera";
 import { ComponentPropsWithRef } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";

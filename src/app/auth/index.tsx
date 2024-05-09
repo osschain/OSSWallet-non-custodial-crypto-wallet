@@ -13,33 +13,41 @@ function Auth() {
   const { i18n } = useLanguage();
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <Body>
-        <Logo resizeMode="contain" source={{ uri: defaultImage }} />
-        <SpacerUi size="3.5xl">
-          <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
-            {i18n.t("auth.main.header")}
-          </HeaderText>
-        </SpacerUi>
-        <SpacerUi size="4xl">
-          <DescriptionText size="lg" color="text-second" weight="regular">
-            {i18n.t("auth.main.description")}
-          </DescriptionText>
-        </SpacerUi>
-      </Body>
-      <Footer>
-        <Link href="/auth/connect-wallet" asChild>
-          <ConnectWallet variant="secondary">
-            {i18n.t("auth.main.connect-wallet")}
-          </ConnectWallet>
-        </Link>
-        <Link href="/auth/seed-creating" asChild>
-          <CreateNew>{i18n.t("auth.main.create-new")}</CreateNew>
-        </Link>
-      </Footer>
-    </ScrollView>
+    <Container>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <Body>
+          <Logo resizeMode="contain" source={{ uri: defaultImage }} />
+          <SpacerUi size="3.5xl">
+            <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
+              {i18n.t("auth.main.header")}
+            </HeaderText>
+          </SpacerUi>
+          <SpacerUi size="4xl">
+            <DescriptionText size="lg" color="text-second" weight="regular">
+              {i18n.t("auth.main.description")}
+            </DescriptionText>
+          </SpacerUi>
+        </Body>
+        <Footer>
+          <Link href="/auth/connect-wallet" asChild>
+            <ConnectWallet variant="secondary">
+              {i18n.t("auth.main.connect-wallet")}
+            </ConnectWallet>
+          </Link>
+          <Link href="/auth/seed-creating" asChild>
+            <CreateNew>{i18n.t("auth.main.create-new")}</CreateNew>
+          </Link>
+        </Footer>
+      </ScrollView>
+    </Container>
   );
 }
+
+const Container = styled.View`
+  flex: 1;
+  padding: 0 ${({ theme }) => theme.spaces["xl"]};
+  background-color: ${({ theme }) => theme.colors["bg-primary"]};
+`;
 
 const Body = styled.View`
   align-items: center;

@@ -10,13 +10,11 @@ export default function _layout() {
   return (
     <Stack
       screenOptions={{
-        header: ({ navigation, route, options, back }) => {
-          const title = getHeaderTitle(options, route.name);
-          return <SecondHeader title={title} />;
-        },
         contentStyle: {
           backgroundColor: theme.colors["bg-primary"],
         },
+        headerShadowVisible: false,
+        headerTitleAlign: "center",
       }}
     >
       <Stack.Screen
@@ -33,6 +31,12 @@ export default function _layout() {
         }}
       />
       <Stack.Screen name="recieve" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="history"
+        options={{
+          title: "History",
+        }}
+      />
     </Stack>
   );
 }

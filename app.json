@@ -37,7 +37,8 @@
         {
           "faceIDPermission": "Allow $(osswallet) to use Face ID."
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

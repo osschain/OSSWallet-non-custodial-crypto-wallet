@@ -9,10 +9,8 @@ export default function _layout() {
   return (
     <Stack
       screenOptions={{
-        header: ({ navigation, route, options, back }) => {
-          const title = getHeaderTitle(options, route.name);
-          return <SecondHeader title={title} />;
-        },
+        headerShadowVisible: false,
+        headerTitleAlign: "center",
         contentStyle: {
           backgroundColor: theme.colors["bg-primary"],
         },

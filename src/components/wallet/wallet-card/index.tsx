@@ -20,13 +20,13 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 type Props = {
-  userName: string;
-  walletAddres: string;
-  moneyAmount: string;
-  onRecieve: () => void;
-  onSend: () => void;
-  onOptions: () => void;
-  onHistory: () => void;
+  userName?: string;
+  walletAddres?: string;
+  moneyAmount?: string;
+  onRecieve?: () => void;
+  onSend?: () => void;
+  onOptions?: () => void;
+  onHistory?: () => void;
 } & ComponentPropsWithoutRef<typeof Card>;
 
 const WalletCard = ({

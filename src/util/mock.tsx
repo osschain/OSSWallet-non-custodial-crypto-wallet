@@ -30,3 +30,22 @@ export const chains = [
     decription: "bitcoin",
   },
 ];
+
+export const history = [
+  {
+    id: 1,
+    send: 150,
+    recieved: 0,
+    title: "oss",
+    decription: "osschain",
+    walletAddress: "0x12230x23kj123",
+  },
+  {
+    id: 2,
+    send: 0,
+    recieved: 15,
+    title: "btc",
+    decription: "bitcoin",
+    walletAddress: "0x12230x23kj123",
+  },
+];

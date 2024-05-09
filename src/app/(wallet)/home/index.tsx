@@ -24,6 +24,7 @@ export default function Home() {
           <WalletCard
             onHistory={() => router.push("/(wallet)/home/history")}
             onRecieve={() => router.push("/(wallet)/home/recieve")}
+            onSend={() => router.push("/(wallet)/home/send")}
           />
         </Container>
         <SpacerUi size="3xl">

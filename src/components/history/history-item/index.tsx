@@ -19,17 +19,15 @@ import { pixelToNumber } from "@/util/pixelToNumber";
 export type variants = "recieved" | "send" | "error";
 
 type Props = {
-  variant: variants;
-  uri: string;
-  walletAddress: string;
-  amount: string;
+  variant?: variants;
+  walletAddress?: string;
+  amount?: number;
 } & ComponentPropsWithoutRef<typeof Item>;
 
 const HistoryItem = ({
   variant = "send",
-  uri = defaultImage,
   walletAddress = "Can't Find Wallet Adress",
-  amount = "2.5",
+  amount = 2.5,
   ...rest
 }: Props) => {
   const theme = useTheme();

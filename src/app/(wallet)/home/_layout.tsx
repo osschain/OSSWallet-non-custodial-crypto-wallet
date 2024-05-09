@@ -31,6 +31,8 @@ export default function _layout() {
         }}
       />
       <Stack.Screen name="recieve" options={{ headerShown: false }} />
+      <Stack.Screen name="send" options={{ headerShown: false }} />
+
       <Stack.Screen
         name="history"
         options={{

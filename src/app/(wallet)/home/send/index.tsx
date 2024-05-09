@@ -7,13 +7,14 @@ import styled from "styled-components/native";
 
 import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
-import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
+import BodyTextUi from "@/components/ui/BodyTextUi";
 import ItemUi from "@/components/ui/ItemUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { chains, networks } from "@/util/mock";
+import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 
-export default function Recieve() {
+export default function Send() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = () => {
@@ -58,12 +59,13 @@ export default function Recieve() {
       <ChainList>
         {filteredChains.map((chain) => (
           <SpacerUi size="3xl" key={chain.id}>
-            <Link href={`/(wallet)/home/recieve/${chain.id}`}>
+            <Link href={`/(wallet)/home/send/${chain.id}`} asChild>
               <TouchableOpacity>
                 <ItemUi
                   title={chain.title}
                   uri={chain.image}
                   description={chain.decription}
+                  right={<BodyTextUi weight="bold">15</BodyTextUi>}
                 />
               </TouchableOpacity>
             </Link>

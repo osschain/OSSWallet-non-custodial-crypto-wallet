@@ -5,8 +5,9 @@ import styled from "styled-components/native";
 import HistoryItem from "@/components/history/history-item";
 import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
+import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { networks } from "@/util/mock";
+import { history, networks } from "@/util/mock";
 
 export default function History() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -14,6 +15,10 @@ export default function History() {
   const handlePresentModalPress = () => {
     bottomSheetRef.current?.present();
   };
+
+  if (!history) {
+    return <AlertWithImageUi title="No history yet" />;
+  }
 
   return (
     <Container>
@@ -27,15 +32,17 @@ export default function History() {
           All Network
         </NetworkButton>
       </SpacerUi>
-      <SpacerUi size="xl">
-        <HistoryItem />
-      </SpacerUi>
-      <SpacerUi size="xl">
-        <HistoryItem />
-      </SpacerUi>
-      <SpacerUi size="xl">
-        <HistoryItem />
-      </SpacerUi>
+      {history.map((hstory) => {
+        return (
+          <SpacerUi size="xl">
+            <HistoryItem
+              walletAddress={hstory.walletAddress}
+              variant={hstory.send ? "send" : "recieved"}
+              amount={hstory.send ? hstory.send : hstory.recieved}
+            />
+          </SpacerUi>
+        );
+      })}
     </Container>
   );
 }

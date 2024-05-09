@@ -8,10 +8,10 @@ import HeaderTextUi from "../ui/HeaderTextUi";
 import { defaultImage } from "@/util/DefaultImage";
 
 type Props = {
-  assetName: string;
-  uri: string;
-  assetAmount: string;
-  usdAmount: string;
+  assetName?: string;
+  uri?: string;
+  assetAmount?: string;
+  usdAmount?: string;
 } & ComponentPropsWithoutRef<typeof Item>;
 
 const AssetItem = ({

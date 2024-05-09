@@ -1,12 +1,13 @@
 import { AntDesign } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 
 import HeaderTextUi from "../ui/HeaderTextUi";
 import SpacerUi from "../ui/SpacerUi";
 import { TextInputUi } from "../ui/TextInputUi";
+import ItemUi from "../ui/ItemUi";
 
 export type Ref = BottomSheetModal;
 
@@ -55,17 +56,15 @@ const NetworkOptions = forwardRef<Ref, Props>(
                     onSelect(network.label);
                   }}
                 >
-                  <Network>
-                    <Details>
-                      <Image source={{ uri: network.image }} />
-                      <Label>{network.label}</Label>
-                    </Details>
-                    {selected === network.label && (
-                      <Selected>
+                  <ItemUi
+                    title={network.label}
+                    uri={network.image}
+                    right={
+                      selected === network.label && (
                         <AntDesign name="check" size={24} color="black" />
-                      </Selected>
-                    )}
-                  </Network>
+                      )
+                    }
+                  />
                 </TouchableOpacity>
               </SpacerUi>
             );
@@ -80,23 +79,6 @@ const Container = styled.View`
   flex: 1;
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
   background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const Selected = styled.View``;
-
-const Network = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-const Details = styled.View`
-  flex-direction: row;
-  gap: 20px;
-  align-items: center;
-`;
-const Image = styled.Image`
-  width: 48px;
-  height: 48px;
 `;
 
 const Label = styled(HeaderTextUi)``;

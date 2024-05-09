@@ -8,7 +8,17 @@ import SecondHeader from "@/components/layout/SecondHeader";
 export default function _layout() {
   const theme = useTheme();
   return (
-    <Stack screenOptions={{}}>
+    <Stack
+      screenOptions={{
+        header: ({ navigation, route, options, back }) => {
+          const title = getHeaderTitle(options, route.name);
+          return <SecondHeader title={title} />;
+        },
+        contentStyle: {
+          backgroundColor: theme.colors["bg-primary"],
+        },
+      }}
+    >
       <Stack.Screen
         name="index"
         options={{
@@ -22,19 +32,7 @@ export default function _layout() {
           title: "ossWallet",
         }}
       />
-      <Stack.Screen
-        name="history"
-        options={{
-          header: ({ navigation, route, options, back }) => {
-            const title = getHeaderTitle(options, route.name);
-            return <SecondHeader title={title} />;
-          },
-          contentStyle: {
-            backgroundColor: theme.colors["bg-primary"],
-          },
-          title: "History",
-        }}
-      />
+      <Stack.Screen name="recieve" options={{ headerShown: false }} />
     </Stack>
   );
 }

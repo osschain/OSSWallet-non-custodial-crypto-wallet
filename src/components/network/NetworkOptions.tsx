@@ -1,13 +1,13 @@
 import { AntDesign } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
 import HeaderTextUi from "../ui/HeaderTextUi";
+import ItemUi from "../ui/ItemUi";
 import SpacerUi from "../ui/SpacerUi";
 import { TextInputUi } from "../ui/TextInputUi";
-import ItemUi from "../ui/ItemUi";
 
 export type Ref = BottomSheetModal;
 

@@ -4,13 +4,13 @@ import { Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
+import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { chains } from "@/util/mock";
-import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 
 export default function SendChain() {
   const { slug } = useLocalSearchParams();

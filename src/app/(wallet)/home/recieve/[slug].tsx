@@ -8,18 +8,18 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { chains } from "@/util/mock";
+import { assets } from "@/util/mock";
 export default function ChainDetails() {
   const { slug } = useLocalSearchParams();
-  const chain = chains.find((chain) => chain.id === Number(slug as string));
+  const asset = assets.find((asset) => asset.id === Number(slug as string));
   return (
     <Container>
-      <Stack.Screen options={{ title: chain?.title }} />
+      <Stack.Screen options={{ title: asset?.title }} />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Body>
           <SpacerUi size="3xl">
             <MessageUi>
-              Only for {chain?.title} network tokens. Do not send ETC here!
+              Only for {asset?.title} network tokens. Do not send ETC here!
             </MessageUi>
           </SpacerUi>
           <SpacerUi size="2xl">

@@ -1,5 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
+import { FlatList } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import HistoryItem from "@/components/history/history-item";
@@ -32,17 +33,20 @@ export default function History() {
           All Network
         </NetworkButton>
       </SpacerUi>
-      {history.map((hstory) => {
-        return (
-          <SpacerUi size="xl" key={hstory.id}>
-            <HistoryItem
-              walletAddress={hstory.walletAddress}
-              variant={hstory.send ? "send" : "recieved"}
-              amount={hstory.send ? hstory.send : hstory.recieved}
-            />
-          </SpacerUi>
-        );
-      })}
+      <SpacerUi size="xl" style={{ flex: 1 }}>
+        <FlatList
+          data={history}
+          renderItem={({ item }) => (
+            <SpacerUi size="xl" position="bottom" key={item.id}>
+              <HistoryItem
+                walletAddress={item.walletAddress}
+                variant={item.send ? "send" : "recieved"}
+                amount={item.send ? item.send : item.recieved}
+              />
+            </SpacerUi>
+          )}
+        />
+      </SpacerUi>
     </Container>
   );
 }

@@ -3,7 +3,6 @@ import { Stack } from "expo-router";
 import { useTheme } from "styled-components/native";
 
 import DefaultHeader from "@/components/layout/DefaultHeader";
-import SecondHeader from "@/components/layout/SecondHeader";
 
 export default function _layout() {
   const theme = useTheme();
@@ -32,6 +31,7 @@ export default function _layout() {
       />
       <Stack.Screen name="recieve" options={{ headerShown: false }} />
       <Stack.Screen name="send" options={{ headerShown: false }} />
+      <Stack.Screen name="asset" options={{ headerShown: false }} />
 
       <Stack.Screen
         name="history"

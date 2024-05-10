@@ -118,8 +118,6 @@ const Footer = styled.View`
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 
-const SeedList = styled.FlatList``;
-
 const Continue = styled(ButtonUi)``;
 
 export default SeedBackUping;

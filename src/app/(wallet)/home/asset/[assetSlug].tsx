@@ -14,7 +14,6 @@ export default function Asset() {
   const { assetSlug: slug } = useLocalSearchParams();
   const theme = useTheme();
   const asset = assets.find((asset) => asset.id === Number(slug as string));
-  console.log(slug);
   return (
     <Container>
       <Stack.Screen options={{ title: asset?.title }} />
@@ -55,7 +54,7 @@ export default function Asset() {
             <BodyTextUi weight="bold">Recieve</BodyTextUi>
           </ActionButton>
           <ActionButton>
-            <Link href="" asChild>
+            <Link href={`/(wallet)/home/swap/${slug}`} asChild>
               <Button>
                 <AntDesign
                   name="swap"

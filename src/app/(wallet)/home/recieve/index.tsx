@@ -11,7 +11,7 @@ import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import ItemUi from "@/components/ui/ItemUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { chains, networks } from "@/util/mock";
+import { assets, networks } from "@/util/mock";
 
 export default function Recieve() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -23,16 +23,16 @@ export default function Recieve() {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filtering Logic
-  const filteredChains = useMemo(() => {
+  const filteredAssets = useMemo(() => {
     if (!searchQuery) {
-      return chains; // No search term, show all
+      return assets; // No search term, show all
     }
-    return chains.filter((chain) =>
-      chain.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return assets.filter((asset) =>
+      asset.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [searchQuery]);
 
-  if (!chains) {
+  if (!assets) {
     return <AlertWithImageUI title="No Chains To Display" />;
   }
 
@@ -56,14 +56,14 @@ export default function Recieve() {
         </NetworkButton>
       </SpacerUi>
       <ChainList>
-        {filteredChains.map((chain) => (
-          <SpacerUi size="3xl" key={chain.id}>
-            <Link href={`/(wallet)/home/recieve/${chain.id}`}>
+        {filteredAssets.map((asset) => (
+          <SpacerUi size="3xl" key={asset.id}>
+            <Link href={`/(wallet)/home/recieve/${asset.id}`}>
               <TouchableOpacity>
                 <ItemUi
-                  title={chain.title}
-                  uri={chain.image}
-                  description={chain.decription}
+                  title={asset.title}
+                  uri={asset.image}
+                  description={asset.description}
                 />
               </TouchableOpacity>
             </Link>

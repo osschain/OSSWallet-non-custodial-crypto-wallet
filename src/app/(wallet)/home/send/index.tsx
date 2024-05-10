@@ -7,12 +7,12 @@ import styled from "styled-components/native";
 
 import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
+import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ItemUi from "@/components/ui/ItemUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { chains, networks } from "@/util/mock";
-import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
+import { assets, networks } from "@/util/mock";
 
 export default function Send() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -24,16 +24,16 @@ export default function Send() {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filtering Logic
-  const filteredChains = useMemo(() => {
+  const filteredAssets = useMemo(() => {
     if (!searchQuery) {
-      return chains; // No search term, show all
+      return assets; // No search term, show all
     }
-    return chains.filter((chain) =>
-      chain.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return assets.filter((asset) =>
+      asset.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [searchQuery]);
 
-  if (!chains) {
+  if (!assets) {
     return <AlertWithImageUI title="No Chains To Display" />;
   }
 
@@ -57,14 +57,14 @@ export default function Send() {
         </NetworkButton>
       </SpacerUi>
       <ChainList>
-        {filteredChains.map((chain) => (
+        {filteredAssets.map((chain) => (
           <SpacerUi size="3xl" key={chain.id}>
             <Link href={`/(wallet)/home/send/${chain.id}`} asChild>
               <TouchableOpacity>
                 <ItemUi
                   title={chain.title}
                   uri={chain.image}
-                  description={chain.decription}
+                  description={chain.description}
                   right={<BodyTextUi weight="bold">15</BodyTextUi>}
                 />
               </TouchableOpacity>

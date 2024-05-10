@@ -1,6 +1,4 @@
-import { AntDesign, Feather } from "@expo/vector-icons";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
@@ -10,14 +8,14 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { chains } from "@/util/mock";
+import { assets } from "@/util/mock";
 
 export default function SendChain() {
   const { slug } = useLocalSearchParams();
-  const chain = chains.find((chain) => chain.id === Number(slug as string));
+  const asset = assets.find((asset) => asset.id === Number(slug as string));
   return (
     <Container>
-      <Stack.Screen options={{ title: chain?.title }} />
+      <Stack.Screen options={{ title: asset?.title }} />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Body>
           <SpacerUi size="3xl">

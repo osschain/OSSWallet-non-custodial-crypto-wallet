@@ -1,21 +1,25 @@
 import { ComponentPropsWithoutRef } from "react";
 import { View, Text, Image } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
-import { TextInputUi } from "./TextInputUi";
 import BodyTextUi from "./BodyTextUi";
+import { TextInputUi } from "./TextInputUi";
+
 import { defaultImage } from "@/util/DefaultImage";
 
 type Props = {
-  uri: string;
-  title: string;
-  usdQuantity: number;
+  uri?: string;
+  title?: string;
+  usdQuantity?: number;
+  onAssetPress?: () => void;
 } & ComponentPropsWithoutRef<typeof TextInputUi>;
 
 export default function AssetQuantityInputUi({
   uri = defaultImage,
   title = "OSS",
   usdQuantity = 300,
+  onAssetPress = () => {},
 }: Props) {
   return (
     <View>
@@ -27,10 +31,12 @@ export default function AssetQuantityInputUi({
                 ~ {usdQuantity} USD
               </BodyTextUi>
             </UsdQuantityContainer>
-            <AssetContainer>
-              <Image source={{ uri }} width={24} height={24} />
-              <BodyTextUi weight="medium">{title}</BodyTextUi>
-            </AssetContainer>
+            <TouchableOpacity onPress={onAssetPress}>
+              <AssetContainer>
+                <Image source={{ uri }} width={24} height={24} />
+                <BodyTextUi weight="medium">{title}</BodyTextUi>
+              </AssetContainer>
+            </TouchableOpacity>
           </RightContainer>
         }
       />

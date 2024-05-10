@@ -76,13 +76,22 @@ export const history = [
   },
 ];
 
+export type Asset = {
+  id: number;
+  image: string;
+  title: string;
+  description: string;
+  quantity: number;
+  usdQuantity: number;
+};
+
 export const assets = [
   {
     id: 1,
     image: defaultImage,
     title: "oss",
     description: "oss token",
-    quantity: "54",
+    quantity: 54,
     usdQuantity: 1520,
   },
   {
@@ -90,23 +99,23 @@ export const assets = [
     image: defaultImage,
     title: "btc",
     description: "btc token",
-    quantity: "12",
+    quantity: 12,
     usdQuantity: 15,
   },
   {
     id: 3,
     image: defaultImage,
-    title: "btc",
+    title: "eth",
     description: "btc token",
 
-    quantity: "12",
+    quantity: 13,
     usdQuantity: 15,
   },
   {
     id: 4,
     image: defaultImage,
-    title: "btc",
-    quantity: "12",
+    title: "ltc",
+    quantity: 14,
     description: "btc token",
 
     usdQuantity: 15,
@@ -114,19 +123,18 @@ export const assets = [
   {
     id: 5,
     image: defaultImage,
-    title: "btc",
+    title: "usd",
     description: "btc token",
 
-    quantity: "12",
+    quantity: 16,
     usdQuantity: 15,
   },
   {
     id: 6,
     image: defaultImage,
-    title: "btc",
-    quantity: "12",
+    title: "eth2",
+    quantity: 4,
     description: "btc token",
-
     usdQuantity: 15,
   },
 ];

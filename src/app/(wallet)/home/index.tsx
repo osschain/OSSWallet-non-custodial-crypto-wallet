@@ -6,11 +6,11 @@ import Animated, { FadeInRight } from "react-native-reanimated";
 import styled from "styled-components/native";
 
 import AssetItem from "@/components/asset/AssetItem";
-import HistoryItem from "@/components/history/history-item";
+import NftItem from "@/components/nft/NftItem";
 import SegmentedControl from "@/components/segment";
 import SpacerUi from "@/components/ui/SpacerUi";
 import WalletCard from "@/components/wallet/wallet-card";
-import { assets } from "@/util/mock";
+import { assets, nfts } from "@/util/mock";
 
 type Segment = "Assets" | "NFT";
 
@@ -53,7 +53,26 @@ export default function Home() {
               )}
             />
           )}
-          {segment === "NFT" && <HistoryItem />}
+          {segment === "NFT" && (
+            <FlatList
+              data={nfts}
+              key={2}
+              numColumns={2}
+              columnWrapperStyle={{ gap: 10 }}
+              renderItem={({ item }) => (
+                <SpacerUi size="xl" position="bottom">
+                  <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
+                    <TouchableOpacity>
+                      <NftItem
+                        title={item.title}
+                        collection={item.collection}
+                      />
+                    </TouchableOpacity>
+                  </Link>
+                </SpacerUi>
+              )}
+            />
+          )}
         </AssetContainer>
       </SpacerUi>
     </Animated.View>

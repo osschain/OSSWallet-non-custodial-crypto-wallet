@@ -138,3 +138,21 @@ export const assets = [
     usdQuantity: 15,
   },
 ];
+
+export const nfts = [
+  {
+    id: 1,
+    title: "The Groovy",
+    collection: "Floor 189 - NFT Collection",
+  },
+  {
+    id: 2,
+    title: "The Groovy",
+    collection: "Tegro Metaverse",
+  },
+  {
+    id: 3,
+    title: "The Groovy",
+    collection: "Floor 6 - NFT Collection",
+  },
+];

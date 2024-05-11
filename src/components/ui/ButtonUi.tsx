@@ -49,7 +49,7 @@ const Icon = styled.View`
 
 const Button = styled(TouchableOpacity)<{
   variant?: Variant;
-  theme: DefaultTheme;
+  theme?: DefaultTheme;
 }>`
   ${({ variant = "primary", theme }) => `
       padding: ${theme.sizes.xl} 0px;

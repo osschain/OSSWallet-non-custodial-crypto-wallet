@@ -33,6 +33,7 @@ export default function _layout() {
       <Stack.Screen name="send" options={{ headerShown: false }} />
       <Stack.Screen name="asset" options={{ headerShown: false }} />
       <Stack.Screen name="swap" options={{ headerShown: false }} />
+      <Stack.Screen name="nft" options={{ headerShown: false }} />
 
       <Stack.Screen
         name="history"

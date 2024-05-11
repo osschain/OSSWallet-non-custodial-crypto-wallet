@@ -61,7 +61,7 @@ export default function Home() {
               columnWrapperStyle={{ gap: 10 }}
               renderItem={({ item }) => (
                 <SpacerUi size="xl" position="bottom">
-                  <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
+                  <Link href={`/(wallet)/home/nft/${item.id}`} asChild>
                     <TouchableOpacity>
                       <NftItem
                         title={item.title}

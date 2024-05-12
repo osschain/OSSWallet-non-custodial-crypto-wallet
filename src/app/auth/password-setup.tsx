@@ -1,144 +1,40 @@
-import { Feather } from "@expo/vector-icons";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from "expo-router";
-import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import styled, { useTheme } from "styled-components/native";
-import * as yup from "yup";
+import { useEffect, useState } from "react";
 
-import BodyTextUi from "@/components/ui/BodyTextUi";
-import ButtonUi from "@/components/ui/ButtonUi";
-import ControllTextInputUi from "@/components/ui/ControllTexInputUi";
-import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
-import SpacerUi from "@/components/ui/SpacerUi";
+import EnterPassCode from "@/components/auth/EnterPassCode";
 import { useAuth } from "@/providers/AuthProvider";
 
-type FormValues = {
-  password: string;
-  confirmPassword: string;
-};
-
 function PasswordSetup() {
-  const theme = useTheme();
-  const { t } = useTranslation();
-  const [isPasswordShown, setIsPasswordShown] = useState(false);
-  const [isConfirmShown, setIsConfirmShown] = useState(false);
-
   const { encryptAndSaveSeed } = useAuth();
+  const [password, setPassword] = useState<string | null>(null);
+  const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
 
-  const passwordSchema = useMemo(() => {
-    return yup.object().shape({
-      password: yup
-        .string()
-        .required(t("auth.password-setup.password-required"))
-        .min(8, t("auth.password-setup.password-min-length")),
-      confirmPassword: yup
-        .string()
-        .required(t("auth.password-setup.password-confirm-required"))
-        .oneOf([yup.ref("password")], t("auth.password-setup.password-match")),
-    });
-  }, [t]);
+  useEffect(() => {
+    if (password && password === confirmPassword) {
+      continueHandler(password);
+    }
+  }, [confirmPassword, password]);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({
-    resolver: yupResolver(passwordSchema),
-  });
-
-  const continueHandler = ({ password }: FormValues) => {
+  const continueHandler = (password: string) => {
     encryptAndSaveSeed(password);
     router.push("auth/congretulation");
   };
-  return (
-    <ScrollContainerUi>
-      <Body>
-        <SpacerUi size="xl">
-          <Logo
-            resizeMode="contain"
-            source={require("@/assets/images/unlock.png")}
-          />
-          <SpacerUi size="3.5xl">
-            <HeaderText size="3xl" weight="extra">
-              {t("auth.password-setup.header")}
-            </HeaderText>
-          </SpacerUi>
-          <SpacerUi size="xl">
-            <DescriptionText size="lg" color="text-second" weight="regular">
-              {t("auth.password-setup.description")}
-            </DescriptionText>
-          </SpacerUi>
-        </SpacerUi>
-        <SpacerUi size="4xl">
-          <ControllTextInputUi
-            secureTextEntry={!isPasswordShown}
-            name="password"
-            control={control}
-            errors={errors}
-            placeholder={t("shared.password")}
-            right={
-              <Feather
-                onPress={() => setIsPasswordShown((prev) => !prev)}
-                name={!isPasswordShown ? "eye-off" : "eye"}
-                size={24}
-                color={theme.colors["text-primary"]}
-              />
-            }
-          />
-          <SpacerUi size="2xl" />
-          <ControllTextInputUi
-            secureTextEntry={!isConfirmShown}
-            name="confirmPassword"
-            control={control}
-            errors={errors}
-            placeholder={t("shared.confirm-password")}
-            right={
-              <Feather
-                onPress={() => setIsConfirmShown((prev) => !prev)}
-                name={!isConfirmShown ? "eye-off" : "eye"}
-                size={24}
-                color={theme.colors["text-primary"]}
-              />
-            }
-          />
-        </SpacerUi>
-      </Body>
 
-      <FooterUi>
-        <SpacerUi size="2xl">
-          <Continue onPress={handleSubmit(continueHandler)}>
-            {t("shared.continue")}
-          </Continue>
-        </SpacerUi>
-      </FooterUi>
-    </ScrollContainerUi>
+  return (
+    <>
+      {!password ? (
+        <EnterPassCode
+          header="Enter Passcode"
+          onPasswordFull={(password) => setPassword(password)}
+        />
+      ) : (
+        <EnterPassCode
+          header="Confirm Passcode"
+          onPasswordFull={(password) => setConfirmPassword(password)}
+        />
+      )}
+    </>
   );
 }
-
-const Body = styled(BodyUi)`
-  justify-content: center;
-`;
-
-const Logo = styled.Image`
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
-`;
-
-const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
-  text-align: center;
-`;
-
-const DescriptionText = styled(BodyTextUi)`
-  text-align: center;
-`;
-
-const Continue = styled(ButtonUi)`
-  /* margin-top: 100px; */
-`;
 
 export default PasswordSetup;

@@ -4,6 +4,7 @@ import { Redirect, router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Alert, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { useTheme } from "styled-components/native";
@@ -14,7 +15,6 @@ import ControllTextInputUi from "@/components/ui/ControllTexInputUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { useTranslation } from "react-i18next";
 
 type FormValues = {
   password: string;

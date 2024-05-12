@@ -25,7 +25,7 @@ type Props = {
 
 const HistoryItem = ({
   variant = "send",
-  walletAddress = "Can't Find Wallet Adress",
+  walletAddress = "No Adress",
   amount = 2.5,
   ...rest
 }: Props) => {

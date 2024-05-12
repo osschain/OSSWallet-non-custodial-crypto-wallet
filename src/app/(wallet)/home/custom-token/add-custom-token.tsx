@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -12,6 +13,7 @@ import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 
 export default function AddCustomToken() {
   const [adress, setAdress] = useState("");
+  const { t } = useTranslation();
   const snapPoints = useMemo(() => ["95%", "95%"], []);
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -37,31 +39,31 @@ export default function AddCustomToken() {
         <ContainerUi>
           <BodyUi>
             <SpacerUi size="xl">
-              <HeaderTextUi>Trade at your own risk!</HeaderTextUi>
+              <HeaderTextUi>
+                {t("wallet.home.custom-token.add-custom-token.warning-first")}
+              </HeaderTextUi>
             </SpacerUi>
             <SpacerUi size="xl">
               <BodyTextUi color="text-second">
-                Anyone can create a token, including creating fake versions of
-                existing tokens that claim to represent projects.
+                {t("wallet.home.custom-token.add-custom-token.warning-second")}
               </BodyTextUi>
             </SpacerUi>
             <SpacerUi size="xl">
               <BodyTextUi>
-                If you purchase this token, you may not be able to sell it back.
+                {t("wallet.home.custom-token.add-custom-token.warning-third")}
               </BodyTextUi>
             </SpacerUi>
 
             <SpacerUi size="xl">
               <BodyTextUi color="text-second">
-                Buy adding this as a custom token, you confirm that all further
-                interactions with it are at your own risk.
+                {t("wallet.home.custom-token.add-custom-token.warning-forth")}
               </BodyTextUi>
             </SpacerUi>
           </BodyUi>
           <FooterUi>
-            <ButtonUi>Import</ButtonUi>
+            <ButtonUi>{t("shared.import")}</ButtonUi>
             <SpacerUi size="xl">
-              <ButtonUi variant="secondary">Cancel</ButtonUi>
+              <ButtonUi variant="secondary">{t("shared.cancel")}</ButtonUi>
             </SpacerUi>
           </FooterUi>
         </ContainerUi>
@@ -86,7 +88,9 @@ export default function AddCustomToken() {
         </SpacerUi>
       </BodyUi>
       <FooterUi marginSize="sm">
-        <ButtonUi onPress={handleApproveModalPress}>Import Token</ButtonUi>
+        <ButtonUi onPress={handleApproveModalPress}>
+          {t("wallet.home.custom-token.add-custom-token.import-token-button")}
+        </ButtonUi>
       </FooterUi>
     </ContainerUi>
   );

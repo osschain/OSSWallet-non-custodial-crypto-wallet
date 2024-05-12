@@ -1,24 +1,24 @@
 import { AntDesign, Feather } from "@expo/vector-icons";
+import { Link } from "expo-router";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList } from "react-native";
-import styled from "styled-components/native";
 
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import ItemUi from "@/components/ui/ItemUi";
+import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets } from "@/util/mock";
-import { Link } from "expo-router";
-import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 
 function Index() {
   const [searchQuery, setSearchQuery] = useState("");
-
+  const { t } = useTranslation();
   const filteredAssets = useMemo(() => {
     if (!searchQuery) {
-      return assets; // No search term, show all
+      return assets;
     }
     return assets.filter((network) =>
       network.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -28,9 +28,7 @@ function Index() {
   if (!assets) {
     return (
       <AlertWithImageUI
-        title="Custom tokens haven’t been added.
-    You can search for tokens
-    or add them manually"
+        title={t("wallet.home.custom-token.index.no-custom-tokens-alert")}
       />
     );
   }
@@ -42,7 +40,9 @@ function Index() {
           <TextInputUi
             value={searchQuery}
             onChangeText={setSearchQuery}
-            placeholder="Search by name or paste address"
+            placeholder={t(
+              "wallet.home.custom-token.index.search-input-placeholder"
+            )}
             left={<AntDesign name="search1" size={24} color="black" />}
           />
         </SpacerUi>
@@ -66,7 +66,7 @@ function Index() {
       <FooterUi marginSize="sm">
         <Link href="(wallet)/home/custom-token/add-custom-token" asChild>
           <ButtonUi icon={<Feather name="plus" size={20} color="white" />}>
-            Add custom tokens
+            {t("wallet.home.custom-token.index.add-button-text")}
           </ButtonUi>
         </Link>
       </FooterUi>

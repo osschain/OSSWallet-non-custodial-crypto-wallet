@@ -1,4 +1,5 @@
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components/native";
 
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
@@ -11,6 +12,7 @@ import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets } from "@/util/mock";
 
 export default function SendChain() {
+  const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
   const asset = assets.find((asset) => asset.id === Number(slug as string));
   return (
@@ -18,11 +20,11 @@ export default function SendChain() {
       <Stack.Screen options={{ title: asset?.title }} />
       <BodyUi>
         <SpacerUi size="3xl">
-          <MessageUi>Check Adress Before Send, you cen't refund it</MessageUi>
+          <MessageUi>{t("wallet.home.send.warning")}</MessageUi>
         </SpacerUi>
 
         <SpacerUi size="2xl">
-          <HeaderTextUi>For Whom</HeaderTextUi>
+          <HeaderTextUi>{t("wallet.home.send.for-whom")}</HeaderTextUi>
           <SpacerUi size="lg">
             <TextInputUi placeholder="Enter Adress" />
           </SpacerUi>
@@ -35,7 +37,7 @@ export default function SendChain() {
       </BodyUi>
 
       <FooterUi marginSize="sm">
-        <Button variant="primary">SEND</Button>
+        <Button variant="primary">{t("shared.send")}</Button>
       </FooterUi>
     </ScrollContainerUi>
   );

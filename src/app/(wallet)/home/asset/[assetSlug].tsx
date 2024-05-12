@@ -1,20 +1,22 @@
 import { Feather, AntDesign } from "@expo/vector-icons";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { FlatList, Image } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
 import HistoryItem from "@/components/history/history-item";
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { defaultImage } from "@/util/DefaultImage";
 import { assets, history } from "@/util/mock";
 import { pixelToNumber } from "@/util/pixelToNumber";
-import { ContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function Asset() {
   const { assetSlug: slug } = useLocalSearchParams();
   const theme = useTheme();
   const asset = assets.find((asset) => asset.id === Number(slug as string));
+  const { t } = useTranslation();
   return (
     <ContainerUi>
       <Stack.Screen options={{ title: asset?.title }} />
@@ -23,7 +25,7 @@ export default function Asset() {
         <ChainDetails>
           <Image source={{ uri: defaultImage }} width={36} height={36} />
           <BodyTextUi weight="bold" size="lg">
-            {asset?.title} token
+            {asset?.title} {t("shared.token")}
           </BodyTextUi>
         </ChainDetails>
       </SpacerUi>
@@ -39,7 +41,7 @@ export default function Asset() {
                 />
               </Button>
             </Link>
-            <BodyTextUi weight="bold">Send</BodyTextUi>
+            <BodyTextUi weight="bold">{t("shared.send")}</BodyTextUi>
           </ActionButton>
           <ActionButton>
             <Link href={`(wallet)/home/recieve/${slug}`} asChild>
@@ -52,7 +54,7 @@ export default function Asset() {
               </Button>
             </Link>
 
-            <BodyTextUi weight="bold">Recieve</BodyTextUi>
+            <BodyTextUi weight="bold">{t("shared.receive")}</BodyTextUi>
           </ActionButton>
           <ActionButton>
             <Link href={`(wallet)/home/swap/${slug}`} asChild>
@@ -65,7 +67,7 @@ export default function Asset() {
               </Button>
             </Link>
 
-            <BodyTextUi weight="bold">Swap</BodyTextUi>
+            <BodyTextUi weight="bold">{t("shared.swap")}</BodyTextUi>
           </ActionButton>
         </Actions>
       </SpacerUi>

@@ -1,4 +1,5 @@
 import { Link } from "expo-router";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -7,10 +8,9 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { defaultImage } from "@/util/DefaultImage";
-import { useTranslation } from "react-i18next";
 
 function Auth() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <ScrollContainerUi>
@@ -18,24 +18,31 @@ function Auth() {
         <Logo resizeMode="contain" source={{ uri: defaultImage }} />
         <SpacerUi size="3.5xl">
           <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
-            {t("auth.main.header")}
+            {t("auth.index.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="4xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            {t("auth.main.description")}
+            {t("auth.index.description")}
           </DescriptionText>
         </SpacerUi>
       </Body>
       <Footer>
         <Link href="auth/connect-wallet" asChild>
           <ConnectWallet variant="secondary">
-            {t("auth.main.connect-wallet")}
+            {t("auth.index.connect-wallet")}
           </ConnectWallet>
         </Link>
         <Link href="auth/seed-creating" asChild>
-          <CreateNew>{t("auth.main.create-new")}</CreateNew>
+          <CreateNew>{t("auth.index.create-new")}</CreateNew>
         </Link>
+        <ButtonUi
+          onPress={() => {
+            i18n.changeLanguage("ka");
+          }}
+        >
+          TRANSLATE
+        </ButtonUi>
       </Footer>
     </ScrollContainerUi>
   );

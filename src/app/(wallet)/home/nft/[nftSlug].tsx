@@ -5,9 +5,9 @@ import styled from "styled-components/native";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { nfts } from "@/util/mock";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function Nft() {
   const { nftSlug: slug } = useLocalSearchParams();

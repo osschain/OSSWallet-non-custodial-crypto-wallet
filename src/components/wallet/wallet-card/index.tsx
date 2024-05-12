@@ -18,6 +18,7 @@ import {
 
 import SpacerUi from "@/components/ui/SpacerUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   userName?: string;
@@ -40,6 +41,7 @@ const WalletCard = ({
   ...rest
 }: Props) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Card {...rest}>
       <BackgroundGradient
@@ -65,11 +67,11 @@ const WalletCard = ({
                 color={theme.colors["pure-white"]}
               />
             </ButtonIcon>
-            <ButtonText color="pure-white">Receive</ButtonText>
+            <ButtonText color="pure-white">{t("shared.receive")}</ButtonText>
             <ButtonBacground />
           </Button>
           <Button onPress={onSend}>
-            <ButtonText color="pure-white">Send</ButtonText>
+            <ButtonText color="pure-white">{t("shared.send")}</ButtonText>
             <ButtonIcon>
               <Feather
                 name="arrow-up-right"
@@ -80,7 +82,7 @@ const WalletCard = ({
             <ButtonBacground />
           </Button>
           <Button onPress={onHistory}>
-            <ButtonText color="pure-white">History</ButtonText>
+            <ButtonText color="pure-white">{t("shared.history")}</ButtonText>
             <ButtonIcon>
               <MaterialIcons
                 name="history"

@@ -1,5 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList } from "react-native-gesture-handler";
 
 import HistoryItem from "@/components/history/history-item";
@@ -12,13 +13,15 @@ import { history, networks } from "@/util/mock";
 
 export default function History() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-
+  const { t } = useTranslation();
   const handlePresentModalPress = () => {
     bottomSheetRef.current?.present();
   };
 
   if (!history) {
-    return <AlertWithImageUi title="No history yet" />;
+    return (
+      <AlertWithImageUi title={t("wallet.home.history.no-history-alert")} />
+    );
   }
 
   return (
@@ -30,7 +33,7 @@ export default function History() {
       />
       <SpacerUi size="xl" position="bottom">
         <NetworkButton onPress={handlePresentModalPress}>
-          All Network
+          {t("shared.all")} {t("shared.network")}
         </NetworkButton>
       </SpacerUi>
       <SpacerUi size="xl" style={{ flex: 1 }}>

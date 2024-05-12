@@ -1,6 +1,7 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components/native";
 
 import AssetOptions from "@/components/asset/AssetOptions";
@@ -12,6 +13,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { Asset, assets } from "@/util/mock";
 
 export default function Swap() {
+  const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
   const asset = assets.find((asset) => asset.id === Number(slug as string));
   const [target, setTarget] = useState<Asset | null>(null);
@@ -65,7 +67,7 @@ export default function Swap() {
           variant="primary"
           onPress={() => router.replace("(wallet)/home/swap/swap-in-progress")}
         >
-          Swap
+          {t("shared.swap")}
         </Button>
       </FooterUi>
     </ScrollContainerUi>

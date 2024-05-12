@@ -2,6 +2,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
 import { useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
@@ -16,6 +17,8 @@ import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets, networks } from "@/util/mock";
 
 export default function Send() {
+  const { t } = useTranslation();
+
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = () => {
@@ -54,7 +57,7 @@ export default function Send() {
 
       <SpacerUi size="xl">
         <NetworkButton onPress={handlePresentModalPress}>
-          All Network
+          {t("shared.all")} {t("shared.network")}
         </NetworkButton>
       </SpacerUi>
       <ChainList>

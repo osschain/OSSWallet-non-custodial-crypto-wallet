@@ -1,6 +1,6 @@
 {
     "auth": {
-      "main": {
+      "index": {
         "header": "Crypto Wallet",
         "description": "TON wallet allows you to make fast and secure blockchain-based payments without intermediaries.",
         "connect-wallet": "Connect Wallet",
@@ -44,11 +44,72 @@
         "password-match": "Passwords must match"
       }
     },
+    "wallet": {
+      "home": {
+        "index": {
+        },
+        "asset": {},
+        "custom-token": {
+          "index": {
+            "no-custom-tokens-alert": "Custom tokens haven’t been added   You can search for tokens    or add them manually",
+            "add-button-text": "Add Custom Token",
+            "search-input-placeholder": "Search by name or paste address"
+          },
+          "add-custom-token": {
+            "import-token-button": "Import Token",
+            "adress-input-placeholder": "Enter Token Adress",
+            "warning-first": "Trade at your own risk!",
+            "warning-second": "Anyone can create a token, including creating fake versions of existing tokens that claim to represent projects.",
+            "warning-third": "If you purchase this token, you may not be able to sell it back.",
+            "warning-forth": "Buy adding this as a custom token, you confirm that all further interactions with it are at your own risk."
+          }
+        },
+        "nft": {
+
+        },
+        "recieve": {
+          "recieve-details": {
+            "warning": "only. Do not send other chain here!",
+            "wallet-adress": "Wallet Adress",
+            "Copy Address": "Copy Address",
+            "qr-code": "Qr code"
+          }
+        },
+        "send": {
+          "warning": "Check Adress Before Send, you cen't refund it",
+          "for-whom": "For Whom"
+        },
+        "swap": {},
+        "history": {
+          "no-history-alert": "no History Yet"
+        }
+      },
+      "swap": {
+        "swap-in-progress": {
+          "header": "Swap in progress",
+          "description": " Your transaction has been sent to the network and will be processed in a few seconds"
+        }
+      }
+    },
+    "components": {
+      
+    },
     "shared": {
       "continue": "Continue",
       "and": "and",
       "error-label": "ops...",
       "password": "Password",
-      "confirm-password": "Confirm Password"
+      "confirm-password": "Confirm Password",
+      "send": "Send",
+      "receive": "Receive",
+      "history": "History",
+      "all": "All",
+      "network": "Network",
+      "token": "Token",
+      "swap": "Swap",
+      "import": "Import",
+      "cancel": "Cancel",
+      "from": "From",
+      "done": "Done"
     }
 }

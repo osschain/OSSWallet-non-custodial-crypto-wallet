@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
 import styled from "styled-components/native";
 
@@ -10,7 +11,6 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { shuffle } from "@/util/shuffle";
-import { useTranslation } from "react-i18next";
 
 const wordsCount = 3;
 const seedArrayWithOrder = (seed: string) => {

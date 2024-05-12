@@ -1,5 +1,6 @@
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Image } from "react-native";
 import styled from "styled-components/native";
 
@@ -9,8 +10,10 @@ import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { assets } from "@/util/mock";
-export default function ChainDetails() {
+
+export default function RecieveDetails() {
   const { slug } = useLocalSearchParams();
+  const { t } = useTranslation();
   const asset = assets.find((asset) => asset.id === Number(slug as string));
   return (
     <ScrollContainerUi>
@@ -18,13 +21,13 @@ export default function ChainDetails() {
       <BodyUi>
         <SpacerUi size="3xl">
           <MessageUi>
-            Only for {asset?.title} network tokens. Do not send ETC here!
+            {asset?.title} {t("wallet.home.recieve.recieve-details.warning")}
           </MessageUi>
         </SpacerUi>
         <SpacerUi size="2xl">
           <QrContainer>
             <HeaderTextUi weight="medium" size="xl">
-              QR Code
+              {t("wallet.home.recieve.recieve-details.qr-code")}
             </HeaderTextUi>
             <Qr>
               <Image
@@ -36,7 +39,9 @@ export default function ChainDetails() {
         </SpacerUi>
         <SpacerUi size="2xl">
           <AdressContainer>
-            <HeaderTextUi>Wallet Adress</HeaderTextUi>
+            <HeaderTextUi>
+              {t("wallet.home.recieve.recieve-details.wallet-adress")}
+            </HeaderTextUi>
             <SpacerUi size="lg">
               <Adress>0x9abC74120e13e7D2B46 cfE8D6796Da317e65658c</Adress>
             </SpacerUi>
@@ -55,7 +60,7 @@ export default function ChainDetails() {
           variant="secondary"
           icon={<Feather name="copy" size={20} color="black" />}
         >
-          Copy Address
+          {t("wallet.home.recieve.recieve-details.Copy Address")}
         </Button>
       </Footer>
     </ScrollContainerUi>

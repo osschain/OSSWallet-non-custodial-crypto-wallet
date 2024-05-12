@@ -1,6 +1,6 @@
 {
 "auth": {
-      "main": {
+      "idex": {
         "header": "Crypto Wallet1ს",
         "description": "კარგი ვოლეტი",
         "connect-wallet": "არსებულის დაკავშირება",

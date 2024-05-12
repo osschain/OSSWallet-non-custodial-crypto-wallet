@@ -9,10 +9,10 @@ import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import ItemUi from "@/components/ui/ItemUi";
+import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets, networks } from "@/util/mock";
-import { ContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function Recieve() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);

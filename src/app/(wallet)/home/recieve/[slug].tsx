@@ -1,15 +1,14 @@
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { Image } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { assets } from "@/util/mock";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 export default function ChainDetails() {
   const { slug } = useLocalSearchParams();
   const asset = assets.find((asset) => asset.id === Number(slug as string));

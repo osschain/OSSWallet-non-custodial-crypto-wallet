@@ -3,18 +3,18 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Mnemonic } from "ethers";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
-import { Alert, ScrollView } from "react-native";
+import { Alert } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { useLanguage } from "@/providers/LanguageProvider";
-import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
 function ConnetWallet() {
   const [seed, setSeed] = useState<string>("");

@@ -1,16 +1,15 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import AssetOptions from "@/components/asset/AssetOptions";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { Asset, assets } from "@/util/mock";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function Swap() {
   const { slug } = useLocalSearchParams();

@@ -1,21 +1,16 @@
 import { router } from "expo-router";
-import { ActivityIndicator, Alert, ScrollView, View } from "react-native";
+import { Alert, View } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { shuffle } from "@/util/shuffle";
-import {
-  BodyUi,
-  ContainerUi,
-  FooterUi,
-  ScrollContainerUi,
-} from "@/components/ui/LayoutsUi";
 
 const wordsCount = 3;
 const seedArrayWithOrder = (seed: string) => {

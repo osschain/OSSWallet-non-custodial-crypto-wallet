@@ -1,21 +1,16 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Dimensions, ScrollView } from "react-native";
+import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
-import {
-  BodyUi,
-  ContainerUi,
-  FooterUi,
-  ScrollContainerUi,
-} from "@/components/ui/LayoutsUi";
 
 function SeedBackUping() {
   const [words, setWords] = useState<string[]>([]);

@@ -1,15 +1,14 @@
 import { Stack, useLocalSearchParams } from "expo-router";
-import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets } from "@/util/mock";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function SendChain() {
   const { slug } = useLocalSearchParams();

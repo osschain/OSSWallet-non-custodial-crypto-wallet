@@ -1,5 +1,5 @@
 import { Redirect, Stack } from "expo-router";
-import styled, { useTheme } from "styled-components/native";
+import { useTheme } from "styled-components/native";
 
 import { useAuth } from "@/providers/AuthProvider";
 

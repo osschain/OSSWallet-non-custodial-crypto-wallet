@@ -21,7 +21,12 @@ const AlertWithImageUI = ({ title, image }: Props) => {
         )}
       </ImageContainer>
       <SpacerUi size="xl">
-        <BodyTextUi size="lg" weight="bold">
+        <BodyTextUi
+          size="lg"
+          weight="medium"
+          color="text-second"
+          style={{ textAlign: "center" }}
+        >
           {title}
         </BodyTextUi>
       </SpacerUi>

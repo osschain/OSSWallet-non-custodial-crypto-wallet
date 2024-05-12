@@ -48,7 +48,7 @@ function SeedCreating() {
       {state === "preparing" && (
         <SeedBackUpPreparing
           onContinue={() => {
-            router.push("/auth/seed-back-uping");
+            router.push("auth/seed-back-uping");
           }}
         />
       )}

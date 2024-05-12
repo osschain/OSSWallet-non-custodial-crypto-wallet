@@ -48,7 +48,7 @@ function ConnetWallet() {
 
     if (isValidate) {
       addSeed(seed.trim());
-      router.push("/auth/password-setup");
+      router.push("auth/password-setup");
     } else {
       Alert.alert(
         i18n.t("shared.error-label"),

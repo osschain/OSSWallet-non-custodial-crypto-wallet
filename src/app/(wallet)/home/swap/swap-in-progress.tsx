@@ -9,7 +9,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 
 const SwapInProgress = () => {
   const doneHandler = () => {
-    router.replace("/(wallet)/home");
+    router.replace("(wallet)/home");
   };
   return (
     <Container>

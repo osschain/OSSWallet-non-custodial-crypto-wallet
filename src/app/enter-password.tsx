@@ -50,7 +50,7 @@ function EnterPassowrd() {
 
     if (passwordMatch) {
       await decryptAndSaveSeed(password);
-      router.push("/(wallet)/");
+      router.push("(wallet)/");
     } else {
       Alert.alert("...ops", "password is not correct");
     }

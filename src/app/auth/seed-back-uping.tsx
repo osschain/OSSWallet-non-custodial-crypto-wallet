@@ -59,7 +59,7 @@ function SeedBackUping() {
         <Footer>
           <Continue
             onPress={() => {
-              router.push("/auth/seed-checking");
+              router.push("auth/seed-checking");
             }}
           >
             {i18n.t("shared.continue")}

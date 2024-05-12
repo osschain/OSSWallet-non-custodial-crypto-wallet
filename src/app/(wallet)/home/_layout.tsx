@@ -1,8 +1,6 @@
-import { getHeaderTitle } from "@react-navigation/elements";
-import { Stack } from "expo-router";
+import { AntDesign } from "@expo/vector-icons";
+import { Stack, router } from "expo-router";
 import { useTheme } from "styled-components/native";
-
-import DefaultHeader from "@/components/layout/DefaultHeader";
 
 export default function _layout() {
   const theme = useTheme();
@@ -13,18 +11,23 @@ export default function _layout() {
           backgroundColor: theme.colors["bg-primary"],
         },
         headerShadowVisible: false,
-        headerTitleAlign: "center",
       }}
     >
       <Stack.Screen
         name="index"
         options={{
-          header: ({ navigation, route, options, back }) => {
-            const title = getHeaderTitle(options, route.name);
-            return <DefaultHeader title={title} />;
-          },
           contentStyle: {
             backgroundColor: theme.colors["bg-primary"],
+          },
+          headerRight: () => {
+            return (
+              <AntDesign
+                onPress={() => router.push("(wallet)/home/custom-token")}
+                name="plus"
+                size={24}
+                color="black"
+              />
+            );
           },
           title: "ossWallet",
         }}
@@ -34,6 +37,7 @@ export default function _layout() {
       <Stack.Screen name="asset" options={{ headerShown: false }} />
       <Stack.Screen name="swap" options={{ headerShown: false }} />
       <Stack.Screen name="nft" options={{ headerShown: false }} />
+      <Stack.Screen name="custom-token" options={{ headerShown: false }} />
 
       <Stack.Screen
         name="history"

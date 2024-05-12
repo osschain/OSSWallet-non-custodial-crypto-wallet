@@ -58,7 +58,7 @@ export default function Recieve() {
       <ChainList>
         {filteredAssets.map((asset) => (
           <SpacerUi size="3xl" key={asset.id}>
-            <Link href={`/(wallet)/home/recieve/${asset.id}`}>
+            <Link href={`(wallet)/home/recieve/${asset.id}`}>
               <TouchableOpacity>
                 <ItemUi
                   title={asset.title}

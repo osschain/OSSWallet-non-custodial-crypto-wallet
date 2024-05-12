@@ -11,7 +11,7 @@ import { useLanguage } from "@/providers/LanguageProvider";
 const Congretulation = () => {
   const { i18n } = useLanguage();
   const continueHandler = () => {
-    router.push("/(wallet)");
+    router.push("(wallet)");
   };
   return (
     <Container>

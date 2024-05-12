@@ -29,12 +29,12 @@ function Auth() {
           </SpacerUi>
         </Body>
         <Footer>
-          <Link href="/auth/connect-wallet" asChild>
+          <Link href="auth/connect-wallet" asChild>
             <ConnectWallet variant="secondary">
               {i18n.t("auth.main.connect-wallet")}
             </ConnectWallet>
           </Link>
-          <Link href="/auth/seed-creating" asChild>
+          <Link href="auth/seed-creating" asChild>
             <CreateNew>{i18n.t("auth.main.create-new")}</CreateNew>
           </Link>
         </Footer>

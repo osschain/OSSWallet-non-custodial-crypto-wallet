@@ -29,7 +29,7 @@ export default function Asset() {
       <SpacerUi size="4xl">
         <Actions>
           <ActionButton>
-            <Link href={`/(wallet)/home/send/${slug}`} asChild>
+            <Link href={`(wallet)/home/send/${slug}`} asChild>
               <Button>
                 <Feather
                   name="arrow-up-right"
@@ -41,7 +41,7 @@ export default function Asset() {
             <BodyTextUi weight="bold">Send</BodyTextUi>
           </ActionButton>
           <ActionButton>
-            <Link href={`/(wallet)/home/recieve/${slug}`} asChild>
+            <Link href={`(wallet)/home/recieve/${slug}`} asChild>
               <Button>
                 <Feather
                   name="arrow-down-left"
@@ -54,7 +54,7 @@ export default function Asset() {
             <BodyTextUi weight="bold">Recieve</BodyTextUi>
           </ActionButton>
           <ActionButton>
-            <Link href={`/(wallet)/home/swap/${slug}`} asChild>
+            <Link href={`(wallet)/home/swap/${slug}`} asChild>
               <Button>
                 <AntDesign
                   name="swap"

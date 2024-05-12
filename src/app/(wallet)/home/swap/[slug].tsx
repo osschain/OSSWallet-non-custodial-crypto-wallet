@@ -64,7 +64,7 @@ export default function Swap() {
         <Footer>
           <Button
             variant="primary"
-            onPress={() => router.replace("/(wallet)/swap/swap-in-progress")}
+            onPress={() => router.replace("(wallet)/swap/swap-in-progress")}
           >
             Swap
           </Button>

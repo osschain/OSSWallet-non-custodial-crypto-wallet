@@ -20,7 +20,7 @@ const SwapInProgress = () => {
   };
 
   const doneHandler = () => {
-    router.replace("/(wallet)/home");
+    router.replace("(wallet)/home");
     handleResetAction();
   };
   return (

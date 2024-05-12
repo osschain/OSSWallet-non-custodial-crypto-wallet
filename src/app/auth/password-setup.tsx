@@ -54,7 +54,7 @@ function PasswordSetup() {
 
   const continueHandler = ({ password }: FormValues) => {
     encryptAndSaveSeed(password);
-    router.push("/auth/congretulation");
+    router.push("auth/congretulation");
   };
   return (
     <Container>

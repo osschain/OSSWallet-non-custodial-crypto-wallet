@@ -1,5 +1,5 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Link, Stack, router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
@@ -8,7 +8,6 @@ import AssetOptions from "@/components/asset/AssetOptions";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { Asset, assets } from "@/util/mock";
 
@@ -76,7 +75,7 @@ export default function Swap() {
         <Footer>
           <Button
             variant="primary"
-            onPress={() => router.replace("/(wallet)/swap/swap-in-progress")}
+            onPress={() => router.replace("(wallet)/swap/swap-in-progress")}
           >
             Swap
           </Button>

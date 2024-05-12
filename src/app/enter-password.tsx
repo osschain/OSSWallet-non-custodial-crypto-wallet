@@ -32,13 +32,7 @@ function EnterPassowrd() {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const { t } = useTranslation();
 
-  const {
-    checkPassword,
-    decryptAndSaveSeed,
-    seed,
-    encryptedSeed,
-    removeEncryptedSeed,
-  } = useAuth();
+  const { checkPassword, decryptAndSaveSeed, seed, encryptedSeed } = useAuth();
   const {
     control,
     handleSubmit,
@@ -54,7 +48,7 @@ function EnterPassowrd() {
       await decryptAndSaveSeed(password);
       router.push("(wallet)/");
     } else {
-      Alert.alert("...ops", "password is not correct");
+      Alert.alert(t("shared.error-label"), "password is not correct");
     }
   };
 
@@ -80,7 +74,7 @@ function EnterPassowrd() {
               />
               <SpacerUi size="3.5xl">
                 <HeaderText size="2xl" weight="extra">
-                  Enter Your Password
+                  {t("enter-password.password-incorrect")}
                 </HeaderText>
               </SpacerUi>
             </SpacerUi>
@@ -90,7 +84,7 @@ function EnterPassowrd() {
                 name="password"
                 control={control}
                 errors={errors}
-                placeholder="Password"
+                placeholder={t("shared.password")}
                 right={
                   <Feather
                     onPress={() => setIsPasswordShown((prev) => !prev)}
@@ -106,16 +100,13 @@ function EnterPassowrd() {
           <Footer>
             <SpacerUi size="2xl">
               <Continue onPress={handleSubmit(continueHandler)}>
-                Continue
+                {t("shared.continue")}
               </Continue>
             </SpacerUi>
             <SpacerUi size="2xl">
               <Continue onPress={() => SecureStore.deleteItemAsync("seed")}>
-                Remove Session
+                {t("enter-password.remove-session")}
               </Continue>
-            </SpacerUi>
-            <SpacerUi size="2xl">
-              <Continue onPress={removeEncryptedSeed}>Remove Session</Continue>
             </SpacerUi>
           </Footer>
         </ScrollView>

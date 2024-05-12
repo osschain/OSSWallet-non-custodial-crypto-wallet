@@ -91,6 +91,12 @@
         }
       }
     },
+    "enter-password": {
+      "password-incorrect": "password is not correct",
+      "header": "Enter Your Password",
+      "remove-session": "Remove Session"
+
+    },
     "components": {
       
     },

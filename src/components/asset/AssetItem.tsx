@@ -2,9 +2,8 @@ import { ComponentPropsWithoutRef } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 
-import BodyTextUi from "../ui/BodyTextUi";
-import HeaderTextUi from "../ui/HeaderTextUi";
-
+import BodyTextUi from "@/components/ui/BodyTextUi";
+import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { defaultImage } from "@/util/DefaultImage";
 
 type Props = {

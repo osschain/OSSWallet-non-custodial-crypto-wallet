@@ -9,63 +9,37 @@ import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets } from "@/util/mock";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function SendChain() {
   const { slug } = useLocalSearchParams();
   const asset = assets.find((asset) => asset.id === Number(slug as string));
   return (
-    <Container>
+    <ScrollContainerUi>
       <Stack.Screen options={{ title: asset?.title }} />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Body>
-          <SpacerUi size="3xl">
-            <MessageUi>Check Adress Before Send, you cen't refund it</MessageUi>
-          </SpacerUi>
+      <BodyUi>
+        <SpacerUi size="3xl">
+          <MessageUi>Check Adress Before Send, you cen't refund it</MessageUi>
+        </SpacerUi>
 
-          <SpacerUi size="2xl">
-            <HeaderTextUi>For Whom</HeaderTextUi>
-            <SpacerUi size="lg">
-              <TextInputUi placeholder="Enter Adress" />
-            </SpacerUi>
+        <SpacerUi size="2xl">
+          <HeaderTextUi>For Whom</HeaderTextUi>
+          <SpacerUi size="lg">
+            <TextInputUi placeholder="Enter Adress" />
           </SpacerUi>
-          <SpacerUi size="2xl">
-            <SpacerUi size="lg">
-              <AssetQuantityInputUi placeholder="Enter Adress" />
-            </SpacerUi>
+        </SpacerUi>
+        <SpacerUi size="2xl">
+          <SpacerUi size="lg">
+            <AssetQuantityInputUi placeholder="Enter Adress" />
           </SpacerUi>
-        </Body>
+        </SpacerUi>
+      </BodyUi>
 
-        <Footer>
-          <Button variant="primary">SEND</Button>
-        </Footer>
-      </ScrollView>
-    </Container>
+      <FooterUi marginSize="sm">
+        <Button variant="primary">SEND</Button>
+      </FooterUi>
+    </ScrollContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const Body = styled.View`
-  flex: 1;
-`;
-
-const AdressContainer = styled.View``;
-
-const Adress = styled(MessageUi)`
-  padding: ${({ theme }) => theme.spaces["xl"]};
-  border: 1px;
-  border-radius: ${({ theme }) => theme.sizes["sm"]};
-  border-color: ${({ theme }) => theme.colors["border-color"]};
-`;
-
-const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["2xl"]} 0;
-
-  gap: ${({ theme }) => theme.spaces["xl"]};
-`;
 
 const Button = styled(ButtonUi)``;

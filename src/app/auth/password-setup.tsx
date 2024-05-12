@@ -14,6 +14,7 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
 type FormValues = {
   password: string;
@@ -57,80 +58,71 @@ function PasswordSetup() {
     router.push("auth/congretulation");
   };
   return (
-    <Container>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Body>
+    <ScrollContainerUi>
+      <Body>
+        <SpacerUi size="xl">
+          <Logo
+            resizeMode="contain"
+            source={require("@/assets/images/unlock.png")}
+          />
+          <SpacerUi size="3.5xl">
+            <HeaderText size="3xl" weight="extra">
+              {i18n.t("auth.password-setup.header")}
+            </HeaderText>
+          </SpacerUi>
           <SpacerUi size="xl">
-            <Logo
-              resizeMode="contain"
-              source={require("@/assets/images/unlock.png")}
-            />
-            <SpacerUi size="3.5xl">
-              <HeaderText size="3xl" weight="extra">
-                {i18n.t("auth.password-setup.header")}
-              </HeaderText>
-            </SpacerUi>
-            <SpacerUi size="xl">
-              <DescriptionText size="lg" color="text-second" weight="regular">
-                {i18n.t("auth.password-setup.description")}
-              </DescriptionText>
-            </SpacerUi>
+            <DescriptionText size="lg" color="text-second" weight="regular">
+              {i18n.t("auth.password-setup.description")}
+            </DescriptionText>
           </SpacerUi>
-          <SpacerUi size="4xl">
-            <ControllTextInputUi
-              secureTextEntry={!isPasswordShown}
-              name="password"
-              control={control}
-              errors={errors}
-              placeholder={i18n.t("shared.password")}
-              right={
-                <Feather
-                  onPress={() => setIsPasswordShown((prev) => !prev)}
-                  name={!isPasswordShown ? "eye-off" : "eye"}
-                  size={24}
-                  color={theme.colors["text-primary"]}
-                />
-              }
-            />
-            <SpacerUi size="2xl" />
-            <ControllTextInputUi
-              secureTextEntry={!isConfirmShown}
-              name="confirmPassword"
-              control={control}
-              errors={errors}
-              placeholder={i18n.t("shared.confirm-password")}
-              right={
-                <Feather
-                  onPress={() => setIsConfirmShown((prev) => !prev)}
-                  name={!isConfirmShown ? "eye-off" : "eye"}
-                  size={24}
-                  color={theme.colors["text-primary"]}
-                />
-              }
-            />
-          </SpacerUi>
-        </Body>
+        </SpacerUi>
+        <SpacerUi size="4xl">
+          <ControllTextInputUi
+            secureTextEntry={!isPasswordShown}
+            name="password"
+            control={control}
+            errors={errors}
+            placeholder={i18n.t("shared.password")}
+            right={
+              <Feather
+                onPress={() => setIsPasswordShown((prev) => !prev)}
+                name={!isPasswordShown ? "eye-off" : "eye"}
+                size={24}
+                color={theme.colors["text-primary"]}
+              />
+            }
+          />
+          <SpacerUi size="2xl" />
+          <ControllTextInputUi
+            secureTextEntry={!isConfirmShown}
+            name="confirmPassword"
+            control={control}
+            errors={errors}
+            placeholder={i18n.t("shared.confirm-password")}
+            right={
+              <Feather
+                onPress={() => setIsConfirmShown((prev) => !prev)}
+                name={!isConfirmShown ? "eye-off" : "eye"}
+                size={24}
+                color={theme.colors["text-primary"]}
+              />
+            }
+          />
+        </SpacerUi>
+      </Body>
 
-        <Footer>
-          <SpacerUi size="2xl">
-            <Continue onPress={handleSubmit(continueHandler)}>
-              {i18n.t("shared.continue")}
-            </Continue>
-          </SpacerUi>
-        </Footer>
-      </ScrollView>
-    </Container>
+      <FooterUi>
+        <SpacerUi size="2xl">
+          <Continue onPress={handleSubmit(continueHandler)}>
+            {i18n.t("shared.continue")}
+          </Continue>
+        </SpacerUi>
+      </FooterUi>
+    </ScrollContainerUi>
   );
 }
 
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const Body = styled.View`
-  flex: 1;
+const Body = styled(BodyUi)`
   justify-content: center;
 `;
 
@@ -147,10 +139,6 @@ const HeaderText = styled(HeaderTextUi)`
 
 const DescriptionText = styled(BodyTextUi)`
   text-align: center;
-`;
-
-const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
 `;
 
 const Continue = styled(ButtonUi)`

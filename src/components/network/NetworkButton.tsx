@@ -3,17 +3,16 @@ import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { TouchableOpacity } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
-import BodyTextUi from "../ui/BodyTextUi";
-import ButtonUi from "../ui/ButtonUi";
-
+import BodyTextUi from "@/components/ui/BodyTextUi";
+import ButtonUi from "@/components/ui/ButtonUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
-function NetworkButton({
+const NetworkButton = ({
   children,
   ...rest
 }: { children: ReactNode } & ComponentPropsWithoutRef<
   typeof TouchableOpacity
->) {
+>) => {
   const theme = useTheme();
 
   return (
@@ -28,7 +27,7 @@ function NetworkButton({
       </FlexContainer>
     </Button>
   );
-}
+};
 
 const Button = styled(ButtonUi)`
   width: 40%;

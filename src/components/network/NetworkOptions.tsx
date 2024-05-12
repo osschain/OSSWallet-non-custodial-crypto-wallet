@@ -4,10 +4,11 @@ import React, { forwardRef, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
-import HeaderTextUi from "../ui/HeaderTextUi";
-import ItemUi from "../ui/ItemUi";
-import SpacerUi from "../ui/SpacerUi";
-import { TextInputUi } from "../ui/TextInputUi";
+import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import ItemUi from "@/components/ui/ItemUi";
+import SpacerUi from "@/components/ui/SpacerUi";
+import { TextInputUi } from "@/components/ui/TextInputUi";
+import { ContainerUi } from "@/components/ui/LayoutsUi";
 
 export type Ref = BottomSheetModal;
 
@@ -34,7 +35,7 @@ const NetworkOptions = forwardRef<Ref, Props>(
 
     return (
       <BottomSheetModal ref={ref} index={0} snapPoints={snapPoints}>
-        <Container>
+        <ContainerUi>
           <SpacerUi size="3xl">
             <TextInputUi
               value={searchQuery}
@@ -69,18 +70,10 @@ const NetworkOptions = forwardRef<Ref, Props>(
               </SpacerUi>
             );
           })}
-        </Container>
+        </ContainerUi>
       </BottomSheetModal>
     );
   }
 );
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const Label = styled(HeaderTextUi)``;
 
 export default NetworkOptions;

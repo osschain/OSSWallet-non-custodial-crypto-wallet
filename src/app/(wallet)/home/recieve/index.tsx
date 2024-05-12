@@ -12,6 +12,7 @@ import ItemUi from "@/components/ui/ItemUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets, networks } from "@/util/mock";
+import { ContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function Recieve() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -37,7 +38,7 @@ export default function Recieve() {
   }
 
   return (
-    <Container>
+    <ContainerUi>
       <TextInputUi
         value={searchQuery}
         onChangeText={setSearchQuery}
@@ -70,14 +71,8 @@ export default function Recieve() {
           </SpacerUi>
         ))}
       </ChainList>
-    </Container>
+    </ContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
 
 const ChainList = styled.View``;

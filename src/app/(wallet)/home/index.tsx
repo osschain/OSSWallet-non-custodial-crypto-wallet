@@ -1,6 +1,6 @@
 import { Link, router } from "expo-router";
 import { useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, { FadeInRight } from "react-native-reanimated";
 import styled from "styled-components/native";
@@ -37,44 +37,39 @@ export default function Home() {
           }}
         />
       </SpacerUi>
-      <SpacerUi size="xl" style={{ flex: 1 }}>
-        <AssetContainer>
-          {segment === "Assets" && (
-            <FlatList
-              data={assets}
-              renderItem={({ item }) => (
-                <SpacerUi size="xl" position="bottom">
-                  <Link href={`(wallet)/home/asset/${item.id}`} asChild>
-                    <TouchableOpacity>
-                      <AssetItem assetName={item.title} />
-                    </TouchableOpacity>
-                  </Link>
-                </SpacerUi>
-              )}
-            />
-          )}
-          {segment === "NFT" && (
-            <FlatList
-              data={nfts}
-              key={2}
-              numColumns={2}
-              columnWrapperStyle={{ gap: 10 }}
-              renderItem={({ item }) => (
-                <SpacerUi size="xl" position="bottom">
-                  <Link href={`(wallet)/home/nft/${item.id}`} asChild>
-                    <TouchableOpacity>
-                      <NftItem
-                        title={item.title}
-                        collection={item.collection}
-                      />
-                    </TouchableOpacity>
-                  </Link>
-                </SpacerUi>
-              )}
-            />
-          )}
-        </AssetContainer>
-      </SpacerUi>
+      <AssetContainer>
+        {segment === "Assets" && (
+          <FlatList
+            data={assets}
+            renderItem={({ item }) => (
+              <SpacerUi size="xl" position="bottom">
+                <Link href={`(wallet)/home/asset/${item.id}`} asChild>
+                  <TouchableOpacity>
+                    <AssetItem assetName={item.title} />
+                  </TouchableOpacity>
+                </Link>
+              </SpacerUi>
+            )}
+          />
+        )}
+        {segment === "NFT" && (
+          <FlatList
+            data={nfts}
+            key={2}
+            numColumns={2}
+            columnWrapperStyle={{ gap: 10 }}
+            renderItem={({ item }) => (
+              <SpacerUi size="xl" position="bottom">
+                <Link href={`(wallet)/home/nft/${item.id}`} asChild>
+                  <TouchableOpacity>
+                    <NftItem title={item.title} collection={item.collection} />
+                  </TouchableOpacity>
+                </Link>
+              </SpacerUi>
+            )}
+          />
+        )}
+      </AssetContainer>
     </Animated.View>
   );
 }
@@ -85,5 +80,7 @@ const CardContainer = styled.View`
 
 const AssetContainer = styled.View`
   flex: 1;
+  margin-top: ${({ theme }) => theme.spaces["xl"]};
+
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
 `;

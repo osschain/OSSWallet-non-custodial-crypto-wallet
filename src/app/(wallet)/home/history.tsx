@@ -1,12 +1,12 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
 import { FlatList } from "react-native-gesture-handler";
-import styled from "styled-components/native";
 
 import HistoryItem from "@/components/history/history-item";
 import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
+import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { history, networks } from "@/util/mock";
 
@@ -22,7 +22,7 @@ export default function History() {
   }
 
   return (
-    <Container>
+    <ContainerUi>
       <NetworkOptions
         networks={networks}
         ref={bottomSheetRef}
@@ -47,12 +47,6 @@ export default function History() {
           )}
         />
       </SpacerUi>
-    </Container>
+    </ContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;

@@ -9,13 +9,14 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { defaultImage } from "@/util/DefaultImage";
 import { assets, history } from "@/util/mock";
 import { pixelToNumber } from "@/util/pixelToNumber";
+import { ContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function Asset() {
   const { assetSlug: slug } = useLocalSearchParams();
   const theme = useTheme();
   const asset = assets.find((asset) => asset.id === Number(slug as string));
   return (
-    <Container>
+    <ContainerUi>
       <Stack.Screen options={{ title: asset?.title }} />
 
       <SpacerUi size="4xl">
@@ -83,14 +84,9 @@ export default function Asset() {
           )}
         />
       </SpacerUi>
-    </Container>
+    </ContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-`;
 
 const ChainDetails = styled.View`
   flex-direction: row;

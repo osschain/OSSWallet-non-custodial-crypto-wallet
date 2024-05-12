@@ -13,6 +13,7 @@ import ItemUi from "@/components/ui/ItemUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets, networks } from "@/util/mock";
+import { ContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function Send() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -38,7 +39,7 @@ export default function Send() {
   }
 
   return (
-    <Container>
+    <ContainerUi>
       <TextInputUi
         value={searchQuery}
         onChangeText={setSearchQuery}
@@ -59,7 +60,7 @@ export default function Send() {
       <ChainList>
         {filteredAssets.map((chain) => (
           <SpacerUi size="3xl" key={chain.id}>
-            <Link href={`/(wallet)/home/send/${chain.id}`} asChild>
+            <Link href={`(wallet)/home/send/${chain.id}`} asChild>
               <TouchableOpacity>
                 <ItemUi
                   title={chain.title}
@@ -72,14 +73,8 @@ export default function Send() {
           </SpacerUi>
         ))}
       </ChainList>
-    </Container>
+    </ContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
 
 const ChainList = styled.View``;

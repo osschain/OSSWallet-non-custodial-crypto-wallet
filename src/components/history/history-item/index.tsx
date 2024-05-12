@@ -13,7 +13,6 @@ import {
   Amount,
 } from "./style";
 
-import { defaultImage } from "@/util/DefaultImage";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 export type variants = "recieved" | "send" | "error";

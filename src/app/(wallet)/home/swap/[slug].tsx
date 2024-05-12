@@ -10,6 +10,7 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { Asset, assets } from "@/util/mock";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function Swap() {
   const { slug } = useLocalSearchParams();
@@ -23,7 +24,7 @@ export default function Swap() {
   };
 
   return (
-    <Container>
+    <ScrollContainerUi>
       <Stack.Screen options={{ title: `Swap ${asset?.title} ` }} />
 
       <AssetOptions
@@ -34,60 +35,42 @@ export default function Swap() {
           targetOptions.current?.close();
         }}
       />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Body>
-          <SpacerUi size="2xl">
-            <HeaderTextUi>From</HeaderTextUi>
+      <BodyUi>
+        <SpacerUi size="2xl">
+          <HeaderTextUi>From</HeaderTextUi>
+          <SpacerUi size="lg">
+            <AssetQuantityInputUi
+              placeholder="Enter Adress"
+              uri={asset?.image}
+              title={asset?.title}
+            />
+          </SpacerUi>
+        </SpacerUi>
+        <SpacerUi size="2xl">
+          <SpacerUi size="lg">
+            <HeaderTextUi>To</HeaderTextUi>
             <SpacerUi size="lg">
               <AssetQuantityInputUi
+                uri={target?.image}
+                title={target?.title}
                 placeholder="Enter Adress"
-                uri={asset?.image}
-                title={asset?.title}
+                onAssetPress={handleTargetOptionsPress}
               />
             </SpacerUi>
           </SpacerUi>
-          <SpacerUi size="2xl">
-            <SpacerUi size="lg">
-              <HeaderTextUi>To</HeaderTextUi>
-              <SpacerUi size="lg">
-                <AssetQuantityInputUi
-                  uri={target?.image}
-                  title={target?.title}
-                  placeholder="Enter Adress"
-                  onAssetPress={handleTargetOptionsPress}
-                />
-              </SpacerUi>
-            </SpacerUi>
-          </SpacerUi>
-        </Body>
+        </SpacerUi>
+      </BodyUi>
 
-        <Footer>
-          <Button
-            variant="primary"
-            onPress={() => router.replace("(wallet)/swap/swap-in-progress")}
-          >
-            Swap
-          </Button>
-        </Footer>
-      </ScrollView>
-    </Container>
+      <FooterUi marginSize="sm">
+        <Button
+          variant="primary"
+          onPress={() => router.replace("(wallet)/home/swap/swap-in-progress")}
+        >
+          Swap
+        </Button>
+      </FooterUi>
+    </ScrollContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const Body = styled.View`
-  flex: 1;
-`;
-
-const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["2xl"]} 0;
-
-  gap: ${({ theme }) => theme.spaces["xl"]};
-`;
 
 const Button = styled(ButtonUi)``;

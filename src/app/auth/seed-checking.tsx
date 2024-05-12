@@ -10,6 +10,12 @@ import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { shuffle } from "@/util/shuffle";
+import {
+  BodyUi,
+  ContainerUi,
+  FooterUi,
+  ScrollContainerUi,
+} from "@/components/ui/LayoutsUi";
 
 const wordsCount = 3;
 const seedArrayWithOrder = (seed: string) => {
@@ -58,69 +64,60 @@ function SeedChecking() {
   };
 
   return (
-    <Container>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <SpacerUi size="xl" />
-        <Body>
-          <Logo
-            resizeMode="contain"
-            source={require("@/assets/images/cpu.png")}
-          />
-          <SpacerUi size="3.5xl">
-            <HeaderText size="3xl" weight="extra">
-              {i18n.t("auth.seed-checking.header")}
-            </HeaderText>
-          </SpacerUi>
-          <SpacerUi size="xl">
-            <DescriptionText size="lg" color="text-second" weight="regular">
-              {i18n.t("auth.seed-checking.description")} {words[0].order},{" "}
-              {words[1].order} {i18n.t("shared.and")} {words[2].order}
-            </DescriptionText>
-          </SpacerUi>
+    <ScrollContainerUi>
+      <SpacerUi size="xl" />
+      <Body>
+        <Logo
+          resizeMode="contain"
+          source={require("@/assets/images/cpu.png")}
+        />
+        <SpacerUi size="3.5xl">
+          <HeaderText size="3xl" weight="extra">
+            {i18n.t("auth.seed-checking.header")}
+          </HeaderText>
+        </SpacerUi>
+        <SpacerUi size="xl">
+          <DescriptionText size="lg" color="text-second" weight="regular">
+            {i18n.t("auth.seed-checking.description")} {words[0].order},{" "}
+            {words[1].order} {i18n.t("shared.and")} {words[2].order}
+          </DescriptionText>
+        </SpacerUi>
 
-          <SpacerUi>
-            {words?.map(
-              (
-                { word, order }: { word: string; order: number },
-                index: number
-              ) => (
-                <SpacerUi size="xl" key={order}>
-                  <TextInputUi
-                    left={
-                      <View>
-                        <BodyTextUi color="text-second" weight="medium">
-                          {order} .
-                        </BodyTextUi>
-                      </View>
-                    }
-                    onChangeText={(text) => checkWord(text, word, index)}
-                  />
-                </SpacerUi>
-              )
-            )}
-          </SpacerUi>
-        </Body>
+        <SpacerUi>
+          {words?.map(
+            (
+              { word, order }: { word: string; order: number },
+              index: number
+            ) => (
+              <SpacerUi size="xl" key={order}>
+                <TextInputUi
+                  left={
+                    <View>
+                      <BodyTextUi color="text-second" weight="medium">
+                        {order} .
+                      </BodyTextUi>
+                    </View>
+                  }
+                  onChangeText={(text) => checkWord(text, word, index)}
+                />
+              </SpacerUi>
+            )
+          )}
+        </SpacerUi>
+      </Body>
 
-        <Footer>
-          <SpacerUi size="2xl">
-            <Continue onPress={onContinuePress}>
-              {i18n.t("shared.continue")}
-            </Continue>
-          </SpacerUi>
-        </Footer>
-      </ScrollView>
-    </Container>
+      <FooterUi>
+        <SpacerUi size="2xl">
+          <Continue onPress={onContinuePress}>
+            {i18n.t("shared.continue")}
+          </Continue>
+        </SpacerUi>
+      </FooterUi>
+    </ScrollContainerUi>
   );
 }
 
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const Body = styled.View`
-  flex: 1;
+const Body = styled(BodyUi)`
   justify-content: center;
 `;
 
@@ -138,9 +135,6 @@ const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
 
-const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
-`;
 const Continue = styled(ButtonUi)``;
 
 const TextInput = styled(TextInputUi)``;

@@ -10,6 +10,8 @@ import Animated, {
 } from "react-native-reanimated";
 import styled from "styled-components/native";
 
+import { AnimatedContainerUi, BodyUi, FooterUi } from "../ui/LayoutsUi";
+
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
@@ -50,8 +52,8 @@ const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
   }, []);
 
   return (
-    <Container entering={FadeInRight.duration(300)}>
-      <Header>
+    <AnimatedContainerUi entering={FadeInRight.duration(300)}>
+      <Body>
         <PenImage
           style={[animationStyle]}
           resizeMode="contain"
@@ -68,21 +70,17 @@ const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
             {i18n.t("auth.seed-creating.description")}
           </DescriptionText>
         </SpacerUi>
-      </Header>
-      <Footer>
+      </Body>
+      <FooterUi>
         <Continue onPress={onContinue}> {i18n.t("shared.continue")}</Continue>
-      </Footer>
-    </Container>
+      </FooterUi>
+    </AnimatedContainerUi>
   );
 };
-const Container = styled(Animated.View)`
-  flex: 1;
-`;
 
-const Header = styled.View`
+const Body = styled(BodyUi)`
   align-items: center;
   justify-content: center;
-  flex: 1;
 `;
 
 const DescriptionText = styled(BodyTextUi)`
@@ -96,12 +94,6 @@ const PenImage = styled(Animated.Image)`
 
 const HeaderText = styled(HeaderTextUi)`
   /* font-size: 40px; */
-`;
-
-const Footer = styled.View`
-  margin-top: auto;
-  margin-bottom: ${({ theme }) => theme.spaces["4xl"]};
-  gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 
 export default SeedBackUpPreparing;

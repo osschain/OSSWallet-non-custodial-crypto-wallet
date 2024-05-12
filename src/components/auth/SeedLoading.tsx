@@ -8,6 +8,8 @@ import Animated, {
 } from "react-native-reanimated";
 import styled from "styled-components/native";
 
+import { BodyUi } from "../ui/LayoutsUi";
+
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useLanguage } from "@/providers/LanguageProvider";
@@ -42,28 +44,25 @@ const SeedLoading = () => {
   }, []);
 
   return (
-    <>
-      <Loader>
-        <SettingImage
-          style={[animationStyle]}
-          resizeMode="contain"
-          source={require("@/assets/images/setting.png")}
-        />
+    <Body>
+      <SettingImage
+        style={[animationStyle]}
+        resizeMode="contain"
+        source={require("@/assets/images/setting.png")}
+      />
 
-        <SpacerUi size="3.5xl">
-          <LoaderText size="2xl" weight="extra">
-            {i18n.t("auth.seed-creating.making-wallet")}
-          </LoaderText>
-        </SpacerUi>
-      </Loader>
-    </>
+      <SpacerUi size="3.5xl">
+        <LoaderText size="2xl" weight="extra">
+          {i18n.t("auth.seed-creating.making-wallet")}
+        </LoaderText>
+      </SpacerUi>
+    </Body>
   );
 };
 
-const Loader = styled.View`
+const Body = styled(BodyUi)`
   align-items: center;
   justify-content: center;
-  flex: 1;
 `;
 
 const SettingImage = styled(Animated.Image)`

@@ -7,6 +7,7 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { nfts } from "@/util/mock";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
 export default function Nft() {
   const { nftSlug: slug } = useLocalSearchParams();
@@ -16,13 +17,13 @@ export default function Nft() {
   return (
     <>
       <Stack.Screen options={{ title: nft?.title }} />
-      <Body>
+      <BodyUi>
         <ScrollView>
           <Image
             source={require("@/assets/images/nftDefaultIMage.png")}
             resizeMode="cover"
           />
-          <Container>
+          <ScrollContainerUi>
             <SpacerUi size="xl">
               <HeaderTextUi size="2xl">TON NFT Monkey (3933)</HeaderTextUi>
             </SpacerUi>
@@ -38,26 +39,18 @@ export default function Nft() {
                 DEX, who fight for absolute freedom...
               </BodyTextUi>
             </SpacerUi>
-          </Container>
+          </ScrollContainerUi>
         </ScrollView>
-      </Body>
-      <Footer>
+      </BodyUi>
+      <Footer marginSize="sm">
         <ButtonUi>Transfer</ButtonUi>
       </Footer>
     </>
   );
 }
 
-const Container = styled.View`
-  flex: 1;
+const Footer = styled(FooterUi)`
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
-`;
-const Body = styled.View`
-  flex: 1;
-`;
-const Footer = styled.View`
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  margin: ${({ theme }) => theme.spaces["2xl"]} 0;
 `;
 
 const Image = styled.Image`

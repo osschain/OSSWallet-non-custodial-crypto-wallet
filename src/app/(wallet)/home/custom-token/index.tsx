@@ -11,6 +11,7 @@ import { SwitchUi } from "@/components/ui/SwitchUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets } from "@/util/mock";
 import { Link } from "expo-router";
+import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 
 function Index() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,8 +36,8 @@ function Index() {
   }
 
   return (
-    <Container>
-      <Body>
+    <ContainerUi>
+      <BodyUi>
         <SpacerUi size="lg">
           <TextInputUi
             value={searchQuery}
@@ -61,30 +62,16 @@ function Index() {
             )}
           />
         </SpacerUi>
-      </Body>
-      <Footer>
+      </BodyUi>
+      <FooterUi marginSize="sm">
         <Link href="(wallet)/home/custom-token/add-custom-token" asChild>
           <ButtonUi icon={<Feather name="plus" size={20} color="white" />}>
             Add custom tokens
           </ButtonUi>
         </Link>
-      </Footer>
-    </Container>
+      </FooterUi>
+    </ContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const Body = styled.View`
-  flex: 1;
-`;
-
-const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["2xl"]} 0;
-`;
 
 export default Index;

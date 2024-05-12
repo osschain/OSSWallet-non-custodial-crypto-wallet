@@ -10,6 +10,12 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
+import {
+  BodyUi,
+  ContainerUi,
+  FooterUi,
+  ScrollContainerUi,
+} from "@/components/ui/LayoutsUi";
 
 function SeedBackUping() {
   const [words, setWords] = useState<string[]>([]);
@@ -22,71 +28,59 @@ function SeedBackUping() {
   }, [mySeed]);
 
   return (
-    <Container>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <SpacerUi size="xl" />
-        <Body>
-          <Logo
-            resizeMode="contain"
-            source={require("@/assets/images/cpu.png")}
-          />
-          <SpacerUi size="3.5xl">
-            <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
-              {i18n.t("auth.seed-back-uping.header")}
-            </HeaderText>
-          </SpacerUi>
-          <SpacerUi size="xl">
-            <DescriptionText size="lg" color="text-second" weight="regular">
-              {i18n.t("auth.seed-back-uping.description")}
-            </DescriptionText>
-          </SpacerUi>
-          <SpacerUi size="2xl" />
+    <ScrollContainerUi>
+      <SpacerUi size="xl" />
+      <BodyUi>
+        <Logo
+          resizeMode="contain"
+          source={require("@/assets/images/cpu.png")}
+        />
+        <SpacerUi size="3.5xl">
+          <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
+            {i18n.t("auth.seed-back-uping.header")}
+          </HeaderText>
+        </SpacerUi>
+        <SpacerUi size="xl">
+          <DescriptionText size="lg" color="text-second" weight="regular">
+            {i18n.t("auth.seed-back-uping.description")}
+          </DescriptionText>
+        </SpacerUi>
+        <SpacerUi size="2xl" />
 
-          <SeedWrapper>
-            {words.map((word, index) => {
-              return (
-                <Phrase size="lg" weight="medium" key={index}>
-                  <BodyTextUi color="text-second" size="lg" weight="medium">
-                    {index + 1}.
-                  </BodyTextUi>
-                  {` ${word}`}
-                </Phrase>
-              );
-            })}
-          </SeedWrapper>
-        </Body>
+        <SeedWrapper>
+          {words.map((word, index) => {
+            return (
+              <Phrase size="lg" weight="medium" key={index}>
+                <BodyTextUi color="text-second" size="lg" weight="medium">
+                  {index + 1}.
+                </BodyTextUi>
+                {` ${word}`}
+              </Phrase>
+            );
+          })}
+        </SeedWrapper>
+      </BodyUi>
 
-        <Footer>
-          <Continue
-            onPress={() => {
-              router.push("auth/seed-checking");
-            }}
-          >
-            {i18n.t("shared.continue")}
-          </Continue>
-        </Footer>
-      </ScrollView>
-    </Container>
+      <FooterUi>
+        <Continue
+          onPress={() => {
+            router.push("auth/seed-checking");
+          }}
+        >
+          {i18n.t("shared.continue")}
+        </Continue>
+      </FooterUi>
+    </ScrollContainerUi>
   );
 }
 
 const windowWidth = Dimensions.get("window").width;
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
 
 const SeedWrapper = styled.View`
   flex-direction: row;
   justify-content: center;
   gap: ${({ theme }) => theme.spaces["2xl"]};
   flex-wrap: wrap;
-`;
-
-const Body = styled.View`
-  flex: 1;
 `;
 
 const Logo = styled.Image`
@@ -111,11 +105,6 @@ const Phrase = styled(BodyTextUi)`
 
 const DescriptionText = styled(BodyTextUi)`
   text-align: center;
-`;
-
-const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
-  gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 
 const Continue = styled(ButtonUi)``;

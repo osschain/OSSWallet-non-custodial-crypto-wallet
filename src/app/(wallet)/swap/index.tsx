@@ -10,6 +10,7 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { Asset, assets } from "@/util/mock";
+import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 
 export default function Swap() {
   const [exchangable, setExchangable] = useState<Asset | null>(null);
@@ -27,7 +28,7 @@ export default function Swap() {
   };
 
   return (
-    <Container>
+    <ContainerUi>
       <AssetOptions
         assets={assets}
         ref={exchangableOptions}
@@ -44,61 +45,43 @@ export default function Swap() {
           targetOptions.current?.close();
         }}
       />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Body>
-          <SpacerUi size="2xl">
-            <HeaderTextUi>From</HeaderTextUi>
+      <BodyUi>
+        <SpacerUi size="2xl">
+          <HeaderTextUi>From</HeaderTextUi>
+          <SpacerUi size="lg">
+            <AssetQuantityInputUi
+              placeholder="Enter Adress"
+              uri={exchangable?.image}
+              title={exchangable?.title}
+              onAssetPress={handleExchangableOptionsPress}
+            />
+          </SpacerUi>
+        </SpacerUi>
+        <SpacerUi size="2xl">
+          <SpacerUi size="lg">
+            <HeaderTextUi>To</HeaderTextUi>
             <SpacerUi size="lg">
               <AssetQuantityInputUi
+                uri={target?.image}
+                title={target?.title}
                 placeholder="Enter Adress"
-                uri={exchangable?.image}
-                title={exchangable?.title}
-                onAssetPress={handleExchangableOptionsPress}
+                onAssetPress={handleTargetOptionsPress}
               />
             </SpacerUi>
           </SpacerUi>
-          <SpacerUi size="2xl">
-            <SpacerUi size="lg">
-              <HeaderTextUi>To</HeaderTextUi>
-              <SpacerUi size="lg">
-                <AssetQuantityInputUi
-                  uri={target?.image}
-                  title={target?.title}
-                  placeholder="Enter Adress"
-                  onAssetPress={handleTargetOptionsPress}
-                />
-              </SpacerUi>
-            </SpacerUi>
-          </SpacerUi>
-        </Body>
+        </SpacerUi>
+      </BodyUi>
 
-        <Footer>
-          <Button
-            variant="primary"
-            onPress={() => router.replace("(wallet)/swap/swap-in-progress")}
-          >
-            Swap
-          </Button>
-        </Footer>
-      </ScrollView>
-    </Container>
+      <FooterUi marginSize="sm">
+        <Button
+          variant="primary"
+          onPress={() => router.replace("(wallet)/swap/swap-in-progress")}
+        >
+          Swap
+        </Button>
+      </FooterUi>
+    </ContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const Body = styled.View`
-  flex: 1;
-`;
-
-const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["2xl"]} 0;
-
-  gap: ${({ theme }) => theme.spaces["xl"]};
-`;
 
 const Button = styled(ButtonUi)``;

@@ -1,12 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { useMemo, useRef, useState } from "react";
-import { Alert } from "react-native";
-import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
@@ -14,21 +13,6 @@ import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 export default function AddCustomToken() {
   const [adress, setAdress] = useState("");
   const snapPoints = useMemo(() => ["95%", "95%"], []);
-
-  const handleTokeImport = () => {
-    Alert.alert(
-      "Trade at your own risk!",
-      `Anyone can create a token, including creating fake versions of existing tokens that claim to represent projects.`,
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ]
-    );
-  };
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const approveToken = useRef<BottomSheetModal>(null);
@@ -47,11 +31,11 @@ export default function AddCustomToken() {
   };
 
   return (
-    <Container>
+    <ContainerUi>
       <ScannerModalUi ref={bottomSheetRef} onBarcodeScanner={scannerHandler} />
       <BottomSheetModal index={0} snapPoints={snapPoints} ref={approveToken}>
-        <Container>
-          <Body>
+        <ContainerUi>
+          <BodyUi>
             <SpacerUi size="xl">
               <HeaderTextUi>Trade at your own risk!</HeaderTextUi>
             </SpacerUi>
@@ -73,16 +57,16 @@ export default function AddCustomToken() {
                 interactions with it are at your own risk.
               </BodyTextUi>
             </SpacerUi>
-          </Body>
-          <Footer>
+          </BodyUi>
+          <FooterUi>
             <ButtonUi>Import</ButtonUi>
             <SpacerUi size="xl">
               <ButtonUi variant="secondary">Cancel</ButtonUi>
             </SpacerUi>
-          </Footer>
-        </Container>
+          </FooterUi>
+        </ContainerUi>
       </BottomSheetModal>
-      <Body>
+      <BodyUi>
         <SpacerUi size="2xl">
           <TextAreaInputUi
             placeholder="Enter Token Adress"
@@ -100,24 +84,10 @@ export default function AddCustomToken() {
             }
           />
         </SpacerUi>
-      </Body>
-      <Footer>
+      </BodyUi>
+      <FooterUi marginSize="sm">
         <ButtonUi onPress={handleApproveModalPress}>Import Token</ButtonUi>
-      </Footer>
-    </Container>
+      </FooterUi>
+    </ContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
-
-const Body = styled.View`
-  flex: 1;
-`;
-
-const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["2xl"]} 0;
-`;

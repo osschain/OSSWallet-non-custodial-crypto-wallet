@@ -1,6 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { FlatList, ScrollView } from "react-native";
 import styled from "styled-components/native";
 
@@ -35,34 +34,44 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
     setInputs(Array(passwordLength).fill(null));
   };
 
-  const onKeyPress = (item: number | JSX.Element) => {
-    const num = Number(item);
+  const updateInputs = (item: null | number) => {
+    const firstNull = inputs.indexOf(null);
+    const cloneInputs = [...inputs];
+    const index = item ? firstNull - 1 : firstNull;
+    cloneInputs[index] = item;
 
-    if (isNaN(num)) {
-      const lastNull = inputs.indexOf(null);
-      const cloneInputs = [...inputs];
-      cloneInputs[lastNull - 1] = null;
-      setInputs(cloneInputs);
+    return cloneInputs;
+  };
+
+  const removeDigit = () => {
+    const updatedInputs = updateInputs(null);
+    setInputs(updatedInputs);
+  };
+
+  const checkInputs = (inputs: any[]) => {
+    const isInputsFull = !inputs.includes(null);
+
+    if (isInputsFull) {
+      const password = inputs.join("");
+      onPasswordFull(password);
+      clearInputs();
+    }
+  };
+
+  const addDigit = (digit: number) => {
+    const updatedInputs = updateInputs(digit);
+
+    setInputs(updatedInputs);
+    checkInputs(updatedInputs);
+  };
+
+  const handleKeyPress = (key: number | JSX.Element) => {
+    const isDigit = typeof key === "number";
+
+    if (isDigit) {
+      addDigit(key);
     } else {
-      let isNotFillled = true;
-      const fillInputs = inputs.map((input) => {
-        if (!input && isNotFillled) {
-          isNotFillled = false;
-          return num;
-        } else {
-          return input;
-        }
-      });
-
-      setInputs(fillInputs);
-
-      const isInputsFull = !fillInputs.includes(null);
-
-      if (isInputsFull) {
-        const password = fillInputs.join("");
-        onPasswordFull(password);
-        clearInputs();
-      }
+      removeDigit();
     }
   };
 
@@ -110,10 +119,10 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
               gap: 24,
             }}
             contentContainerStyle={{ gap: 10 }}
-            renderItem={({ item }) => (
-              <Key onPress={() => onKeyPress(item)}>
+            renderItem={({ item: key }) => (
+              <Key onPress={() => handleKeyPress(key)}>
                 <HeaderTextUi size="2xl" weight="bold">
-                  {item}
+                  {key}
                 </HeaderTextUi>
               </Key>
             )}
@@ -136,7 +145,6 @@ const Body = styled.View`
 `;
 
 const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
   text-align: center;
 `;
 

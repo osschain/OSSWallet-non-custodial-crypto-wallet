@@ -93,7 +93,7 @@
     },
     "enter-password": {
       "password-incorrect": "password is not correct",
-      "header": "Enter Your Password",
+      "header": "Enter Passcode",
       "remove-session": "Remove Session"
 
     },

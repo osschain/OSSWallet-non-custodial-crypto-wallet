@@ -6,11 +6,19 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
 import AuthProvider from "@/providers/AuthProvider";
-import LanguageProvider from "@/providers/LanguageProvider";
+// eslint-disable-next-line import/order
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
+
 import "react-native-get-random-values";
 import "@ethersproject/shims";
-// eslint-disable-next-line import/order
+import "@/translations/i18n";
+import { resources } from "@/translations/resources";
+
+declare module "react-i18next" {
+  interface CustomTypeOptions {
+    resources: (typeof resources)["en"];
+  }
+}
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,28 +58,20 @@ function RootLayoutNav() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StyledThemeProvider>
-        <LanguageProvider>
-          <AuthProvider>
-            <BottomSheetModalProvider>
-              <Stack>
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="auth" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="(wallet)"
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="modal"
-                  options={{ presentation: "modal" }}
-                />
-                <Stack.Screen
-                  name="enter-password"
-                  options={{ headerShown: false }}
-                />
-              </Stack>
-            </BottomSheetModalProvider>
-          </AuthProvider>
-        </LanguageProvider>
+        <AuthProvider>
+          <BottomSheetModalProvider>
+            <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="auth" options={{ headerShown: false }} />
+              <Stack.Screen name="(wallet)" options={{ headerShown: false }} />
+              <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+              <Stack.Screen
+                name="enter-password"
+                options={{ headerShown: false }}
+              />
+            </Stack>
+          </BottomSheetModalProvider>
+        </AuthProvider>
       </StyledThemeProvider>
     </GestureHandlerRootView>
   );

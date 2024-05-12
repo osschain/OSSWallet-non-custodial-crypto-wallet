@@ -9,8 +9,8 @@ import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { useLanguage } from "@/providers/LanguageProvider";
 import { shuffle } from "@/util/shuffle";
+import { useTranslation } from "react-i18next";
 
 const wordsCount = 3;
 const seedArrayWithOrder = (seed: string) => {
@@ -34,7 +34,7 @@ const getRandomWords = (seed: string) => {
 const inputResults = Array(wordsCount).fill(false);
 
 function SeedChecking() {
-  const { i18n } = useLanguage();
+  const { t } = useTranslation();
 
   const { seed } = useAuth();
   const words = getRandomWords(seed as string);
@@ -52,8 +52,8 @@ function SeedChecking() {
       router.push("auth/password-setup");
     } else {
       Alert.alert(
-        i18n.t("shared.error-label"),
-        i18n.t("auth.seed-checking.checking-error")
+        t("shared.error-label"),
+        t("auth.seed-checking.checking-error")
       );
     }
   };
@@ -68,13 +68,13 @@ function SeedChecking() {
         />
         <SpacerUi size="3.5xl">
           <HeaderText size="3xl" weight="extra">
-            {i18n.t("auth.seed-checking.header")}
+            {t("auth.seed-checking.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            {i18n.t("auth.seed-checking.description")} {words[0].order},{" "}
-            {words[1].order} {i18n.t("shared.and")} {words[2].order}
+            {t("auth.seed-checking.description")} {words[0].order},{" "}
+            {words[1].order} {t("shared.and")} {words[2].order}
           </DescriptionText>
         </SpacerUi>
 
@@ -103,9 +103,7 @@ function SeedChecking() {
 
       <FooterUi>
         <SpacerUi size="2xl">
-          <Continue onPress={onContinuePress}>
-            {i18n.t("shared.continue")}
-          </Continue>
+          <Continue onPress={onContinuePress}>{t("shared.continue")}</Continue>
         </SpacerUi>
       </FooterUi>
     </ScrollContainerUi>

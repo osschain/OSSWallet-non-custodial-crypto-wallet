@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Image } from "react-native";
 import styled from "styled-components/native";
 
@@ -7,10 +8,8 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { useLanguage } from "@/providers/LanguageProvider";
-
 const Congretulation = () => {
-  const { i18n } = useLanguage();
+  const { t } = useTranslation();
   const continueHandler = () => {
     router.push("(wallet)");
   };
@@ -24,18 +23,18 @@ const Congretulation = () => {
 
         <SpacerUi size="3.5xl">
           <HeaderText size="2xl" weight="extra">
-            {i18n.t("auth.congretulation.header")}
+            {t("auth.congretulation.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            {i18n.t("auth.congretulation.description")}
+            {t("auth.congretulation.description")}
           </DescriptionText>
         </SpacerUi>
       </Body>
       <FooterUi>
         <Continue onPress={continueHandler}>
-          {i18n.t("auth.congretulation.go-to-the-wallet")}
+          {t("auth.congretulation.go-to-the-wallet")}
         </Continue>
       </FooterUi>
     </ScrollContainerUi>

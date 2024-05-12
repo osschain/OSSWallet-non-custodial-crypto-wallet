@@ -3,6 +3,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Mnemonic } from "ethers";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
 
@@ -14,12 +15,11 @@ import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { useLanguage } from "@/providers/LanguageProvider";
 
 function ConnetWallet() {
   const [seed, setSeed] = useState<string>("");
   const { addSeed } = useAuth();
-  const { i18n } = useLanguage();
+  const { t } = useTranslation();
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const handlePresentModalPress = () => {
@@ -38,8 +38,8 @@ function ConnetWallet() {
       setSeed(data);
     } else {
       Alert.alert(
-        i18n.t("shared.error-label"),
-        i18n.t("auth.connect-wallet.scanned-error")
+        t("shared.error-label"),
+        t("auth.connect-wallet.scannned-error")
       );
     }
   };
@@ -52,8 +52,8 @@ function ConnetWallet() {
       router.push("auth/password-setup");
     } else {
       Alert.alert(
-        i18n.t("shared.error-label"),
-        i18n.t("auth.connect-wallet.format-error")
+        t("shared.error-label"),
+        t("auth.connect-wallet.format-error")
       );
     }
   };
@@ -70,12 +70,12 @@ function ConnetWallet() {
         />
         <SpacerUi size="3.5xl">
           <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
-            {i18n.t("auth.connect-wallet.header")}
+            {t("auth.connect-wallet.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            {i18n.t("auth.connect-wallet.description")}
+            {t("auth.connect-wallet.description")}
           </DescriptionText>
         </SpacerUi>
         <SpacerUi size="2xl">
@@ -98,7 +98,7 @@ function ConnetWallet() {
 
       <Footer>
         <Continue onPress={handleConnectWallet}>
-          {i18n.t("auth.connect-wallet.connect-wallet")}
+          {t("auth.connect-wallet.connect-wallet")}
         </Continue>
       </Footer>
     </ScrollContainerUi>

@@ -1,5 +1,6 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 
@@ -9,13 +10,12 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { useLanguage } from "@/providers/LanguageProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 function SeedBackUping() {
   const [words, setWords] = useState<string[]>([]);
   const { seed: mySeed } = useAuth();
-  const { i18n } = useLanguage();
+  const { t } = useTranslation();
   useEffect(() => {
     if (mySeed) {
       setWords(mySeed.trim().split(/\s+/));
@@ -32,12 +32,12 @@ function SeedBackUping() {
         />
         <SpacerUi size="3.5xl">
           <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
-            {i18n.t("auth.seed-back-uping.header")}
+            {t("auth.seed-back-uping.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            {i18n.t("auth.seed-back-uping.description")}
+            {t("auth.seed-back-uping.description")}
           </DescriptionText>
         </SpacerUi>
         <SpacerUi size="2xl" />
@@ -62,7 +62,7 @@ function SeedBackUping() {
             router.push("auth/seed-checking");
           }}
         >
-          {i18n.t("shared.continue")}
+          {t("shared.continue")}
         </Continue>
       </FooterUi>
     </ScrollContainerUi>

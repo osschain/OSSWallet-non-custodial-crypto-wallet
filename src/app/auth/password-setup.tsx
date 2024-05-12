@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import styled, { useTheme } from "styled-components/native";
 import * as yup from "yup";
 
@@ -13,7 +14,6 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { useLanguage } from "@/providers/LanguageProvider";
 
 type FormValues = {
   password: string;
@@ -22,7 +22,7 @@ type FormValues = {
 
 function PasswordSetup() {
   const theme = useTheme();
-  const { i18n } = useLanguage();
+  const { t } = useTranslation();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmShown, setIsConfirmShown] = useState(false);
 
@@ -32,17 +32,14 @@ function PasswordSetup() {
     return yup.object().shape({
       password: yup
         .string()
-        .required(i18n.t("auth.password-setup.password-required"))
-        .min(8, i18n.t("auth.password-setup.password-min-length")),
+        .required(t("auth.password-setup.password-required"))
+        .min(8, t("auth.password-setup.password-min-length")),
       confirmPassword: yup
         .string()
-        .required(i18n.t("auth.password-setup.password-confirm-required"))
-        .oneOf(
-          [yup.ref("password")],
-          i18n.t("auth.password-setup.password-match")
-        ),
+        .required(t("auth.password-setup.password-confirm-required"))
+        .oneOf([yup.ref("password")], t("auth.password-setup.password-match")),
     });
-  }, [i18n]);
+  }, [t]);
 
   const {
     control,
@@ -66,12 +63,12 @@ function PasswordSetup() {
           />
           <SpacerUi size="3.5xl">
             <HeaderText size="3xl" weight="extra">
-              {i18n.t("auth.password-setup.header")}
+              {t("auth.password-setup.header")}
             </HeaderText>
           </SpacerUi>
           <SpacerUi size="xl">
             <DescriptionText size="lg" color="text-second" weight="regular">
-              {i18n.t("auth.password-setup.description")}
+              {t("auth.password-setup.description")}
             </DescriptionText>
           </SpacerUi>
         </SpacerUi>
@@ -81,7 +78,7 @@ function PasswordSetup() {
             name="password"
             control={control}
             errors={errors}
-            placeholder={i18n.t("shared.password")}
+            placeholder={t("shared.password")}
             right={
               <Feather
                 onPress={() => setIsPasswordShown((prev) => !prev)}
@@ -97,7 +94,7 @@ function PasswordSetup() {
             name="confirmPassword"
             control={control}
             errors={errors}
-            placeholder={i18n.t("shared.confirm-password")}
+            placeholder={t("shared.confirm-password")}
             right={
               <Feather
                 onPress={() => setIsConfirmShown((prev) => !prev)}
@@ -113,7 +110,7 @@ function PasswordSetup() {
       <FooterUi>
         <SpacerUi size="2xl">
           <Continue onPress={handleSubmit(continueHandler)}>
-            {i18n.t("shared.continue")}
+            {t("shared.continue")}
           </Continue>
         </SpacerUi>
       </FooterUi>

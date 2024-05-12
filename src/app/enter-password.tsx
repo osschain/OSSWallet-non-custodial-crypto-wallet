@@ -14,6 +14,7 @@ import ControllTextInputUi from "@/components/ui/ControllTexInputUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
+import { useTranslation } from "react-i18next";
 
 type FormValues = {
   password: string;
@@ -29,6 +30,7 @@ const passwordSchema = yup.object().shape({
 function EnterPassowrd() {
   const theme = useTheme();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const { t } = useTranslation();
 
   const {
     checkPassword,
@@ -82,7 +84,6 @@ function EnterPassowrd() {
                 </HeaderText>
               </SpacerUi>
             </SpacerUi>
-
             <SpacerUi size="4xl">
               <ControllTextInputUi
                 secureTextEntry={!isPasswordShown}

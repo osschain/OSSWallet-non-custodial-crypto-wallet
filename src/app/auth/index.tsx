@@ -17,9 +17,9 @@ function Auth() {
       <Body>
         <Logo resizeMode="contain" source={{ uri: defaultImage }} />
         <SpacerUi size="3.5xl">
-          <HeaderText adjustsFontSizeToFit size="3xl" weight="extra">
+          <HeaderTextUi adjustsFontSizeToFit size="3xl" weight="extra">
             {t("auth.index.header")}
-          </HeaderText>
+          </HeaderTextUi>
         </SpacerUi>
         <SpacerUi size="4xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
@@ -56,10 +56,6 @@ const Body = styled(BodyUi)`
 const Logo = styled.Image`
   width: 100px;
   height: 100px;
-`;
-
-const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
 `;
 
 const DescriptionText = styled(BodyTextUi)`

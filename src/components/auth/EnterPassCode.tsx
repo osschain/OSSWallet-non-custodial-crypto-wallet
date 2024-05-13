@@ -37,9 +37,8 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
   const updateInputs = (item: null | number) => {
     const firstNull = inputs.indexOf(null);
     const cloneInputs = [...inputs];
-    const index = item ? firstNull - 1 : firstNull;
+    const index = item ? firstNull : firstNull - 1;
     cloneInputs[index] = item;
-
     return cloneInputs;
   };
 
@@ -60,7 +59,6 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
 
   const addDigit = (digit: number) => {
     const updatedInputs = updateInputs(digit);
-
     setInputs(updatedInputs);
     checkInputs(updatedInputs);
   };

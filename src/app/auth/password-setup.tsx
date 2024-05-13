@@ -13,6 +13,7 @@ function PasswordSetup() {
     if (password && password === confirmPassword) {
       continueHandler(password);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [confirmPassword, password]);
 
   const continueHandler = (password: string) => {

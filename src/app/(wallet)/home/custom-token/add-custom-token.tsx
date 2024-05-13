@@ -132,7 +132,7 @@ export default function AddCustomToken() {
               </RightDetail>
             </Row>
             {details.map(({ title, value }) => (
-              <SpacerUi size="xl">
+              <SpacerUi size="xl" key={title}>
                 <Row>
                   <LeftDetail>
                     <BodyTextUi weight="medium">{title}:</BodyTextUi>

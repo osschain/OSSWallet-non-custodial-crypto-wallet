@@ -10,7 +10,7 @@ import NetworkOptions from "@/components/network/NetworkOptions";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
@@ -58,10 +58,10 @@ export default function AddCustomToken() {
   };
 
   return (
-    <ContainerUi>
+    <ScrollContainerUi>
       <ScannerModalUi ref={bottomSheetRef} onBarcodeScanner={scannerHandler} />
       <BottomSheetModal index={0} snapPoints={snapPoints} ref={approveToken}>
-        <ContainerUi>
+        <ScrollContainerUi>
           <BodyUi>
             <SpacerUi size="xl">
               <HeaderTextUi>
@@ -91,7 +91,7 @@ export default function AddCustomToken() {
               <ButtonUi variant="secondary">{t("shared.cancel")}</ButtonUi>
             </SpacerUi>
           </FooterUi>
-        </ContainerUi>
+        </ScrollContainerUi>
       </BottomSheetModal>
       <NetworkOptions
         ref={networkModal}
@@ -153,7 +153,7 @@ export default function AddCustomToken() {
           {t("wallet.home.custom-token.add-custom-token.import-token-button")}
         </ButtonUi>
       </FooterUi>
-    </ContainerUi>
+    </ScrollContainerUi>
   );
 }
 
@@ -170,4 +170,8 @@ const RightDetail = styled.View``;
 const Row = styled.View`
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const Footer = styled.View`
+  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
 `;

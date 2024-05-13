@@ -36,13 +36,6 @@ function Auth() {
         <Link href="auth/seed-creating" asChild>
           <CreateNew>{t("auth.index.create-new")}</CreateNew>
         </Link>
-        <ButtonUi
-          onPress={() => {
-            i18n.changeLanguage("ka");
-          }}
-        >
-          TRANSLATE
-        </ButtonUi>
       </Footer>
     </ScrollContainerUi>
   );

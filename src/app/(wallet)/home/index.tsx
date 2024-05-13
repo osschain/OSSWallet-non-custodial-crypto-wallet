@@ -81,6 +81,5 @@ const CardContainer = styled.View`
 const AssetContainer = styled.View`
   flex: 1;
   margin-top: ${({ theme }) => theme.spaces["xl"]};
-
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
 `;

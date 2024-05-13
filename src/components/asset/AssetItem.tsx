@@ -27,16 +27,16 @@ const AssetItem = ({
           <Logo source={{ uri }} />
         </ImageContainer>
         <View>
-          <AssetName size="md">{assetName}</AssetName>
-          <AssetAmount size="sm" weight="medium" color="text-second">
+          <HeaderTextUi size="md">{assetName}</HeaderTextUi>
+          <BodyTextUi size="sm" weight="medium" color="text-second">
             {assetAmount}
-          </AssetAmount>
+          </BodyTextUi>
         </View>
       </LeftContent>
       <RightContent>
-        <UsdAmount size="md" weight="medium">
+        <BodyTextUi size="md" weight="medium">
           {usdAmount}
-        </UsdAmount>
+        </BodyTextUi>
       </RightContent>
     </Item>
   );
@@ -68,9 +68,6 @@ const Logo = styled.Image`
   height: ${({ theme }) => theme.sizes["xl"]};
 `;
 
-const AssetName = styled(HeaderTextUi)``;
-const AssetAmount = styled(BodyTextUi)``;
 const RightContent = styled.View``;
-const UsdAmount = styled(BodyTextUi)``;
 
 export default AssetItem;

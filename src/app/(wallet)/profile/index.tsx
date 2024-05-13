@@ -1,11 +1,12 @@
 import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { Link } from "expo-router";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
+
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Link } from "expo-router";
 
 export default function Profile() {
   return (

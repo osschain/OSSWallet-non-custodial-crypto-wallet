@@ -5,8 +5,6 @@ import { useTheme } from "styled-components/native";
 
 import { useAuth } from "@/providers/AuthProvider";
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-
 export default function TabLayout() {
   const { seed, encryptedSeed } = useAuth();
   const theme = useTheme();

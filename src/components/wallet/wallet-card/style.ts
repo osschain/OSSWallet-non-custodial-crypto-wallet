@@ -1,7 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 
-import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { getFontStyle } from "@/util/themeUtils";
 export const Card = styled.View`
@@ -26,7 +25,6 @@ export const WalletAdressContainer = styled.View`
   flex-direction: row;
   gap: ${({ theme }) => theme.spaces["lg"]};
 `;
-export const WalletAdress = styled(BodyTextUi)``;
 
 export const CopyAddres = styled.TouchableOpacity``;
 
@@ -53,7 +51,6 @@ export const Button = styled.TouchableOpacity`
 
 `;
 export const ButtonIcon = styled.View``;
-export const ButtonText = styled(BodyTextUi)``;
 export const ButtonBacground = styled.View`
   position: absolute;
   left: 0;

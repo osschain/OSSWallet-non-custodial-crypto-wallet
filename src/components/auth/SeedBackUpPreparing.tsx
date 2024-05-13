@@ -61,9 +61,9 @@ const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
         />
 
         <SpacerUi size="3.5xl">
-          <HeaderText size="2xl" weight="extra">
+          <HeaderTextUi size="2xl" weight="extra">
             {t("auth.seed-creating.header")}
-          </HeaderText>
+          </HeaderTextUi>
         </SpacerUi>
         <SpacerUi size="4xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
@@ -90,10 +90,6 @@ const DescriptionText = styled(BodyTextUi)`
 const PenImage = styled(Animated.Image)`
   width: 100px;
   height: 100px;
-`;
-
-const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
 `;
 
 export default SeedBackUpPreparing;

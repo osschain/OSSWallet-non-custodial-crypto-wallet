@@ -97,9 +97,9 @@ function ConnetWallet() {
       </Body>
 
       <Footer>
-        <Continue onPress={handleConnectWallet}>
+        <ButtonUi onPress={handleConnectWallet}>
           {t("auth.connect-wallet.connect-wallet")}
-        </Continue>
+        </ButtonUi>
       </Footer>
     </ScrollContainerUi>
   );
@@ -127,7 +127,5 @@ const Footer = styled.View`
   margin: ${({ theme }) => theme.spaces["4xl"]} 0;
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
-
-const Continue = styled(ButtonUi)``;
 
 export default ConnetWallet;

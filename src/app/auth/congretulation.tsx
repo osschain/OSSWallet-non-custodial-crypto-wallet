@@ -22,9 +22,9 @@ const Congretulation = () => {
         />
 
         <SpacerUi size="3.5xl">
-          <HeaderText size="2xl" weight="extra">
+          <HeaderTextUi size="2xl" weight="extra">
             {t("auth.congretulation.header")}
-          </HeaderText>
+          </HeaderTextUi>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
@@ -53,10 +53,6 @@ const DescriptionText = styled(BodyTextUi)`
 const PenImage = styled(Image)`
   width: 100px;
   height: 100px;
-`;
-
-const HeaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
 `;
 
 const Continue = styled(ButtonUi)``;

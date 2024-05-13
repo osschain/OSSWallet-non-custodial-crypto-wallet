@@ -103,7 +103,7 @@ function SeedChecking() {
 
       <FooterUi>
         <SpacerUi size="2xl">
-          <Continue onPress={onContinuePress}>{t("shared.continue")}</Continue>
+          <ButtonUi onPress={onContinuePress}>{t("shared.continue")}</ButtonUi>
         </SpacerUi>
       </FooterUi>
     </ScrollContainerUi>
@@ -127,9 +127,5 @@ const HeaderText = styled(HeaderTextUi)`
 const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
-
-const Continue = styled(ButtonUi)``;
-
-const TextInput = styled(TextInputUi)``;
 
 export default SeedChecking;

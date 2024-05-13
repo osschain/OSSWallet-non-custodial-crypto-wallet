@@ -52,9 +52,9 @@ const SeedLoading = () => {
       />
 
       <SpacerUi size="3.5xl">
-        <LoaderText size="2xl" weight="extra">
+        <HeaderTextUi size="2xl" weight="extra">
           {t("auth.seed-creating.making-wallet")}
-        </LoaderText>
+        </HeaderTextUi>
       </SpacerUi>
     </Body>
   );
@@ -68,10 +68,6 @@ const Body = styled(BodyUi)`
 const SettingImage = styled(Animated.Image)`
   width: 100px;
   height: 100px;
-`;
-
-const LoaderText = styled(HeaderTextUi)`
-  /* font-size: 40px; */
 `;
 
 export default SeedLoading;

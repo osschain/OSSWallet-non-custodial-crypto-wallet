@@ -29,12 +29,12 @@ function Auth() {
       </Body>
       <Footer>
         <Link href="auth/connect-wallet" asChild>
-          <ConnectWallet variant="secondary">
+          <ButtonUi variant="secondary">
             {t("auth.index.connect-wallet")}
-          </ConnectWallet>
+          </ButtonUi>
         </Link>
         <Link href="auth/seed-creating" asChild>
-          <CreateNew>{t("auth.index.create-new")}</CreateNew>
+          <ButtonUi>{t("auth.index.create-new")}</ButtonUi>
         </Link>
       </Footer>
     </ScrollContainerUi>
@@ -59,9 +59,5 @@ const Footer = styled(FooterUi)`
   margin: ${({ theme }) => theme.spaces["4xl"]} 0;
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
-
-const ConnectWallet = styled(ButtonUi)``;
-
-const CreateNew = styled(ButtonUi)``;
 
 export default Auth;

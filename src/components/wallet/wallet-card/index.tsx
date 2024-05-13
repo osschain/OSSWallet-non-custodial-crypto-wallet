@@ -1,5 +1,6 @@
 import { Entypo, Feather, MaterialIcons } from "@expo/vector-icons";
 import { ComponentPropsWithoutRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/native";
 
 import {
@@ -11,18 +12,17 @@ import {
   Button,
   ButtonBacground,
   ButtonIcon,
-  ButtonText,
   MoneyAmount,
   Options,
 } from "./style";
 
 import SpacerUi from "@/components/ui/SpacerUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
-import { useTranslation } from "react-i18next";
+import BodyTextUi from "@/components/ui/BodyTextUi";
+
 
 type Props = {
   userName?: string;
-  walletAddres?: string;
   moneyAmount?: string;
   onRecieve?: () => void;
   onSend?: () => void;
@@ -32,7 +32,6 @@ type Props = {
 
 const WalletCard = ({
   userName = "Ton Wallet",
-  walletAddres = "EQDHirLoAYIhplO....",
   moneyAmount = "$ 1520,056",
   onRecieve = () => {},
   onSend = () => {},
@@ -67,11 +66,11 @@ const WalletCard = ({
                 color={theme.colors["pure-white"]}
               />
             </ButtonIcon>
-            <ButtonText color="pure-white">{t("shared.receive")}</ButtonText>
+            <BodyTextUi color="pure-white">{t("shared.receive")}</Body>
             <ButtonBacground />
           </Button>
           <Button onPress={onSend}>
-            <ButtonText color="pure-white">{t("shared.send")}</ButtonText>
+            <BodyTextUi color="pure-white">{t("shared.send")}</BodyTextUi>
             <ButtonIcon>
               <Feather
                 name="arrow-up-right"
@@ -82,7 +81,7 @@ const WalletCard = ({
             <ButtonBacground />
           </Button>
           <Button onPress={onHistory}>
-            <ButtonText color="pure-white">{t("shared.history")}</ButtonText>
+            <BodyTextUi color="pure-white">{t("shared.history")}</BodyTextUi>
             <ButtonIcon>
               <MaterialIcons
                 name="history"

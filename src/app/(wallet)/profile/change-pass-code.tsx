@@ -1,9 +1,9 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import { Alert } from "react-native";
 
 import EnterPassCode from "@/components/auth/EnterPassCode";
 import { useAuth } from "@/providers/AuthProvider";
-import { Alert } from "react-native";
 
 function ChangePassCode() {
   const { encryptAndSaveSeed, checkPassword } = useAuth();

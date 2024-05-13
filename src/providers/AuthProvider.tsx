@@ -88,7 +88,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
   const checkPassword = async (password: string) => {
     const encryptedSeed = await getEncryptedSeed();
-
     const seed = await decrypt(encryptedSeed, password);
 
     if (seed) {

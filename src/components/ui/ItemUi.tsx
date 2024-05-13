@@ -17,10 +17,10 @@ export default function ItemUi({ uri, title, description, right }: Props) {
     <Item>
       <Content>
         <Image source={{ uri }} />
-        <TextsContainer>
-          <Title>{title}</Title>
-          {description && <Description>{description}</Description>}
-        </TextsContainer>
+        <View>
+          <HeaderTextUi>{title}</HeaderTextUi>
+          {description && <BodyTextUi>{description}</BodyTextUi>}
+        </View>
       </Content>
       {right && <View>{right}</View>}
     </Item>
@@ -36,11 +36,6 @@ const Content = styled.View`
   gap: 20px;
   align-items: center;
 `;
-
-const TextsContainer = styled.View``;
-
-const Description = styled(BodyTextUi)``;
-const Title = styled(HeaderTextUi)``;
 
 const Image = styled.Image`
   width: 48px;

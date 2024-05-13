@@ -171,7 +171,3 @@ const Row = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
-
-const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
-`;

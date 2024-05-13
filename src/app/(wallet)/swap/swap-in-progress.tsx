@@ -1,13 +1,13 @@
 import { CommonActions } from "@react-navigation/native";
 import { useNavigation, router } from "expo-router";
-import { Image, ScrollView } from "react-native";
+import { Image } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import SpacerUi from "@/components/ui/SpacerUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
+import SpacerUi from "@/components/ui/SpacerUi";
 
 const SwapInProgress = () => {
   const navigation = useNavigation();

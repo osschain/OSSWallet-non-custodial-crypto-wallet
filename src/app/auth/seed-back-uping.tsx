@@ -57,13 +57,13 @@ function SeedBackUping() {
       </BodyUi>
 
       <FooterUi>
-        <Continue
+        <ButtonUi
           onPress={() => {
             router.push("auth/seed-checking");
           }}
         >
           {t("shared.continue")}
-        </Continue>
+        </ButtonUi>
       </FooterUi>
     </ScrollContainerUi>
   );
@@ -101,7 +101,5 @@ const Phrase = styled(BodyTextUi)`
 const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
-
-const Continue = styled(ButtonUi)``;
 
 export default SeedBackUping;

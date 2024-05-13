@@ -1,6 +1,7 @@
 import { Redirect, router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 import { useTranslation } from "react-i18next";
-import { Alert } from "react-native";
+import { Alert, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "styled-components/native";
 
@@ -49,6 +50,13 @@ function EnterPassowrd() {
       <EnterPassCode
         header={t("enter-password.header")}
         onPasswordFull={handlePasswordCheck}
+      />
+      <Button
+        title="Remove session"
+        onPress={() => {
+          SecureStore.deleteItemAsync("seed");
+          router.push("/auth/");
+        }}
       />
     </SafeAreaView>
   );

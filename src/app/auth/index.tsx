@@ -10,7 +10,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { defaultImage } from "@/util/DefaultImage";
 
 function Auth() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <ScrollContainerUi>

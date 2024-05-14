@@ -1,4 +1,4 @@
-import { Stack, router } from "expo-router";
+import { Stack } from "expo-router";
 import { useTheme } from "styled-components/native";
 
 export default function _layout() {

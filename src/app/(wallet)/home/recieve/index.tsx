@@ -4,7 +4,7 @@ import { Link } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
@@ -14,9 +14,12 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets, networks } from "@/util/mock";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function Recieve() {
   const { t } = useTranslation();
+  const theme = useTheme();
+
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = () => {
@@ -45,7 +48,13 @@ export default function Recieve() {
         value={searchQuery}
         onChangeText={setSearchQuery}
         placeholder="Search "
-        left={<AntDesign name="search1" size={24} color="black" />}
+        left={
+          <AntDesign
+            name="search1"
+            size={pixelToNumber(theme.sizes["xl"])}
+            color="black"
+          />
+        }
       />
       <NetworkOptions
         ref={bottomSheetRef}

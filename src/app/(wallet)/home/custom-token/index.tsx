@@ -3,6 +3,7 @@ import { Link } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList } from "react-native";
+import { useTheme } from "styled-components/native";
 
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -12,10 +13,12 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets } from "@/util/mock";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 function Index() {
   const [searchQuery, setSearchQuery] = useState("");
   const { t } = useTranslation();
+  const theme = useTheme();
   const filteredAssets = useMemo(() => {
     if (!searchQuery) {
       return assets;
@@ -43,7 +46,13 @@ function Index() {
             placeholder={t(
               "wallet.home.custom-token.index.search-input-placeholder"
             )}
-            left={<AntDesign name="search1" size={24} color="black" />}
+            left={
+              <AntDesign
+                name="search1"
+                size={pixelToNumber(theme.sizes["xl"])}
+                color="black"
+              />
+            }
           />
         </SpacerUi>
 
@@ -65,7 +74,15 @@ function Index() {
       </BodyUi>
       <FooterUi marginSize="sm">
         <Link href="(wallet)/home/custom-token/add-custom-token" asChild>
-          <ButtonUi icon={<Feather name="plus" size={20} color="white" />}>
+          <ButtonUi
+            icon={
+              <Feather
+                name="plus"
+                size={pixelToNumber(theme.sizes["xl"])}
+                color="white"
+              />
+            }
+          >
             {t("wallet.home.custom-token.index.add-button-text")}
           </ButtonUi>
         </Link>

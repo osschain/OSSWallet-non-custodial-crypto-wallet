@@ -16,10 +16,9 @@ import {
   Options,
 } from "./style";
 
+import BodyTextUi from "@/components/ui/BodyTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
-import BodyTextUi from "@/components/ui/BodyTextUi";
-
 
 type Props = {
   userName?: string;
@@ -66,7 +65,7 @@ const WalletCard = ({
                 color={theme.colors["pure-white"]}
               />
             </ButtonIcon>
-            <BodyTextUi color="pure-white">{t("shared.receive")}</Body>
+            <BodyTextUi color="pure-white">{t("shared.receive")}</BodyTextUi>
             <ButtonBacground />
           </Button>
           <Button onPress={onSend}>

@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -15,11 +15,13 @@ import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 function ConnetWallet() {
   const [seed, setSeed] = useState<string>("");
   const { addSeed } = useAuth();
   const { t } = useTranslation();
+  const theme = useTheme();
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const handlePresentModalPress = () => {
@@ -87,7 +89,7 @@ function ConnetWallet() {
             right={
               <Ionicons
                 name="scan"
-                size={24}
+                size={pixelToNumber(theme.sizes["xl"])}
                 color="black"
                 onPress={handlePresentModalPress}
               />

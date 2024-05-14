@@ -3,7 +3,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image } from "react-native";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
@@ -16,6 +16,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { defaultImage } from "@/util/DefaultImage";
 import { networks } from "@/util/mock";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 const details = [
   {
@@ -34,6 +35,7 @@ const details = [
 export default function AddCustomToken() {
   const [adress, setAdress] = useState("");
   const { t } = useTranslation();
+  const theme = useTheme();
   const snapPoints = useMemo(() => ["95%", "95%"], []);
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -114,7 +116,7 @@ export default function AddCustomToken() {
             right={
               <Ionicons
                 name="scan"
-                size={24}
+                size={pixelToNumber(theme.sizes["2xl"])}
                 color="black"
                 onPress={handlePresentModalPress}
               />
@@ -124,24 +126,28 @@ export default function AddCustomToken() {
         <SpacerUi size="3xl">
           <TokenDetails>
             <Row>
-              <LeftDetail>
+              <LeftContent>
                 <BodyTextUi weight="medium">icon:</BodyTextUi>
-              </LeftDetail>
-              <RightDetail>
-                <Image source={{ uri: defaultImage }} width={24} height={24} />
-              </RightDetail>
+              </LeftContent>
+              <RightContent>
+                <Image
+                  source={{ uri: defaultImage }}
+                  width={pixelToNumber(theme.sizes["xl"])}
+                  height={pixelToNumber(theme.sizes["xl"])}
+                />
+              </RightContent>
             </Row>
             {details.map(({ title, value }) => (
               <SpacerUi size="xl" key={title}>
                 <Row>
-                  <LeftDetail>
+                  <LeftContent>
                     <BodyTextUi weight="medium">{title}:</BodyTextUi>
-                  </LeftDetail>
-                  <RightDetail>
+                  </LeftContent>
+                  <RightContent>
                     <BodyTextUi weight="medium" color="text-second">
                       {value}
                     </BodyTextUi>
-                  </RightDetail>
+                  </RightContent>
                 </Row>
               </SpacerUi>
             ))}
@@ -163,9 +169,9 @@ const TokenDetails = styled.View`
   border-radius: ${({ theme }) => theme.sizes["md"]};
 `;
 
-const LeftDetail = styled.View``;
+const LeftContent = styled.View``;
 
-const RightDetail = styled.View``;
+const RightContent = styled.View``;
 
 const Row = styled.View`
   flex-direction: row;

@@ -1,21 +1,27 @@
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function Profile() {
+  const theme = useTheme();
   return (
     <ScrollContainerUi>
       <SpacerUi>
         <Setting>
           <Left>
             <Icon>
-              <Ionicons name="notifications" size={24} color="white" />
+              <Ionicons
+                name="notifications"
+                size={pixelToNumber(theme.sizes["xl"])}
+                color="white"
+              />
             </Icon>
             <Title>
               <BodyTextUi weight="medium" size="lg">
@@ -34,7 +40,11 @@ export default function Profile() {
             <Setting>
               <Left>
                 <Icon>
-                  <AntDesign name="lock" size={24} color="white" />
+                  <AntDesign
+                    name="lock"
+                    size={pixelToNumber(theme.sizes["xl"])}
+                    color="white"
+                  />
                 </Icon>
                 <Title>
                   <BodyTextUi weight="medium" size="lg">
@@ -43,7 +53,11 @@ export default function Profile() {
                 </Title>
               </Left>
               <Right>
-                <AntDesign name="arrowright" size={24} color="black" />
+                <AntDesign
+                  name="arrowright"
+                  size={pixelToNumber(theme.sizes["xl"])}
+                  color="black"
+                />
               </Right>
             </Setting>
           </TouchableOpacity>

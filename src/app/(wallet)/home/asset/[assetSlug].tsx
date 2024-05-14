@@ -23,7 +23,11 @@ export default function Asset() {
 
       <SpacerUi size="4xl">
         <ChainDetails>
-          <Image source={{ uri: defaultImage }} width={36} height={36} />
+          <Image
+            source={{ uri: defaultImage }}
+            width={pixelToNumber(theme.sizes["3xl"])}
+            height={pixelToNumber(theme.sizes["3xl"])}
+          />
           <BodyTextUi weight="bold" size="lg">
             {asset?.title} {t("shared.token")}
           </BodyTextUi>

@@ -1,8 +1,5 @@
-import { getHeaderTitle } from "@react-navigation/elements";
 import { Stack } from "expo-router";
 import { useTheme } from "styled-components/native";
-
-import SecondHeader from "@/components/layout/SecondHeader";
 
 export default function _layout() {
   const theme = useTheme();

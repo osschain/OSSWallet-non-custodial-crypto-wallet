@@ -17,7 +17,9 @@ const NetworkButton = ({
 
   return (
     <Button variant="secondary" {...rest}>
-      <FlexContainer style={{ flexDirection: "row", gap: 10 }}>
+      <FlexContainer
+        style={{ flexDirection: "row", gap: pixelToNumber(theme.spaces["lg"]) }}
+      >
         <BodyTextUi weight="medium">{children}</BodyTextUi>
         <EvilIcons
           name="arrow-up"
@@ -29,10 +31,10 @@ const NetworkButton = ({
   );
 };
 
+// prettier-ignore
 const Button = styled(ButtonUi)`
   width: 40%;
-  padding: ${({ theme }) => theme.spaces["lg"]}
-    ${({ theme }) => theme.spaces["lg"]};
+  padding: ${({ theme }) => theme.spaces["lg"]} ${({ theme }) => theme.spaces["lg"]};
 `;
 
 const FlexContainer = styled.View`

@@ -1,10 +1,11 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 import { FlatList, ScrollView } from "react-native";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 const passwordLength = 6;
 
@@ -29,7 +30,7 @@ type Props = {
 
 function EnterPassCode({ onPasswordFull, header }: Props) {
   const [inputs, setInputs] = useState(Array(passwordLength).fill(null));
-
+  const theme = useTheme();
   const clearInputs = () => {
     setInputs(Array(passwordLength).fill(null));
   };
@@ -89,13 +90,7 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
               {inputs.map((input, index) => {
                 return (
                   <Input key={index}>
-                    <HeaderTextUi
-                      style={{
-                        height: 20,
-                      }}
-                      weight="bold"
-                      size="3xl"
-                    >
+                    <HeaderTextUi weight="bold" size="3xl">
                       {input ? "*" : input}
                     </HeaderTextUi>
                   </Input>
@@ -114,9 +109,9 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
             columnWrapperStyle={{
               justifyContent: "flex-start",
               alignItems: "center",
-              gap: 24,
+              gap: pixelToNumber(theme.sizes["xl"]),
             }}
-            contentContainerStyle={{ gap: 10 }}
+            contentContainerStyle={{ gap: pixelToNumber(theme.sizes["xl"]) }}
             renderItem={({ item: key }) => (
               <Key onPress={() => handleKeyPress(key)}>
                 <HeaderTextUi size="2xl" weight="bold">
@@ -144,6 +139,7 @@ const Body = styled.View`
 
 const HeaderText = styled(HeaderTextUi)`
   text-align: center;
+  height: ${({ theme }) => theme.sizes["xl"]};
 `;
 
 const Footer = styled.View`
@@ -155,8 +151,8 @@ const Key = styled.TouchableOpacity`
   justify-content: center;
   background-color: ${({ theme }) => theme.colors["bg-second"]};
   align-items: center;
-  width: 60px;
-  height: 60px;
+  width: ${({ theme }) => theme.sizes["5xl"]};
+  height: ${({ theme }) => theme.sizes["5xl"]};
 `;
 
 const CustomKeyboard = styled.View`
@@ -171,11 +167,11 @@ const Inputs = styled.View`
 const Input = styled.View`
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 48px;
+  width: ${({ theme }) => theme.sizes["3.5xl"]};
+  height: ${({ theme }) => theme.sizes["4xl"]};
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors["border-color"]};
-  border-radius: 6px;
+  border-radius: ${({ theme }) => theme.sizes["xl"]};
 `;
 
 export default EnterPassCode;

@@ -8,6 +8,8 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { Asset } from "@/util/mock";
+import { useTheme } from "styled-components/native";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 export type Ref = BottomSheetModal;
 
@@ -22,6 +24,7 @@ const AssetOptions = forwardRef<Ref, Props>(
     const snapPoints = useMemo(() => ["95%", "95%"], []);
     const [selected, setSelected] = useState(defSelected || null);
     const [searchQuery, setSearchQuery] = useState("");
+    const theme = useTheme();
 
     // Filtering Logic
     const filteredAssets = useMemo(() => {
@@ -41,7 +44,13 @@ const AssetOptions = forwardRef<Ref, Props>(
               value={searchQuery}
               onChangeText={setSearchQuery}
               placeholder="Search "
-              left={<AntDesign name="search1" size={24} color="black" />}
+              left={
+                <AntDesign
+                  name="search1"
+                  size={pixelToNumber(theme.sizes["xl"])}
+                  color="black"
+                />
+              }
             />
           </SpacerUi>
           {filteredAssets.map((asset) => {
@@ -59,7 +68,11 @@ const AssetOptions = forwardRef<Ref, Props>(
                     uri={asset.image}
                     right={
                       selected === asset.title && (
-                        <AntDesign name="check" size={24} color="black" />
+                        <AntDesign
+                          name="check"
+                          size={pixelToNumber(theme.sizes["xl"])}
+                          color="black"
+                        />
                       )
                     }
                   />

@@ -16,7 +16,7 @@ const Congretulation = () => {
   return (
     <ScrollContainerUi>
       <Body>
-        <PenImage
+        <PocketImage
           resizeMode="contain"
           source={require("@/assets/images/pocket.png")}
         />
@@ -50,7 +50,7 @@ const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
 
-const PenImage = styled(Image)`
+const PocketImage = styled(Image)`
   width: 100px;
   height: 100px;
 `;

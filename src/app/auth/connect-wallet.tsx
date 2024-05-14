@@ -66,7 +66,7 @@ function ConnetWallet() {
 
       <SpacerUi size="xl" />
       <Body>
-        <Logo
+        <BannerImage
           resizeMode="contain"
           source={require("@/assets/images/cpu.png")}
         />
@@ -111,7 +111,7 @@ const Body = styled.View`
   flex: 1;
 `;
 
-const Logo = styled.Image`
+const BannerImage = styled.Image`
   width: 100px;
   height: 100px;
   margin: 0 auto;

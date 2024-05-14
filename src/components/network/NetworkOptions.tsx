@@ -2,11 +2,13 @@ import { AntDesign } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
+import { useTheme } from "styled-components/native";
 
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 export type Ref = BottomSheetModal;
 
@@ -20,7 +22,7 @@ const NetworkOptions = forwardRef<Ref, Props>(
     const snapPoints = useMemo(() => ["95%", "95%"], []);
     const [selected, setSelected] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
-
+    const theme = useTheme();
     // Filtering Logic
     const filteredNetworks = useMemo(() => {
       if (!searchQuery) {
@@ -39,7 +41,13 @@ const NetworkOptions = forwardRef<Ref, Props>(
               value={searchQuery}
               onChangeText={setSearchQuery}
               placeholder="Search "
-              left={<AntDesign name="search1" size={24} color="black" />}
+              left={
+                <AntDesign
+                  name="search1"
+                  size={pixelToNumber(theme.sizes["xl"])}
+                  color="black"
+                />
+              }
             />
           </SpacerUi>
           {filteredNetworks.map((network) => {
@@ -60,7 +68,11 @@ const NetworkOptions = forwardRef<Ref, Props>(
                     uri={network.image}
                     right={
                       selected === network.label && (
-                        <AntDesign name="check" size={24} color="black" />
+                        <AntDesign
+                          name="check"
+                          size={pixelToNumber(theme.sizes["xl"])}
+                          color="black"
+                        />
                       )
                     }
                   />

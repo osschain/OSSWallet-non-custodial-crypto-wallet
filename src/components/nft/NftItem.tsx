@@ -17,15 +17,13 @@ const NftItem = ({
 }: Props) => {
   return (
     <ItemContainer>
-      <HeaderContainer>
+      <BodyContainer>
         {uri ? (
-          <HeaderImage source={{ uri }} />
+          <NftImage source={{ uri }} />
         ) : (
-          <HeaderImage
-            source={require("@/assets/images/nftDefaultIMage.png")}
-          />
+          <NftImage source={require("@/assets/images/nftDefaultIMage.png")} />
         )}
-      </HeaderContainer>
+      </BodyContainer>
       <FooterContainer>
         <BlurBackground>
           <Image
@@ -59,8 +57,8 @@ const NftItem = ({
 
 const ItemContainer = styled.View``;
 
-const HeaderContainer = styled.View``;
-const HeaderImage = styled.Image`
+const BodyContainer = styled.View``;
+const NftImage = styled.Image`
   height: 162px;
   border-top-right-radius: ${({ theme }) => theme.sizes["md"]};
   border-top-left-radius: ${({ theme }) => theme.sizes["md"]};

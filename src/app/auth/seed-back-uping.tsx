@@ -26,7 +26,7 @@ function SeedBackUping() {
     <ScrollContainerUi>
       <SpacerUi size="xl" />
       <BodyUi>
-        <Logo
+        <BannerImage
           resizeMode="contain"
           source={require("@/assets/images/cpu.png")}
         />
@@ -78,7 +78,7 @@ const SeedWrapper = styled.View`
   flex-wrap: wrap;
 `;
 
-const Logo = styled.Image`
+const BannerImage = styled.Image`
   width: 100px;
   height: 100px;
   margin: 0 auto;

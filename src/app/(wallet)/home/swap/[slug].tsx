@@ -2,7 +2,6 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components/native";
 
 import AssetOptions from "@/components/asset/AssetOptions";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
@@ -63,15 +62,13 @@ export default function Swap() {
       </BodyUi>
 
       <FooterUi marginSize="sm">
-        <Button
+        <ButtonUi
           variant="primary"
           onPress={() => router.replace("(wallet)/home/swap/swap-in-progress")}
         >
           {t("shared.swap")}
-        </Button>
+        </ButtonUi>
       </FooterUi>
     </ScrollContainerUi>
   );
 }
-
-const Button = styled(ButtonUi)``;

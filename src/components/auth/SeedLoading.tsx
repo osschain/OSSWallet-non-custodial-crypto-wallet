@@ -45,7 +45,7 @@ const SeedLoading = () => {
 
   return (
     <Body>
-      <SettingImage
+      <BannerImage
         style={[animationStyle]}
         resizeMode="contain"
         source={require("@/assets/images/setting.png")}
@@ -65,7 +65,7 @@ const Body = styled(BodyUi)`
   justify-content: center;
 `;
 
-const SettingImage = styled(Animated.Image)`
+const BannerImage = styled(Animated.Image)`
   width: 100px;
   height: 100px;
 `;

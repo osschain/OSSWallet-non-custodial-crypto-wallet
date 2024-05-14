@@ -17,7 +17,7 @@ const SwapInProgress = () => {
   return (
     <ScrollContainerUi>
       <Body>
-        <PenImage
+        <BannerImage
           resizeMode="contain"
           source={require("@/assets/images/pocket.png")}
         />
@@ -49,7 +49,7 @@ const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
 
-const PenImage = styled(Image)`
+const BannerImage = styled(Image)`
   width: 100px;
   height: 100px;
 `;

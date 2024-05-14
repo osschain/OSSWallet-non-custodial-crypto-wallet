@@ -15,7 +15,7 @@ function Auth() {
   return (
     <ScrollContainerUi>
       <Body>
-        <Logo resizeMode="contain" source={{ uri: defaultImage }} />
+        <BannerImage resizeMode="contain" source={{ uri: defaultImage }} />
         <SpacerUi size="3.5xl">
           <HeaderTextUi adjustsFontSizeToFit size="3xl" weight="extra">
             {t("auth.index.header")}
@@ -46,7 +46,7 @@ const Body = styled(BodyUi)`
   justify-content: center;
 `;
 
-const Logo = styled.Image`
+const BannerImage = styled.Image`
   width: 100px;
   height: 100px;
 `;

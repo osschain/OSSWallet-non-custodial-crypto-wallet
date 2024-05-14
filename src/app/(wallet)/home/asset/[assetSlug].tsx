@@ -114,8 +114,8 @@ const ActionButton = styled.View`
 `;
 
 const Button = styled.TouchableOpacity`
-  width: 56px;
-  height: 56px;
+  width: ${({ theme }) => theme.sizes["4xl"]};
+  height: ${({ theme }) => theme.sizes["4xl"]};
   background-color: ${({ theme }) => theme.colors["bg-second"]};
   border-radius: 100px;
   justify-content: center;

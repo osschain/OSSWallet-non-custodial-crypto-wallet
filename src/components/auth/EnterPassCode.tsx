@@ -139,7 +139,21 @@ const Body = styled.View`
 
 const HeaderText = styled(HeaderTextUi)`
   text-align: center;
-  height: ${({ theme }) => theme.sizes["xl"]};
+`;
+
+const Inputs = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Input = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: ${({ theme }) => theme.sizes["4xl"]};
+  height: ${({ theme }) => theme.sizes["4xl"]};
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors["border-color"]};
+  border-radius: 100px;
 `;
 
 const Footer = styled.View`
@@ -157,21 +171,6 @@ const Key = styled.TouchableOpacity`
 
 const CustomKeyboard = styled.View`
   align-items: center;
-`;
-
-const Inputs = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const Input = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: ${({ theme }) => theme.sizes["3.5xl"]};
-  height: ${({ theme }) => theme.sizes["4xl"]};
-  border-width: 1px;
-  border-color: ${({ theme }) => theme.colors["border-color"]};
-  border-radius: ${({ theme }) => theme.sizes["xl"]};
 `;
 
 export default EnterPassCode;

@@ -64,10 +64,7 @@ function ConnetWallet() {
 
       <SpacerUi size="xl" />
       <Body>
-        <BannerImage
-          resizeMode="contain"
-          source={require("@/assets/images/cpu.png")}
-        />
+        <BannerImage source={require("@/assets/images/cpu.png")} />
         <SpacerUi size="3.5xl">
           <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
             {t("auth.connect-wallet.header")}

@@ -1,9 +1,9 @@
-import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 import { FlatList, ScrollView } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
@@ -20,7 +20,7 @@ const keys = [
   8,
   9,
   0,
-  <FontAwesome name="remove" size={28} color="black" />,
+  <IconUi library="FontAwesome" name="remove" size="2xl" color="icon-second" />,
 ];
 
 type Props = {

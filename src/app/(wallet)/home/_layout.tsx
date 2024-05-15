@@ -1,6 +1,7 @@
-import { AntDesign } from "@expo/vector-icons";
 import { Stack, router } from "expo-router";
 import { useTheme } from "styled-components/native";
+
+import IconUi from "@/components/ui/IconUi";
 
 export default function _layout() {
   const theme = useTheme();
@@ -21,11 +22,12 @@ export default function _layout() {
           },
           headerRight: () => {
             return (
-              <AntDesign
-                onPress={() => router.push("(wallet)/home/custom-token")}
+              <IconUi
+                library="AntDesign"
                 name="plus"
-                size={24}
-                color="black"
+                size="xl"
+                color="icon-second"
+                onPress={() => router.push("(wallet)/home/custom-token")}
               />
             );
           },

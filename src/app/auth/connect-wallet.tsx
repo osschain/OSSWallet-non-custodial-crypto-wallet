@@ -1,27 +1,25 @@
-import { Ionicons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Mnemonic } from "ethers";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
-import styled, { useTheme } from "styled-components/native";
+import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import IconUi from "@/components/ui/IconUi";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { pixelToNumber } from "@/util/pixelToNumber";
 
 function ConnetWallet() {
   const [seed, setSeed] = useState<string>("");
   const { addSeed } = useAuth();
   const { t } = useTranslation();
-  const theme = useTheme();
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const handlePresentModalPress = () => {
@@ -87,10 +85,11 @@ function ConnetWallet() {
             multiline
             numberOfLines={10}
             right={
-              <Ionicons
+              <IconUi
+                library="Ionicons"
                 name="scan"
-                size={pixelToNumber(theme.sizes["xl"])}
-                color="black"
+                size="xl"
+                color="icon-second"
                 onPress={handlePresentModalPress}
               />
             }

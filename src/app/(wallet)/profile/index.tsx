@@ -1,26 +1,25 @@
-import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import styled, { useTheme } from "styled-components/native";
+import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import IconUi from "@/components/ui/IconUi";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
-import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function Profile() {
-  const theme = useTheme();
   return (
     <ScrollContainerUi>
       <SpacerUi>
         <Setting>
           <Left>
             <Icon>
-              <Ionicons
+              <IconUi
+                library="Ionicons"
                 name="notifications"
-                size={pixelToNumber(theme.sizes["xl"])}
-                color="white"
+                size="xl"
+                color="icon-primary"
               />
             </Icon>
             <Title>
@@ -40,10 +39,11 @@ export default function Profile() {
             <Setting>
               <Left>
                 <Icon>
-                  <AntDesign
+                  <IconUi
+                    library="AntDesign"
                     name="lock"
-                    size={pixelToNumber(theme.sizes["xl"])}
-                    color="white"
+                    size="xl"
+                    color="icon-primary"
                   />
                 </Icon>
                 <Title>
@@ -53,10 +53,11 @@ export default function Profile() {
                 </Title>
               </Left>
               <Right>
-                <AntDesign
+                <IconUi
+                  library="AntDesign"
                   name="arrowright"
-                  size={pixelToNumber(theme.sizes["xl"])}
-                  color="black"
+                  size="xl"
+                  color="icon-second"
                 />
               </Right>
             </Setting>

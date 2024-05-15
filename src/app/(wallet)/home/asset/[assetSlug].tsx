@@ -1,4 +1,3 @@
-import { Feather, AntDesign } from "@expo/vector-icons";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { FlatList, Image } from "react-native";
@@ -6,6 +5,7 @@ import styled, { useTheme } from "styled-components/native";
 
 import HistoryItem from "@/components/history/history-item";
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import IconUi from "@/components/ui/IconUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { defaultImage } from "@/util/DefaultImage";
@@ -38,10 +38,11 @@ export default function Asset() {
           <ActionButton>
             <Link href={`(wallet)/home/send/${slug}`} asChild>
               <Button>
-                <Feather
+                <IconUi
+                  library="Feather"
                   name="arrow-up-right"
-                  size={pixelToNumber(theme.sizes["xl"])}
-                  color={theme.colors["text-second"]}
+                  size="xl"
+                  color="icon-second"
                 />
               </Button>
             </Link>
@@ -50,10 +51,11 @@ export default function Asset() {
           <ActionButton>
             <Link href={`(wallet)/home/recieve/${slug}`} asChild>
               <Button>
-                <Feather
+                <IconUi
+                  library="Feather"
                   name="arrow-down-left"
-                  size={pixelToNumber(theme.sizes["xl"])}
-                  color={theme.colors["text-second"]}
+                  size="xl"
+                  color="icon-second"
                 />
               </Button>
             </Link>
@@ -63,10 +65,11 @@ export default function Asset() {
           <ActionButton>
             <Link href={`(wallet)/home/swap/${slug}`} asChild>
               <Button>
-                <AntDesign
+                <IconUi
+                  library="AntDesign"
                   name="swap"
-                  size={pixelToNumber(theme.sizes["xl"])}
-                  color={theme.colors["text-second"]}
+                  size="xl"
+                  color="icon-second"
                 />
               </Button>
             </Link>

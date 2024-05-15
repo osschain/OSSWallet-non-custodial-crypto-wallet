@@ -1,25 +1,23 @@
-import { AntDesign } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import styled, { useTheme } from "styled-components/native";
+import styled from "styled-components/native";
 
 import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { assets, networks } from "@/util/mock";
-import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function Send() {
   const { t } = useTranslation();
-  const theme = useTheme();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = () => {
@@ -28,10 +26,9 @@ export default function Send() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Filtering Logic
   const filteredAssets = useMemo(() => {
     if (!searchQuery) {
-      return assets; // No search term, show all
+      return assets;
     }
     return assets.filter((asset) =>
       asset.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -49,10 +46,11 @@ export default function Send() {
         onChangeText={setSearchQuery}
         placeholder="Search "
         left={
-          <AntDesign
+          <IconUi
+            library="AntDesign"
             name="search1"
-            size={pixelToNumber(theme.sizes["xl"])}
-            color="black"
+            size="xl"
+            color="icon-second"
           />
         }
       />

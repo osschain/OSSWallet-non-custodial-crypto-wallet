@@ -1,21 +1,19 @@
-import { AntDesign, Feather } from "@expo/vector-icons";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Image } from "react-native";
-import styled, { useTheme } from "styled-components/native";
+import styled from "styled-components/native";
 
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import IconUi from "@/components/ui/IconUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { assets } from "@/util/mock";
-import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function RecieveDetails() {
   const { slug } = useLocalSearchParams();
   const { t } = useTranslation();
-  const theme = useTheme();
   const asset = assets.find((asset) => asset.id === Number(slug as string));
   return (
     <ScrollContainerUi>
@@ -55,10 +53,11 @@ export default function RecieveDetails() {
         <Button
           variant="primary"
           icon={
-            <AntDesign
+            <IconUi
+              library="AntDesign"
               name="sharealt"
-              size={pixelToNumber(theme.sizes["xl"])}
-              color="white"
+              size="xl"
+              color="icon-primary"
             />
           }
         >
@@ -67,10 +66,11 @@ export default function RecieveDetails() {
         <Button
           variant="secondary"
           icon={
-            <Feather
+            <IconUi
+              library="Feather"
               name="copy"
-              size={pixelToNumber(theme.sizes["xl"])}
-              color="black"
+              size="xl"
+              color="icon-second"
             />
           }
         >

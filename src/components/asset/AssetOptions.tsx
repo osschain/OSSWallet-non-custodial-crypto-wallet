@@ -1,15 +1,14 @@
-import { AntDesign } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
+import { useTheme } from "styled-components/native";
 
+import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { Asset } from "@/util/mock";
-import { useTheme } from "styled-components/native";
-import { pixelToNumber } from "@/util/pixelToNumber";
 
 export type Ref = BottomSheetModal;
 
@@ -45,10 +44,11 @@ const AssetOptions = forwardRef<Ref, Props>(
               onChangeText={setSearchQuery}
               placeholder="Search "
               left={
-                <AntDesign
+                <IconUi
+                  library="AntDesign"
                   name="search1"
-                  size={pixelToNumber(theme.sizes["xl"])}
-                  color="black"
+                  size="xl"
+                  color="icon-second"
                 />
               }
             />
@@ -68,10 +68,11 @@ const AssetOptions = forwardRef<Ref, Props>(
                     uri={asset.image}
                     right={
                       selected === asset.title && (
-                        <AntDesign
+                        <IconUi
+                          library="AntDesign"
                           name="check"
-                          size={pixelToNumber(theme.sizes["xl"])}
-                          color="black"
+                          size="xl"
+                          color="icon-second"
                         />
                       )
                     }

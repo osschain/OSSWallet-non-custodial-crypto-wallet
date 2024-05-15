@@ -1,7 +1,5 @@
-import { Entypo, Feather, MaterialIcons } from "@expo/vector-icons";
 import { ComponentPropsWithoutRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components/native";
 
 import {
   Card,
@@ -17,8 +15,8 @@ import {
 } from "./style";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { pixelToNumber } from "@/util/pixelToNumber";
 
 type Props = {
   userName?: string;
@@ -38,7 +36,6 @@ const WalletCard = ({
   onHistory = () => {},
   ...rest
 }: Props) => {
-  const theme = useTheme();
   const { t } = useTranslation();
   return (
     <Card {...rest}>
@@ -59,10 +56,11 @@ const WalletCard = ({
         <Buttons>
           <Button onPress={onRecieve}>
             <ButtonIcon>
-              <Feather
+              <IconUi
+                library="Feather"
                 name="arrow-down-left"
-                size={pixelToNumber(theme.sizes["lg"])}
-                color={theme.colors["pure-white"]}
+                size="lg"
+                color="icon-primary"
               />
             </ButtonIcon>
             <BodyTextUi color="pure-white">{t("shared.receive")}</BodyTextUi>
@@ -71,10 +69,11 @@ const WalletCard = ({
           <Button onPress={onSend}>
             <BodyTextUi color="pure-white">{t("shared.send")}</BodyTextUi>
             <ButtonIcon>
-              <Feather
+              <IconUi
+                library="Feather"
                 name="arrow-up-right"
-                size={pixelToNumber(theme.sizes["lg"])}
-                color={theme.colors["pure-white"]}
+                size="lg"
+                color="icon-primary"
               />
             </ButtonIcon>
             <ButtonBacground />
@@ -82,10 +81,11 @@ const WalletCard = ({
           <Button onPress={onHistory}>
             <BodyTextUi color="pure-white">{t("shared.history")}</BodyTextUi>
             <ButtonIcon>
-              <MaterialIcons
+              <IconUi
+                library="MaterialIcons"
                 name="history"
-                size={pixelToNumber(theme.sizes["xl"])}
-                color={theme.colors["pure-white"]}
+                size="xl"
+                color="icon-primary"
               />
             </ButtonIcon>
             <ButtonBacground />
@@ -93,10 +93,11 @@ const WalletCard = ({
         </Buttons>
       </SpacerUi>
       <Options onPress={onOptions}>
-        <Entypo
+        <IconUi
+          library="Entypo"
           name="dots-three-vertical"
-          size={pixelToNumber(theme.sizes["xl"])}
-          color={theme.colors["pure-white"]}
+          size="xl"
+          color="icon-primary"
         />
       </Options>
     </Card>

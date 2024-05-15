@@ -1,14 +1,12 @@
-import { AntDesign } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { useTheme } from "styled-components/native";
 
+import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { pixelToNumber } from "@/util/pixelToNumber";
 
 export type Ref = BottomSheetModal;
 
@@ -22,8 +20,7 @@ const NetworkOptions = forwardRef<Ref, Props>(
     const snapPoints = useMemo(() => ["95%", "95%"], []);
     const [selected, setSelected] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
-    const theme = useTheme();
-    // Filtering Logic
+
     const filteredNetworks = useMemo(() => {
       if (!searchQuery) {
         return networks; // No search term, show all
@@ -42,10 +39,11 @@ const NetworkOptions = forwardRef<Ref, Props>(
               onChangeText={setSearchQuery}
               placeholder="Search "
               left={
-                <AntDesign
+                <IconUi
+                  library="AntDesign"
                   name="search1"
-                  size={pixelToNumber(theme.sizes["xl"])}
-                  color="black"
+                  size="xl"
+                  color="icon-second"
                 />
               }
             />
@@ -68,10 +66,11 @@ const NetworkOptions = forwardRef<Ref, Props>(
                     uri={network.image}
                     right={
                       selected === network.label && (
-                        <AntDesign
+                        <IconUi
+                          library="AntDesign"
                           name="check"
-                          size={pixelToNumber(theme.sizes["xl"])}
-                          color="black"
+                          size="xl"
+                          color="icon-second"
                         />
                       )
                     }

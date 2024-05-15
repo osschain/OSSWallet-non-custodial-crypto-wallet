@@ -4,6 +4,7 @@ import { StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import { useAuth } from "@/providers/AuthProvider";
+import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function TabLayout() {
   const { seed, encryptedSeed } = useAuth();
@@ -33,7 +34,11 @@ export default function TabLayout() {
             headerShown: false,
             title: "",
             tabBarIcon: ({ color }) => (
-              <Entypo size={28} name="wallet" color={color} />
+              <Entypo
+                size={pixelToNumber(theme.sizes["xl"])}
+                name="wallet"
+                color={color}
+              />
             ),
           }}
         />
@@ -43,7 +48,11 @@ export default function TabLayout() {
             title: "",
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <Ionicons name="swap-horizontal" size={24} color={color} />
+              <Ionicons
+                name="swap-horizontal"
+                size={pixelToNumber(theme.sizes["xl"])}
+                color={color}
+              />
             ),
           }}
         />
@@ -53,7 +62,11 @@ export default function TabLayout() {
             title: "",
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="user-alt" size={24} color={color} />
+              <FontAwesome5
+                name="user-alt"
+                size={pixelToNumber(theme.sizes["xl"])}
+                color={color}
+              />
             ),
           }}
         />

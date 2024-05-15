@@ -1,4 +1,3 @@
-import { Ionicons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,6 +9,7 @@ import NetworkOptions from "@/components/network/NetworkOptions";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import IconUi from "@/components/ui/IconUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
@@ -114,10 +114,11 @@ export default function AddCustomToken() {
             multiline
             numberOfLines={5}
             right={
-              <Ionicons
+              <IconUi
+                library="Ionicons"
                 name="scan"
-                size={pixelToNumber(theme.sizes["2xl"])}
-                color="black"
+                size="2xl"
+                color="icon-second"
                 onPress={handlePresentModalPress}
               />
             }

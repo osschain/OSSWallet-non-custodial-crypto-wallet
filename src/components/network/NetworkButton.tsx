@@ -1,10 +1,10 @@
-import { EvilIcons } from "@expo/vector-icons";
 import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { TouchableOpacity } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
+import IconUi from "@/components/ui/IconUi";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 const NetworkButton = ({
@@ -21,10 +21,11 @@ const NetworkButton = ({
         style={{ flexDirection: "row", gap: pixelToNumber(theme.spaces["lg"]) }}
       >
         <BodyTextUi weight="medium">{children}</BodyTextUi>
-        <EvilIcons
+        <IconUi
+          library="EvilIcons"
           name="arrow-up"
-          size={pixelToNumber(theme.sizes["xl"])}
-          color={theme.colors["text-primary"]}
+          size="xl"
+          color="text-primary"
         />
       </FlexContainer>
     </Button>

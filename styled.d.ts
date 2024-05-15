@@ -20,6 +20,8 @@ interface Colors {
   "red-500": string;
   "red-100": string;
   "pure-white": string;
+  "icon-primary": string;
+  "icon-second": string;
 }
 
 interface Spacing {

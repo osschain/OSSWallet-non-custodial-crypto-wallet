@@ -18,6 +18,8 @@ export const colorsLight = {
   "red-500": "#EB5757",
   "red-100": "#F44242",
   "pure-white": "#FFFFFF",
+  "icon-primary": "#FFFFFF",
+  "icon-second": "#000000",
 };
 
 export const colorsDark = {
@@ -40,4 +42,6 @@ export const colorsDark = {
   "red-500": "#B03232",
   "red-100": "#DB3F3F",
   "pure-white": "#FFFFFF",
+  "icon-primary": "#FFFFFF",
+  "icon-second": "#000000",
 };

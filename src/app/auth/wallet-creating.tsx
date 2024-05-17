@@ -6,7 +6,7 @@ import { useAuth } from "@/providers/AuthProvider";
 import { useWallet } from "@/providers/WalletProvider";
 import { createWallets } from "@/util/ethers";
 
-export default function CreatingWallet() {
+export default function WalletCreating() {
   const { addWallets } = useWallet();
   const { seed, setupPass } = useAuth();
 

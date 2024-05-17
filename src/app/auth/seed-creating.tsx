@@ -3,8 +3,8 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import AuthLoading from "@/components/auth/AuthLoading";
 import SeedBackUpPreparing from "@/components/auth/SeedBackUpPreparing";
-import SeedLoading from "@/components/auth/SeedLoading";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
@@ -44,7 +44,9 @@ function SeedCreating() {
 
   return (
     <>
-      {state === "loading" && <SeedLoading />}
+      {state === "loading" && (
+        <AuthLoading label={t("auth.seed-creating.making-wallet")} />
+      )}
       {state === "preparing" && (
         <SeedBackUpPreparing
           onContinue={() => {

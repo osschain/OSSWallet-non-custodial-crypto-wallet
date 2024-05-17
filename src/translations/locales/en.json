@@ -10,7 +10,7 @@
         "header": "Take a pen and paper",
         "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key onthe devices.",
         "no-seed-error": "Sorry we can't generate seed, go back and try again",
-        "making-wallet": "Making a Wallet..."
+        "making-wallet": "Making a seed Phrase..."
       },
       "seed-checking": {
         "header": "Let's check",

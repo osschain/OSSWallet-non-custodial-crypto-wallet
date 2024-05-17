@@ -30,8 +30,8 @@ export default function AuthLayout() {
       <Stack.Screen name="seed-back-uping" />
       <Stack.Screen name="seed-checking" />
       <Stack.Screen name="password-setup" />
-      <Stack.Screen name="congretulation" />
-
+      <Stack.Screen name="creating-wallet" options={{ headerShown: false }} />
+      <Stack.Screen name="congretulation" options={{ headerShown: false }} />
       <Stack.Screen name="connect-wallet" />
     </Stack>
   );

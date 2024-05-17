@@ -1,0 +1,69 @@
+[
+  {
+    "id": "Bitcoin",
+    "name": "Bitcoin",
+    "symbol": "BTC",
+    "slip-0044": 0
+  },
+  {
+    "id": "Ether",
+    "name": "Ether",
+    "symbol": "ETH",
+    "slip-0044":60
+  },
+  {
+    "id": "Polygon",
+    "name": "Polygon",
+    "symbol": "MATIC",
+    "slip-0044": 60
+  },
+  {
+    "id": "Solana",
+    "name": "Solana",
+    "symbol": "SOL",
+    "slip-0044": 501
+  },
+  {
+    "id": "Binance",
+    "name": "Binance",
+    "symbol": "BNB",
+    "slip-0044": 60
+  },
+  {
+    "id": "Avalanche",
+    "name": "Avalanche",
+    "symbol": "AVAX",
+    "slip-0044": 60
+  },
+
+  {
+    "id": "Mantle",
+    "name": "Mantle",
+    "symbol": "MANTLE",
+    "slip-0044": 60
+  },
+  {
+    "id": "Polygon ZkEVM",
+    "name": "Polygon ZkEVM",
+    "symbol": "ETH",
+    "slip-0044": 60
+  },
+  {
+    "id": "zkSync ERA",
+    "name": "zkSync ERA",
+    "symbol": "ETH",
+    "slip-0044": 60
+  },
+  {
+    "id": "Optimism",
+    "name": "Optimism",
+    "symbol": "OP",
+    "slip-0044": 60
+  },
+  {
+    "id": "Arbitrum One",
+    "name": "Arbitrum One",
+    "symbol": "ARB",
+    "slip-0044": 60
+  }
+]

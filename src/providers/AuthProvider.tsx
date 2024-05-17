@@ -13,7 +13,9 @@ type AuthData = {
   seed: string | null;
   loading: boolean;
   encryptedSeed: string | null;
+  setupPass: string | null;
   addSeed: (seed: string) => void;
+  addSetupPass: (seed: string) => void;
   clearSeed: () => void;
   encryptAndSaveSeed: (password: string) => void;
   checkPassword: (password: string) => Promise<boolean>;
@@ -25,6 +27,8 @@ const AuthContext = createContext<AuthData>({
   seed: null,
   loading: true,
   encryptedSeed: null,
+  setupPass: null,
+  addSetupPass: () => {},
   addSeed: () => {},
   clearSeed: () => {},
   encryptAndSaveSeed: (password: string) => {},
@@ -36,6 +40,8 @@ const AuthContext = createContext<AuthData>({
 export default function AuthProvider({ children }: PropsWithChildren) {
   const [encryptedSeed, setEncryptedSeed] = useState<null | string>(null);
   const [seed, setSeed] = useState<string | null>(null);
+  const [setupPass, setSetupPass] = useState<string | null>(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -62,7 +68,9 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const addSeed = (seed: string) => {
     setSeed(seed);
   };
-
+  const addSetupPass = (pass: string) => {
+    setSetupPass(seed);
+  };
   const clearSeed = () => {
     setSeed(null);
   };
@@ -102,6 +110,8 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       value={{
         loading,
         seed,
+        setupPass,
+        addSetupPass,
         addSeed,
         clearSeed,
         encryptAndSaveSeed,

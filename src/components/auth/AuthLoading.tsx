@@ -14,7 +14,7 @@ import { BodyUi } from "../ui/LayoutsUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
-const SeedLoading = () => {
+const AuthLoading = ({ label }: { label: string }) => {
   const animation = useSharedValue(0);
   const { t } = useTranslation();
   const animationStyle = useAnimatedStyle(() => {
@@ -53,7 +53,7 @@ const SeedLoading = () => {
 
       <SpacerUi size="3.5xl">
         <HeaderTextUi size="2xl" weight="extra">
-          {t("auth.seed-creating.making-wallet")}
+          {label}
         </HeaderTextUi>
       </SpacerUi>
     </Body>
@@ -70,4 +70,4 @@ const BannerImage = styled(Animated.Image)`
   height: 100px;
 `;
 
-export default SeedLoading;
+export default AuthLoading;

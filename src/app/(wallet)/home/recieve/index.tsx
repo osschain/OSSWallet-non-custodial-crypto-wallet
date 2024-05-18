@@ -71,15 +71,15 @@ export default function Recieve() {
           {t("shared.all")} {t("shared.network")}
         </NetworkButton>
       </SpacerUi>
-      <AssetList>
-        {filteredAssets?.map((asset) => (
+      <SpacerUi size="xl">
+        <AssetList>
           <FlatList
             data={filteredAssets}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <AssetItem key={item.id} asset={item} />}
+            renderItem={({ item }) => <AssetItem asset={item} />}
           />
-        ))}
-      </AssetList>
+        </AssetList>
+      </SpacerUi>
     </ContainerUi>
   );
 }

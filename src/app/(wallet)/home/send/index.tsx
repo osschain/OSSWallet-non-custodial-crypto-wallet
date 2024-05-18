@@ -14,8 +14,9 @@ import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { useAsset } from "@/providers/AssetProvider";
+import { AssetType, useAsset } from "@/providers/AssetProvider";
 import { networks } from "@/util/mock";
+import { FlatList } from "react-native";
 
 export default function Send() {
   const { t } = useTranslation();
@@ -66,24 +67,32 @@ export default function Send() {
           {t("shared.all")} {t("shared.network")}
         </NetworkButton>
       </SpacerUi>
-      <ChainList>
-        {filteredAssets?.map((asset) => (
-          <SpacerUi size="3xl" key={asset.id}>
-            <Link href={`(wallet)/home/send/${asset.id}`} asChild>
-              <TouchableOpacity>
-                <ItemUi
-                  title={asset.symbol}
-                  uri={asset.icon}
-                  description={asset.name}
-                  right={<BodyTextUi weight="bold">15</BodyTextUi>}
-                />
-              </TouchableOpacity>
-            </Link>
-          </SpacerUi>
-        ))}
-      </ChainList>
+      <SpacerUi size="xl">
+        <ChainList>
+          <FlatList
+            data={filteredAssets}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <AssetItem key={item.id} asset={item} />}
+          />
+        </ChainList>
+      </SpacerUi>
     </ContainerUi>
   );
 }
+
+const AssetItem = ({ asset }: { asset: AssetType }) => (
+  <SpacerUi size="3xl">
+    <Link href={`(wallet)/home/send/${asset.id}`} asChild>
+      <TouchableOpacity>
+        <ItemUi
+          title={asset.symbol}
+          uri={asset.icon}
+          description={asset.name}
+          right={<BodyTextUi weight="bold">15</BodyTextUi>}
+        />
+      </TouchableOpacity>
+    </Link>
+  </SpacerUi>
+);
 
 const ChainList = styled.View``;

@@ -71,7 +71,7 @@ function Index() {
         </SpacerUi>
       </BodyUi>
       <FooterUi marginSize="sm">
-        <Link href="(wallet)/home/custom-token/add-custom-token" asChild>
+        <Link href="/(wallet)/home/custom-token/add-custom-token" asChild>
           <ButtonUi
             icon={
               <IconUi

@@ -73,7 +73,7 @@ export default function Swap() {
       <FooterUi marginSize="sm">
         <ButtonUi
           variant="primary"
-          onPress={() => router.replace("(wallet)/home/swap/swap-in-progress")}
+          onPress={() => router.replace("/(wallet)/home/swap/swap-in-progress")}
         >
           {t("shared.swap")}
         </ButtonUi>

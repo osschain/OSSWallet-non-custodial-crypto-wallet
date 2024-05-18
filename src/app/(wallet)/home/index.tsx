@@ -27,9 +27,9 @@ export default function Home() {
     <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
       <CardContainer>
         <WalletCard
-          onHistory={() => router.push("(wallet)/home/history")}
-          onRecieve={() => router.push("(wallet)/home/recieve")}
-          onSend={() => router.push("(wallet)/home/send")}
+          onHistory={() => router.push("/(wallet)/home/history")}
+          onRecieve={() => router.push("/(wallet)/home/recieve")}
+          onSend={() => router.push("/(wallet)/home/send")}
         />
       </CardContainer>
       <SpacerUi size="3xl">
@@ -47,7 +47,7 @@ export default function Home() {
             data={assets}
             renderItem={({ item }) => (
               <SpacerUi size="xl" position="bottom">
-                <Link href={`(wallet)/home/asset/${item.id}`} asChild>
+                <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
                   <TouchableOpacity>
                     <AssetItem uri={item.icon} assetName={item.name} />
                   </TouchableOpacity>
@@ -64,7 +64,7 @@ export default function Home() {
             columnWrapperStyle={{ gap: pixelToNumber(theme.spaces["lg"]) }}
             renderItem={({ item }) => (
               <SpacerUi size="xl" position="bottom">
-                <Link href={`(wallet)/home/nft/${item.id}`} asChild>
+                <Link href={`/(wallet)/home/nft/${item.id}`} asChild>
                   <TouchableOpacity>
                     <NftItem title={item.title} collection={item.collection} />
                   </TouchableOpacity>

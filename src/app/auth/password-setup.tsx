@@ -18,7 +18,7 @@ function PasswordSetup() {
 
   const continueHandler = (password: string) => {
     encryptAndSaveSeed(password);
-    router.push("auth/wallet-creating");
+    router.push("/auth/wallet-creating");
   };
 
   return (

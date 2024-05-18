@@ -82,7 +82,7 @@ export default function Send() {
 
 const AssetItem = ({ asset }: { asset: AssetType }) => (
   <SpacerUi size="3xl">
-    <Link href={`(wallet)/home/send/${asset.id}`} asChild>
+    <Link href={`/(wallet)/home/send/${asset.id}`} asChild>
       <TouchableOpacity>
         <ItemUi
           title={asset.symbol}

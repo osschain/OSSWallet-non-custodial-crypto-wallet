@@ -40,7 +40,7 @@ function EnterPassowrd() {
   }
 
   if (!encryptedSeed) {
-    return <Redirect href="/auth/" />;
+    return <Redirect href="/auth" />;
   }
 
   return (

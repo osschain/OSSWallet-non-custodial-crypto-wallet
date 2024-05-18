@@ -34,7 +34,7 @@ export default function Profile() {
         </Setting>
       </SpacerUi>
       <SpacerUi size="xl">
-        <Link href="(wallet)/profile/change-pass-code" asChild>
+        <Link href="/(wallet)/profile/change-pass-code" asChild>
           <TouchableOpacity>
             <Setting>
               <Left>

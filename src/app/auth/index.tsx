@@ -28,12 +28,12 @@ function Auth() {
         </SpacerUi>
       </Body>
       <Footer>
-        <Link href="auth/connect-wallet" asChild>
+        <Link href="/auth/connect-wallet" asChild>
           <ButtonUi variant="secondary">
             {t("auth.index.connect-wallet")}
           </ButtonUi>
         </Link>
-        <Link href="auth/seed-creating" asChild>
+        <Link href="/auth/seed-creating" asChild>
           <ButtonUi>{t("auth.index.create-new")}</ButtonUi>
         </Link>
       </Footer>

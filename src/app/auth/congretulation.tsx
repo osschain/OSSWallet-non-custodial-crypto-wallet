@@ -11,7 +11,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 const Congretulation = () => {
   const { t } = useTranslation();
   const continueHandler = () => {
-    router.push("(wallet)");
+    router.push("/(wallet)");
   };
   return (
     <ScrollContainerUi>

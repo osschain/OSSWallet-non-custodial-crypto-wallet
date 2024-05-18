@@ -59,7 +59,7 @@ function SeedBackUping() {
       <FooterUi>
         <ButtonUi
           onPress={() => {
-            router.push("auth/seed-checking");
+            router.push("/auth/seed-checking");
           }}
         >
           {t("shared.continue")}

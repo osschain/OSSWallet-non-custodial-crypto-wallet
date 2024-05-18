@@ -86,7 +86,7 @@ export default function Recieve() {
 
 const AssetItem = ({ asset }: { asset: AssetType }) => (
   <SpacerUi size="3xl">
-    <Link href={`(wallet)/home/recieve/${asset.id}`}>
+    <Link href={`/(wallet)/home/recieve/${asset.id}`}>
       <TouchableOpacity>
         <ItemUi
           title={asset.symbol}

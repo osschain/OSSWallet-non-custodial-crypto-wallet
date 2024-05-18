@@ -8,12 +8,12 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { Asset, assets } from "@/util/mock";
+import { AssetType, useAsset } from "@/providers/AssetProvider";
 
 export default function Swap() {
-  const [exchangable, setExchangable] = useState<Asset | null>(null);
-  const [target, setTarget] = useState<Asset | null>(null);
-
+  const [exchangable, setExchangable] = useState<AssetType | null>(null);
+  const [target, setTarget] = useState<AssetType | null>(null);
+  const { assets } = useAsset();
   const exchangableOptions = useRef<BottomSheetModal>(null);
   const targetOptions = useRef<BottomSheetModal>(null);
 
@@ -24,6 +24,10 @@ export default function Swap() {
   const handleTargetOptionsPress = () => {
     targetOptions.current?.present();
   };
+
+  if (!assets) {
+    return;
+  }
 
   return (
     <ContainerUi>
@@ -49,8 +53,8 @@ export default function Swap() {
           <SpacerUi size="lg">
             <AssetQuantityInputUi
               placeholder="Enter Adress"
-              uri={exchangable?.image}
-              title={exchangable?.title}
+              uri={exchangable?.icon}
+              title={exchangable?.name}
               onAssetPress={handleExchangableOptionsPress}
             />
           </SpacerUi>
@@ -60,8 +64,8 @@ export default function Swap() {
             <HeaderTextUi>To</HeaderTextUi>
             <SpacerUi size="lg">
               <AssetQuantityInputUi
-                uri={target?.image}
-                title={target?.title}
+                uri={target?.icon}
+                title={target?.name}
                 placeholder="Enter Adress"
                 onAssetPress={handleTargetOptionsPress}
               />

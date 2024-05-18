@@ -49,7 +49,7 @@ function SeedChecking() {
 
     if (allWordsMatched) {
       // todo remove it after create password setup
-      router.push("auth/password-setup");
+      router.push("/auth/password-setup");
     } else {
       Alert.alert(
         t("shared.error-label"),

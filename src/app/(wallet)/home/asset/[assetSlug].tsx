@@ -9,7 +9,6 @@ import IconUi from "@/components/ui/IconUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAsset } from "@/providers/AssetProvider";
-import { defaultImage } from "@/util/DefaultImage";
 import { history } from "@/util/mock";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
@@ -38,7 +37,7 @@ export default function Asset() {
       <SpacerUi size="4xl">
         <Actions>
           <ActionButton>
-            <Link href={`(wallet)/home/send/${slug}`} asChild>
+            <Link href={`/(wallet)/home/send/${slug}`} asChild>
               <Button>
                 <IconUi
                   library="Feather"
@@ -51,7 +50,7 @@ export default function Asset() {
             <BodyTextUi weight="bold">{t("shared.send")}</BodyTextUi>
           </ActionButton>
           <ActionButton>
-            <Link href={`(wallet)/home/recieve/${slug}`} asChild>
+            <Link href={`/(wallet)/home/recieve/${slug}`} asChild>
               <Button>
                 <IconUi
                   library="Feather"
@@ -65,7 +64,7 @@ export default function Asset() {
             <BodyTextUi weight="bold">{t("shared.receive")}</BodyTextUi>
           </ActionButton>
           <ActionButton>
-            <Link href={`(wallet)/home/swap/${slug}`} asChild>
+            <Link href={`/(wallet)/home/swap/${slug}`} asChild>
               <Button>
                 <IconUi
                   library="AntDesign"

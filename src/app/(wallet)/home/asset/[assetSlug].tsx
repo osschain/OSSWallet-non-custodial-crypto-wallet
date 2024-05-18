@@ -8,18 +8,20 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useAsset } from "@/providers/AssetProvider";
 import { defaultImage } from "@/util/DefaultImage";
-import { assets, history } from "@/util/mock";
+import { history } from "@/util/mock";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function Asset() {
   const { assetSlug: slug } = useLocalSearchParams();
   const theme = useTheme();
-  const asset = assets.find((asset) => asset.id === Number(slug as string));
+  const { assets } = useAsset();
+  const asset = assets?.find((asset) => asset.id === slug);
   const { t } = useTranslation();
   return (
     <ContainerUi>
-      <Stack.Screen options={{ title: asset?.title }} />
+      <Stack.Screen options={{ title: asset?.name }} />
 
       <SpacerUi size="4xl">
         <ChainDetails>
@@ -29,7 +31,7 @@ export default function Asset() {
             height={pixelToNumber(theme.sizes["3xl"])}
           />
           <BodyTextUi weight="bold" size="lg">
-            {asset?.title} {t("shared.token")}
+            {asset?.name} {t("shared.token")}
           </BodyTextUi>
         </ChainDetails>
       </SpacerUi>

@@ -10,7 +10,8 @@ import NftItem from "@/components/nft/NftItem";
 import SegmentedControl from "@/components/segment";
 import SpacerUi from "@/components/ui/SpacerUi";
 import WalletCard from "@/components/wallet/wallet-card";
-import { assets, nfts } from "@/util/mock";
+import { useAsset } from "@/providers/AssetProvider";
+import { nfts } from "@/util/mock";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 type Segment = "Assets" | "NFT";
@@ -19,6 +20,7 @@ const segmentOptions: Segment[] = ["Assets", "NFT"];
 
 export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
+  const { assets } = useAsset();
   const theme = useTheme();
 
   return (
@@ -47,7 +49,7 @@ export default function Home() {
               <SpacerUi size="xl" position="bottom">
                 <Link href={`(wallet)/home/asset/${item.id}`} asChild>
                   <TouchableOpacity>
-                    <AssetItem assetName={item.title} />
+                    <AssetItem uri={item.icon} assetName={item.name} />
                   </TouchableOpacity>
                 </Link>
               </SpacerUi>

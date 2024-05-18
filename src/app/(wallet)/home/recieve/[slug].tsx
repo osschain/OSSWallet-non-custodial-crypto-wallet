@@ -9,19 +9,20 @@ import IconUi from "@/components/ui/IconUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { assets } from "@/util/mock";
+import { useAsset } from "@/providers/AssetProvider";
 
 export default function RecieveDetails() {
   const { slug } = useLocalSearchParams();
   const { t } = useTranslation();
-  const asset = assets.find((asset) => asset.id === Number(slug as string));
+  const { assets } = useAsset();
+  const asset = assets?.find((asset) => asset.id === slug);
   return (
     <ScrollContainerUi>
-      <Stack.Screen options={{ title: asset?.title }} />
+      <Stack.Screen options={{ title: asset?.name }} />
       <BodyUi>
         <SpacerUi size="3xl">
           <MessageUi>
-            {asset?.title} {t("wallet.home.recieve.recieve-details.warning")}
+            {asset?.name} {t("wallet.home.recieve.recieve-details.warning")}
           </MessageUi>
         </SpacerUi>
         <SpacerUi size="2xl">
@@ -43,7 +44,7 @@ export default function RecieveDetails() {
               {t("wallet.home.recieve.recieve-details.wallet-adress")}
             </HeaderTextUi>
             <SpacerUi size="lg">
-              <Adress>0x9abC74120e13e7D2B46 cfE8D6796Da317e65658c</Adress>
+              <Adress>{asset?.wallet.publicKey}</Adress>
             </SpacerUi>
           </AdressContainer>
         </SpacerUi>

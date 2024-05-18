@@ -9,15 +9,16 @@ import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { assets } from "@/util/mock";
+import { useAsset } from "@/providers/AssetProvider";
 
 export default function SendChain() {
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
-  const asset = assets.find((asset) => asset.id === Number(slug as string));
+  const { assets } = useAsset();
+  const asset = assets?.find((asset) => asset.id === slug);
   return (
     <ScrollContainerUi>
-      <Stack.Screen options={{ title: asset?.title }} />
+      <Stack.Screen options={{ title: asset?.name }} />
       <BodyUi>
         <SpacerUi size="3xl">
           <MessageUi>{t("wallet.home.send.warning")}</MessageUi>

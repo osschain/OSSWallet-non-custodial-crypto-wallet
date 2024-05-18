@@ -24,7 +24,7 @@ const AssetItem = ({
     <Item {...rest}>
       <LeftContent>
         <ImageContainer>
-          <Logo source={{ uri }} />
+          <Icon source={{ uri }} />
         </ImageContainer>
         <View>
           <HeaderTextUi size="md">{assetName}</HeaderTextUi>
@@ -58,14 +58,11 @@ const LeftContent = styled.View`
 const ImageContainer = styled.View`
   justify-content: center;
   align-items: center;
-  width: ${({ theme }) => theme.sizes["4xl"]};
-  height: ${({ theme }) => theme.sizes["4xl"]};
-  border-radius: 100px;
-  background-color: #0088cc;
 `;
-const Logo = styled.Image`
-  width: ${({ theme }) => theme.sizes["xl"]};
-  height: ${({ theme }) => theme.sizes["xl"]};
+const Icon = styled.Image`
+  width: ${({ theme }) => theme.sizes["2xl"]};
+  height: ${({ theme }) => theme.sizes["2xl"]};
+  border-radius: 100px;
 `;
 
 const RightContent = styled.View``;

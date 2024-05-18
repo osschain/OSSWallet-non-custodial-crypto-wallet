@@ -1,7 +1,7 @@
 import { HDNodeWallet } from "ethers";
 
 import chains from "@/data/chains.json";
-export const createWallets = (seed: string) => {
+export const createAssets = (seed: string) => {
   try {
     const evmWallet = HDNodeWallet.fromPhrase(
       seed as string,
@@ -12,7 +12,7 @@ export const createWallets = (seed: string) => {
       const path = `m/44'/${chain["slip-0044"]}'/0'/0/0`;
 
       return {
-        id: chain.id,
+        ...chain,
         wallet:
           chain["slip-0044"] === 60
             ? evmWallet

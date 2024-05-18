@@ -10,11 +10,12 @@ import {
 
 import { useAuth } from "./AuthProvider";
 
-type AssetType = {
+export type AssetType = {
   id: string;
   icon: string;
   name: string;
   wallet: HDNodeWallet;
+  symbol: string;
 };
 
 type AssetData = {

@@ -14,12 +14,13 @@ import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { assets, networks } from "@/util/mock";
+import { useAsset } from "@/providers/AssetProvider";
+import { networks } from "@/util/mock";
 
 export default function Send() {
   const { t } = useTranslation();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-
+  const { assets } = useAsset();
   const handlePresentModalPress = () => {
     bottomSheetRef.current?.present();
   };
@@ -30,10 +31,10 @@ export default function Send() {
     if (!searchQuery) {
       return assets;
     }
-    return assets.filter((asset) =>
-      asset.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return assets?.filter((asset) =>
+      asset.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [searchQuery]);
+  }, [assets, searchQuery]);
 
   if (!assets) {
     return <AlertWithImageUI title="No Chains To Display" />;
@@ -66,14 +67,14 @@ export default function Send() {
         </NetworkButton>
       </SpacerUi>
       <ChainList>
-        {filteredAssets.map((chain) => (
-          <SpacerUi size="3xl" key={chain.id}>
-            <Link href={`(wallet)/home/send/${chain.id}`} asChild>
+        {filteredAssets?.map((asset) => (
+          <SpacerUi size="3xl" key={asset.id}>
+            <Link href={`(wallet)/home/send/${asset.id}`} asChild>
               <TouchableOpacity>
                 <ItemUi
-                  title={chain.title}
-                  uri={chain.image}
-                  description={chain.description}
+                  title={asset.symbol}
+                  uri={asset.icon}
+                  description={asset.name}
                   right={<BodyTextUi weight="bold">15</BodyTextUi>}
                 />
               </TouchableOpacity>

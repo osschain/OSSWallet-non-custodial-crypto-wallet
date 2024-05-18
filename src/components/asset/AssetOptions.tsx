@@ -1,21 +1,20 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { useTheme } from "styled-components/native";
 
 import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { Asset } from "@/util/mock";
+import { AssetType } from "@/providers/AssetProvider";
 
 export type Ref = BottomSheetModal;
 
 type Props = {
   defSelected?: string;
-  assets: Asset[];
-  onSelect: (asset: Asset) => void;
+  assets: AssetType[];
+  onSelect: (asset: AssetType) => void;
 };
 
 const AssetOptions = forwardRef<Ref, Props>(
@@ -23,7 +22,6 @@ const AssetOptions = forwardRef<Ref, Props>(
     const snapPoints = useMemo(() => ["95%", "95%"], []);
     const [selected, setSelected] = useState(defSelected || null);
     const [searchQuery, setSearchQuery] = useState("");
-    const theme = useTheme();
 
     // Filtering Logic
     const filteredAssets = useMemo(() => {
@@ -31,7 +29,7 @@ const AssetOptions = forwardRef<Ref, Props>(
         return assets; // No search term, show all
       }
       return assets.filter((asset) =>
-        asset.title.toLowerCase().includes(searchQuery.toLowerCase())
+        asset.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }, [assets, searchQuery]);
 
@@ -58,16 +56,16 @@ const AssetOptions = forwardRef<Ref, Props>(
               <SpacerUi size="3xl" key={asset.id}>
                 <TouchableOpacity
                   onPress={() => {
-                    setSelected(asset.title);
+                    setSelected(asset.name);
 
                     onSelect(asset);
                   }}
                 >
                   <ItemUi
-                    title={asset.title}
-                    uri={asset.image}
+                    title={asset.name}
+                    uri={asset.icon}
                     right={
-                      selected === asset.title && (
+                      selected === asset.name && (
                         <IconUi
                           library="AntDesign"
                           name="check"

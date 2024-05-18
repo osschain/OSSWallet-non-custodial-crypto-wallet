@@ -16,9 +16,18 @@ export default function SendChain() {
   const { slug } = useLocalSearchParams();
   const { assets } = useAsset();
   const asset = assets?.find((asset) => asset.id === slug);
+
+  if (!assets || !asset) {
+    return (
+      <SpacerUi>
+        <MessageUi>Error Handling</MessageUi>
+      </SpacerUi>
+    );
+  }
+
   return (
     <ScrollContainerUi>
-      <Stack.Screen options={{ title: asset?.name }} />
+      <Stack.Screen options={{ title: asset.name }} />
       <BodyUi>
         <SpacerUi size="3xl">
           <MessageUi>{t("wallet.home.send.warning")}</MessageUi>

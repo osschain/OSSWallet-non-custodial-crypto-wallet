@@ -26,7 +26,7 @@ export default function Asset() {
       <SpacerUi size="4xl">
         <ChainDetails>
           <Image
-            source={{ uri: defaultImage }}
+            source={{ uri: asset?.icon }}
             width={pixelToNumber(theme.sizes["3xl"])}
             height={pixelToNumber(theme.sizes["3xl"])}
           />

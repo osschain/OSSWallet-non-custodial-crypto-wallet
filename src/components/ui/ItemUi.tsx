@@ -38,6 +38,6 @@ const Content = styled.View`
 `;
 
 const Image = styled.Image`
-  width: 48px;
-  height: 48px;
+  width: ${({ theme }) => theme.sizes["2xl"]};
+  height: ${({ theme }) => theme.sizes["2xl"]};
 `;

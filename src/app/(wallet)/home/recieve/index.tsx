@@ -2,7 +2,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import NetworkButton from "@/components/network/NetworkButton";
@@ -13,10 +13,15 @@ import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { assets, networks } from "@/util/mock";
+// eslint-disable-next-line import/no-duplicates
+import { useAsset } from "@/providers/AssetProvider";
+// eslint-disable-next-line import/no-duplicates
+import { AssetType } from "@/providers/AssetProvider";
+import { networks } from "@/util/mock";
 
 export default function Recieve() {
   const { t } = useTranslation();
+  const { assets } = useAsset();
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
@@ -31,10 +36,10 @@ export default function Recieve() {
     if (!searchQuery) {
       return assets; // No search term, show all
     }
-    return assets.filter((asset) =>
-      asset.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return assets?.filter((asset) =>
+      asset.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [searchQuery]);
+  }, [assets, searchQuery]);
 
   if (!assets) {
     return <AlertWithImageUI title="No Chains To Display" />;
@@ -66,23 +71,31 @@ export default function Recieve() {
           {t("shared.all")} {t("shared.network")}
         </NetworkButton>
       </SpacerUi>
-      <ChainList>
-        {filteredAssets.map((asset) => (
-          <SpacerUi size="3xl" key={asset.id}>
-            <Link href={`(wallet)/home/recieve/${asset.id}`}>
-              <TouchableOpacity>
-                <ItemUi
-                  title={asset.title}
-                  uri={asset.image}
-                  description={asset.description}
-                />
-              </TouchableOpacity>
-            </Link>
-          </SpacerUi>
+      <AssetList>
+        {filteredAssets?.map((asset) => (
+          <FlatList
+            data={filteredAssets}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <AssetItem key={item.id} asset={item} />}
+          />
         ))}
-      </ChainList>
+      </AssetList>
     </ContainerUi>
   );
 }
 
-const ChainList = styled.View``;
+const AssetItem = ({ asset }: { asset: AssetType }) => (
+  <SpacerUi size="3xl">
+    <Link href={`(wallet)/home/recieve/${asset.id}`}>
+      <TouchableOpacity>
+        <ItemUi
+          title={asset.symbol}
+          uri={asset.icon}
+          description={asset.name}
+        />
+      </TouchableOpacity>
+    </Link>
+  </SpacerUi>
+);
+
+const AssetList = styled.View``;

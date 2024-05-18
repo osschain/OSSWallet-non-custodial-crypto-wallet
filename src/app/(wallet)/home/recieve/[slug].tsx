@@ -16,6 +16,15 @@ export default function RecieveDetails() {
   const { t } = useTranslation();
   const { assets } = useAsset();
   const asset = assets?.find((asset) => asset.id === slug);
+
+  if (!assets || !asset) {
+    return (
+      <SpacerUi>
+        <MessageUi>Error Handling</MessageUi>
+      </SpacerUi>
+    );
+  }
+
   return (
     <ScrollContainerUi>
       <Stack.Screen options={{ title: asset?.name }} />

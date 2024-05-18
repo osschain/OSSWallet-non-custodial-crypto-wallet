@@ -8,24 +8,33 @@ import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
+import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { Asset, assets } from "@/util/mock";
+import { AssetType, useAsset } from "@/providers/AssetProvider";
 
 export default function Swap() {
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
-  const asset = assets.find((asset) => asset.id === Number(slug as string));
-  const [target, setTarget] = useState<Asset | null>(null);
-
+  const { assets } = useAsset();
+  const asset = assets?.find((asset) => asset.id === slug);
+  const [target, setTarget] = useState<AssetType | null>(null);
   const targetOptions = useRef<BottomSheetModal>(null);
 
   const handleTargetOptionsPress = () => {
     targetOptions.current?.present();
   };
 
+  if (!assets || !asset) {
+    return (
+      <SpacerUi>
+        <MessageUi>Error Handling</MessageUi>
+      </SpacerUi>
+    );
+  }
+
   return (
     <ScrollContainerUi>
-      <Stack.Screen options={{ title: `Swap ${asset?.title} ` }} />
+      <Stack.Screen options={{ title: `Swap ${asset?.name} ` }} />
 
       <AssetOptions
         assets={assets}
@@ -41,8 +50,8 @@ export default function Swap() {
           <SpacerUi size="lg">
             <AssetQuantityInputUi
               placeholder="Enter Adress"
-              uri={asset?.image}
-              title={asset?.title}
+              uri={asset?.icon}
+              title={asset?.name}
             />
           </SpacerUi>
         </SpacerUi>
@@ -51,8 +60,8 @@ export default function Swap() {
             <HeaderTextUi>To</HeaderTextUi>
             <SpacerUi size="lg">
               <AssetQuantityInputUi
-                uri={target?.image}
-                title={target?.title}
+                uri={target?.icon}
+                title={target?.name}
                 placeholder="Enter Adress"
                 onAssetPress={handleTargetOptionsPress}
               />

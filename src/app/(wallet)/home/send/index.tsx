@@ -2,6 +2,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { FlatList } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
@@ -16,7 +17,6 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { AssetType, useAsset } from "@/providers/AssetProvider";
 import { networks } from "@/util/mock";
-import { FlatList } from "react-native";
 
 export default function Send() {
   const { t } = useTranslation();
@@ -38,7 +38,7 @@ export default function Send() {
   }, [assets, searchQuery]);
 
   if (!assets) {
-    return <AlertWithImageUI title="No Chains To Display" />;
+    return <AlertWithImageUI title={t("shared.asset-error")} />;
   }
 
   return (
@@ -46,7 +46,7 @@ export default function Send() {
       <TextInputUi
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder="Search "
+        placeholder={t("shared.search")}
         left={
           <IconUi
             library="AntDesign"

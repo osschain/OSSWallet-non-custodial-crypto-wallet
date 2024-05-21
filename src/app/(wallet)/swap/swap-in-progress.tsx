@@ -1,5 +1,6 @@
 import { CommonActions } from "@react-navigation/native";
 import { useNavigation, router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Image } from "react-native";
 import styled from "styled-components/native";
 
@@ -11,7 +12,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 
 const SwapInProgress = () => {
   const navigation = useNavigation();
-
+  const { t } = useTranslation();
   const handleResetAction = () => {
     navigation.dispatch(
       CommonActions.reset({
@@ -34,18 +35,17 @@ const SwapInProgress = () => {
 
         <SpacerUi size="3.5xl">
           <HeaderText size="2xl" weight="extra">
-            Swap in progress
+            {t("wallet.swap.swap-in-progress.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            Your transaction has been sent to the network and will be processed
-            in a few seconds
+            {t("wallet.swap.swap-in-progress.description")}
           </DescriptionText>
         </SpacerUi>
       </Body>
       <FooterUi marginSize="sm">
-        <Continue onPress={doneHandler}>Done</Continue>
+        <Continue onPress={doneHandler}>{t("shared.done")}</Continue>
       </FooterUi>
     </ScrollContainerUi>
   );

@@ -50,7 +50,7 @@ export default function Recieve() {
       <TextInputUi
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder="Search "
+        placeholder={t("shared.search")}
         left={
           <IconUi
             library="AntDesign"

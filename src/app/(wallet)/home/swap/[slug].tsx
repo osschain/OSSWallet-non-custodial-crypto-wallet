@@ -27,7 +27,7 @@ export default function Swap() {
   if (!assets || !asset) {
     return (
       <SpacerUi>
-        <MessageUi>Error Handling</MessageUi>
+        <MessageUi> t("shared.asset-error")</MessageUi>
       </SpacerUi>
     );
   }

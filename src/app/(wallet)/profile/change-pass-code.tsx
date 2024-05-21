@@ -1,5 +1,6 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 
 import EnterPassCode from "@/components/auth/EnterPassCode";
@@ -10,7 +11,7 @@ function ChangePassCode() {
   const [isMatched, setIsMatched] = useState(false);
   const [password, setPassword] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (password && password === confirmPassword) {
       continueHandler(password);
@@ -29,14 +30,14 @@ function ChangePassCode() {
     if (isMatched) {
       setIsMatched(true);
     } else {
-      Alert.alert("..ops", "Passcode is not correct");
+      Alert.alert(t("shared.error-label"), t("pascode.password-incorrect"));
     }
   };
 
   if (!isMatched) {
     return (
       <EnterPassCode
-        header="Current Pass Code"
+        header={t("pascode.current-passcode")}
         onPasswordFull={(password) => handleOldPasswordSet(password)}
       />
     );
@@ -46,12 +47,12 @@ function ChangePassCode() {
     <>
       {!password ? (
         <EnterPassCode
-          header="Enter Passcode"
+          header={t("pascode.header")}
           onPasswordFull={(password) => setPassword(password)}
         />
       ) : (
         <EnterPassCode
-          header="Confirm Passcode"
+          header={t("pascode.confirm-header")}
           onPasswordFull={(password) => setConfirmPassword(password)}
         />
       )}

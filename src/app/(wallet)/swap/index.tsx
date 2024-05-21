@@ -1,6 +1,7 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import AssetOptions from "@/components/asset/AssetOptions";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
@@ -14,6 +15,7 @@ export default function Swap() {
   const [exchangable, setExchangable] = useState<AssetType | null>(null);
   const [target, setTarget] = useState<AssetType | null>(null);
   const { assets } = useAsset();
+  const { t } = useTranslation();
   const exchangableOptions = useRef<BottomSheetModal>(null);
   const targetOptions = useRef<BottomSheetModal>(null);
 
@@ -79,7 +81,7 @@ export default function Swap() {
           variant="primary"
           onPress={() => router.replace("(wallet)/swap/swap-in-progress")}
         >
-          Swap
+          {t("shared.swap")}
         </ButtonUi>
       </FooterUi>
     </ContainerUi>

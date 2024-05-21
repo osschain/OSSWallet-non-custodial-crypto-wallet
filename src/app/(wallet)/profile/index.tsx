@@ -1,4 +1,5 @@
 import { Link } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
@@ -9,6 +10,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
 
 export default function Profile() {
+  const { t } = useTranslation();
   return (
     <ScrollContainerUi>
       <SpacerUi>
@@ -24,7 +26,7 @@ export default function Profile() {
             </Icon>
             <Title>
               <BodyTextUi weight="medium" size="lg">
-                Notification
+                {t("shared.notification")}
               </BodyTextUi>
             </Title>
           </Left>
@@ -48,7 +50,7 @@ export default function Profile() {
                 </Icon>
                 <Title>
                   <BodyTextUi weight="medium" size="lg">
-                    Change Passcode
+                    {t("wallet.profile.change-passcode")}
                   </BodyTextUi>
                 </Title>
               </Left>

@@ -1,4 +1,5 @@
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
@@ -13,7 +14,7 @@ export default function Nft() {
   const { nftSlug: slug } = useLocalSearchParams();
 
   const nft = nfts.find((asset) => asset.id === Number(slug as string));
-
+  const { t } = useTranslation();
   return (
     <>
       <Stack.Screen options={{ title: nft?.title }} />
@@ -43,7 +44,7 @@ export default function Nft() {
         </ScrollView>
       </BodyUi>
       <Footer marginSize="sm">
-        <ButtonUi>Transfer</ButtonUi>
+        <ButtonUi>{t("shared.transfer")}</ButtonUi>
       </Footer>
     </>
   );

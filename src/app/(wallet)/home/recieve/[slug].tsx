@@ -20,7 +20,7 @@ export default function RecieveDetails() {
   if (!assets || !asset) {
     return (
       <SpacerUi>
-        <MessageUi>Error Handling</MessageUi>
+        <MessageUi>t("shared.asset-error")</MessageUi>
       </SpacerUi>
     );
   }

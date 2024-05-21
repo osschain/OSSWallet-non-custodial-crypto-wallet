@@ -29,10 +29,7 @@ function EnterPassowrd() {
   };
 
   const showAlert = () => {
-    Alert.alert(
-      t("shared.error-label"),
-      t("enter-password.password-incorrect")
-    );
+    Alert.alert(t("shared.error-label"), t("pascode.password-incorrect"));
   };
 
   if (seed) {
@@ -48,7 +45,7 @@ function EnterPassowrd() {
       style={{ flex: 1, backgroundColor: theme.colors["bg-primary"] }}
     >
       <EnterPassCode
-        header={t("enter-password.header")}
+        header={t("pascode.header")}
         onPasswordFull={handlePasswordCheck}
       />
       <Button

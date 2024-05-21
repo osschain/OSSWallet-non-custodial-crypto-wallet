@@ -43,6 +43,7 @@
         "password-confirm-required": "Please confirm your password",
         "password-match": "Passwords must match"
       }
+     
     },
     "wallet": {
       "home": {
@@ -89,17 +90,19 @@
           "header": "Swap in progress",
           "description": " Your transaction has been sent to the network and will be processed in a few seconds"
         }
+      },
+      "profile": {
+        "change-passcode": "Change Passcode"
       }
     },
-    "enter-password": {
+    "pascode": {
       "password-incorrect": "password is not correct",
       "header": "Enter Passcode",
-      "remove-session": "Remove Session"
-
+      "confirm-header": "Confirm Passcode",
+      "remove-session": "Remove Session",
+      "current-passcode": "Current Pass Code"
     },
-    "components": {
-      
-    },
+    
     "shared": {
       "continue": "Continue",
       "and": "and",
@@ -116,6 +119,10 @@
       "import": "Import",
       "cancel": "Cancel",
       "from": "From",
-      "done": "Done"
+      "done": "Done",
+      "transfer": "Transfer",
+      "asset-error": "no assets",
+      "search": "Search",
+      "notification": "Notification"
     }
 }

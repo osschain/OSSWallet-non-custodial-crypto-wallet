@@ -70,7 +70,6 @@ interface FontSizes {
 
 interface FontWeights {
   bold: number;
-  semi: number;
   regular: number;
   medium: number;
   extra: number;

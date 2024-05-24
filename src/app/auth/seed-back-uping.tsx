@@ -31,7 +31,7 @@ function SeedBackUping() {
           source={require("@/assets/images/cpu.png")}
         />
         <SpacerUi size="3.5xl">
-          <HeaderText adjustsFontSizeToFit size="2xl" weight="extra">
+          <HeaderText adjustsFontSizeToFit size="2xl" weight="bold">
             {t("auth.seed-back-uping.header")}
           </HeaderText>
         </SpacerUi>

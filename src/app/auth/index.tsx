@@ -17,7 +17,7 @@ function Auth() {
       <Body>
         <BannerImage resizeMode="contain" source={{ uri: defaultImage }} />
         <SpacerUi size="3.5xl">
-          <HeaderTextUi adjustsFontSizeToFit size="3xl" weight="extra">
+          <HeaderTextUi adjustsFontSizeToFit size="3xl" weight="bold">
             {t("auth.index.header")}
           </HeaderTextUi>
         </SpacerUi>

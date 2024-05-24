@@ -22,7 +22,7 @@ const Congretulation = () => {
         />
 
         <SpacerUi size="3.5xl">
-          <HeaderTextUi size="2xl" weight="extra">
+          <HeaderTextUi size="2xl" weight="bold">
             {t("auth.congretulation.header")}
           </HeaderTextUi>
         </SpacerUi>

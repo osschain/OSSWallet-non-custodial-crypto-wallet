@@ -1,13 +1,14 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
 import AssetProvider from "@/providers/AssetProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
+
 import "react-native-get-random-values";
 import "@ethersproject/shims";
 import "@/translations/i18n";
@@ -26,20 +27,29 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { fontsLoaded, fontError } = useFont();
+  const { fontsLoaded: loaded, fontError: error } = useFont();
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      await SplashScreen.hideAsync();
+  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
+  useEffect(() => {
+    if (error) throw error;
+  }, [error]);
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]);
+  }, [loaded]);
 
-  return <RootLayoutNav onLayout={onLayoutRootView} />;
+  if (!loaded) {
+    return null;
+  }
+
+  return <RootLayoutNav />;
 }
 
-function RootLayoutNav({ onLayout }: { onLayout: any }) {
+function RootLayoutNav() {
   return (
-    <GestureHandlerRootView onLayout={onLayout} style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <StyledThemeProvider>
         <AuthProvider>
           <AssetProvider>

@@ -67,7 +67,7 @@ function SeedChecking() {
           source={require("@/assets/images/cpu.png")}
         />
         <SpacerUi size="3.5xl">
-          <HeaderText size="3xl" weight="extra">
+          <HeaderText size="3xl" weight="bold">
             {t("auth.seed-checking.header")}
           </HeaderText>
         </SpacerUi>

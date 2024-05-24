@@ -72,7 +72,6 @@ interface FontWeights {
   bold: number;
   regular: number;
   medium: number;
-  extra: number;
 }
 
 interface Fonts {

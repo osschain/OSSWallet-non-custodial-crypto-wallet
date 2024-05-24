@@ -34,7 +34,7 @@ const SwapInProgress = () => {
         />
 
         <SpacerUi size="3.5xl">
-          <HeaderText size="2xl" weight="extra">
+          <HeaderText size="2xl" weight="bold">
             {t("wallet.swap.swap-in-progress.header")}
           </HeaderText>
         </SpacerUi>

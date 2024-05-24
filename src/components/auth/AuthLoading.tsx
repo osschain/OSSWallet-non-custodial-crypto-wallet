@@ -52,7 +52,7 @@ const AuthLoading = ({ label }: { label: string }) => {
       />
 
       <SpacerUi size="3.5xl">
-        <HeaderTextUi size="2xl" weight="extra">
+        <HeaderTextUi size="2xl" weight="bold">
           {label}
         </HeaderTextUi>
       </SpacerUi>

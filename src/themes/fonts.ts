@@ -7,7 +7,6 @@ export const fontWeights = {
   bold: 700,
   regular: 400,
   medium: 500,
-  extra: 800,
 };
 
 export const lineHeights = {

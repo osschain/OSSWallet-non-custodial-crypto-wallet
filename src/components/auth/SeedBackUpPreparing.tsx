@@ -61,7 +61,7 @@ const SeedBackUpPreparing = ({ onContinue = () => {} }: Props) => {
         />
 
         <SpacerUi size="3.5xl">
-          <HeaderTextUi size="2xl" weight="extra">
+          <HeaderTextUi size="2xl" weight="bold">
             {t("auth.seed-creating.header")}
           </HeaderTextUi>
         </SpacerUi>

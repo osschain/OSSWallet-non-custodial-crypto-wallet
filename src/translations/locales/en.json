@@ -1,14 +1,14 @@
 {
     "auth": {
       "index": {
-        "header": "Crypto Wallet",
-        "description": "TON wallet allows you to make fast and secure blockchain-based payments without intermediaries.",
-        "connect-wallet": "Connect Wallet",
-        "create-new": "Create New"
+        "header": "OSSWallet",
+        "description": "OSSWallet allows you to make fast and secure blockchain-based payments without intermediaries.",
+        "connect-wallet": "Add existing wallet",
+        "create-new": "Create a new wallet"
       },
       "seed-creating": {
         "header": "Take a pen and paper",
-        "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key onthe devices.",
+        "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key on the devices.",
         "no-seed-error": "Sorry we can't generate seed, go back and try again",
         "making-wallet": "Making a seed Phrase..."
       },
@@ -18,8 +18,8 @@
         "checking-error": "Words are not correct"
       }, 
       "seed-back-uping": {
-        "header": "Crypto Wallet",
-        "description": "Write these 12 words in exactly that order and hide them in a safeplace."
+        "header": "OSSWallet",
+        "description": "Write these 12 words in exactly that order and hide them in a safe place."
       },
       "congretulation": {
         "header": "Congratulations",
@@ -28,20 +28,20 @@
       },
       "connect-wallet": {
         "header": "Enter the secret key",
-        "description": "To restore access, enter the 24 secret words you received whencreating a wallet",
+        "description": "To restore access, enter the 12 secret words you received when creating a wallet",
         "scannned-error":"Scanned Seed is not valid try other",
         "format-error":"Seed Phrase does not have correct format, make sure to put 12 word and remove extra spaces",
-        "connect-wallet": "Connect Wallet"
+        "connect-wallet": "Add existing wallet"
       },
       "password-setup": {
-        "header": "Create Password",
-        "description": "We Will use your Password for secure your Seed Phrase, so createStrong Password",
-        "password-setup-header": "Create Password", 
-        "password-setup-description": "We Will use your Password for secure your Seed Phrase, so create Strong Password", 
-        "password-required": "Password is required",
-        "password-min-length": "Password must contain at least 8 characters",
-        "password-confirm-required": "Please confirm your password",
-        "password-match": "Passwords must match"
+        "header": "Create Passcode",
+        "description": "We will use your passcode for secure your seed phrase, so create strong passcode",
+        "password-setup-header": "Create passcode", 
+        "password-setup-description": "We will use your passcode for secure your seed phrase, so create strong passcode", 
+        "password-required": "Passcode is required",
+        "password-min-length": "Passcode must contain at least 8 characters",
+        "password-confirm-required": "Please confirm your passcode",
+        "password-match": "Passcode must match"
       }
      
     },
@@ -52,13 +52,13 @@
         "asset": {},
         "custom-token": {
           "index": {
-            "no-custom-tokens-alert": "Custom tokens haven’t been added   You can search for tokens    or add them manually",
+            "no-custom-tokens-alert": "Custom tokens haven’t been added. You can search for tokens or add them manually",
             "add-button-text": "Add Custom Token",
             "search-input-placeholder": "Search by name or paste address"
           },
           "add-custom-token": {
             "import-token-button": "Import Token",
-            "adress-input-placeholder": "Enter Token Adress",
+            "adress-input-placeholder": "Enter Token Address",
             "warning-first": "Trade at your own risk!",
             "warning-second": "Anyone can create a token, including creating fake versions of existing tokens that claim to represent projects.",
             "warning-third": "If you purchase this token, you may not be able to sell it back.",
@@ -70,19 +70,19 @@
         },
         "recieve": {
           "recieve-details": {
-            "warning": "only. Do not send other chain here!",
+            "warning": "Do not send other blockchain network here!",
             "wallet-adress": "Wallet Adress",
             "Copy Address": "Copy Address",
-            "qr-code": "Qr code"
+            "qr-code": "QR Code"
           }
         },
         "send": {
-          "warning": "Check Adress Before Send, you cen't refund it",
+          "warning": "Check address before send, you cen't refund it",
           "for-whom": "For Whom"
         },
         "swap": {},
         "history": {
-          "no-history-alert": "no History Yet"
+          "no-history-alert": "No History Yet"
         }
       },
       "swap": {
@@ -96,7 +96,7 @@
       }
     },
     "pascode": {
-      "password-incorrect": "password is not correct",
+      "password-incorrect": "Passcode is not correct",
       "header": "Enter Passcode",
       "confirm-header": "Confirm Passcode",
       "remove-session": "Remove Session",
@@ -107,8 +107,8 @@
       "continue": "Continue",
       "and": "and",
       "error-label": "ops...",
-      "password": "Password",
-      "confirm-password": "Confirm Password",
+      "password": "Passcode",
+      "confirm-password": "Confirm Passcode",
       "send": "Send",
       "receive": "Receive",
       "history": "History",
@@ -121,7 +121,7 @@
       "from": "From",
       "done": "Done",
       "transfer": "Transfer",
-      "asset-error": "no assets",
+      "asset-error": "No assets",
       "search": "Search",
       "notification": "Notification"
     }

@@ -1,0 +1,128 @@
+{
+    "auth": {
+      "index": {
+        "header": "OSSWallet",
+        "description": "OSSWallet 允许您在没有中介的情况下进行快速、安全的基于区块链的支付。",
+        "connect-wallet": "添加现有钱包",
+        "create-new": "创建一个新钱包"
+      },
+      "seed-creating": {
+        "header": "拿笔和纸",
+        "description": "准备好写下密钥。 这是重新获得钱包访问权限的唯一方法。 最安全的做法是不要将密钥存储在设备上。",
+        "no-seed-error": "抱歉，我们无法生成种子，请返回并重试",
+        "making-wallet": "制作种子短语..."
+      },
+      "seed-checking": {
+        "header": "让我们检查",
+        "description": "为确保单词拼写正确，请输入单词",
+        "checking-error": "用词不正确"
+      }, 
+      "seed-back-uping": {
+        "header": "OSSWallet",
+        "description": "严格按照顺序写下这 12 个单词，并将它们藏在安全的地方。"
+      },
+      "congretulation": {
+        "header": "恭喜你",
+        "description": "您的钱包已成功创建。",
+        "go-to-the-wallet": "前往钱包"
+      },
+      "connect-wallet": {
+        "header": "输入秘密密钥",
+        "description": "要恢复访问权限，请输入您在创建钱包时收到的 12 个密码",
+        "scannned-error":"扫描的种子无效尝试其他",
+        "format-error":"种子短语的格式不正确，请确保输入 12 个单词并删除多余的空格",
+        "connect-wallet": "添加现有钱包"
+      },
+      "password-setup": {
+        "header": "创建密码",
+        "description": "我们将使用您的密码来保护您的助记词，因此请创建强密码",
+        "password-setup-header": "创建密码", 
+        "password-setup-description": "我们将使用您的密码来保护您的助记词，因此请创建强密码", 
+        "password-required": "需要密码",
+        "password-min-length": "密码必须包含至少 8 个字符",
+        "password-confirm-required": "请确认您的密码",
+        "password-match": "密码必须匹配"
+      }
+     
+    },
+    "wallet": {
+      "home": {
+        "index": {
+        },
+        "asset": {},
+        "custom-token": {
+          "index": {
+            "no-custom-tokens-alert": "尚未添加自定义令牌。 您可以搜索令牌或手动添加它们",
+            "add-button-text": "添加自定义令牌",
+            "search-input-placeholder": "按名称或粘贴地址搜索"
+          },
+          "add-custom-token": {
+            "import-token-button": "导入令牌",
+            "adress-input-placeholder": "输入代币地址",
+            "warning-first": "交易风险自负！",
+            "warning-second": "任何人都可以创建代币，包括创建声称代表项目的现有代币的虚假版本。",
+            "warning-third": "如果您购买了该代币，您可能无法将其卖回。",
+            "warning-forth": "购买并将其添加为自定义令牌，即表示您确认与其进行的所有进一步交互均由您自行承担风险。"
+          }
+        },
+        "nft": {
+
+        },
+        "recieve": {
+          "recieve-details": {
+            "warning": "不要在这里发送其他区块链网络！",
+            "wallet-adress": "钱包地址",
+            "Copy Address": "复制地址",
+            "qr-code": "二维码"
+          }
+        },
+        "send": {
+          "warning": "发送前请检查地址，无法退款",
+          "for-whom": "为了谁"
+        },
+        "swap": {},
+        "history": {
+          "no-history-alert": "还没有历史记录"
+        }
+      },
+      "swap": {
+        "swap-in-progress": {
+          "header": "交换正在进行中",
+          "description": " 您的交易已发送到网络，并将在几秒钟内处理"
+        }
+      },
+      "profile": {
+        "change-passcode": "更改密码"
+      }
+    },
+    "pascode": {
+      "password-incorrect": "密码不正确",
+      "header": "Enter 密码",
+      "confirm-header": "确认密码",
+      "remove-session": "移除会话",
+      "current-passcode": "当前密码"
+    },
+    
+    "shared": {
+      "continue": "继续",
+      "and": "和",
+      "error-label": "ops...",
+      "password": "密码",
+      "confirm-password": "确认密码",
+      "send": "发送",
+      "receive": "收到",
+      "history": "历史",
+      "all": "全部",
+      "network": "网络",
+      "token": "代币",
+      "swap": "交换",
+      "import": "进口",
+      "cancel": "取消",
+      "from": "从",
+      "done": "完毕",
+      "transfer": "转移",
+      "asset-error": "没有资产",
+      "search": "搜索",
+      "notification": "公告"
+    }
+}

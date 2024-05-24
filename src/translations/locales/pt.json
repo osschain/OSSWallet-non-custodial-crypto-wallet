@@ -1,0 +1,128 @@
+{
+    "auth": {
+      "index": {
+        "header": "OSSWallet",
+        "description": "OSSWallet permite que você faça pagamentos rápidos e seguros baseados em blockchain, sem intermediários.",
+        "connect-wallet": "Adicionar carteira existente",
+        "create-new": "Crie uma nova carteira"
+      },
+      "seed-creating": {
+        "header": "Pegue uma caneta e papel",
+        "description": "Prepare-se para anotar a chave secreta. Esta é a única maneira de recuperar o acesso à carteira. É mais seguro não armazenar a chave nos dispositivos.",
+        "no-seed-error": "Desculpe, não podemos gerar sementes, volte e tente novamente",
+        "making-wallet": "Fazendo uma frase-semente..."
+      },
+      "seed-checking": {
+        "header": "Vamos checar",
+        "description": "Para ter certeza de que você escreveu as palavras corretamente, insira palavras",
+        "checking-error": "As palavras não estão corretas"
+      }, 
+      "seed-back-uping": {
+        "header": "OSSWallet",
+        "description": "Escreva essas 12 palavras exatamente nessa ordem e esconda-as em um lugar seguro."
+      },
+      "congretulation": {
+        "header": "Parabéns",
+        "description": "Sua carteira foi criada com sucesso.",
+        "go-to-the-wallet": "Vá para a carteira"
+      },
+      "connect-wallet": {
+        "header": "Digite a chave secreta",
+        "description": "Para restaurar o acesso, digite as 12 palavras secretas que você recebeu ao criar uma carteira",
+        "scannned-error":"A semente digitalizada não é válida, tente outra",
+        "format-error":"A frase-semente não tem formato correto, certifique-se de colocar 12 palavras e remover espaços extras",
+        "connect-wallet": "Adicionar carteira existente"
+      },
+      "password-setup": {
+        "header": "Criar senha",
+        "description": "Usaremos sua senha para proteger sua frase inicial, então crie uma senha forte",
+        "password-setup-header": "Criar senha", 
+        "password-setup-description": "Usaremos sua senha para proteger sua frase inicial, então crie uma senha forte", 
+        "password-required": "É necessária uma senha",
+        "password-min-length": "A senha deve conter pelo menos 8 caracteres",
+        "password-confirm-required": "Por favor confirme sua senha",
+        "password-match": "A senha deve corresponder"
+      }
+     
+    },
+    "wallet": {
+      "home": {
+        "index": {
+        },
+        "asset": {},
+        "custom-token": {
+          "index": {
+            "no-custom-tokens-alert": "Os tokens personalizados não foram adicionados. Você pode pesquisar tokens ou adicioná-los manualmente",
+            "add-button-text": "Adicionar token personalizado",
+            "search-input-placeholder": "Pesquise por nome ou cole endereço"
+          },
+          "add-custom-token": {
+            "import-token-button": "Token de importação",
+            "adress-input-placeholder": "Insira o endereço do token",
+            "warning-first": "Negocie a seu próprio risco!",
+            "warning-second": "Qualquer pessoa pode criar um token, incluindo a criação de versões falsas de tokens existentes que afirmam representar projetos.",
+            "warning-third": "Se você comprar este token, talvez não consiga vendê-lo de volta.",
+            "warning-forth": "Ao adicioná-lo como um token personalizado, você confirma que todas as interações futuras com ele são por sua conta e risco."
+          }
+        },
+        "nft": {
+
+        },
+        "recieve": {
+          "recieve-details": {
+            "warning": "Não envie outra rede blockchain aqui!",
+            "wallet-adress": "Endereço da carteira",
+            "Copy Address": "Copiar endereço",
+            "qr-code": "Código QR"
+          }
+        },
+        "send": {
+          "warning": "Verifique o endereço antes de enviar, você não pode reembolsá-lo",
+          "for-whom": "Para quem"
+        },
+        "swap": {},
+        "history": {
+          "no-history-alert": "Ainda não há história"
+        }
+      },
+      "swap": {
+        "swap-in-progress": {
+          "header": "Troca em andamento",
+          "description": " Sua transação foi enviada para a rede e será processada em alguns segundos"
+        }
+      },
+      "profile": {
+        "change-passcode": "Alterar senha"
+      }
+    },
+    "pascode": {
+      "password-incorrect": "A senha não está correta",
+      "header": "Insira a senha",
+      "confirm-header": "Confirmar senha",
+      "remove-session": "Remover sessão",
+      "current-passcode": "Código de acesso atual"
+    },
+    
+    "shared": {
+      "continue": "Continuar",
+      "and": "e",
+      "error-label": "ops...",
+      "password": "Senha",
+      "confirm-password": "Confirmar senha",
+      "send": "Enviar",
+      "receive": "Receber",
+      "history": "História",
+      "all": "Todos",
+      "network": "Rede",
+      "token": "Token",
+      "swap": "Troque",
+      "import": "Importar",
+      "cancel": "Cancelar",
+      "from": "A partir de",
+      "done": "Feito",
+      "transfer": "Transferir",
+      "asset-error": "Sem ativos",
+      "search": "Procurar",
+      "notification": "Notificação"
+    }
+}

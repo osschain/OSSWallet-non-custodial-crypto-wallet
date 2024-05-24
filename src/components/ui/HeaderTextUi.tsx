@@ -16,7 +16,7 @@ interface Props {
 }
 
 const HeaderTextUi = styled(Text)<Props>`
-  ${({ size = "md", color = "text-primary", weight = "semi", theme }) => `
+  ${({ size = "md", color = "text-primary", weight = "medium", theme }) => `
     font-family: ${getFontStyle(theme, "heading", weight)};
     font-size: ${theme.fontSizes.header[size]}; 
     color: ${theme.colors[color]};

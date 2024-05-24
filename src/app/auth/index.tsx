@@ -7,7 +7,6 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { defaultImage } from "@/util/DefaultImage";
 
 function Auth() {
   const { t } = useTranslation();
@@ -15,7 +14,10 @@ function Auth() {
   return (
     <ScrollContainerUi>
       <Body>
-        <BannerImage resizeMode="contain" source={{ uri: defaultImage }} />
+        <BannerImage
+          resizeMode="contain"
+          source={require("@/assets/images/ossLogo.png")}
+        />
         <SpacerUi size="3.5xl">
           <HeaderTextUi adjustsFontSizeToFit size="3xl" weight="bold">
             {t("auth.index.header")}

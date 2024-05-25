@@ -38,7 +38,7 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
   const updateInputs = (item: null | number) => {
     const firstNull = inputs.indexOf(null);
     const cloneInputs = [...inputs];
-    const index = item ? firstNull : firstNull - 1;
+    const index = item !== null ? firstNull : firstNull - 1;
     cloneInputs[index] = item;
     return cloneInputs;
   };
@@ -91,7 +91,7 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
                 return (
                   <Input key={index}>
                     <HeaderTextUi weight="bold" size="3xl">
-                      {input ? "*" : input}
+                      {input !== null && "*"}
                     </HeaderTextUi>
                   </Input>
                 );

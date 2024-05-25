@@ -1,12 +1,14 @@
 export const fonts = {
-  body: "Inter",
-  heading: "Inter",
+  body: "OpenSans",
+  heading: "Poppins",
 };
 
 export const fontWeights = {
   bold: 700,
   regular: 400,
+  ligh: 300,
   medium: 500,
+  semi: 600,
 };
 
 export const lineHeights = {

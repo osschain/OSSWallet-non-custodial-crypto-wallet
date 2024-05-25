@@ -72,6 +72,8 @@ interface FontWeights {
   bold: number;
   regular: number;
   medium: number;
+  semi: number;
+  light: number;
 }
 
 interface Fonts {

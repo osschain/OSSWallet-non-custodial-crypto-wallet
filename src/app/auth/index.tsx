@@ -22,6 +22,14 @@ function Auth() {
           <HeaderTextUi adjustsFontSizeToFit size="3xl" weight="bold">
             {t("auth.index.header")}
           </HeaderTextUi>
+          <HeaderTextUi
+            style={{ textAlign: "right", marginTop: -15 }}
+            adjustsFontSizeToFit
+            size="sm"
+            weight="bold"
+          >
+            By OSS
+          </HeaderTextUi>
         </SpacerUi>
         <SpacerUi size="4xl">
           <DescriptionText size="lg" color="text-second" weight="regular">

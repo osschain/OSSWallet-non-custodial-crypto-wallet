@@ -61,7 +61,7 @@ const Button = styled(TouchableOpacity)<{
 const ButtonText = styled(Text)<{ variant: Variant; theme: DefaultTheme }>`
   ${({ variant, theme }) => `
       color: ${theme.colors[getTextColor(variant)]};  
-      font-family: ${getFontStyle(theme, "heading", "medium")};
+      font-family: ${getFontStyle(theme, "body", "semi")};
       text-align: center;
   `}
 `;

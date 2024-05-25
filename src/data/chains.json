@@ -53,33 +53,10 @@
     "slip-0044": 60
   },
   {
-    "id": "Polygon ZkEVM",
-    "name": "Polygon ZkEVM",
-    "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNdIOotIW9UNcebBpbHOFE_UbVwrnlTqhKnnGoGQ4aPg&s",
-    "symbol": "ETH",
+    "id": "TRON",
+    "name": "TRON",
+    "icon": "https://cryptologos.cc/logos/mantle-mnt-logo.png?v=032",
+    "symbol": "TRX",
     "slip-0044": 60
   },
-  {
-    "id": "zkSync ERA",
-    "name": "zkSync ERA",
-    "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYzD8dV9DnjD6Wzc9KBkrN1ChC_-1D5CqdVD7gUCJFYQ&s",
-
-    "symbol": "ETH",
-    "slip-0044": 60
-  },
-  {
-    "id": "Optimism",
-    "name": "Optimism",
-    "icon": "https://cryptologos.cc/logos/optimism-ethereum-op-logo.png?v=032",
-    "symbol": "OP",
-    "slip-0044": 60
-  },
-  {
-    "id": "Arbitrum One",
-    "name": "Arbitrum One",
-    "icon": "https://cryptologos.cc/logos/arbitrum-arb-logo.png?v=032",
-
-    "symbol": "ARB",
-    "slip-0044": 60
-  }
 ]

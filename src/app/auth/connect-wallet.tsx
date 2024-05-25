@@ -80,6 +80,7 @@ function ConnetWallet() {
             value={seed}
             onChangeText={(text) => setSeed(text)}
             multiline
+            autoCapitalize="none"
             numberOfLines={10}
             right={
               <IconUi

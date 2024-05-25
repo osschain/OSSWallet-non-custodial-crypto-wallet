@@ -1,6 +1,13 @@
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { Alert, View } from "react-native";
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -59,54 +66,60 @@ function SeedChecking() {
   };
 
   return (
-    <ScrollContainerUi>
-      <SpacerUi size="xl" />
-      <Body>
-        <BannerImage
-          resizeMode="contain"
-          source={require("@/assets/images/cpu.png")}
-        />
-        <SpacerUi size="3.5xl">
-          <HeaderText size="3xl" weight="bold">
-            {t("auth.seed-checking.header")}
-          </HeaderText>
-        </SpacerUi>
-        <SpacerUi size="xl">
-          <DescriptionText size="lg" color="text-second" weight="regular">
-            {t("auth.seed-checking.description")} {words[0].order},{" "}
-            {words[1].order} {t("shared.and")} {words[2].order}
-          </DescriptionText>
-        </SpacerUi>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
+      <ScrollContainerUi>
+        <SpacerUi size="xl" />
+        <Body>
+          <BannerImage
+            resizeMode="contain"
+            source={require("@/assets/images/cpu.png")}
+          />
+          <SpacerUi size="3.5xl">
+            <HeaderText size="3xl" weight="bold">
+              {t("auth.seed-checking.header")}
+            </HeaderText>
+          </SpacerUi>
+          <SpacerUi size="xl">
+            <DescriptionText size="lg" color="text-second" weight="regular">
+              {t("auth.seed-checking.description")} {words[0].order},{" "}
+              {words[1].order} {t("shared.and")} {words[2].order}
+            </DescriptionText>
+          </SpacerUi>
 
-        <SpacerUi>
-          {words?.map(
-            (
-              { word, order }: { word: string; order: number },
-              index: number
-            ) => (
-              <SpacerUi size="xl" key={order}>
-                <TextInputUi
-                  left={
-                    <View>
-                      <BodyTextUi color="text-second" weight="medium">
-                        {order} .
-                      </BodyTextUi>
-                    </View>
-                  }
-                  onChangeText={(text) => checkWord(text, word, index)}
-                />
-              </SpacerUi>
-            )
-          )}
-        </SpacerUi>
-      </Body>
-
-      <FooterUi>
-        <SpacerUi size="2xl">
-          <ButtonUi onPress={onContinuePress}>{t("shared.continue")}</ButtonUi>
-        </SpacerUi>
-      </FooterUi>
-    </ScrollContainerUi>
+          <SpacerUi>
+            {words?.map(
+              (
+                { word, order }: { word: string; order: number },
+                index: number
+              ) => (
+                <SpacerUi size="xl" key={order}>
+                  <TextInputUi
+                    left={
+                      <View>
+                        <BodyTextUi color="text-second" weight="medium">
+                          {order} .
+                        </BodyTextUi>
+                      </View>
+                    }
+                    onChangeText={(text) => checkWord(text, word, index)}
+                  />
+                </SpacerUi>
+              )
+            )}
+          </SpacerUi>
+        </Body>
+        <FooterUi>
+          <SpacerUi size="2xl">
+            <ButtonUi onPress={onContinuePress}>
+              {t("shared.continue")}
+            </ButtonUi>
+          </SpacerUi>
+        </FooterUi>
+      </ScrollContainerUi>
+    </KeyboardAvoidingView>
   );
 }
 

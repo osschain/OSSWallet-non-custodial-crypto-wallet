@@ -1,9 +1,8 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { TouchableOpacity } from "react-native";
-import styled, { useTheme } from "styled-components/native";
+import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
-import ButtonUi from "@/components/ui/ButtonUi";
 import IconUi from "@/components/ui/IconUi";
 
 const NetworkButton = ({
@@ -13,7 +12,7 @@ const NetworkButton = ({
   typeof TouchableOpacity
 >) => {
   return (
-    <Button variant="secondary" {...rest}>
+    <Button {...rest}>
       <FlexContainer>
         <BodyTextUi weight="medium">{children}</BodyTextUi>
         <IconUi

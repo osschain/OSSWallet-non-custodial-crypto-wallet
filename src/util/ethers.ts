@@ -4,9 +4,9 @@ import chains from "@/data/chains.json";
 export const createAssets = (seed: string) => {
   try {
     const evmWallet = HDNodeWallet.fromPhrase(
-      seed as string,
-      `m/44'/60'/0'/0/0`
+      seed as string
     );
+    
 
     const wallets = chains.map((chain) => {
       const path = `m/44'/${chain["slip-0044"]}'/0'/0/0`;

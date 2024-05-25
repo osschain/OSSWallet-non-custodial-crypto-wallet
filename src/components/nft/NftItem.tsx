@@ -16,23 +16,27 @@ const NftItem = ({
   collection = "can't Display",
 }: Props) => {
   return (
-    <ItemContainer>
-      <BodyContainer>
+    <Item>
+      <Body>
         {uri ? (
-          <NftImage source={{ uri }} />
+          <NftImage resizeMode="cover" source={{ uri }} />
         ) : (
-          <NftImage source={require("@/assets/images/nftDefaultIMage.png")} />
+          <NftImage
+            resizeMode="cover"
+            source={require("@/assets/images/nftDefaultIMage.png")}
+          />
         )}
-      </BodyContainer>
-      <FooterContainer>
+      </Body>
+      <Footer>
         <BlurBackground>
           <Image
             source={require("@/assets/images/nftDefaultIMage.png")}
-            style={{ height: "100%" }}
-            blurRadius={10}
+            style={{ height: "100%", width: "100%" }}
+            blurRadius={18}
           />
+          <Overlay />
         </BlurBackground>
-        <Bacground />
+
         <Title
           color="pure-white"
           size="xl"
@@ -50,41 +54,35 @@ const NftItem = ({
         >
           {collection}
         </Collection>
-      </FooterContainer>
-    </ItemContainer>
+      </Footer>
+    </Item>
   );
 };
 
-const ItemContainer = styled.View``;
+const Item = styled.View``;
 
-const BodyContainer = styled.View``;
+const Body = styled.View``;
 const NftImage = styled.Image`
   height: 162px;
+  width: 100%;
   border-top-right-radius: ${({ theme }) => theme.sizes["md"]};
   border-top-left-radius: ${({ theme }) => theme.sizes["md"]};
 `;
 
-const FooterContainer = styled.View`
-  border-bottom-right-radius: ${({ theme }) => theme.sizes["md"]};
-  border-bottom-left-radius: ${({ theme }) => theme.sizes["md"]};
-  overflow: hidden;
-`;
+const Footer = styled.View``;
 
 const BlurBackground = styled.View`
   position: absolute;
-  bottom: 0;
-  height: 100%;
   width: 100%;
-  max-width: 100%;
+  height: 100%;
 `;
 
-const Bacground = styled.View`
+const Overlay = styled.View`
   opacity: 0.4;
   background-color: #141a21;
+  position: absolute;
   width: 100%;
   height: 100%;
-  position: absolute;
-  max-width: 100%;
 `;
 const Title = styled(HeaderTextUi)`
   padding: ${({ theme }) => theme.spaces["md"]};

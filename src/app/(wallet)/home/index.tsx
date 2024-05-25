@@ -61,9 +61,12 @@ export default function Home() {
             data={nfts}
             key={2}
             numColumns={2}
-            columnWrapperStyle={{ gap: pixelToNumber(theme.spaces["lg"]) }}
+            columnWrapperStyle={{
+              justifyContent: "space-between",
+            }}
+            contentContainerStyle={{ justifyContent: "space-between" }}
             renderItem={({ item }) => (
-              <SpacerUi size="xl" position="bottom">
+              <SpacerUi style={{ width: "48%" }} size="xl" position="bottom">
                 <Link href={`/(wallet)/home/nft/${item.id}`} asChild>
                   <TouchableOpacity>
                     <NftItem title={item.title} collection={item.collection} />

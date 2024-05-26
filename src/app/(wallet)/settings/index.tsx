@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
-import LanguageOptions from "@/components/settings/LanguageOptions";
+import LocaleOptions from "@/components/settings/LocaleOptions";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
@@ -28,30 +28,30 @@ export default function Settings() {
     bottomSheetRef.current?.close();
   };
 
-  const languages = [
+  const locales = [
     {
       name: "georgia",
-      lng: "ka",
+      locale: "ka",
       flag: "https://img.freeflagicons.com/thumb/round_icon/georgia/georgia_640.png",
     },
     {
       name: "English",
-      lng: "en",
+      locale: "en",
       flag: "https://img.freeflagicons.com/thumb/round_icon/united_kingdom/united_kingdom_640.png",
     },
     {
       name: "Spanish",
-      lng: "es",
+      locale: "es",
       flag: "https://img.freeflagicons.com/thumb/round_icon/spain/spain_640.png",
     },
     {
       name: "portugal",
-      lng: "pt",
+      locale: "pt",
       flag: "https://img.freeflagicons.com/thumb/round_icon/portugal/portugal_640.png",
     },
     {
       name: "China",
-      lng: "cn",
+      locale: "cn",
       flag: "https://img.freeflagicons.com/thumb/round_icon/china/china_640.png",
     },
   ];
@@ -80,7 +80,7 @@ export default function Settings() {
         </Setting>
       </SpacerUi>
       <SpacerUi size="xl">
-        <Link href="/(wallet)/setting/change-pass-code" asChild>
+        <Link href="/(wallet)/settings/change-pass-code" asChild>
           <TouchableOpacity>
             <Setting>
               <Left>
@@ -136,8 +136,8 @@ export default function Settings() {
                 color="icon-second"
               />
             </Right>
-            <LanguageOptions
-              languages={languages}
+            <LocaleOptions
+              locales={locales}
               ref={bottomSheetRef}
               onSelect={handleLanguageChange}
             />

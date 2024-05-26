@@ -1,4 +1,5 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { forwardRef, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useTheme } from "styled-components/native";
@@ -7,18 +8,17 @@ import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export type Ref = BottomSheetModal;
 
 type Props = {
   defSelected?: string;
-  languages: { name: string; lng: string; flag: string }[];
-  onSelect: (lng: string) => void;
+  locales: { name: string; locale: string; flag: string }[];
+  onSelect: (locale: string) => void;
 };
 
-const LanguageOptions = forwardRef<Ref, Props>(
-  ({ languages, defSelected, onSelect = () => {} }, ref) => {
+const LocaleOptions = forwardRef<Ref, Props>(
+  ({ locales, defSelected, onSelect = () => {} }, ref) => {
     const snapPoints = useMemo(() => ["45%", "45%"], []);
     const [selected, setSelected] = useState(defSelected || null);
     const theme = useTheme();
@@ -48,20 +48,20 @@ const LanguageOptions = forwardRef<Ref, Props>(
             marginBottom: 50,
           }}
         >
-          {languages?.map((language, index) => {
+          {locales?.map((language, index) => {
             return (
               <SpacerUi size="3xl" key={index}>
                 <TouchableOpacity
                   onPress={() => {
-                    setSelected(language.lng);
-                    onSelect(language.lng);
+                    setSelected(language.locale);
+                    onSelect(language.locale);
                   }}
                 >
                   <ItemUi
                     uri={language.flag}
                     title={language.name}
                     right={
-                      selected === language.lng && (
+                      selected === language.locale && (
                         <IconUi
                           library="AntDesign"
                           name="check"
@@ -81,4 +81,4 @@ const LanguageOptions = forwardRef<Ref, Props>(
   }
 );
 
-export default LanguageOptions;
+export default LocaleOptions;

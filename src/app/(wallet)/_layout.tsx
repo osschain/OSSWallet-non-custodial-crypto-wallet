@@ -57,13 +57,13 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="profile"
+          name="settings"
           options={{
             title: "",
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <FontAwesome5
-                name="user-alt"
+              <Ionicons
+                name="settings"
                 size={pixelToNumber(theme.sizes["xl"])}
                 color={color}
               />

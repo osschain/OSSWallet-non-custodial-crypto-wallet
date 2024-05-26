@@ -27,7 +27,7 @@ export default function RecieveDetails() {
 
   return (
     <ScrollContainerUi>
-      <Stack.Screen options={{ title: asset?.name }} />
+      <Stack.Screen options={{ title: `Recieve ${asset?.name}` }} />
       <BodyUi>
         <SpacerUi size="3xl">
           <MessageUi>

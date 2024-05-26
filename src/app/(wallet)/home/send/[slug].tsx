@@ -27,7 +27,7 @@ export default function SendChain() {
 
   return (
     <ScrollContainerUi>
-      <Stack.Screen options={{ title: asset.name }} />
+      <Stack.Screen options={{ title: `Send ${asset?.name}` }} />
       <BodyUi>
         <SpacerUi size="3xl">
           <MessageUi>{t("wallet.home.send.warning")}</MessageUi>

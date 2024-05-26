@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 
 export const ContainerUi = styled.View`
   flex: 1;
+  margin-top: ${({ theme }) => theme.spaces["md"]};
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
   background-color: ${({ theme }) => theme.colors["bg-primary"]};
 `;

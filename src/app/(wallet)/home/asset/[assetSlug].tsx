@@ -30,7 +30,7 @@ export default function Asset() {
             height={pixelToNumber(theme.sizes["3xl"])}
           />
           <BodyTextUi weight="bold" size="lg">
-            {asset?.name} {t("shared.token")}
+            {asset?.name}
           </BodyTextUi>
         </ChainDetails>
       </SpacerUi>

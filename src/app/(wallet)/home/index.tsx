@@ -12,7 +12,6 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import WalletCard from "@/components/wallet/wallet-card";
 import { useAsset } from "@/providers/AssetProvider";
 import { nfts } from "@/util/mock";
-import { pixelToNumber } from "@/util/pixelToNumber";
 
 type Segment = "Assets" | "NFT";
 
@@ -21,7 +20,6 @@ const segmentOptions: Segment[] = ["Assets", "NFT"];
 export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const { assets } = useAsset();
-  const theme = useTheme();
 
   return (
     <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>

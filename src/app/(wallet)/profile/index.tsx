@@ -1,8 +1,12 @@
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
+import LanguageOptions from "@/components/settings/LanguageOptions";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
@@ -10,7 +14,47 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
 
 export default function Profile() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
+
+  const handlePresentModalPress = () => {
+    bottomSheetRef.current?.present();
+  };
+
+  const handleLanguageChange = async (lang: string) => {
+    await AsyncStorage.setItem("lang", lang);
+    i18n.changeLanguage(lang);
+    bottomSheetRef.current?.close();
+  };
+
+  const languages = [
+    {
+      name: "georgia",
+      lng: "ka",
+      flag: "https://img.freeflagicons.com/thumb/round_icon/georgia/georgia_640.png",
+    },
+    {
+      name: "English",
+      lng: "en",
+      flag: "https://img.freeflagicons.com/thumb/round_icon/united_kingdom/united_kingdom_640.png",
+    },
+    {
+      name: "Spanish",
+      lng: "es",
+      flag: "https://img.freeflagicons.com/thumb/round_icon/spain/spain_640.png",
+    },
+    {
+      name: "portugal",
+      lng: "pt",
+      flag: "https://img.freeflagicons.com/thumb/round_icon/portugal/portugal_640.png",
+    },
+    {
+      name: "China",
+      lng: "cn",
+      flag: "https://img.freeflagicons.com/thumb/round_icon/china/china_640.png",
+    },
+  ];
   return (
     <ScrollContainerUi>
       <SpacerUi>
@@ -65,6 +109,40 @@ export default function Profile() {
             </Setting>
           </TouchableOpacity>
         </Link>
+      </SpacerUi>
+      <SpacerUi size="xl">
+        <TouchableOpacity onPress={handlePresentModalPress}>
+          <Setting>
+            <Left>
+              <Icon>
+                <IconUi
+                  library="FontAwesome"
+                  name="language"
+                  size="xl"
+                  color="icon-primary"
+                />
+              </Icon>
+              <Title>
+                <BodyTextUi weight="medium" size="lg">
+                  Choose Language
+                </BodyTextUi>
+              </Title>
+            </Left>
+            <Right>
+              <IconUi
+                library="AntDesign"
+                name="arrowup"
+                size="xl"
+                color="icon-second"
+              />
+            </Right>
+            <LanguageOptions
+              languages={languages}
+              ref={bottomSheetRef}
+              onSelect={handleLanguageChange}
+            />
+          </Setting>
+        </TouchableOpacity>
       </SpacerUi>
     </ScrollContainerUi>
   );

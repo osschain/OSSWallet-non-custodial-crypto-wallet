@@ -6,7 +6,7 @@ import BodyTextUi from "./BodyTextUi";
 import HeaderTextUi from "./HeaderTextUi";
 
 type Props = {
-  uri: string;
+  uri?: string;
   title: string;
   description?: string;
   right?: ReactNode;

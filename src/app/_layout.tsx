@@ -1,7 +1,9 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
@@ -28,6 +30,16 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { fontsLoaded: loaded, fontError: error } = useFont();
+  const { i18n } = useTranslation();
+  useEffect(() => {
+    const bootstrapAsync = async () => {
+      const lang = await AsyncStorage.getItem("lang");
+      if (lang) {
+        i18n.changeLanguage(lang);
+      }
+    };
+    bootstrapAsync();
+  }, [i18n]);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {

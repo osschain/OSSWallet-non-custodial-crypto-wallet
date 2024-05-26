@@ -91,7 +91,7 @@
           "description": "Su transacción ha sido enviada a la red y será procesada en unos segundos."
         }
       },
-      "profile": {
+      "settings": {
         "change-passcode": "Cambiar contraseña"
       }
     },

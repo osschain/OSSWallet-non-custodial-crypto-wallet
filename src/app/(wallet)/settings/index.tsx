@@ -13,7 +13,7 @@ import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
 
-export default function Profile() {
+export default function Settings() {
   const { t, i18n } = useTranslation();
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -80,7 +80,7 @@ export default function Profile() {
         </Setting>
       </SpacerUi>
       <SpacerUi size="xl">
-        <Link href="/(wallet)/profile/change-pass-code" asChild>
+        <Link href="/(wallet)/setting/change-pass-code" asChild>
           <TouchableOpacity>
             <Setting>
               <Left>
@@ -94,7 +94,7 @@ export default function Profile() {
                 </Icon>
                 <Title>
                   <BodyTextUi weight="medium" size="lg">
-                    {t("wallet.profile.change-passcode")}
+                    {t("wallet.settings.change-passcode")}
                   </BodyTextUi>
                 </Title>
               </Left>

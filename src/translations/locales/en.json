@@ -91,7 +91,7 @@
           "description": " Your transaction has been sent to the network and will be processed in a few seconds"
         }
       },
-      "profile": {
+      "settings": {
         "change-passcode": "Change Passcode"
       }
     },

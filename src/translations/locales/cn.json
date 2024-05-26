@@ -91,7 +91,7 @@
           "description": " 您的交易已发送到网络，并将在几秒钟内处理"
         }
       },
-      "profile": {
+      "settings": {
         "change-passcode": "更改密码"
       }
     },

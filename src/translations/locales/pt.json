@@ -91,7 +91,7 @@
           "description": " Sua transação foi enviada para a rede e será processada em alguns segundos"
         }
       },
-      "profile": {
+      "settings": {
         "change-passcode": "Alterar senha"
       }
     },

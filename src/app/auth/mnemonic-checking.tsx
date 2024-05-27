@@ -20,8 +20,8 @@ import { useAuth } from "@/providers/AuthProvider";
 import { shuffle } from "@/util/shuffle";
 
 const wordsCount = 3;
-const seedArrayWithOrder = (seed: string) => {
-  return seed
+const mnemonicArrayWithOrder = (mnemonic: string) => {
+  return mnemonic
     .trim()
     .split(/\s+/)
     .map((word, index) => {
@@ -32,8 +32,8 @@ const seedArrayWithOrder = (seed: string) => {
     });
 };
 
-const getRandomWords = (seed: string) => {
-  const seedArray = seedArrayWithOrder(seed);
+const getRandomWords = (mnemonic: string) => {
+  const seedArray = mnemonicArrayWithOrder(mnemonic);
   const shuffledSeed = shuffle(seedArray);
   return shuffledSeed.slice(0, wordsCount);
 };

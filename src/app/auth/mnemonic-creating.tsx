@@ -1,4 +1,3 @@
-import { Wallet } from "ethers";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,29 +8,28 @@ import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
 
+const bip39 = require("bip39");
+
 type States = "loading" | "preparing";
 
-function SeedCreating() {
+export default function MnemonicCreating() {
   const [state, setState] = useState<States>("loading");
   const { addSeed } = useAuth();
   const { t } = useTranslation();
   const [isError, setIserror] = useState(false);
   useEffect(() => {
-    const generateSeed = async () => {
+    const bootstraptAsync = async () => {
       setTimeout(() => {
-        const wallet = Wallet.createRandom();
-        const seed = wallet.mnemonic?.phrase;
-
-        if (!seed) {
+        const mnemonic = bip39.generateMnemonic();
+        if (!mnemonic) {
           setIserror(true);
           return;
         }
-
         setState("preparing");
-        addSeed(seed as string);
+        addSeed(mnemonic as string);
       }, 0);
     };
-    generateSeed();
+    bootstraptAsync();
   }, []);
 
   if (isError) {
@@ -57,5 +55,3 @@ function SeedCreating() {
     </>
   );
 }
-
-export default SeedCreating;

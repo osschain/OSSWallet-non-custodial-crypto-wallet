@@ -5,13 +5,13 @@ import { useAuth } from "@/providers/AuthProvider";
 
 export default function AuthLayout() {
   const theme = useTheme();
-  const { encryptedSeed, seed } = useAuth();
+  const { encryptedMnemonic, mnemonic } = useAuth();
 
-  if (encryptedSeed && !seed) {
+  if (encryptedMnemonic && !mnemonic) {
     return <Redirect href="/enter-password" />;
   }
 
-  if (seed && encryptedSeed) {
+  if (mnemonic && encryptedMnemonic) {
     return <Redirect href="/(wallet)" />;
   }
 

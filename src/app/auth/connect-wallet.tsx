@@ -17,8 +17,8 @@ import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
 
 function ConnetWallet() {
-  const [seed, setSeed] = useState<string>("");
-  const { addSeed } = useAuth();
+  const [mnemonic, setMnemonic] = useState<string>("");
+  const { addMnemonic } = useAuth();
   const { t } = useTranslation();
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -26,16 +26,16 @@ function ConnetWallet() {
     bottomSheetRef.current?.present();
   };
 
-  const validateSeed = (seed: string) => {
-    return Mnemonic.isValidMnemonic(seed);
+  const validateMnemonic = (mnemonic: string) => {
+    return Mnemonic.isValidMnemonic(mnemonic);
   };
 
   const scannerHandler = async (data: string) => {
-    const isValidate = validateSeed(data);
+    const isValidate = validateMnemonic(data);
     bottomSheetRef.current?.close();
 
     if (isValidate) {
-      setSeed(data);
+      setMnemonic(data);
     } else {
       Alert.alert(
         t("shared.error-label"),
@@ -45,10 +45,10 @@ function ConnetWallet() {
   };
 
   const handleConnectWallet = () => {
-    const isValidate = validateSeed(seed);
+    const isValidate = validateMnemonic(mnemonic);
 
     if (isValidate) {
-      addSeed(seed.trim());
+      addMnemonic(mnemonic.trim());
       router.push("/auth/password-setup");
     } else {
       Alert.alert(
@@ -77,8 +77,8 @@ function ConnetWallet() {
         </SpacerUi>
         <SpacerUi size="2xl">
           <TextAreaInputUi
-            value={seed}
-            onChangeText={(text) => setSeed(text)}
+            value={mnemonic}
+            onChangeText={(text) => setMnemonic(text)}
             multiline
             autoCapitalize="none"
             numberOfLines={10}

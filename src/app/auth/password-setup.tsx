@@ -5,7 +5,7 @@ import EnterPassCode from "@/components/auth/EnterPassCode";
 import { useAuth } from "@/providers/AuthProvider";
 
 function PasswordSetup() {
-  const { encryptAndSaveSeed } = useAuth();
+  const { encryptAndSaveMnemonic } = useAuth();
   const [password, setPassword] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
 
@@ -17,7 +17,7 @@ function PasswordSetup() {
   }, [confirmPassword, password]);
 
   const continueHandler = (password: string) => {
-    encryptAndSaveSeed(password);
+    encryptAndSaveMnemonic(password);
     router.push("/auth/wallet-creating");
   };
 

@@ -10,95 +10,97 @@ import {
 import { decrypt, encrypt } from "@/util/es";
 
 type AuthData = {
-  seed: string | null;
+  mnemonic: string | null;
   loading: boolean;
-  encryptedSeed: string | null;
+  encryptedMnemonic: string | null;
   setupPass: string | null;
-  addSeed: (seed: string) => void;
-  addSetupPass: (seed: string) => void;
-  clearSeed: () => void;
-  encryptAndSaveSeed: (password: string) => void;
+  addMnemonic: (mnemonic: string) => void;
+  addSetupPass: (mnemonic: string) => void;
+  clearMnemonic: () => void;
+  encryptAndSaveMnemonic: (password: string) => void;
   checkPassword: (password: string) => Promise<boolean>;
-  decryptAndSaveSeed: (password: string) => void;
-  removeEncryptedSeed: () => void;
+  decryptAndSaveMnemonic: (password: string) => void;
+  removeEncryptedMnemonic: () => void;
 };
 
 const AuthContext = createContext<AuthData>({
-  seed: null,
+  mnemonic: null,
   loading: true,
-  encryptedSeed: null,
+  encryptedMnemonic: null,
   setupPass: null,
   addSetupPass: () => {},
-  addSeed: () => {},
-  clearSeed: () => {},
-  encryptAndSaveSeed: (password: string) => {},
-  decryptAndSaveSeed: () => {},
+  addMnemonic: () => {},
+  clearMnemonic: () => {},
+  encryptAndSaveMnemonic: (password: string) => {},
+  decryptAndSaveMnemonic: () => {},
   checkPassword: () => Promise.resolve(false),
-  removeEncryptedSeed: () => {},
+  removeEncryptedMnemonic: () => {},
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-  const [encryptedSeed, setEncryptedSeed] = useState<null | string>(null);
-  const [seed, setSeed] = useState<string | null>(null);
+  const [encryptedMnemonic, setEncryptedMnemonic] = useState<null | string>(
+    null
+  );
+  const [mnemonic, setMnemonic] = useState<string | null>(null);
   const [setupPass, setSetupPass] = useState<string | null>(null);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const bootstrapAsync = async () => {
-      const encryptedSeed = await getEncryptedSeed();
-      setEncryptedSeed(encryptedSeed);
+      const encryptedMnemonic = await getEncryptedMnemonic();
+      setEncryptedMnemonic(encryptedMnemonic);
       setLoading(false);
     };
 
     bootstrapAsync();
   }, []);
 
-  const getEncryptedSeed = async () => {
-    const encryptedSeed = await SecureStore.getItem("seed");
-
-    return encryptedSeed;
+  const getEncryptedMnemonic = async () => {
+    const encryptedMnemonic = await SecureStore.getItem("mnemonic");
+    console.log(encryptedMnemonic);
+    return encryptedMnemonic;
   };
 
-  const removeEncryptedSeed = () => {
-    SecureStore.deleteItemAsync("seed");
-    setEncryptedSeed(null);
+  const removeEncryptedMnemonic = () => {
+    SecureStore.deleteItemAsync("mnemonic");
+    setEncryptedMnemonic(null);
   };
 
-  const addSeed = (seed: string) => {
-    setSeed(seed);
+  const addMnemonic = (mnemonic: string) => {
+    setMnemonic(mnemonic);
   };
   const addSetupPass = (pass: string) => {
-    setSetupPass(seed);
+    setSetupPass(mnemonic);
   };
-  const clearSeed = () => {
-    setSeed(null);
-  };
-
-  const encryptAndSaveSeed = async (password: string) => {
-    if (!password || !seed) return;
-
-    const encryptedSeed = await encrypt(seed, password);
-    await SecureStore.setItemAsync("seed", encryptedSeed);
+  const clearMnemonic = () => {
+    setMnemonic(null);
   };
 
-  const decryptAndSaveSeed = async (password: string) => {
-    const encryptedSeed = await getEncryptedSeed();
+  const encryptAndSaveMnemonic = async (password: string) => {
+    if (!password || !mnemonic) return;
 
-    if (!encryptedSeed) return;
+    const encryptedMnemonic = await encrypt(mnemonic, password);
+    await SecureStore.setItemAsync("mnemonic", encryptedMnemonic);
+  };
 
-    const decryptedSeed = await decrypt(encryptedSeed, password);
+  const decryptAndSaveMnemonic = async (password: string) => {
+    const encryptedMnemonic = await getEncryptedMnemonic();
 
-    if (decryptedSeed) {
-      addSeed(decryptedSeed);
+    if (!encryptedMnemonic) return;
+
+    const decryptedMnemonic = await decrypt(encryptedMnemonic, password);
+
+    if (decryptedMnemonic) {
+      addMnemonic(decryptedMnemonic);
     }
   };
 
   const checkPassword = async (password: string) => {
-    const encryptedSeed = await getEncryptedSeed();
-    const seed = await decrypt(encryptedSeed, password);
+    const encryptedMnemonic = await getEncryptedMnemonic();
+    const mnemonic = await decrypt(encryptedMnemonic, password);
 
-    if (seed) {
+    if (mnemonic) {
       return true;
     } else {
       return false;
@@ -109,16 +111,16 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         loading,
-        seed,
+        mnemonic,
         setupPass,
         addSetupPass,
-        addSeed,
-        clearSeed,
-        encryptAndSaveSeed,
+        addMnemonic,
+        clearMnemonic,
+        encryptAndSaveMnemonic,
         checkPassword,
-        encryptedSeed,
-        decryptAndSaveSeed,
-        removeEncryptedSeed,
+        encryptedMnemonic,
+        decryptAndSaveMnemonic,
+        removeEncryptedMnemonic,
       }}
     >
       {children}

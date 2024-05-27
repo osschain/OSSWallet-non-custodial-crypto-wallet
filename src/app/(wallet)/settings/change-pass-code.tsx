@@ -7,7 +7,7 @@ import EnterPassCode from "@/components/auth/EnterPassCode";
 import { useAuth } from "@/providers/AuthProvider";
 
 function ChangePassCode() {
-  const { encryptAndSaveSeed, checkPassword } = useAuth();
+  const { encryptAndSaveMnemonic, checkPassword } = useAuth();
   const [isMatched, setIsMatched] = useState(false);
   const [password, setPassword] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
@@ -20,7 +20,7 @@ function ChangePassCode() {
   }, [confirmPassword, password]);
 
   const continueHandler = (password: string) => {
-    encryptAndSaveSeed(password);
+    encryptAndSaveMnemonic(password);
     router.push("auth/congretulation");
   };
 

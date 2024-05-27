@@ -12,13 +12,14 @@ function EnterPassowrd() {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const { checkPassword, decryptAndSaveSeed, seed, encryptedSeed } = useAuth();
+  const { checkPassword, decryptAndSaveMnemonic, mnemonic, encryptedMnemonic } =
+    useAuth();
 
   const handlePasswordCheck = async (password: string) => {
     try {
       const passwordMatch = await checkPassword(password);
       if (passwordMatch) {
-        await decryptAndSaveSeed(password);
+        await decryptAndSaveMnemonic(password);
         router.push("(wallet)/");
       } else {
         showAlert();
@@ -32,11 +33,11 @@ function EnterPassowrd() {
     Alert.alert(t("shared.error-label"), t("pascode.password-incorrect"));
   };
 
-  if (seed) {
+  if (mnemonic) {
     return <Redirect href="/(wallet)/home" />;
   }
 
-  if (!encryptedSeed) {
+  if (!encryptedMnemonic) {
     return <Redirect href="/auth" />;
   }
 
@@ -51,7 +52,7 @@ function EnterPassowrd() {
       <Button
         title="Remove session"
         onPress={() => {
-          SecureStore.deleteItemAsync("seed");
+          SecureStore.deleteItemAsync("mnemonic");
           router.push("/auth/");
         }}
       />

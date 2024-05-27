@@ -33,9 +33,9 @@ const mnemonicArrayWithOrder = (mnemonic: string) => {
 };
 
 const getRandomWords = (mnemonic: string) => {
-  const seedArray = mnemonicArrayWithOrder(mnemonic);
-  const shuffledSeed = shuffle(seedArray);
-  return shuffledSeed.slice(0, wordsCount);
+  const mnemonicArray = mnemonicArrayWithOrder(mnemonic);
+  const shuffledMnemonic = shuffle(mnemonicArray);
+  return shuffledMnemonic.slice(0, wordsCount);
 };
 
 const inputResults = Array(wordsCount).fill(false);
@@ -43,8 +43,8 @@ const inputResults = Array(wordsCount).fill(false);
 export default function MnemonicChecking() {
   const { t } = useTranslation();
 
-  const { seed } = useAuth();
-  const words = getRandomWords(seed as string);
+  const { mnemonic } = useAuth();
+  const words = getRandomWords(mnemonic as string);
 
   const checkWord = (text: string, word: string, index: number) => {
     const isMatch = text.toLowerCase() === word.toLowerCase();

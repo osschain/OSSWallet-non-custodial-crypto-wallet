@@ -8,11 +8,11 @@ import { createAssets } from "@/util/ethers";
 
 export default function WalletCreating() {
   const { addAssets } = useAsset();
-  const { seed, setupPass } = useAuth();
+  const { mnemonic } = useAuth();
 
   useEffect(() => {
     setTimeout(() => {
-      const wallets = createAssets(seed as string);
+      const wallets = createAssets(mnemonic as string);
 
       if (!wallets) {
         return;

@@ -27,7 +27,7 @@ import { useAuth } from "@/providers/AuthProvider";
 const bip39 = require("bip39");
 
 export default function MnemonicCreating() {
-  const { addSeed } = useAuth();
+  const { addMnemonic } = useAuth();
   const { t } = useTranslation();
   const [isError, setIserror] = useState(false);
 
@@ -48,7 +48,7 @@ export default function MnemonicCreating() {
         setIserror(true);
         return;
       }
-      addSeed(mnemonic as string);
+      addMnemonic(mnemonic as string);
     };
     bootstrap();
   }, []);

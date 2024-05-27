@@ -35,10 +35,10 @@ const AssetContext = createContext<AssetData>({
 export default function AssetProvider({ children }: PropsWithChildren) {
   const [assets, setAssets] = useState<AssetType[] | null>(null);
 
-  const { seed } = useAuth();
+  const { mnemonic } = useAuth();
 
   useEffect(() => {
-    if (!seed) return;
+    if (!mnemonic) return;
 
     const bootstrapAsync = async () => {
       const Assets = await AsyncStorage.getItem("assets");
@@ -48,7 +48,7 @@ export default function AssetProvider({ children }: PropsWithChildren) {
     };
 
     bootstrapAsync();
-  }, [seed]);
+  }, [mnemonic]);
 
   const addAssets = (assets: AssetType[]) => {
     setAssets(assets);

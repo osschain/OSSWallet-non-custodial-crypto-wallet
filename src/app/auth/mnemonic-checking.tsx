@@ -40,7 +40,7 @@ const getRandomWords = (seed: string) => {
 
 const inputResults = Array(wordsCount).fill(false);
 
-function SeedChecking() {
+export default function MnemonicChecking() {
   const { t } = useTranslation();
 
   const { seed } = useAuth();
@@ -140,5 +140,3 @@ const HeaderText = styled(HeaderTextUi)`
 const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
-
-export default SeedChecking;

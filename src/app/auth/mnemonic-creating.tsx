@@ -48,7 +48,7 @@ export default function MnemonicCreating() {
       {state === "preparing" && (
         <SeedBackUpPreparing
           onContinue={() => {
-            router.push("/auth/seed-back-uping");
+            router.push("/auth/mnemonic-back-uping");
           }}
         />
       )}

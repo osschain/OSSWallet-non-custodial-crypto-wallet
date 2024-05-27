@@ -26,9 +26,9 @@ export default function AuthLayout() {
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="seed-creating" />
-      <Stack.Screen name="seed-back-uping" />
-      <Stack.Screen name="seed-checking" />
+      <Stack.Screen name="mnemonic-creating" />
+      <Stack.Screen name="mnemonic-back-uping" />
+      <Stack.Screen name="mnemonic-checking" />
       <Stack.Screen name="password-setup" />
       <Stack.Screen name="wallet-creating" options={{ headerShown: false }} />
       <Stack.Screen name="congretulation" options={{ headerShown: false }} />

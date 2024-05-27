@@ -12,7 +12,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
-function SeedBackUping() {
+export default function MnemonicBackUping() {
   const [words, setWords] = useState<string[]>([]);
   const { seed: mySeed } = useAuth();
   const { t } = useTranslation();
@@ -59,7 +59,7 @@ function SeedBackUping() {
       <FooterUi>
         <ButtonUi
           onPress={() => {
-            router.push("/auth/seed-checking");
+            router.push("/auth/mnemonic-checking");
           }}
         >
           {t("shared.continue")}
@@ -101,5 +101,3 @@ const Phrase = styled(BodyTextUi)`
 const DescriptionText = styled(BodyTextUi)`
   text-align: center;
 `;
-
-export default SeedBackUping;

@@ -43,7 +43,7 @@ function Auth() {
             {t("auth.index.connect-wallet")}
           </ButtonUi>
         </Link>
-        <Link href="/auth/seed-creating" asChild>
+        <Link href="/auth/mnemonic-creating" asChild>
           <ButtonUi>{t("auth.index.create-new")}</ButtonUi>
         </Link>
       </Footer>

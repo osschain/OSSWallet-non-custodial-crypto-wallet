@@ -7,14 +7,14 @@ import { useAuth } from "@/providers/AuthProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function TabLayout() {
-  const { seed, encryptedSeed } = useAuth();
+  const { mnemonic, encryptedMnemonic } = useAuth();
   const theme = useTheme();
-  if (!seed && !encryptedSeed) {
+  if (!mnemonic && !encryptedMnemonic) {
     return <Redirect href="/auth/" />;
   }
 
-  if (!seed && encryptedSeed) {
-    return <Redirect href="/auth/password-setup" />;
+  if (!mnemonic && encryptedMnemonic) {
+    return <Redirect href="/password-setup" />;
   }
 
   return (

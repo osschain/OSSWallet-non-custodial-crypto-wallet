@@ -32,17 +32,17 @@ export default function MnemonicBackUping() {
         />
         <SpacerUi size="3.5xl">
           <HeaderText adjustsFontSizeToFit size="2xl" weight="bold">
-            {t("auth.seed-back-uping.header")}
+            {t("auth.mnemonic-back-uping.header")}
           </HeaderText>
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            {t("auth.seed-back-uping.description")}
+            {t("auth.mnemonic-back-uping.description")}
           </DescriptionText>
         </SpacerUi>
         <SpacerUi size="2xl" />
 
-        <SeedWrapper>
+        <MnemonicWrapper>
           {words.map((word, index) => {
             return (
               <Phrase size="lg" weight="medium" key={index}>
@@ -53,7 +53,7 @@ export default function MnemonicBackUping() {
               </Phrase>
             );
           })}
-        </SeedWrapper>
+        </MnemonicWrapper>
       </BodyUi>
 
       <FooterUi>
@@ -71,7 +71,7 @@ export default function MnemonicBackUping() {
 
 const windowWidth = Dimensions.get("window").width;
 
-const SeedWrapper = styled.View`
+const MnemonicWrapper = styled.View`
   flex-direction: row;
   justify-content: center;
   gap: ${({ theme }) => theme.spaces["2xl"]};

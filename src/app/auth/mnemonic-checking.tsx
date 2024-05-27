@@ -60,7 +60,7 @@ export default function MnemonicChecking() {
     } else {
       Alert.alert(
         t("shared.error-label"),
-        t("auth.seed-checking.checking-error")
+        t("auth.mnemonic-checking.checking-error")
       );
     }
   };
@@ -79,12 +79,12 @@ export default function MnemonicChecking() {
           />
           <SpacerUi size="3.5xl">
             <HeaderText size="3xl" weight="bold">
-              {t("auth.seed-checking.header")}
+              {t("auth.mnemonic-checking.header")}
             </HeaderText>
           </SpacerUi>
           <SpacerUi size="xl">
             <DescriptionText size="lg" color="text-second" weight="regular">
-              {t("auth.seed-checking.description")} {words[0].order},{" "}
+              {t("auth.mnemonic-checking.description")} {words[0].order},{" "}
               {words[1].order} {t("shared.and")} {words[2].order}
             </DescriptionText>
           </SpacerUi>

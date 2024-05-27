@@ -6,18 +6,18 @@
         "connect-wallet": "添加现有钱包",
         "create-new": "创建一个新钱包"
       },
-      "seed-creating": {
+      "mnemonic-creating": {
         "header": "拿笔和纸",
         "description": "准备好写下密钥。 这是重新获得钱包访问权限的唯一方法。 最安全的做法是不要将密钥存储在设备上。",
-        "no-seed-error": "抱歉，我们无法生成种子，请返回并重试",
+        "no-mnemonic-error": "抱歉，我们无法生成种子，请返回并重试",
         "making-wallet": "制作种子短语..."
       },
-      "seed-checking": {
+      "mnemonic-checking": {
         "header": "让我们检查",
         "description": "为确保单词拼写正确，请输入单词",
         "checking-error": "用词不正确"
       }, 
-      "seed-back-uping": {
+      "mnemonic-back-uping": {
         "header": "OSSWallet",
         "description": "严格按照顺序写下这 12 个单词，并将它们藏在安全的地方。"
       },

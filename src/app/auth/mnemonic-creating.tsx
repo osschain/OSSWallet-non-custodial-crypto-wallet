@@ -73,7 +73,7 @@ export default function MnemonicCreating() {
   if (isError) {
     return (
       <SpacerUi size="4xl">
-        <MessageUi>{t("auth.seed-creating.no-seed-error")}</MessageUi>
+        <MessageUi>{t("auth.mnemonic-creating.no-mnemonic-error")}</MessageUi>
       </SpacerUi>
     );
   }
@@ -89,12 +89,12 @@ export default function MnemonicCreating() {
 
         <SpacerUi size="3.5xl">
           <HeaderTextUi size="2xl" weight="bold">
-            {t("auth.seed-creating.header")}
+            {t("auth.mnemonic-creating.header")}
           </HeaderTextUi>
         </SpacerUi>
         <SpacerUi size="4xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            {t("auth.seed-creating.description")}
+            {t("auth.mnemonic-creating.description")}
           </DescriptionText>
         </SpacerUi>
       </Body>

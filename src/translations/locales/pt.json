@@ -6,18 +6,18 @@
         "connect-wallet": "Adicionar carteira existente",
         "create-new": "Crie uma nova carteira"
       },
-      "seed-creating": {
+      "mnemonic-creating": {
         "header": "Pegue uma caneta e papel",
         "description": "Prepare-se para anotar a chave secreta. Esta é a única maneira de recuperar o acesso à carteira. É mais seguro não armazenar a chave nos dispositivos.",
-        "no-seed-error": "Desculpe, não podemos gerar sementes, volte e tente novamente",
+        "no-mnemonic-error": "Desculpe, não podemos gerar sementes, volte e tente novamente",
         "making-wallet": "Fazendo uma frase-semente..."
       },
-      "seed-checking": {
+      "mnemonic-checking": {
         "header": "Vamos checar",
         "description": "Para ter certeza de que você escreveu as palavras corretamente, insira palavras",
         "checking-error": "As palavras não estão corretas"
       }, 
-      "seed-back-uping": {
+      "mnemonic-back-uping": {
         "header": "OSSWallet",
         "description": "Escreva essas 12 palavras exatamente nessa ordem e esconda-as em um lugar seguro."
       },

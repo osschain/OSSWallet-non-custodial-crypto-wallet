@@ -6,18 +6,18 @@
         "connect-wallet": "Agregar billetera existente",
         "create-new": "Crear una nueva billetera"
       },
-      "seed-creating": {
+      "mnemonic-creating": {
         "header": "Toma papel y lápiz",
         "description": "Prepárate para escribir la clave secreta. Ésta es la única forma de recuperar el acceso a la billetera. Lo más seguro es no guardar la clave en los dispositivos.",
-        "no-seed-error": "Lo sentimos, no podemos generar semillas, regresa e inténtalo de nuevo.",
+        "no-mnemonic-error": "Lo sentimos, no podemos generar semillas, regresa e inténtalo de nuevo.",
         "making-wallet": "Haciendo una frase semilla..."
       },
-      "seed-checking": {
+      "mnemonic-checking": {
         "header": "Vamos a revisar",
         "description": "Para asegurarse de haber escrito las palabras correctamente, ingrese palabras",
         "checking-error": "Las palabras no son correctas"
       }, 
-      "seed-back-uping": {
+      "mnemonic-back-uping": {
         "header": "OSSWallet",
         "description": "Escribe estas 12 palabras exactamente en ese orden y escóndelas en un lugar seguro."
       },

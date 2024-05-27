@@ -6,18 +6,18 @@
         "connect-wallet": "Add existing wallet",
         "create-new": "Create a new wallet"
       },
-      "seed-creating": {
+      "mnemonic-creating": {
         "header": "Take a pen and paper",
         "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key on the devices.",
-        "no-seed-error": "Sorry we can't generate seed, go back and try again",
-        "making-wallet": "Making a seed Phrase..."
+        "no-mnemonic-error": "Sorry we can't generate mnemonic, go back and try again",
+        "making-wallet": "Making a mnemonic Phrase..."
       },
-      "seed-checking": {
+      "mnemonic-checking": {
         "header": "Let's check",
         "description": "To make sure you spelled the words correctly, enter words",
         "checking-error": "Words are not correct"
       }, 
-      "seed-back-uping": {
+      "mnemonic-back-uping": {
         "header": "OSSWallet",
         "description": "Write these 12 words in exactly that order and hide them in a safe place."
       },
@@ -29,15 +29,15 @@
       "connect-wallet": {
         "header": "Enter the secret key",
         "description": "To restore access, enter the 12 secret words you received when creating a wallet",
-        "scannned-error":"Scanned Seed is not valid try other",
-        "format-error":"Seed Phrase does not have correct format, make sure to put 12 word and remove extra spaces",
+        "scannned-error":"Scanned Mnemonic is not valid try other",
+        "format-error":"Mnemonic Phrase does not have correct format, make sure to put 12 word and remove extra spaces",
         "connect-wallet": "Add existing wallet"
       },
       "password-setup": {
         "header": "Create Passcode",
-        "description": "We will use your passcode for secure your seed phrase, so create strong passcode",
+        "description": "We will use your passcode for secure your mnemonic phrase, so create strong passcode",
         "password-setup-header": "Create passcode", 
-        "password-setup-description": "We will use your passcode for secure your seed phrase, so create strong passcode", 
+        "password-setup-description": "We will use your passcode for secure your mnemonic phrase, so create strong passcode", 
         "password-required": "Passcode is required",
         "password-min-length": "Passcode must contain at least 8 characters",
         "password-confirm-required": "Please confirm your passcode",

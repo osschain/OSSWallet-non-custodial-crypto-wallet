@@ -5,42 +5,42 @@ import { WalletType } from "@/providers/AssetProvider";
 
 const BIP84 = require('bip84')
 
-const BtcWallet = (seed: string) => {
+const BtcAccount = (seed: string) => {
   const root = new BIP84.fromMnemonic(seed)
   const child = root.deriveAccount(0)
-  const wallet = new BIP84.fromZPrv(child)
+  const account = new BIP84.fromZPrv(child)
 
-  return {address: wallet.getAddress(0), publicKey: wallet.getPublicKey(0), privetKey: wallet.getPrivateKey(0)}
+  return {address: account.getAddress(0), publicKey: account.getPublicKey(0), privetKey: account.getPrivateKey(0)}
 }
 
 export const createAssets = (seed: string) => {
   try {
-    const evmWallet = HDNodeWallet.fromPhrase(
+    const evmAccount = HDNodeWallet.fromPhrase(
       seed as string
     );
     
-    const wallets = chains.map((chain) => {
+    const assets = chains.map((chain) => {
 
       if(chain["slip-0044"]  === 60) {
         return {
           ...chain,
-          wallet:  evmWallet as WalletType
+          account:  evmAccount as WalletType
         }
       } else if(chain["slip-0044"] === 0) {
         return {
           ...chain,
-          wallet: BtcWallet(seed)
+          account: BtcAccount(seed)
         }
       } else {
         return {
           ...chain,
-          wallet:  evmWallet as WalletType
+          account:  evmAccount as WalletType
         }
       }
 
     });
 
-    return wallets;
+    return assets;
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { HDNodeWallet } from "ethers";
 import {
   PropsWithChildren,
   createContext,
@@ -10,7 +9,7 @@ import {
 
 import { useAuth } from "./AuthProvider";
 
-export interface WalletType {
+export interface AccountType {
   address: string; // The address of the account
   publicKey: string; // The public key of the account
   privateKey: string; // The private key of the account (be cautious with this)
@@ -19,7 +18,7 @@ export type AssetType = {
   id: string;
   icon: string;
   name: string;
-  wallet: WalletType;
+  account: AccountType;
   symbol: string;
 };
 

@@ -53,7 +53,7 @@ export default function RecieveDetails() {
               {t("wallet.home.recieve.recieve-details.wallet-adress")}
             </HeaderTextUi>
             <SpacerUi size="lg">
-              <Adress>{asset?.wallet.publicKey}</Adress>
+              <Adress>{asset?.wallet.address}</Adress>
             </SpacerUi>
           </AdressContainer>
         </SpacerUi>

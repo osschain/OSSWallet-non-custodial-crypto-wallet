@@ -1,3 +1,5 @@
+require('node-libs-react-native/globals');
+
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack } from "expo-router";
@@ -10,10 +12,12 @@ import useFont from "@/hooks/useFonts";
 import AssetProvider from "@/providers/AssetProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
-
 import "react-native-get-random-values";
 import "@ethersproject/shims";
 import "@/translations/i18n";
+
+
+
 
 export {
   // Catch any errors thrown by the Layout component.

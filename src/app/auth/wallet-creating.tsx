@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import AuthLoading from "@/components/auth/AuthLoading";
 import { useAsset } from "@/providers/AssetProvider";
 import { useAuth } from "@/providers/AuthProvider";
-import { createAssets } from "@/util/ethers";
+import { createAssets } from "@/services/asset.service";
 
 export default function WalletCreating() {
   const { addAssets } = useAsset();

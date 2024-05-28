@@ -1,5 +1,3 @@
-import "@/util/polyfills";
-
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack } from "expo-router";

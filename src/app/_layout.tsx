@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
+import AssetBalanceProvider from "@/providers/AssetBalanceProvider";
 import AssetProvider from "@/providers/AssetProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
@@ -63,24 +64,26 @@ function RootLayoutNav() {
       <StyledThemeProvider>
         <AuthProvider>
           <AssetProvider>
-            <BottomSheetModalProvider>
-              <Stack>
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="auth" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="(wallet)"
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="modal"
-                  options={{ presentation: "modal" }}
-                />
-                <Stack.Screen
-                  name="enter-password"
-                  options={{ headerShown: false }}
-                />
-              </Stack>
-            </BottomSheetModalProvider>
+            <AssetBalanceProvider>
+              <BottomSheetModalProvider>
+                <Stack>
+                  <Stack.Screen name="index" options={{ headerShown: false }} />
+                  <Stack.Screen name="auth" options={{ headerShown: false }} />
+                  <Stack.Screen
+                    name="(wallet)"
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="modal"
+                    options={{ presentation: "modal" }}
+                  />
+                  <Stack.Screen
+                    name="enter-password"
+                    options={{ headerShown: false }}
+                  />
+                </Stack>
+              </BottomSheetModalProvider>
+            </AssetBalanceProvider>
           </AssetProvider>
         </AuthProvider>
       </StyledThemeProvider>

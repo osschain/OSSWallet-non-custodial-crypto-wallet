@@ -58,7 +58,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
   const getEncryptedMnemonic = async () => {
     const encryptedMnemonic = await SecureStore.getItem("mnemonic");
-    console.log(encryptedMnemonic);
     return encryptedMnemonic;
   };
 

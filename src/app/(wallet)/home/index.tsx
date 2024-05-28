@@ -1,26 +1,47 @@
+import { Keypair } from "@solana/web3.js";
 import { Link, router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, { FadeInRight } from "react-native-reanimated";
-import styled, { useTheme } from "styled-components/native";
+import styled from "styled-components/native";
 
 import AssetItem from "@/components/asset/AssetItem";
 import NftItem from "@/components/nft/NftItem";
 import SegmentedControl from "@/components/segment";
 import SpacerUi from "@/components/ui/SpacerUi";
 import WalletCard from "@/components/wallet/wallet-card";
+import { useAssetBalance } from "@/providers/AssetBalanceProvider";
 import { useAsset } from "@/providers/AssetProvider";
 import { nfts } from "@/util/mock";
 
 type Segment = "Assets" | "NFT";
 
 const segmentOptions: Segment[] = ["Assets", "NFT"];
-
 export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const { assets } = useAsset();
+  const { balances } = useAssetBalance();
 
+  const calculateBalance = (assetSymbol: string) => {
+    console.log(assetSymbol, balances);
+    return Number(
+      balances?.find((balance) => assetSymbol === balance.symbol)?.balance || 0
+    );
+  };
+
+  const calculateUsdBalance = (assetSymbol: string) => {
+    return Number(
+      balances?.find((balance) => assetSymbol === balance.symbol)?.balanceUsd ||
+        0
+    );
+  };
+
+  useEffect(() => {
+    const booostrapp = () => {};
+
+    booostrapp();
+  }, []);
   return (
     <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
       <CardContainer>
@@ -47,7 +68,12 @@ export default function Home() {
               <SpacerUi size="xl" position="bottom">
                 <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
                   <TouchableOpacity>
-                    <AssetItem uri={item.icon} assetName={item.name} />
+                    <AssetItem
+                      uri={item.icon}
+                      assetName={item.name}
+                      assetAmount={calculateBalance(item.symbol)}
+                      usdAmount={calculateUsdBalance(item.symbol)}
+                    />
                   </TouchableOpacity>
                 </Link>
               </SpacerUi>

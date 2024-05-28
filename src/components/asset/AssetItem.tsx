@@ -9,15 +9,15 @@ import { defaultImage } from "@/util/DefaultImage";
 type Props = {
   assetName?: string;
   uri?: string;
-  assetAmount?: string;
-  usdAmount?: string;
+  assetAmount?: number;
+  usdAmount?: number;
 } & ComponentPropsWithoutRef<typeof Item>;
 
 const AssetItem = ({
   assetName = "TON",
   uri = defaultImage,
-  assetAmount = "697 TON",
-  usdAmount = "$1520,056",
+  assetAmount = 0,
+  usdAmount = 0,
   ...rest
 }: Props) => {
   return (
@@ -35,7 +35,7 @@ const AssetItem = ({
       </LeftContent>
       <RightContent>
         <BodyTextUi size="md" weight="medium">
-          {usdAmount}
+          {usdAmount.toFixed(2)} $
         </BodyTextUi>
       </RightContent>
     </Item>

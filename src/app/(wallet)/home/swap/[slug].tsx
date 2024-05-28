@@ -16,7 +16,7 @@ export default function Swap() {
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
   const { assets } = useAsset();
-  const asset = assets?.find((asset) => asset.id === slug);
+  const asset = assets?.find((asset) => asset.name === slug);
   const [target, setTarget] = useState<AssetType | null>(null);
   const targetOptions = useRef<BottomSheetModal>(null);
 

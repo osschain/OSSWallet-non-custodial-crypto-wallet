@@ -35,7 +35,7 @@ const mantleUrl =
   "wss://rpc.ankr.com/mantle/ws/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55";
 
 type balanceType = {
-  symbol: string;
+  name: string;
   balanceUsd: string;
   balance: string;
 };
@@ -70,7 +70,7 @@ export default function AssetBalanceProvider({ children }: PropsWithChildren) {
   }, [assets]);
 
   const getBalances = async () => {
-    const evmAdress = assets?.find((asset) => asset.id === "Ether")?.account
+    const evmAdress = assets?.find((asset) => asset.name === "Ether")?.account
       .address;
     if (!evmAdress) return null;
 
@@ -79,11 +79,11 @@ export default function AssetBalanceProvider({ children }: PropsWithChildren) {
       walletAddress: evmAdress,
     });
     const filteredBalane = balances.assets.map(
-      ({ balance, balanceUsd, tokenSymbol }) => {
+      ({ balance, balanceUsd, tokenName }) => {
         return {
           balance,
           balanceUsd,
-          symbol: tokenSymbol,
+          name: tokenName,
         };
       }
     );

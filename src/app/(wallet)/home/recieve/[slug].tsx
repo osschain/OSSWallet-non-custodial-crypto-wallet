@@ -15,7 +15,7 @@ export default function RecieveDetails() {
   const { slug } = useLocalSearchParams();
   const { t } = useTranslation();
   const { assets } = useAsset();
-  const asset = assets?.find((asset) => asset.id === slug);
+  const asset = assets?.find((asset) => asset.name === slug);
 
   if (!assets || !asset) {
     return (

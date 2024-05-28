@@ -20,6 +20,7 @@ export default function WalletCreating() {
       addAssets(wallets);
       router.push("auth/congretulation");
     }, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <AuthLoading label="Wallet is Creating" />;

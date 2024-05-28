@@ -15,7 +15,6 @@ export interface AccountType {
   privateKey: string; // The private key of the account (be cautious with this)
 }
 export type AssetType = {
-  id: string;
   icon: string;
   name: string;
   account: AccountType;

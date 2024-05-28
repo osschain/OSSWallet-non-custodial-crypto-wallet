@@ -16,7 +16,7 @@ export default function Asset() {
   const { assetSlug: slug } = useLocalSearchParams();
   const theme = useTheme();
   const { assets } = useAsset();
-  const asset = assets?.find((asset) => asset.id === slug);
+  const asset = assets?.find((asset) => asset.name === slug);
   const { t } = useTranslation();
   return (
     <ContainerUi>

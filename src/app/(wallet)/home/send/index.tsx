@@ -71,8 +71,10 @@ export default function Send() {
         <ChainList>
           <FlatList
             data={filteredAssets}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <AssetItem key={item.id} asset={item} />}
+            keyExtractor={(item) => item.name}
+            renderItem={({ item }) => (
+              <AssetItem key={item.name} asset={item} />
+            )}
           />
         </ChainList>
       </SpacerUi>
@@ -82,7 +84,7 @@ export default function Send() {
 
 const AssetItem = ({ asset }: { asset: AssetType }) => (
   <SpacerUi size="3xl">
-    <Link href={`/(wallet)/home/send/${asset.id}`} asChild>
+    <Link href={`/(wallet)/home/send/${asset.name}`} asChild>
       <TouchableOpacity>
         <ItemUi
           title={asset.symbol}

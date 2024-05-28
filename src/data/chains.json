@@ -1,28 +1,24 @@
 [
   {
-    "id": "Bitcoin",
     "name": "Bitcoin",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/btc.png",
     "symbol": "BTC",
     "slip-0044": 0
   },
   {
-    "id": "Ether",
     "name": "Ether",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/eth.png",
     "symbol": "ETH",
     "slip-0044":60
   },
   {
-    "id": "Polygon",
-    "name": "Polygon",
+    "name": "Matic",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/matic.png",
 
     "symbol": "MATIC",
     "slip-0044": 60
   },
   {
-    "id": "Solana",
     "name": "Solana",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/sol.png",
     "symbol": "SOL",
@@ -37,7 +33,6 @@
     "slip-0044": 60
   },
   {
-    "id": "Avalanche",
     "name": "Avalanche",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/avax.png",
     "symbol": "AVAX",
@@ -53,7 +48,6 @@
     "slip-0044": 60
   },
   {
-    "id": "TRON",
     "name": "TRON",
     "icon": "https://cryptologos.cc/logos/mantle-mnt-logo.png?v=032",
     "symbol": "TRX",

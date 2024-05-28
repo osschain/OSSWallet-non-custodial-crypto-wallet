@@ -75,7 +75,7 @@ export default function Recieve() {
         <AssetList>
           <FlatList
             data={filteredAssets}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.name}
             renderItem={({ item }) => <AssetItem asset={item} />}
           />
         </AssetList>
@@ -86,7 +86,7 @@ export default function Recieve() {
 
 const AssetItem = ({ asset }: { asset: AssetType }) => (
   <SpacerUi size="3xl">
-    <Link href={`/(wallet)/home/recieve/${asset.id}`}>
+    <Link href={`/(wallet)/home/recieve/${asset.name}`}>
       <TouchableOpacity>
         <ItemUi
           title={asset.symbol}

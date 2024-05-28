@@ -53,7 +53,7 @@ const AssetOptions = forwardRef<Ref, Props>(
           </SpacerUi>
           {filteredAssets.map((asset) => {
             return (
-              <SpacerUi size="3xl" key={asset.id}>
+              <SpacerUi size="3xl" key={asset.name}>
                 <TouchableOpacity
                   onPress={() => {
                     setSelected(asset.name);

@@ -13,7 +13,7 @@ export default function _layout() {
         },
       }}
     >
-      <Stack.Screen name="index" options={{ title: "Profile" }} />
+      <Stack.Screen name="index" options={{ title: "Setting" }} />
       <Stack.Screen
         name="change-pass-code"
         options={{ title: "Change Passcode" }}

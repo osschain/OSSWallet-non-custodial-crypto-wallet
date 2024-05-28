@@ -16,15 +16,12 @@ import { useAsset } from "@/providers/AssetProvider";
 import { nfts } from "@/util/mock";
 
 type Segment = "Assets" | "NFT";
-
 const segmentOptions: Segment[] = ["Assets", "NFT"];
 export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const { assets } = useAsset();
   const { balances } = useAssetBalance();
-
   const calculateBalance = (assetSymbol: string) => {
-    console.log(assetSymbol, balances);
     return Number(
       balances?.find((balance) => assetSymbol === balance.symbol)?.balance || 0
     );
@@ -37,11 +34,6 @@ export default function Home() {
     );
   };
 
-  useEffect(() => {
-    const booostrapp = () => {};
-
-    booostrapp();
-  }, []);
   return (
     <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
       <CardContainer>

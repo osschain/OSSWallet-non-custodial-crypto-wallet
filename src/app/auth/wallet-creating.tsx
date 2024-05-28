@@ -11,8 +11,8 @@ export default function WalletCreating() {
   const { mnemonic } = useAuth();
 
   useEffect(() => {
-    setTimeout(() => {
-      const wallets = createAssets(mnemonic as string);
+    setTimeout(async () => {
+      const wallets = await createAssets(mnemonic as string);
 
       if (!wallets) {
         return;

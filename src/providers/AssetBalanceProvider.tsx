@@ -1,4 +1,3 @@
-import { AnkrProvider } from "@ankr.com/ankr.js";
 import {
   PropsWithChildren,
   createContext,
@@ -8,10 +7,7 @@ import {
 } from "react";
 import useWebSocket from "react-native-use-websocket";
 import { useAsset } from "./AssetProvider";
-
-const provider = new AnkrProvider(
-  "https://rpc.ankr.com/multichain/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
-);
+import { getBalances } from "@/services/balances.service";
 
 const ethUrl =
   "wss://rpc.ankr.com/eth/ws/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55";
@@ -60,36 +56,13 @@ export default function AssetBalanceProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     if (!assets) return;
     const bootstrapAsync = async () => {
-      const balance = await getBalances();
+      const balance = await getBalances(assets);
       setBalances(balance);
       console.log(balance);
       setLoading(false);
     };
     bootstrapAsync();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assets]);
-
-  const getBalances = async () => {
-    const evmAdress = assets?.find((asset) => asset.name === "Ether")?.account
-      .address;
-    if (!evmAdress) return null;
-
-    const balances = await provider.getAccountBalance({
-      blockchain: ["eth", "polygon"],
-      walletAddress: evmAdress,
-    });
-    const filteredBalane = balances.assets.map(
-      ({ balance, balanceUsd, tokenName }) => {
-        return {
-          balance,
-          balanceUsd,
-          name: tokenName,
-        };
-      }
-    );
-
-    return filteredBalane;
-  };
 
   //   const { sendMessage } = useWebSocket(ethUrl, {
   //     onOpen: () => {

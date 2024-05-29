@@ -1,24 +1,50 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { useRef } from "react";
+import { getAddress } from "ethers";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList } from "react-native-gesture-handler";
 
-import HistoryItem from "@/components/history/history-item";
+import HistoryItem, { variants } from "@/components/history/history-item";
 import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useAssetHistory } from "@/providers/AssetHistoryProvider";
 import { history, networks } from "@/util/mock";
+// eslint-disable-next-line import/order
+import { useAsset } from "@/providers/AssetProvider";
+import { getAdresses } from "@/services/balances.service";
 
 export default function History() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
+  const { histories, fetchHistories, loading } = useAssetHistory();
+  const { assets } = useAsset();
+
+  const checkAddres = (from: string): variants | undefined => {
+    console.log(from, ">??/");
+    if (!assets) return;
+    const adresses = getAdresses(assets);
+    console.log(adresses);
+    const isFromMe = adresses.find((adress) => adress.address === from);
+
+    if (isFromMe) {
+      return "send";
+    } else if (!isFromMe) {
+      return "recieved";
+    }
+  };
+
+  useEffect(() => {
+    fetchHistories();
+  }, []);
+
   const handlePresentModalPress = () => {
     bottomSheetRef.current?.present();
   };
 
-  if (!history) {
+  if (loading) {
     return (
       <AlertWithImageUi title={t("wallet.home.history.no-history-alert")} />
     );
@@ -38,13 +64,13 @@ export default function History() {
       </SpacerUi>
       <SpacerUi size="xl" style={{ flex: 1 }}>
         <FlatList
-          data={history}
+          data={histories}
           renderItem={({ item }) => (
-            <SpacerUi size="xl" position="bottom" key={item.id}>
+            <SpacerUi size="xl" position="bottom" key={item.to}>
               <HistoryItem
-                walletAddress={item.walletAddress}
-                variant={item.send ? "send" : "recieved"}
-                amount={item.send ? item.send : item.recieved}
+                walletAddress={item.from}
+                variant={checkAddres(item.from)}
+                amount={item.value}
               />
             </SpacerUi>
           )}

@@ -30,10 +30,11 @@ export const Label = styled(HeaderTextUi)`
 `;
 export const AssetAmount = styled(BodyTextUi)`
   color: ${({ theme }) => theme.colors["text-second"]};
+  width: 80%;
 `;
 export const RightContent = styled.View``;
 
-export const Amount = styled(HeaderTextUi)<{ variant: variants }>`
+export const Amount = styled(HeaderTextUi) <{ variant: variants }>`
   color: ${(props) =>
     props.variant === "recieved"
       ? props.theme.colors["green-500"]

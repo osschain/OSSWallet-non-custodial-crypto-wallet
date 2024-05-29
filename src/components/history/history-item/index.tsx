@@ -18,13 +18,13 @@ export type variants = "recieved" | "send" | "error";
 type Props = {
   variant?: variants;
   walletAddress?: string;
-  amount?: number;
+  amount?: string;
 } & ComponentPropsWithoutRef<typeof Item>;
 
 const HistoryItem = ({
   variant = "send",
   walletAddress = "No Adress",
-  amount = 2.5,
+  amount = "2.5",
   ...rest
 }: Props) => {
   const iconVariant = () => {
@@ -56,7 +56,12 @@ const HistoryItem = ({
         <IconContainer>{iconVariant()}</IconContainer>
         <View>
           <Label size="md">{variant}:</Label>
-          <AssetAmount size="sm" weight="medium" color="text-second">
+          <AssetAmount
+            numberOfLines={1}
+            size="sm"
+            weight="medium"
+            color="text-second"
+          >
             {walletAddress}
           </AssetAmount>
         </View>

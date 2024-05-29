@@ -5,25 +5,24 @@ import { AssetType } from "@/providers/AssetProvider";
 const provider = new AnkrProvider(
     "https://rpc.ankr.com/multichain/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
 );
-
 const btcEndpoint = "https://rpc.ankr.com/btc/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
 const solanaEnndpoint = "https://rpc.ankr.com/solana/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
 
 type AssetNames = 'Ether' | "Bitcoin" | "Solana"
-
-const getAddress = (assets: AssetType[], name: AssetNames) => {
+export type addressType = { address: string, name: AssetNames }
+export const getAddress = (assets: AssetType[], name: AssetNames) => {
     const address = assets.find((asset) => asset.name === name)?.account
         .address;
 
     return address as string
 }
 
-const getAdresses = (assets: AssetType[]) => {
+export const getAdresses = (assets: AssetType[]) => {
     const evmAdress = getAddress(assets, 'Ether');
     const btcAddress = getAddress(assets, 'Bitcoin')
     const solanaAddres = getAddress(assets, "Solana")
 
-    const addresses: { address: string, name: AssetNames }[] = [
+    const addresses: addressType[] = [
         { address: evmAdress, name: 'Ether' },
         { address: btcAddress, name: 'Bitcoin' },
         { address: solanaAddres, name: 'Solana' }
@@ -32,7 +31,7 @@ const getAdresses = (assets: AssetType[]) => {
     return addresses
 }
 
-const solanaGetBalance = async (address: string) => {
+export const solanaGetBalance = async (address: string) => {
     const data = {
         jsonrpc: "2.0",
         method: "getBalance",
@@ -54,7 +53,7 @@ const solanaGetBalance = async (address: string) => {
 
 
 
-const fetchBalances = async (addresses: { address: string, name: AssetNames }[]) => {
+export const fetchBalances = async (addresses: { address: string, name: AssetNames }[]) => {
     const result: { tokenName: string, balance: string, balanceUsd: string }[] = [];
 
     for (const { address, name } of addresses) {

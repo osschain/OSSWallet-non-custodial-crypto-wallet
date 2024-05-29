@@ -5,9 +5,10 @@ import { AssetType } from "@/providers/AssetProvider";
 const provider = new AnkrProvider(
     "https://rpc.ankr.com/multichain/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
 );
-const btcProvider = new AnkrProvider(
-    "https://rpc.ankr.com/btc/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
-);
+
+const btcEndpoint = "https://rpc.ankr.com/btc/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
+const solanaEnndpoint = "https://rpc.ankr.com/solana/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
+
 type AssetNames = 'Ether' | "Bitcoin" | "Solana"
 
 const getAddress = (assets: AssetType[], name: AssetNames) => {
@@ -22,28 +23,58 @@ const getAdresses = (assets: AssetType[]) => {
     const btcAddress = getAddress(assets, 'Bitcoin')
     const solanaAddres = getAddress(assets, "Solana")
 
-    return [
-        { address: evmAdress, name: 'evm' },
+    const addresses: { address: string, name: AssetNames }[] = [
+        { address: evmAdress, name: 'Ether' },
         { address: btcAddress, name: 'Bitcoin' },
         { address: solanaAddres, name: 'Solana' }
     ]
+
+    return addresses
 }
 
-const fetchBalances = async (addresses: { address: string, name: string }[]) => {
-    const result: Balance[] = [];
+const solanaGetBalance = async (address: string) => {
+    const data = {
+        jsonrpc: "2.0",
+        method: "getBalance",
+        params: [address],
+        id: 1
+    };
+
+    const response = await fetch(solanaEnndpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    const balance = await response.json()
+
+    return balance.result.value
+}
+
+
+
+const fetchBalances = async (addresses: { address: string, name: AssetNames }[]) => {
+    const result: { tokenName: string, balance: string, balanceUsd: string }[] = [];
 
     for (const { address, name } of addresses) {
-        if (name === "evm") {
+        if (name === "Ether") {
             const balances = await provider.getAccountBalance({
                 blockchain: ["eth", "polygon"],
                 walletAddress: address,
             });
             result.push(...balances.assets);
-        } else if (name === 'Bitcoin') {
+        } else if (name === 'Solana') {
+            const balance = await solanaGetBalance(address)
+            result.push({
+                balance,
+                balanceUsd: "0",
+                tokenName: name
+            })
+        } else if (name === "Bitcoin") {
 
         }
     }
-    console.log(result)
     return result;
 };
 
@@ -55,7 +86,6 @@ export const getBalances = async (assets: AssetType[]) => {
     const balances = await fetchBalances(addresses)
 
 
-    console.log(balances)
     const filteredBalane = balances.map(
         ({ balance, balanceUsd, tokenName }) => {
             return {

@@ -1,12 +1,9 @@
-import { AnkrProvider, Balance, GetAccountBalanceReply } from "@ankr.com/ankr.js";
 
+import { ankrProvider } from "@/config/ankr";
+import { solanaEndpoint } from "@/config/endpoints";
 import { AssetType } from "@/providers/AssetProvider";
 
-const provider = new AnkrProvider(
-    "https://rpc.ankr.com/multichain/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
-);
-const btcEndpoint = "https://rpc.ankr.com/btc/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
-const solanaEnndpoint = "https://rpc.ankr.com/solana/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
+
 
 type AssetNames = 'Ether' | "Bitcoin" | "Solana"
 export type addressType = { address: string, name: AssetNames }
@@ -40,7 +37,7 @@ export const solanaGetBalance = async (address: string) => {
             id: 1
         };
 
-        const response = await fetch(solanaEnndpoint, {
+        const response = await fetch(solanaEndpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -62,7 +59,7 @@ export const fetchBalances = async (addresses: { address: string, name: AssetNam
 
     for (const { address, name } of addresses) {
         if (name === "Ether") {
-            const balances = await provider.getAccountBalance({
+            const balances = await ankrProvider.getAccountBalance({
                 blockchain: [],
                 walletAddress: address,
             });

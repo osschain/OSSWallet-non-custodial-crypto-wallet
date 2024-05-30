@@ -57,44 +57,52 @@ export const solanaGetBalance = async (address: string) => {
 export const fetchBalances = async (addresses: { address: string, name: AssetNames }[]) => {
     const result: { tokenName: string, balance: string, balanceUsd: string }[] = [];
 
-    for (const { address, name } of addresses) {
-        if (name === "Ether") {
-            const balances = await ankrProvider.getAccountBalance({
-                blockchain: [],
-                walletAddress: address,
-            });
-            result.push(...balances.assets);
-        } else if (name === 'Solana') {
-            const balance = await solanaGetBalance(address)
-            result.push({
-                balance,
-                balanceUsd: "0",
-                tokenName: name
-            })
-        } else if (name === "Bitcoin") {
+    try {
+        for (const { address, name } of addresses) {
+            if (name === "Ether") {
+                const balances = await ankrProvider.getAccountBalance({
+                    blockchain: [],
+                    walletAddress: address,
+                });
+                result.push(...balances.assets);
+            } else if (name === 'Solana') {
+                const balance = await solanaGetBalance(address)
+                result.push({
+                    balance,
+                    balanceUsd: "0",
+                    tokenName: name
+                })
+            } else if (name === "Bitcoin") {
 
+            }
         }
+        return result;
+    } catch (error) {
+        throw error
     }
-    return result;
 };
 
 export const getBalances = async (assets: AssetType[]) => {
 
 
-    // if (!evmAdress) return null;
-    const addresses = getAdresses(assets)
-    const balances = await fetchBalances(addresses)
+    try {
+        // if (!evmAdress) return null;
+        const addresses = getAdresses(assets)
+        const balances = await fetchBalances(addresses)
 
 
-    const filteredBalane = balances.map(
-        ({ balance, balanceUsd, tokenName }) => {
-            return {
-                balance,
-                balanceUsd,
-                name: tokenName,
-            };
-        }
-    );
+        const filteredBalane = balances.map(
+            ({ balance, balanceUsd, tokenName }) => {
+                return {
+                    balance,
+                    balanceUsd,
+                    name: tokenName,
+                };
+            }
+        );
 
-    return filteredBalane;
+        return filteredBalane;
+    } catch (error) {
+        throw error
+    }
 };

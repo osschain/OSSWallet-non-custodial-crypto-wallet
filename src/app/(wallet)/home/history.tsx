@@ -22,11 +22,14 @@ export default function History() {
   const { histories, fetchHistories, loading } = useAssetHistory();
   const { assets } = useAsset();
 
+  useEffect(() => {
+    fetchHistories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [assets]);
+
   const checkAddres = (from: string): variants | undefined => {
-    console.log(from, ">??/");
     if (!assets) return;
     const adresses = getAdresses(assets);
-    console.log(adresses);
     const isFromMe = adresses.find((adress) => adress.address === from);
 
     if (isFromMe) {
@@ -35,10 +38,6 @@ export default function History() {
       return "recieved";
     }
   };
-
-  useEffect(() => {
-    fetchHistories();
-  }, []);
 
   const handlePresentModalPress = () => {
     bottomSheetRef.current?.present();

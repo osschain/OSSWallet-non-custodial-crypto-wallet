@@ -13,6 +13,7 @@ export const Item = styled.View`
 `;
 export const LeftContent = styled.View`
   flex-direction: row;
+  width: 90%;
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 
@@ -32,7 +33,9 @@ export const AssetAmount = styled(BodyTextUi)`
   color: ${({ theme }) => theme.colors["text-second"]};
   width: 80%;
 `;
-export const RightContent = styled.View``;
+export const RightContent = styled.View`
+  
+`;
 
 export const Amount = styled(HeaderTextUi) <{ variant: variants }>`
   color: ${(props) =>

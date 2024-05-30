@@ -1,8 +1,9 @@
 import { AnkrProvider } from "@ankr.com/ankr.js";
 
 import { addressType } from "./balances.service";
-import { AssetType } from "@/providers/AssetProvider";
 import { AssetHistoryType, HistoryType } from "@/providers/AssetHistoryProvider";
+import { AssetType } from "@/providers/AssetProvider";
+import { hexDecoder } from "@/util/hexDecoder";
 
 const provider = new AnkrProvider(
     "https://rpc.ankr.com/multichain/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
@@ -24,7 +25,7 @@ export const getHistories = async (addresses: addressType[]) => {
                 return {
                     to,
                     from,
-                    value
+                    value: hexDecoder(value).toString()
                 }
             })
 

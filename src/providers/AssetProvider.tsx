@@ -8,6 +8,7 @@ import {
 } from "react";
 
 import { useAuth } from "./AuthProvider";
+import { Blockchain } from "@ankr.com/ankr.js";
 
 export interface AccountType {
   address: string; // The address of the account
@@ -19,6 +20,7 @@ export type AssetType = {
   name: string;
   account: AccountType;
   symbol: string;
+  "ankr-endpoint": Blockchain | "btc" | "solana";
 };
 
 type AssetData = {

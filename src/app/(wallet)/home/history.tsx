@@ -2,6 +2,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { getAddress } from "ethers";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import HistoryItem, { variants } from "@/components/history/history-item";
@@ -11,10 +12,10 @@ import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAssetHistory } from "@/providers/AssetHistoryProvider";
+import { getAdresses } from "@/services/balances.service";
 import { history, networks } from "@/util/mock";
 // eslint-disable-next-line import/order
 import { useAsset } from "@/providers/AssetProvider";
-import { getAdresses } from "@/services/balances.service";
 
 export default function History() {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -23,7 +24,7 @@ export default function History() {
   const { assets } = useAsset();
 
   useEffect(() => {
-    fetchHistories();
+    if (!histories) fetchHistories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assets]);
 
@@ -44,6 +45,14 @@ export default function History() {
   };
 
   if (loading) {
+    return (
+      <SpacerUi size="xl">
+        <ActivityIndicator />
+      </SpacerUi>
+    );
+  }
+
+  if (histories?.length === 0 || !histories) {
     return (
       <AlertWithImageUi title={t("wallet.home.history.no-history-alert")} />
     );

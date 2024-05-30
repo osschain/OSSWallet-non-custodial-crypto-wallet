@@ -3,26 +3,32 @@
     "name": "Bitcoin",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/btc.png",
     "symbol": "BTC",
-    "slip-0044": 0
+    "slip-0044": 0,
+    "ankr-endpoint": "btc"
   },
   {
     "name": "Ether",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/eth.png",
     "symbol": "ETH",
-    "slip-0044":60
+    "slip-0044":60,
+    "ankr-endpoint": "eth"
+
   },
   {
     "name": "Matic",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/matic.png",
 
     "symbol": "MATIC",
-    "slip-0044": 60
+    "slip-0044": 60,
+    "ankr-endpoint": "polygon"
   },
   {
     "name": "Solana",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/sol.png",
     "symbol": "SOL",
-    "slip-0044": 501
+    "slip-0044": 501,
+    "ankr-endpoint": "solana"
+
   },
   {
     "id": "Binance",
@@ -30,13 +36,17 @@
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/bnb.png",
 
     "symbol": "BNB",
-    "slip-0044": 60
+    "slip-0044": 60,
+    "ankr-endpoint": "bsc"
+
   },
   {
     "name": "Avalanche",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/avax.png",
     "symbol": "AVAX",
-    "slip-0044": 60
+    "slip-0044": 60,
+    "ankr-endpoint": "avalanche"
+
   },
 
   {
@@ -45,12 +55,16 @@
     "icon": "https://cryptologos.cc/logos/mantle-mnt-logo.png?v=032",
 
     "symbol": "MANTLE",
-    "slip-0044": 60
+    "slip-0044": 60,
+    "ankr-endpoint": "mantle"
+
   },
   {
     "name": "TRON",
     "icon": "https://cryptologos.cc/logos/mantle-mnt-logo.png?v=032",
     "symbol": "TRX",
-    "slip-0044": 60
+    "slip-0044": 60,
+    "ankr-endpoint": "tron"
+
   }
 ]

@@ -56,10 +56,14 @@ export default function AssetBalanceProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     if (!assets) return;
     const bootstrapAsync = async () => {
-      const balance = await getBalances(assets);
-      setBalances(balance);
-      console.log(balance);
-      setLoading(false);
+      try {
+        const balance = await getBalances(assets);
+        setBalances(balance);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     };
     bootstrapAsync();
   }, [assets]);

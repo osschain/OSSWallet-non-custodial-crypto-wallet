@@ -9,7 +9,8 @@ import useWebSocket from "react-native-use-websocket";
 import { useAsset } from "./AssetProvider";
 
 import { getAdresses, getBalances } from "@/services/balances.service";
-import { getHistories } from "@/services/history.service";
+import { getHistories, getHistory } from "@/services/history.service";
+import { Blockchain } from "@ankr.com/ankr.js";
 
 const ethUrl =
   "wss://rpc.ankr.com/eth/ws/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55";
@@ -42,12 +43,21 @@ export type AssetHistoryType = {
   histories: HistoryType[] | null;
   loading: boolean;
   fetchHistories: () => void;
+  fetchHistory: (
+    adress: string,
+    ankrEndpoint: Blockchain | "btc" | "solana"
+  ) => void;
+  cashedHistory: {
+    [key: string]: HistoryType[] | [] | undefined;
+  };
 };
 
 const AssetHistoryContext = createContext<AssetHistoryType>({
   histories: null,
   loading: true,
   fetchHistories: () => {},
+  fetchHistory: () => {},
+  cashedHistory: {},
 });
 
 const request =
@@ -55,16 +65,50 @@ const request =
 
 export default function AssetHistoryPRovider({ children }: PropsWithChildren) {
   const [histories, setHistories] = useState<HistoryType[] | null>(null);
+
+  const [cashedHistory, setCashedHistory] = useState<{
+    [key: string]: HistoryType[] | [] | undefined;
+  }>({});
+
   const [loading, setLoading] = useState(true);
   const { assets } = useAsset();
 
   const fetchHistories = async () => {
     if (!assets) return;
+    setLoading(true);
+    try {
+      const adresses = getAdresses(assets);
+      const histories = await getHistories(adresses);
 
-    const adresses = await getAdresses(assets);
-    const histories = await getHistories(adresses);
-    setLoading(false);
-    setHistories(histories);
+      setHistories(histories);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchHistory = async (
+    adress: string,
+    ankrEndpoint: Blockchain | "btc" | "solana"
+  ) => {
+    setLoading(true);
+    try {
+      const history = await getHistory(adress, ankrEndpoint);
+
+      if (!history) {
+        throw new Error("Somethin went wrong");
+      }
+
+      setCashedHistory((prevCache) => ({
+        ...prevCache,
+        [ankrEndpoint]: history,
+      }));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   //   const { sendMessage } = useWebSocket(ethUrl, {
@@ -79,7 +123,13 @@ export default function AssetHistoryPRovider({ children }: PropsWithChildren) {
 
   return (
     <AssetHistoryContext.Provider
-      value={{ histories, loading, fetchHistories }}
+      value={{
+        histories,
+        loading,
+        fetchHistories,
+        fetchHistory,
+        cashedHistory,
+      }}
     >
       {children}
     </AssetHistoryContext.Provider>

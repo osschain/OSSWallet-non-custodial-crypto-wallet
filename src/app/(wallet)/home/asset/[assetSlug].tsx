@@ -1,27 +1,67 @@
 import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, Image } from "react-native";
+import { ActivityIndicator, FlatList, Image, View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
-import HistoryItem from "@/components/history/history-item";
+import HistoryItem, { variants } from "@/components/history/history-item";
+import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
+import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useAssetHistory } from "@/providers/AssetHistoryProvider";
 import { useAsset } from "@/providers/AssetProvider";
-import { history } from "@/util/mock";
+import { getAdresses } from "@/services/balances.service";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function Asset() {
   const { assetSlug: slug } = useLocalSearchParams();
-  const theme = useTheme();
-  const { assets } = useAsset();
-  const asset = assets?.find((asset) => asset.name === slug);
   const { t } = useTranslation();
+  const theme = useTheme();
+
+  const { assets } = useAsset();
+  const { cashedHistory, fetchHistory, loading } = useAssetHistory();
+
+  const asset = assets?.find((asset) => asset.name === slug);
+
+  useEffect(() => {
+    const bootstrap = () => {
+      if (!histories && asset) {
+        fetchHistory(asset.account.address, asset["ankr-endpoint"]);
+      }
+    };
+
+    bootstrap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [asset]);
+
+  const histories = cashedHistory[asset?.["ankr-endpoint"] || ""];
+
+  const checkAddres = (from: string): variants | undefined => {
+    if (!assets) return;
+    const adresses = getAdresses(assets);
+    const isFromMe = adresses.find((adress) => adress.address === from);
+
+    if (isFromMe) {
+      return "send";
+    } else if (!isFromMe) {
+      return "recieved";
+    }
+  };
+
+  if (!asset) {
+    return (
+      <SpacerUi size="3xl">
+        <MessageUi>Something went wrong</MessageUi>
+      </SpacerUi>
+    );
+  }
+
   return (
     <ContainerUi>
       <Stack.Screen options={{ title: asset?.name }} />
-
       <SpacerUi size="4xl">
         <ChainDetails>
           <Image
@@ -80,15 +120,29 @@ export default function Asset() {
         </Actions>
       </SpacerUi>
 
-      <SpacerUi size="4xl" style={{ flex: 1 }}>
+      {loading && (
+        <SpacerUi size="4xl">
+          <ActivityIndicator />
+        </SpacerUi>
+      )}
+
+      {!histories?.length && !loading && (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <AlertWithImageUI title="there is no history" />
+        </View>
+      )}
+
+      <SpacerUi size="4xl" style={{ flex: histories?.length ? 1 : 0 }}>
         <FlatList
-          data={history}
+          data={histories}
           renderItem={({ item }) => (
-            <SpacerUi size="xl" position="bottom" key={item.id}>
+            <SpacerUi size="xl" position="bottom" key={item.value}>
               <HistoryItem
-                walletAddress={item.walletAddress}
-                variant={item.send ? "send" : "recieved"}
-                amount={item.send ? item.send : item.recieved}
+                walletAddress={item.from}
+                variant={checkAddres(item.from)}
+                amount={item.value}
               />
             </SpacerUi>
           )}

@@ -32,23 +32,27 @@ export const getAdresses = (assets: AssetType[]) => {
 }
 
 export const solanaGetBalance = async (address: string) => {
-    const data = {
-        jsonrpc: "2.0",
-        method: "getBalance",
-        params: [address],
-        id: 1
-    };
+    try {
+        const data = {
+            jsonrpc: "2.0",
+            method: "getBalance",
+            params: [address],
+            id: 1
+        };
 
-    const response = await fetch(solanaEnndpoint, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    const balance = await response.json()
+        const response = await fetch(solanaEnndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        const balance = await response.json()
 
-    return balance.result.value
+        return balance.result.value
+    } catch (error) {
+        throw error
+    }
 }
 
 
@@ -59,7 +63,7 @@ export const fetchBalances = async (addresses: { address: string, name: AssetNam
     for (const { address, name } of addresses) {
         if (name === "Ether") {
             const balances = await provider.getAccountBalance({
-                blockchain: ["eth", "polygon"],
+                blockchain: [],
                 walletAddress: address,
             });
             result.push(...balances.assets);

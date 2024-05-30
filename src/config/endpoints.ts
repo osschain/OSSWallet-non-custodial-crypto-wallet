@@ -1,6 +1,7 @@
 export const btcEndpoint = "https://rpc.ankr.com/btc/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
 export const solanaEndpoint = "https://rpc.ankr.com/solana/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
 
+export const multyChainEndpoint = "https://rpc.ankr.com/multichain/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55"
 
 
 export const ethWsEndpoint =

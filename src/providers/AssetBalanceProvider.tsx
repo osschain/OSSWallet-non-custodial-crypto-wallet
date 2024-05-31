@@ -8,16 +8,10 @@ import {
 
 import { useAsset } from "./AssetProvider";
 
-import { getBalances } from "@/services/balances.service";
-
-type balanceType = {
-  name: string;
-  balanceUsd: string;
-  balance: string;
-};
+import { BalancesType, getBalances } from "@/services/balances.service";
 
 export type AssetBalanceType = {
-  balances: balanceType[] | null;
+  balances: BalancesType[] | null;
   loading: boolean;
 };
 
@@ -26,13 +20,11 @@ const AssetBalanceContext = createContext<AssetBalanceType>({
   loading: true,
 });
 
-// const request =
-//   '{  "jsonrpc": "2.0",  "method": "eth_getBalance",  "params": ["0x8D97689C9818892B700e27F316cc3E41e17fBeb9", "latest"],  "id": 1 }';
-
 export default function AssetBalanceProvider({ children }: PropsWithChildren) {
-  const [balances, setBalances] = useState<balanceType[] | null>(null);
+  const [balances, setBalances] = useState<BalancesType[] | null>(null);
   const [loading, setLoading] = useState(true);
   const { assets } = useAsset();
+
   useEffect(() => {
     if (!assets) return;
     const bootstrapAsync = async () => {
@@ -48,15 +40,28 @@ export default function AssetBalanceProvider({ children }: PropsWithChildren) {
     bootstrapAsync();
   }, [assets]);
 
-  //   const { sendMessage } = useWebSocket(ethUrl, {
-  //     onOpen: () => {
-  //       console.log("OPENED");
-  //       sendMessage(request);
-  //     },
-  //     onMessage: (message) => {
-  //       console.log(message);
-  //     },
-  //   });
+  // const wsRequest = (name: AssetNames) => {
+  //   if (!assets) return;
+  //   console.log("request");
+
+  //   const adresses = getAdresses(assets);
+
+  //   const adress = adresses.find((adress) => adress.name === name)?.address;
+
+  //   const request = `{  "jsonrpc": "2.0",  "method": "eth_getBalance",  "params": [${adress}, "latest"],  "id": 1 }`;
+  //   return request;
+  // };
+
+  // const { sendMessage } = useWebSocket(ethWsEndpoint, {
+  //   onOpen: () => {
+  //     const request = wsRequest("Ether");
+  //     console.log(request);
+  //     sendMessage(request as string);
+  //   },
+  //   onMessage: (message) => {
+  //     console.log(message, "RAIO");
+  //   },
+  // });
 
   return (
     <AssetBalanceContext.Provider value={{ balances, loading }}>

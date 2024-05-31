@@ -4,27 +4,35 @@ import { solanaEndpoint } from "@/config/endpoints";
 import { AssetType } from "@/providers/AssetProvider";
 
 
+export type BalancesType = { blockchain: string, balance: string, balanceUsd: string }
 
-type AssetNames = 'Ether' | "Bitcoin" | "Solana"
-export type addressType = { address: string, name: AssetNames }
-export const getAddress = (assets: AssetType[], name: AssetNames) => {
-    const address = assets.find((asset) => asset.name === name)?.account
+export enum AddresTypes {
+    evm = 'eth',
+    btc = 'btc',
+    solana = 'solana'
+}
+
+
+export type addressType = { address: string, type: AddresTypes }
+
+
+export const getAddress = (assets: AssetType[], type: AddresTypes) => {
+    const address = assets.find((asset) => asset.blockchain === type)?.account
         .address;
 
     return address as string
 }
 
 export const getAdresses = (assets: AssetType[]) => {
-    const evmAdress = getAddress(assets, 'Ether');
-    const btcAddress = getAddress(assets, 'Bitcoin')
-    const solanaAddres = getAddress(assets, "Solana")
+    const evmAdress = getAddress(assets, AddresTypes.evm);
+    const btcAddress = getAddress(assets, AddresTypes.btc)
+    const solanaAddres = getAddress(assets, AddresTypes.solana)
 
     const addresses: addressType[] = [
-        { address: evmAdress, name: 'Ether' },
-        { address: btcAddress, name: 'Bitcoin' },
-        { address: solanaAddres, name: 'Solana' }
+        { address: evmAdress, type: AddresTypes.evm },
+        { address: btcAddress, type: AddresTypes.btc },
+        { address: solanaAddres, type: AddresTypes.solana }
     ]
-
     return addresses
 }
 
@@ -54,25 +62,25 @@ export const solanaGetBalance = async (address: string) => {
 
 
 
-export const fetchBalances = async (addresses: { address: string, name: AssetNames }[]) => {
-    const result: { tokenName: string, balance: string, balanceUsd: string }[] = [];
+export const fetchBalances = async (addresses: { address: string, type: AddresTypes }[]) => {
+    const result: BalancesType[] = [];
 
     try {
-        for (const { address, name } of addresses) {
-            if (name === "Ether") {
+        for (const { address, type } of addresses) {
+            if (type === AddresTypes.evm) {
                 const balances = await ankrProvider.getAccountBalance({
                     blockchain: [],
                     walletAddress: address,
                 });
                 result.push(...balances.assets);
-            } else if (name === 'Solana') {
+            } else if (type === AddresTypes.solana) {
                 const balance = await solanaGetBalance(address)
                 result.push({
                     balance,
                     balanceUsd: "0",
-                    tokenName: name
+                    blockchain: type
                 })
-            } else if (name === "Bitcoin") {
+            } else if (type === AddresTypes.btc) {
 
             }
         }
@@ -84,22 +92,21 @@ export const fetchBalances = async (addresses: { address: string, name: AssetNam
 
 export const getBalances = async (assets: AssetType[]) => {
 
-
     try {
         // if (!evmAdress) return null;
         const addresses = getAdresses(assets)
         const balances = await fetchBalances(addresses)
 
-
         const filteredBalane = balances.map(
-            ({ balance, balanceUsd, tokenName }) => {
+            ({ balance, balanceUsd, blockchain }) => {
                 return {
                     balance,
                     balanceUsd,
-                    name: tokenName,
+                    blockchain,
                 };
             }
         );
+
 
         return filteredBalane;
     } catch (error) {

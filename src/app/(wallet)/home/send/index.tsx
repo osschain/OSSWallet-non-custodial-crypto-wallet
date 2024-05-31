@@ -33,7 +33,7 @@ export default function Send() {
       return assets;
     }
     return assets?.filter((asset) =>
-      asset.name.toLowerCase().includes(searchQuery.toLowerCase())
+      asset.blockchain.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [assets, searchQuery]);
 
@@ -84,12 +84,12 @@ export default function Send() {
 
 const AssetItem = ({ asset }: { asset: AssetType }) => (
   <SpacerUi size="3xl">
-    <Link href={`/(wallet)/home/send/${asset.name}`} asChild>
+    <Link href={`/(wallet)/home/send/${asset.blockchain}`} asChild>
       <TouchableOpacity>
         <ItemUi
           title={asset.symbol}
           uri={asset.icon}
-          description={asset.name}
+          description={asset.blockchain}
           right={<BodyTextUi weight="bold">15</BodyTextUi>}
         />
       </TouchableOpacity>

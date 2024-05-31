@@ -1,3 +1,4 @@
+import { Blockchain } from "@ankr.com/ankr.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   PropsWithChildren,
@@ -8,7 +9,8 @@ import {
 } from "react";
 
 import { useAuth } from "./AuthProvider";
-import { Blockchain } from "@ankr.com/ankr.js";
+
+import { OSSblockchain } from "@/services/history.service";
 
 export interface AccountType {
   address: string; // The address of the account
@@ -20,7 +22,7 @@ export type AssetType = {
   name: string;
   account: AccountType;
   symbol: string;
-  "ankr-endpoint": Blockchain | "btc" | "solana";
+  blockchain: OSSblockchain;
 };
 
 type AssetData = {

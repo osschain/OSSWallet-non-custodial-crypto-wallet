@@ -29,7 +29,7 @@ const AssetOptions = forwardRef<Ref, Props>(
         return assets; // No search term, show all
       }
       return assets.filter((asset) =>
-        asset.name.toLowerCase().includes(searchQuery.toLowerCase())
+        asset.blockchain.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }, [assets, searchQuery]);
 
@@ -53,19 +53,19 @@ const AssetOptions = forwardRef<Ref, Props>(
           </SpacerUi>
           {filteredAssets.map((asset) => {
             return (
-              <SpacerUi size="3xl" key={asset.name}>
+              <SpacerUi size="3xl" key={asset.blockchain}>
                 <TouchableOpacity
                   onPress={() => {
-                    setSelected(asset.name);
+                    setSelected(asset.blockchain);
 
                     onSelect(asset);
                   }}
                 >
                   <ItemUi
-                    title={asset.name}
+                    title={asset.blockchain}
                     uri={asset.icon}
                     right={
-                      selected === asset.name && (
+                      selected === asset.blockchain && (
                         <IconUi
                           library="AntDesign"
                           name="check"

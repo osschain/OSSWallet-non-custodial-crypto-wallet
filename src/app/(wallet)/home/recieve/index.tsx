@@ -37,7 +37,7 @@ export default function Recieve() {
       return assets; // No search term, show all
     }
     return assets?.filter((asset) =>
-      asset.name.toLowerCase().includes(searchQuery.toLowerCase())
+      asset.blockchain.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [assets, searchQuery]);
 
@@ -86,12 +86,12 @@ export default function Recieve() {
 
 const AssetItem = ({ asset }: { asset: AssetType }) => (
   <SpacerUi size="3xl">
-    <Link href={`/(wallet)/home/recieve/${asset.name}`}>
+    <Link href={`/(wallet)/home/recieve/${asset.blockchain}`}>
       <TouchableOpacity>
         <ItemUi
           title={asset.symbol}
           uri={asset.icon}
-          description={asset.name}
+          description={asset.blockchain}
         />
       </TouchableOpacity>
     </Link>

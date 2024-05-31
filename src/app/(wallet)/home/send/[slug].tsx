@@ -15,7 +15,7 @@ export default function SendChain() {
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
   const { assets } = useAsset();
-  const asset = assets?.find((asset) => asset.name === slug);
+  const asset = assets?.find((asset) => asset.blockchain === slug);
 
   if (!assets || !asset) {
     return (

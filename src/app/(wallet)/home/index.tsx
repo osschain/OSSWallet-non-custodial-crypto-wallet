@@ -21,15 +21,16 @@ export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const { assets } = useAsset();
   const { balances } = useAssetBalance();
-  const calculateBalance = (assetName: string) => {
+  const calculateBalance = (blockchain: string) => {
     return Number(
-      balances?.find((balance) => assetName === balance.name)?.balance || 0
+      balances?.find((balance) => blockchain === balance.balance)?.balance || 0
     );
   };
 
-  const calculateUsdBalance = (assetName: string) => {
+  const calculateUsdBalance = (blockchain: string) => {
     return Number(
-      balances?.find((balance) => assetName === balance.name)?.balanceUsd || 0
+      balances?.find((balance) => blockchain === balance.blockchain)
+        ?.balanceUsd || 0
     );
   };
 
@@ -57,13 +58,13 @@ export default function Home() {
             data={assets}
             renderItem={({ item }) => (
               <SpacerUi size="xl" position="bottom">
-                <Link href={`/(wallet)/home/asset/${item.name}`} asChild>
+                <Link href={`/(wallet)/home/asset/${item.blockchain}`} asChild>
                   <TouchableOpacity>
                     <AssetItem
                       uri={item.icon}
                       assetName={item.name}
-                      assetAmount={calculateBalance(item.name)}
-                      usdAmount={calculateUsdBalance(item.name)}
+                      assetAmount={calculateBalance(item.blockchain)}
+                      usdAmount={calculateUsdBalance(item.blockchain)}
                     />
                   </TouchableOpacity>
                 </Link>

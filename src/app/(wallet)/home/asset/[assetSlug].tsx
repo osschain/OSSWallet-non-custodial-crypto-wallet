@@ -24,12 +24,12 @@ export default function Asset() {
   const { assets } = useAsset();
   const { cashedHistory, fetchHistory, loading } = useAssetHistory();
 
-  const asset = assets?.find((asset) => asset.name === slug);
+  const asset = assets?.find((asset) => asset.blockchain === slug);
 
   useEffect(() => {
     const bootstrap = () => {
       if (!histories && asset) {
-        fetchHistory(asset.account.address, asset["ankr-endpoint"]);
+        fetchHistory(asset.account.address, asset.blockchain);
       }
     };
 
@@ -37,7 +37,7 @@ export default function Asset() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asset]);
 
-  const histories = cashedHistory[asset?.["ankr-endpoint"] || ""];
+  const histories = cashedHistory[asset?.blockchain || ""];
 
   const checkAddres = (from: string): variants | undefined => {
     if (!assets) return;

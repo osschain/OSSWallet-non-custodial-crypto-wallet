@@ -1,6 +1,6 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 
-import { addressType } from "./balances.service";
+import { AddresTypes, addressType } from "./balances.service";
 
 import { ankrProvider } from "@/config/ankr";
 import { HistoryType } from "@/providers/AssetHistoryProvider";
@@ -10,8 +10,8 @@ import { hexDecoder } from "@/util/hexDecoder";
 export const getHistories = async (addresses: addressType[]) => {
     const result: HistoryType[] = []
     try {
-        for (const { address, name } of addresses) {
-            if (name === "Ether") {
+        for (const { address, type } of addresses) {
+            if (type === AddresTypes.evm) {
                 const histories = await ankrProvider.getTransactionsByAddress({
                     blockchain: [],
                     address: [address],
@@ -39,7 +39,9 @@ export const getHistories = async (addresses: addressType[]) => {
     }
 }
 
-export const getHistory = async (address: string, ankrEndpoint: Blockchain | "solana" | 'btc') => {
+export type OSSblockchain = Blockchain | "solana" | 'btc';
+
+export const getHistory = async (address: string, ankrEndpoint: OSSblockchain) => {
 
     if (ankrEndpoint === 'solana' || ankrEndpoint === "btc") {
         return null

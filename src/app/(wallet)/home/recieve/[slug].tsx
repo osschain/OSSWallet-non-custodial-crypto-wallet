@@ -2,7 +2,7 @@ import * as Clipboard from "expo-clipboard";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image } from "react-native";
+import { Image, Share } from "react-native";
 import styled from "styled-components/native";
 
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -29,10 +29,12 @@ export default function RecieveDetails() {
   }
 
   const copyHandler = async () => {
-    console.log(asset.account.address);
     await Clipboard.setStringAsync(asset.account.address);
-
     setIsCopied(true);
+  };
+
+  const shareHandler = async () => {
+    await Share.share({ message: asset.account.address });
   };
 
   return (
@@ -72,6 +74,7 @@ export default function RecieveDetails() {
       <Footer marginSize="sm">
         <ButtonUi
           variant="primary"
+          onPress={shareHandler}
           icon={
             <IconUi
               library="AntDesign"

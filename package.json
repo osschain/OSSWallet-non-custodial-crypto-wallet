@@ -45,6 +45,7 @@
     "expo-splash-screen": "~0.27.4",
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.4",
+    "expo-updates": "~0.25.14",
     "expo-web-browser": "~13.0.3",
     "i18n-js": "^4.4.3",
     "i18next": "^23.11.4",
@@ -64,7 +65,8 @@
     "styled-components": "^6.1.8",
     "tiny-secp256k1": "^2.2.3",
     "tweetnacl": "^1.0.3",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "expo-clipboard": "~6.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

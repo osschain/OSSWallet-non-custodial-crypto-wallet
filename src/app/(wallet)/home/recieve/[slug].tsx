@@ -1,4 +1,6 @@
+import * as Clipboard from "expo-clipboard";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image } from "react-native";
 import styled from "styled-components/native";
@@ -12,6 +14,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { useAsset } from "@/providers/AssetProvider";
 
 export default function RecieveDetails() {
+  const [isCopied, setIsCopied] = useState(false);
   const { slug } = useLocalSearchParams();
   const { t } = useTranslation();
   const { assets } = useAsset();
@@ -24,6 +27,13 @@ export default function RecieveDetails() {
       </SpacerUi>
     );
   }
+
+  const copyHandler = async () => {
+    console.log(asset.account.address);
+    await Clipboard.setStringAsync(asset.account.address);
+
+    setIsCopied(true);
+  };
 
   return (
     <ScrollContainerUi>
@@ -60,7 +70,7 @@ export default function RecieveDetails() {
       </BodyUi>
 
       <Footer marginSize="sm">
-        <Button
+        <ButtonUi
           variant="primary"
           icon={
             <IconUi
@@ -72,20 +82,21 @@ export default function RecieveDetails() {
           }
         >
           Share
-        </Button>
-        <Button
+        </ButtonUi>
+        <ButtonUi
           variant="secondary"
+          onPress={copyHandler}
           icon={
             <IconUi
               library="Feather"
-              name="copy"
+              name={isCopied ? "check" : "copy"}
               size="xl"
               color="icon-second"
             />
           }
         >
           {t("wallet.home.recieve.recieve-details.Copy Address")}
-        </Button>
+        </ButtonUi>
       </Footer>
     </ScrollContainerUi>
   );
@@ -117,5 +128,3 @@ const Adress = styled(MessageUi)`
 const Footer = styled(FooterUi)`
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
-
-const Button = styled(ButtonUi)``;

@@ -17,10 +17,14 @@ export type addressType = { address: string, type: AddresTypes }
 
 
 export const getAddress = (assets: AssetType[], type: AddresTypes) => {
-    const address = assets.find((asset) => asset.blockchain === type)?.account
-        .address;
+    try {
+        const address = assets.find((asset) => asset.blockchain === type)?.account
+            .address;
 
-    return address as string
+        return address as string
+    } catch {
+        throw new Error("Can't find adress");
+    }
 }
 
 export const getAdresses = (assets: AssetType[]) => {
@@ -95,6 +99,7 @@ export const getBalances = async (assets: AssetType[]) => {
     try {
         // if (!evmAdress) return null;
         const addresses = getAdresses(assets)
+        console.log(addresses)
         const balances = await fetchBalances(addresses)
 
         const filteredBalane = balances.map(

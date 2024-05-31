@@ -1,11 +1,12 @@
 import { ComponentPropsWithoutRef } from "react";
 import { useTranslation } from "react-i18next";
 
+import { ActivityIndicator } from "react-native";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {
   Card,
   BackgroundGradient,
   Header,
-  UserName,
   Buttons,
   Button,
   ButtonBacground,
@@ -15,12 +16,13 @@ import {
 } from "./style";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 type Props = {
-  userName?: string;
-  moneyAmount?: string;
+  label?: string;
+  balance?: number;
   onRecieve?: () => void;
   onSend?: () => void;
   onOptions?: () => void;
@@ -28,8 +30,8 @@ type Props = {
 } & ComponentPropsWithoutRef<typeof Card>;
 
 const WalletCard = ({
-  userName = "Ton Wallet",
-  moneyAmount = "$ 1520,056",
+  label = "OSSWallet",
+  balance = undefined,
   onRecieve = () => {},
   onSend = () => {},
   onOptions = () => {},
@@ -37,6 +39,7 @@ const WalletCard = ({
   ...rest
 }: Props) => {
   const { t } = useTranslation();
+  console.log(balance);
   return (
     <Card {...rest}>
       <BackgroundGradient
@@ -45,11 +48,17 @@ const WalletCard = ({
         end={{ x: 1, y: 0 }}
       />
       <Header>
-        <UserName size="lg" color="pure-white">
-          {userName}
-        </UserName>
+        <HeaderTextUi size="lg" color="pure-white">
+          {label}
+        </HeaderTextUi>
         <SpacerUi size="xl">
-          <MoneyAmount size="2xl">{moneyAmount}</MoneyAmount>
+          <MoneyAmount size="2xl">
+            {!balance && balance !== 0 ? (
+              <ActivityIndicator style={{ height: 41.3 }} />
+            ) : (
+              "$" + balance
+            )}
+          </MoneyAmount>
         </SpacerUi>
       </Header>
       <SpacerUi size="4xl">

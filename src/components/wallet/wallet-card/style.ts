@@ -17,9 +17,7 @@ export const BackgroundGradient = styled(LinearGradient)`
 `;
 export const Header = styled.View``;
 
-export const UserName = styled(HeaderTextUi)`
-  text-transform: uppercase;
-`;
+
 
 export const WalletAdressContainer = styled.View`
   flex-direction: row;
@@ -44,10 +42,10 @@ export const Button = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
   justify-content: center;
-  gap: ${({theme}) => theme.spaces["lg"]};
+  gap: ${({ theme }) => theme.spaces["lg"]};
   position: relative;
   align-items: center;
-  padding:  ${({theme}) => theme.spaces["lg"]} ;
+  padding:  ${({ theme }) => theme.spaces["lg"]} ;
 
 `;
 export const ButtonIcon = styled.View``;

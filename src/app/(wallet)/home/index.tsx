@@ -1,6 +1,5 @@
-import { Keypair } from "@solana/web3.js";
 import { Link, router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FlatList } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, { FadeInRight } from "react-native-reanimated";
@@ -21,6 +20,15 @@ export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const { assets } = useAsset();
   const { balances } = useAssetBalance();
+
+  const totalBalance = () => {
+    const balance = balances?.reduce((prev, current) => {
+      return Number(current.balance) + prev;
+    }, 0);
+
+    return balance;
+  };
+
   const calculateBalance = (blockchain: string) => {
     return Number(
       balances?.find((balance) => blockchain === balance.balance)?.balance || 0
@@ -38,6 +46,7 @@ export default function Home() {
     <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
       <CardContainer>
         <WalletCard
+          balance={totalBalance()}
           onHistory={() => router.push("/(wallet)/home/history")}
           onRecieve={() => router.push("/(wallet)/home/recieve")}
           onSend={() => router.push("/(wallet)/home/send")}

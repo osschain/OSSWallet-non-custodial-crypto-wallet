@@ -17,6 +17,7 @@ export default function _layout() {
       <Stack.Screen
         name="index"
         options={{
+          headerTitle: "",
           contentStyle: {
             backgroundColor: theme.colors["bg-primary"],
           },

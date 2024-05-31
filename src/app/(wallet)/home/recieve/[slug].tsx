@@ -2,7 +2,8 @@ import * as Clipboard from "expo-clipboard";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, Share } from "react-native";
+import { Image, Share, View } from "react-native";
+import QRCode from "react-native-qrcode-svg";
 import styled from "styled-components/native";
 
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -52,10 +53,9 @@ export default function RecieveDetails() {
               {t("wallet.home.recieve.recieve-details.qr-code")}
             </HeaderTextUi>
             <Qr>
-              <Image
-                style={{ width: "100%", height: "100%" }}
-                source={require("@/assets/images/qr.png")}
-              />
+              <View>
+                <QRCode size={140} value={asset.account.address} />
+              </View>
             </Qr>
           </QrContainer>
         </SpacerUi>
@@ -106,9 +106,9 @@ export default function RecieveDetails() {
 }
 
 const Qr = styled.View`
-  width: 170px;
-  height: 170px;
   padding: ${({ theme }) => theme.spaces["xl"]};
+  justify-content: "center";
+  align-items: center;
   border: 1px;
   border-radius: ${({ theme }) => theme.sizes["sm"]};
   border-color: ${({ theme }) => theme.colors["border-color"]};

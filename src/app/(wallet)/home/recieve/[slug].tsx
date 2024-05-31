@@ -41,12 +41,12 @@ export default function RecieveDetails() {
     <ScrollContainerUi>
       <Stack.Screen options={{ title: `Recieve ${asset?.name}` }} />
       <BodyUi>
-        <SpacerUi size="3xl">
+        <SpacerUi size="sm">
           <MessageUi>
             {asset?.name} {t("wallet.home.recieve.recieve-details.warning")}
           </MessageUi>
         </SpacerUi>
-        <SpacerUi size="2xl">
+        <SpacerUi size="xl">
           <QrContainer>
             <HeaderTextUi weight="medium" size="xl">
               {t("wallet.home.recieve.recieve-details.qr-code")}
@@ -59,7 +59,7 @@ export default function RecieveDetails() {
             </Qr>
           </QrContainer>
         </SpacerUi>
-        <SpacerUi size="2xl">
+        <SpacerUi size="xl">
           <AdressContainer>
             <HeaderTextUi>
               {t("wallet.home.recieve.recieve-details.wallet-adress")}

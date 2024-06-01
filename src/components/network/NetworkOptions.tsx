@@ -18,7 +18,7 @@ export type Ref = BottomSheetModal;
 
 type Props = {
   networks: NetworkType[] | null;
-  onSelect: (selected: string) => void;
+  onSelect: (selected: Blockchain | null) => void;
 };
 
 const NetworkOptions = forwardRef<Ref, Props>(
@@ -50,10 +50,11 @@ const NetworkOptions = forwardRef<Ref, Props>(
     const selectHandler = (network: NetworkType) => {
       if (selected === network.label) {
         setSelected(null);
+        onSelect(null);
       } else {
         setSelected(network.label);
+        onSelect(network.label);
       }
-      onSelect(network.label);
       bottomSheetRef.current?.close();
     };
 

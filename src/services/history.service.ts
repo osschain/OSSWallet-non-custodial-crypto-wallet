@@ -19,12 +19,12 @@ export const getHistories = async (addresses: addressType[]) => {
                     descOrder: true,
                 });
 
-
-                const filtered = histories.transactions.map(({ to, from, value }) => {
+                const filtered = histories.transactions.map(({ to, from, value, blockchain }) => {
                     return {
                         to,
                         from,
-                        value: hexDecoder(value).toString()
+                        value: hexDecoder(value).toString(),
+                        blockchain
                     }
                 })
 
@@ -41,25 +41,26 @@ export const getHistories = async (addresses: addressType[]) => {
 
 export type OSSblockchain = Blockchain | "solana" | 'btc';
 
-export const getHistory = async (address: string, ankrEndpoint: OSSblockchain) => {
+export const getHistory = async (address: string, blockchain: OSSblockchain) => {
 
-    if (ankrEndpoint === 'solana' || ankrEndpoint === "btc") {
+    if (blockchain === 'solana' || blockchain === "btc") {
         return null
     }
 
     try {
         const histories = await ankrProvider.getTransactionsByAddress({
-            blockchain: [ankrEndpoint],
+            blockchain: [blockchain],
             address: [address],
             pageSize: 1,
             descOrder: true,
         });
 
-        const filtered = histories.transactions.map(({ to, from, value }) => {
+        const filtered = histories.transactions.map(({ to, from, value, blockchain }) => {
             return {
                 to,
                 from,
-                value: hexDecoder(value).toString()
+                value: hexDecoder(value).toString(),
+                blockchain
             }
         })
 
@@ -67,6 +68,4 @@ export const getHistory = async (address: string, ankrEndpoint: OSSblockchain) =
     } catch (error) {
         throw error
     }
-
-
 }

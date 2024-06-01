@@ -1,5 +1,6 @@
+import { Blockchain } from "@ankr.com/ankr.js";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
@@ -15,6 +16,7 @@ import { getAdresses } from "@/services/balances.service";
 import { useAsset } from "@/providers/AssetProvider";
 
 export default function History() {
+  const [network, setNetwork] = useState<Blockchain | null>(null);
   const { networks } = useAsset();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
@@ -25,6 +27,16 @@ export default function History() {
     if (!histories) fetchHistories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assets]);
+
+  const filteredHistories = useMemo(() => {
+    if (!network) {
+      return histories;
+    }
+
+    return histories?.filter(
+      (history) => history.blockchain === network.toLowerCase()
+    );
+  }, [histories, network]);
 
   const checkAddres = (from: string): variants | undefined => {
     if (!assets) return;
@@ -58,12 +70,15 @@ export default function History() {
         <NetworkOptions
           networks={networks}
           ref={bottomSheetRef}
-          onSelect={() => {}}
+          onSelect={(selected) => setNetwork(selected)}
         />
       </SpacerUi>
-      <SpacerUi size="xl" style={{ flex: 1 }}>
+      {!filteredHistories?.length && (
+        <AlertWithImageUi title="Can't find history" />
+      )}
+      <SpacerUi size="xl" style={{ flex: filteredHistories?.length ? 1 : 0 }}>
         <FlatList
-          data={histories}
+          data={filteredHistories}
           renderItem={({ item }) => (
             <SpacerUi size="xl" position="bottom" key={item.to}>
               <HistoryItem

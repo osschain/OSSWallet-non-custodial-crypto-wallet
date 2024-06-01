@@ -99,7 +99,6 @@ export const getBalances = async (assets: AssetType[]) => {
     try {
         // if (!evmAdress) return null;
         const addresses = getAdresses(assets)
-        console.log(addresses)
         const balances = await fetchBalances(addresses)
 
         const filteredBalane = balances.map(

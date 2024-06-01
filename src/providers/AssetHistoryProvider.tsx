@@ -4,12 +4,17 @@ import { PropsWithChildren, createContext, useContext, useState } from "react";
 import { useAsset } from "./AssetProvider";
 
 import { getAdresses } from "@/services/balances.service";
-import { getHistories, getHistory } from "@/services/history.service";
+import {
+  OSSblockchain,
+  getHistories,
+  getHistory,
+} from "@/services/history.service";
 
 export type HistoryType = {
   from: string;
   to: string | undefined;
   value: string;
+  blockchain: string | undefined;
 };
 
 export type AssetHistoryType = {
@@ -18,7 +23,7 @@ export type AssetHistoryType = {
   fetchHistories: () => void;
   fetchHistory: (
     adress: string,
-    ankrEndpoint: Blockchain | "btc" | "solana"
+    blockchain: Blockchain | "btc" | "solana"
   ) => void;
   cashedHistory: {
     [key: string]: HistoryType[] | [] | undefined;
@@ -61,13 +66,10 @@ export default function AssetHistoryPRovider({ children }: PropsWithChildren) {
     }
   };
 
-  const fetchHistory = async (
-    adress: string,
-    ankrEndpoint: Blockchain | "btc" | "solana"
-  ) => {
+  const fetchHistory = async (adress: string, blockchain: OSSblockchain) => {
     setLoading(true);
     try {
-      const history = await getHistory(adress, ankrEndpoint);
+      const history = await getHistory(adress, blockchain);
 
       if (!history) {
         throw new Error("Somethin went wrong");
@@ -75,7 +77,7 @@ export default function AssetHistoryPRovider({ children }: PropsWithChildren) {
 
       setCashedHistory((prevCache) => ({
         ...prevCache,
-        [ankrEndpoint]: history,
+        [blockchain]: history,
       }));
     } catch (error) {
       console.log(error);

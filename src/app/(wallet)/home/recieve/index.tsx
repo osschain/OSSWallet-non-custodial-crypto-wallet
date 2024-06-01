@@ -1,5 +1,6 @@
+import { Blockchain } from "@ankr.com/ankr.js";
 import { Link } from "expo-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
@@ -11,12 +12,11 @@ import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-// eslint-disable-next-line import/no-duplicates
-import { useAsset } from "@/providers/AssetProvider";
-// eslint-disable-next-line import/no-duplicates
-import { AssetType } from "@/providers/AssetProvider";
+import useFilteredAssets from "@/hooks/useFilteredAssets";
+import { useAsset, AssetType } from "@/providers/AssetProvider";
 
 export default function Recieve() {
+  const [network, setNetwork] = useState<Blockchain | null>(null);
   const { t } = useTranslation();
   const { assets } = useAsset();
   const { networks } = useAsset();
@@ -24,14 +24,8 @@ export default function Recieve() {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filtering Logic
-  const filteredAssets = useMemo(() => {
-    if (!searchQuery) {
-      return assets; // No search term, show all
-    }
-    return assets?.filter((asset) =>
-      asset.blockchain.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [assets, searchQuery]);
+
+  const filteredAssets = useFilteredAssets(assets, searchQuery, network);
 
   if (!assets) {
     return <AlertWithImageUI title="No Chains To Display" />;
@@ -54,7 +48,10 @@ export default function Recieve() {
       />
 
       <SpacerUi size="xl">
-        <NetworkOptions networks={networks} onSelect={() => {}} />
+        <NetworkOptions
+          networks={networks}
+          onSelect={(selected) => setNetwork(selected)}
+        />
       </SpacerUi>
       <SpacerUi size="xl">
         <AssetList>

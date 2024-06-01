@@ -30,7 +30,7 @@ export default function Settings() {
 
   const locales = [
     {
-      name: "georgia",
+      name: "Georgia",
       locale: "ka",
       flag: "https://img.freeflagicons.com/thumb/round_icon/georgia/georgia_640.png",
     },

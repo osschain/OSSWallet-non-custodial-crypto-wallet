@@ -1,7 +1,7 @@
 
+import { AssetType } from "@/@types/assets";
 import { ankrProvider } from "@/config/ankr";
 import { solanaEndpoint } from "@/config/endpoints";
-import { AssetType } from "@/providers/AssetProvider";
 
 
 export type BalancesType = { blockchain: string, balance: string, balanceUsd: string }

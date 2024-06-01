@@ -39,7 +39,6 @@ const WalletCard = ({
   ...rest
 }: Props) => {
   const { t } = useTranslation();
-  console.log(balance);
   return (
     <Card {...rest}>
       <BackgroundGradient

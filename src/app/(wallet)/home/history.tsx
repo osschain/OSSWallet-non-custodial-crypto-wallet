@@ -6,27 +6,22 @@ import { ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { useAssets } from "@/app/api/assets";
+import { useHistories } from "@/app/api/history";
 import { useNetworks } from "@/app/api/network";
 import HistoryItem, { variants } from "@/components/history/history-item";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { useAssetHistory } from "@/providers/AssetHistoryProvider";
 import { getAdresses } from "@/services/balances.service";
 
 export default function History() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
-  const { histories, fetchHistories, loading } = useAssetHistory();
+  const { data: histories, isLoading } = useHistories();
   const { data: assets } = useAssets();
   const { data: networks } = useNetworks();
-
-  useEffect(() => {
-    if (!histories) fetchHistories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [assets]);
 
   const filteredHistories = useMemo(() => {
     if (!network) {
@@ -50,7 +45,7 @@ export default function History() {
     }
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <SpacerUi size="xl">
         <ActivityIndicator />

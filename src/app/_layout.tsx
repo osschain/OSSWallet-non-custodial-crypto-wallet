@@ -7,8 +7,6 @@ import { useTranslation } from "react-i18next";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
-import AssetBalanceProvider from "@/providers/AssetBalanceProvider";
-import AssetHistoryProvider from "@/providers/AssetHistoryProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import QueryProvider from "@/providers/QueryProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
@@ -63,34 +61,24 @@ function RootLayoutNav() {
       <StyledThemeProvider>
         <AuthProvider>
           <QueryProvider>
-            <AssetHistoryProvider>
-              <AssetBalanceProvider>
-                <BottomSheetModalProvider>
-                  <Stack>
-                    <Stack.Screen
-                      name="index"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="auth"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="(wallet)"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="modal"
-                      options={{ presentation: "modal" }}
-                    />
-                    <Stack.Screen
-                      name="enter-password"
-                      options={{ headerShown: false }}
-                    />
-                  </Stack>
-                </BottomSheetModalProvider>
-              </AssetBalanceProvider>
-            </AssetHistoryProvider>
+            <BottomSheetModalProvider>
+              <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+                <Stack.Screen name="auth" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="(wallet)"
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="modal"
+                  options={{ presentation: "modal" }}
+                />
+                <Stack.Screen
+                  name="enter-password"
+                  options={{ headerShown: false }}
+                />
+              </Stack>
+            </BottomSheetModalProvider>
           </QueryProvider>
         </AuthProvider>
       </StyledThemeProvider>

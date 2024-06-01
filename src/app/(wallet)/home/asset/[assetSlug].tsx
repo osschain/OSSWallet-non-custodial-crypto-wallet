@@ -1,10 +1,10 @@
 import { Link, Stack, useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, FlatList, Image, View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
+import { useHistory } from "@/app/api/history";
 import HistoryItem, { variants } from "@/components/history/history-item";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -12,7 +12,6 @@ import IconUi from "@/components/ui/IconUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { useAssetHistory } from "@/providers/AssetHistoryProvider";
 import { getAdresses } from "@/services/balances.service";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
@@ -22,22 +21,13 @@ export default function Asset() {
   const theme = useTheme();
 
   const { data: assets } = useAssets();
-  const { cashedHistory, fetchHistory, loading } = useAssetHistory();
 
   const asset = assets?.find((asset) => asset.blockchain === slug);
 
-  useEffect(() => {
-    const bootstrap = () => {
-      if (!histories && asset) {
-        fetchHistory(asset.account.address, asset.blockchain);
-      }
-    };
-
-    bootstrap();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [asset]);
-
-  const histories = cashedHistory[asset?.blockchain || ""];
+  const { data: histories, isLoading } = useHistory(
+    asset?.account.address,
+    asset?.blockchain
+  );
 
   const checkAddres = (from: string): variants | undefined => {
     if (!assets) return;
@@ -120,13 +110,13 @@ export default function Asset() {
         </Actions>
       </SpacerUi>
 
-      {loading && (
+      {isLoading && (
         <SpacerUi size="4xl">
           <ActivityIndicator />
         </SpacerUi>
       )}
 
-      {!histories?.length && !loading && (
+      {!histories?.length && !isLoading && (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >

@@ -35,7 +35,7 @@ const AssetItem = ({
       </LeftContent>
       <RightContent>
         <BodyTextUi size="md" weight="medium">
-          {usdAmount.toFixed(2)} $
+          {usdAmount} $
         </BodyTextUi>
       </RightContent>
     </Item>

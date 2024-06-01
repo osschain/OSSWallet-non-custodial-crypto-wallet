@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import styled from "styled-components/native";
 
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
@@ -15,18 +14,28 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
+import { useAssetBalance } from "@/providers/AssetBalanceProvider";
 import { AssetType, useAsset } from "@/providers/AssetProvider";
 
 export default function Send() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
 
   const { networks } = useAsset();
+  const { balances } = useAssetBalance();
   const { t } = useTranslation();
   const { assets } = useAsset();
 
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredAssets = useFilteredAssets(assets, searchQuery, network);
+
+  const calculateBalance = (blockchain: string) => {
+    const balance = Number(
+      balances?.find((balance) => blockchain === balance.blockchain)?.balance ||
+        0
+    );
+    return Number(balance.toFixed(3));
+  };
 
   if (!assets) {
     return <AlertWithImageUI title={t("shared.asset-error")} />;
@@ -54,22 +63,30 @@ export default function Send() {
           onSelect={(selected) => setNetwork(selected)}
         />
       </SpacerUi>
-      <SpacerUi size="xl">
-        <ChainList>
-          <FlatList
-            data={filteredAssets}
-            keyExtractor={(item) => item.name}
-            renderItem={({ item }) => (
-              <AssetItem key={item.name} asset={item} />
-            )}
-          />
-        </ChainList>
+      <SpacerUi size="xl" style={{ flex: 1 }}>
+        <FlatList
+          data={filteredAssets}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <AssetItem
+              key={item.name}
+              asset={item}
+              balance={calculateBalance(item.blockchain)}
+            />
+          )}
+        />
       </SpacerUi>
     </ContainerUi>
   );
 }
 
-const AssetItem = ({ asset }: { asset: AssetType }) => (
+const AssetItem = ({
+  asset,
+  balance,
+}: {
+  asset: AssetType;
+  balance: number;
+}) => (
   <SpacerUi size="3xl">
     <Link href={`/(wallet)/home/send/${asset.blockchain}`} asChild>
       <TouchableOpacity>
@@ -77,11 +94,9 @@ const AssetItem = ({ asset }: { asset: AssetType }) => (
           title={asset.symbol}
           uri={asset.icon}
           description={asset.blockchain}
-          right={<BodyTextUi weight="bold">15</BodyTextUi>}
+          right={<BodyTextUi weight="bold">{balance}</BodyTextUi>}
         />
       </TouchableOpacity>
     </Link>
   </SpacerUi>
 );
-
-const ChainList = styled.View``;

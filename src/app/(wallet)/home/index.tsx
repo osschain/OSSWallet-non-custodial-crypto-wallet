@@ -26,21 +26,27 @@ export default function Home() {
       return Number(current.balance) + prev;
     }, 0);
 
-    return balance;
+    if (balance === 0) return balance;
+
+    return Number(balance?.toFixed(3));
   };
 
   const calculateBalance = (blockchain: string) => {
-    return Number(
+    const balance = Number(
       balances?.find((balance) => blockchain === balance.blockchain)?.balance ||
         0
     );
+
+    return Number(balance.toFixed(3));
   };
 
   const calculateUsdBalance = (blockchain: string) => {
-    return Number(
+    const balance = Number(
       balances?.find((balance) => blockchain === balance.blockchain)
         ?.balanceUsd || 0
     );
+
+    return Number(balance.toFixed(3));
   };
 
   return (

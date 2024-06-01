@@ -53,14 +53,12 @@ export default function Recieve() {
           onSelect={(selected) => setNetwork(selected)}
         />
       </SpacerUi>
-      <SpacerUi size="xl">
-        <AssetList>
-          <FlatList
-            data={filteredAssets}
-            keyExtractor={(item) => item.name}
-            renderItem={({ item }) => <AssetItem asset={item} />}
-          />
-        </AssetList>
+      <SpacerUi size="xl" style={{ flex: 1 }}>
+        <FlatList
+          data={filteredAssets}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => <AssetItem asset={item} />}
+        />
       </SpacerUi>
     </ContainerUi>
   );
@@ -79,5 +77,3 @@ const AssetItem = ({ asset }: { asset: AssetType }) => (
     </Link>
   </SpacerUi>
 );
-
-const AssetList = styled.View``;

@@ -1,23 +1,21 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { getAddress } from "ethers";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import HistoryItem, { variants } from "@/components/history/history-item";
-import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAssetHistory } from "@/providers/AssetHistoryProvider";
 import { getAdresses } from "@/services/balances.service";
-import { history, networks } from "@/util/mock";
 // eslint-disable-next-line import/order
 import { useAsset } from "@/providers/AssetProvider";
 
 export default function History() {
+  const { networks } = useAsset();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
   const { histories, fetchHistories, loading } = useAssetHistory();
@@ -40,10 +38,6 @@ export default function History() {
     }
   };
 
-  const handlePresentModalPress = () => {
-    bottomSheetRef.current?.present();
-  };
-
   if (loading) {
     return (
       <SpacerUi size="xl">
@@ -60,15 +54,12 @@ export default function History() {
 
   return (
     <ContainerUi>
-      <NetworkOptions
-        networks={networks}
-        ref={bottomSheetRef}
-        onSelect={() => {}}
-      />
       <SpacerUi size="xl" position="bottom">
-        <NetworkButton onPress={handlePresentModalPress}>
-          {t("shared.all")} {t("shared.network")}
-        </NetworkButton>
+        <NetworkOptions
+          networks={networks}
+          ref={bottomSheetRef}
+          onSelect={() => {}}
+        />
       </SpacerUi>
       <SpacerUi size="xl" style={{ flex: 1 }}>
         <FlatList

@@ -1,11 +1,9 @@
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
-import NetworkButton from "@/components/network/NetworkButton";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import IconUi from "@/components/ui/IconUi";
@@ -17,17 +15,11 @@ import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAsset } from "@/providers/AssetProvider";
 // eslint-disable-next-line import/no-duplicates
 import { AssetType } from "@/providers/AssetProvider";
-import { networks } from "@/util/mock";
 
 export default function Recieve() {
   const { t } = useTranslation();
   const { assets } = useAsset();
-
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-
-  const handlePresentModalPress = () => {
-    bottomSheetRef.current?.present();
-  };
+  const { networks } = useAsset();
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -60,16 +52,9 @@ export default function Recieve() {
           />
         }
       />
-      <NetworkOptions
-        ref={bottomSheetRef}
-        networks={networks}
-        onSelect={() => {}}
-      />
 
       <SpacerUi size="xl">
-        <NetworkButton onPress={handlePresentModalPress}>
-          {t("shared.all")} {t("shared.network")}
-        </NetworkButton>
+        <NetworkOptions networks={networks} onSelect={() => {}} />
       </SpacerUi>
       <SpacerUi size="xl">
         <AssetList>

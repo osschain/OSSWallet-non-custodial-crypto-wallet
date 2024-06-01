@@ -31,7 +31,8 @@ export default function Home() {
 
   const calculateBalance = (blockchain: string) => {
     return Number(
-      balances?.find((balance) => blockchain === balance.balance)?.balance || 0
+      balances?.find((balance) => blockchain === balance.blockchain)?.balance ||
+        0
     );
   };
 

@@ -1,4 +1,3 @@
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,15 +15,11 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { AssetType, useAsset } from "@/providers/AssetProvider";
-import { networks } from "@/util/mock";
 
 export default function Send() {
+  const { networks } = useAsset();
   const { t } = useTranslation();
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { assets } = useAsset();
-  const handlePresentModalPress = () => {
-    bottomSheetRef.current?.present();
-  };
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -56,16 +51,9 @@ export default function Send() {
           />
         }
       />
-      <NetworkOptions
-        ref={bottomSheetRef}
-        networks={networks}
-        onSelect={() => {}}
-      />
 
       <SpacerUi size="xl">
-        <NetworkButton onPress={handlePresentModalPress}>
-          {t("shared.all")} {t("shared.network")}
-        </NetworkButton>
+        <NetworkOptions networks={networks} onSelect={() => {}} />
       </SpacerUi>
       <SpacerUi size="xl">
         <ChainList>

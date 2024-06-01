@@ -10,13 +10,15 @@ import {
 
 import { useAuth } from "./AuthProvider";
 
+import { getNetworks } from "@/services/asset.service";
 import { OSSblockchain } from "@/services/history.service";
 
 export interface AccountType {
-  address: string; // The address of the account
-  publicKey: string; // The public key of the account
-  privateKey: string; // The private key of the account (be cautious with this)
+  address: string;
+  publicKey: string;
+  privateKey: string;
 }
+
 export type AssetType = {
   icon: string;
   name: string;
@@ -25,28 +27,37 @@ export type AssetType = {
   blockchain: OSSblockchain;
 };
 
+export type NetworkType = {
+  icon: string;
+  label: Blockchain;
+};
+
 type AssetData = {
   assets: AssetType[] | null;
+  networks: NetworkType[] | null;
   addAssets: (Asset: AssetType[]) => void;
 };
 
 const AssetContext = createContext<AssetData>({
   assets: null,
   addAssets: () => {},
+  networks: null,
 });
 
 export default function AssetProvider({ children }: PropsWithChildren) {
   const [assets, setAssets] = useState<AssetType[] | null>(null);
-
+  const [networks, setNetworks] = useState<NetworkType[] | null>(null);
   const { mnemonic } = useAuth();
 
   useEffect(() => {
     if (!mnemonic) return;
 
     const bootstrapAsync = async () => {
-      const Assets = await AsyncStorage.getItem("assets");
-      if (Assets) {
-        setAssets(JSON.parse(Assets));
+      const assets = await AsyncStorage.getItem("assets");
+      if (assets) {
+        setAssets(JSON.parse(assets));
+        const networks = await getNetworks();
+        setNetworks(networks);
       }
     };
 
@@ -59,7 +70,7 @@ export default function AssetProvider({ children }: PropsWithChildren) {
   };
 
   return (
-    <AssetContext.Provider value={{ assets, addAssets }}>
+    <AssetContext.Provider value={{ assets, addAssets, networks }}>
       {children}
     </AssetContext.Provider>
   );

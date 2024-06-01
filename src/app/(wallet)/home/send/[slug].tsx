@@ -10,7 +10,6 @@ import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAsset } from "@/providers/AssetProvider";
-import { sendTransaction } from "@/services/send.service";
 
 export default function SendChain() {
   const { t } = useTranslation();
@@ -47,16 +46,7 @@ export default function SendChain() {
         </SpacerUi>
       </BodyUi>
       <FooterUi marginSize="sm">
-        <Button
-          onPress={() =>
-            sendTransaction(
-              asset.account.privateKey,
-              "0xbdf2DeD58354b3034D9999FD97E2F1836719A69b",
-              asset.blockchain
-            )
-          }
-          variant="primary"
-        >
+        <Button onPress={() => {}} variant="primary">
           {t("shared.send")}
         </Button>
       </FooterUi>

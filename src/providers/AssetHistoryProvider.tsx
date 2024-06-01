@@ -1,14 +1,13 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 
-import { useAsset } from "./AssetProvider";
-
 import { getAdresses } from "@/services/balances.service";
 import {
   OSSblockchain,
   getHistories,
   getHistory,
 } from "@/services/history.service";
+import { useAssets } from "@/app/api/assets";
 
 export type HistoryType = {
   from: string;
@@ -49,7 +48,7 @@ export default function AssetHistoryPRovider({ children }: PropsWithChildren) {
   }>({});
 
   const [loading, setLoading] = useState(true);
-  const { assets } = useAsset();
+  const { data: assets } = useAssets();
 
   const fetchHistories = async () => {
     if (!assets) return;

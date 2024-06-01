@@ -8,6 +8,5 @@ defaultConfig.resolver.extraNodeModules = {
     ...defaultConfig.resolver.extraNodeModules,
     ...nodeLibs
 };
-defaultConfig.resolver.assetExts.push('cjs');
 
 module.exports = defaultConfig;

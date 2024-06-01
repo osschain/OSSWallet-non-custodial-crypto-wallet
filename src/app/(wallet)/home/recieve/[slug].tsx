@@ -2,23 +2,23 @@ import * as Clipboard from "expo-clipboard";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, Share, View } from "react-native";
+import { Share, View } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import styled from "styled-components/native";
 
+import { useAssets } from "@/app/api/assets";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { useAsset } from "@/providers/AssetProvider";
 
 export default function RecieveDetails() {
   const [isCopied, setIsCopied] = useState(false);
   const { slug } = useLocalSearchParams();
   const { t } = useTranslation();
-  const { assets } = useAsset();
+  const { data: assets } = useAssets();
   const asset = assets?.find((asset) => asset.blockchain === slug);
 
   if (!assets || !asset) {

@@ -6,8 +6,7 @@ import {
   useState,
 } from "react";
 
-import { useAsset } from "./AssetProvider";
-
+import { useAssets } from "@/app/api/assets";
 import { BalancesType, getBalances } from "@/services/balances.service";
 
 export type AssetBalanceType = {
@@ -23,7 +22,7 @@ const AssetBalanceContext = createContext<AssetBalanceType>({
 export default function AssetBalanceProvider({ children }: PropsWithChildren) {
   const [balances, setBalances] = useState<BalancesType[] | null>(null);
   const [loading, setLoading] = useState(true);
-  const { assets } = useAsset();
+  const { data: assets } = useAssets();
 
   useEffect(() => {
     if (!assets) return;

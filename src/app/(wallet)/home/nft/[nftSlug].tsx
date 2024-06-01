@@ -13,7 +13,7 @@ import { nfts } from "@/util/mock";
 export default function Nft() {
   const { nftSlug: slug } = useLocalSearchParams();
 
-  const nft = nfts.find((asset) => asset.blockchain === Number(slug as string));
+  const nft = nfts.find((asset) => asset.id === Number(slug as string));
   const { t } = useTranslation();
   return (
     <>

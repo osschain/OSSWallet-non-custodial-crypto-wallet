@@ -9,8 +9,8 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import useFont from "@/hooks/useFonts";
 import AssetBalanceProvider from "@/providers/AssetBalanceProvider";
 import AssetHistoryProvider from "@/providers/AssetHistoryProvider";
-import AssetProvider from "@/providers/AssetProvider";
 import AuthProvider from "@/providers/AuthProvider";
+import QueryProvider from "@/providers/QueryProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
 
 export {
@@ -62,7 +62,7 @@ function RootLayoutNav() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StyledThemeProvider>
         <AuthProvider>
-          <AssetProvider>
+          <QueryProvider>
             <AssetHistoryProvider>
               <AssetBalanceProvider>
                 <BottomSheetModalProvider>
@@ -91,7 +91,7 @@ function RootLayoutNav() {
                 </BottomSheetModalProvider>
               </AssetBalanceProvider>
             </AssetHistoryProvider>
-          </AssetProvider>
+          </QueryProvider>
         </AuthProvider>
       </StyledThemeProvider>
     </GestureHandlerRootView>

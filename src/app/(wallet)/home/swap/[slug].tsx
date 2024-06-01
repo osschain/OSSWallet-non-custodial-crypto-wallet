@@ -3,6 +3,8 @@ import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { AssetType } from "@/@types/assets";
+import { useAssets } from "@/app/api/assets";
 import AssetOptions from "@/components/asset/AssetOptions";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -10,12 +12,11 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { AssetType, useAsset } from "@/providers/AssetProvider";
 
 export default function Swap() {
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
-  const { assets } = useAsset();
+  const { data: assets } = useAssets();
   const asset = assets?.find((asset) => asset.blockchain === slug);
   const [target, setTarget] = useState<AssetType | null>(null);
   const targetOptions = useRef<BottomSheetModal>(null);

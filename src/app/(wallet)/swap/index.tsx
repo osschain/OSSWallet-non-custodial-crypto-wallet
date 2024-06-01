@@ -3,18 +3,19 @@ import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { AssetType } from "@/@types/assets";
+import { useAssets } from "@/app/api/assets";
 import AssetOptions from "@/components/asset/AssetOptions";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { AssetType, useAsset } from "@/providers/AssetProvider";
 
 export default function Swap() {
   const [exchangable, setExchangable] = useState<AssetType | null>(null);
   const [target, setTarget] = useState<AssetType | null>(null);
-  const { assets } = useAsset();
+  const { data: assets } = useAssets();
   const { t } = useTranslation();
   const exchangableOptions = useRef<BottomSheetModal>(null);
   const targetOptions = useRef<BottomSheetModal>(null);

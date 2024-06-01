@@ -3,8 +3,10 @@ import { Link } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
-import styled from "styled-components/native";
 
+import { AssetType } from "@/@types/assets";
+import { useAssets } from "@/app/api/assets";
+import { useNetworks } from "@/app/api/network";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import IconUi from "@/components/ui/IconUi";
@@ -13,14 +15,12 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
-import { useAsset, AssetType } from "@/providers/AssetProvider";
 
 export default function Recieve() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const { t } = useTranslation();
-  const { assets } = useAsset();
-  const { networks } = useAsset();
-
+  const { data: assets } = useAssets();
+  const { data: networks } = useNetworks();
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filtering Logic

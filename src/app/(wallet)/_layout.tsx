@@ -1,4 +1,4 @@
-import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 import { Redirect, Tabs } from "expo-router";
 import { StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";

@@ -5,20 +5,20 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, { FadeInRight } from "react-native-reanimated";
 import styled from "styled-components/native";
 
+import { useAssets } from "@/app/api/assets";
 import AssetItem from "@/components/asset/AssetItem";
 import NftItem from "@/components/nft/NftItem";
 import SegmentedControl from "@/components/segment";
 import SpacerUi from "@/components/ui/SpacerUi";
 import WalletCard from "@/components/wallet/wallet-card";
 import { useAssetBalance } from "@/providers/AssetBalanceProvider";
-import { useAsset } from "@/providers/AssetProvider";
 import { nfts } from "@/util/mock";
 
 type Segment = "Assets" | "NFT";
 const segmentOptions: Segment[] = ["Assets", "NFT"];
 export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
-  const { assets } = useAsset();
+  const { data: assets } = useAssets();
   const { balances } = useAssetBalance();
 
   const totalBalance = () => {

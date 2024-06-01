@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ActivityIndicator, FlatList, Image, View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
+import { useAssets } from "@/app/api/assets";
 import HistoryItem, { variants } from "@/components/history/history-item";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -12,7 +13,6 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useAssetHistory } from "@/providers/AssetHistoryProvider";
-import { useAsset } from "@/providers/AssetProvider";
 import { getAdresses } from "@/services/balances.service";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
@@ -21,7 +21,7 @@ export default function Asset() {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  const { assets } = useAsset();
+  const { data: assets } = useAssets();
   const { cashedHistory, fetchHistory, loading } = useAssetHistory();
 
   const asset = assets?.find((asset) => asset.blockchain === slug);

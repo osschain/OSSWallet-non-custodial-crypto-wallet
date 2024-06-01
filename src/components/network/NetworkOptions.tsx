@@ -7,17 +7,17 @@ import { TouchableOpacity } from "react-native";
 import NetworkButton from "./NetworkButton";
 import AlertWithImageUI from "../ui/AlertWithImageUi";
 
+import { NetworkType } from "@/@types/network";
 import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { NetworkType } from "@/providers/AssetProvider";
 
 export type Ref = BottomSheetModal;
 
 type Props = {
-  networks: NetworkType[] | null;
+  networks: NetworkType[] | undefined;
   onSelect: (selected: Blockchain | null) => void;
 };
 

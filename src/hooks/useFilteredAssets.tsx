@@ -1,10 +1,10 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { useMemo } from "react";
 
-import { AssetType } from "@/providers/AssetProvider";
+import { AssetType } from "@/@types/assets";
 
 const useFilteredAssets = (
-  assets: AssetType[] | null,
+  assets: AssetType[] | undefined,
   searchQuery: string,
   network: Blockchain | null
 ) => {

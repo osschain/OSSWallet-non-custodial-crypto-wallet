@@ -10,7 +10,9 @@ export const useHistories = () => {
     return useQuery({
         queryKey: ["histories"],
         queryFn: async () => {
-            if (!assets) return;
+            if (!assets) {
+                throw new Error("assets is not presented");
+            }
 
             const adresses = getAdresses(assets);
             const histories = await getHistories(adresses);
@@ -24,7 +26,14 @@ export const useHistory = (adress: string | undefined, blockchain: OSSblockchain
     return useQuery({
         queryKey: ["history", blockchain],
         queryFn: async () => {
-            if (!adress || !blockchain) return;
+
+            if (!blockchain) {
+                throw new Error("blockchain is not presented");
+            }
+
+            if (!adress) {
+                throw new Error("blockchain is not presented");
+            }
 
             const history = await getHistory(adress, blockchain);
 

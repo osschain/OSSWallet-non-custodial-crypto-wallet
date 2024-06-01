@@ -27,7 +27,12 @@ export const getAddress = (assets: AssetType[], type: AddresTypes) => {
     }
 }
 
-export const getAdresses = (assets: AssetType[]) => {
+export const getAdresses = (assets: AssetType[] | undefined) => {
+
+    if (!assets) {
+        throw new Error("Asset is not presented");
+    }
+
     const evmAdress = getAddress(assets, AddresTypes.evm);
     const btcAddress = getAddress(assets, AddresTypes.btc)
     const solanaAddres = getAddress(assets, AddresTypes.solana)
@@ -95,6 +100,8 @@ export const fetchBalances = async (addresses: { address: string, type: AddresTy
 };
 
 export const getBalances = async (assets: AssetType[]) => {
+
+
 
     try {
         // if (!evmAdress) return null;

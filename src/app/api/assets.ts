@@ -54,7 +54,8 @@ export const useAddAssets = () => {
       return updatedAssets;
     },
     async onSuccess() {
-      await queryClient.invalidateQueries({ queryKey: ["wallets"] });
+      await queryClient.invalidateQueries({ queryKey: ["assets"] });
+      await queryClient.invalidateQueries({ queryKey: ["balances"] });
     },
   });
 };

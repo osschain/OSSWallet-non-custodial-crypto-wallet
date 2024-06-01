@@ -16,7 +16,7 @@ export const UseBalances = () => {
             }
 
             const balances = await getBalances(assets);
-            console.log(balances)
+
             return balances
         },
     });

@@ -27,7 +27,8 @@ const NetworkOptions = forwardRef<Ref, Props>(
     const snapPoints = useMemo(() => ["95%", "95%"], []);
     const [selected, setSelected] = useState<Blockchain | null>(() => {
       if (networks && required) {
-        return networks[0].label;
+        const network = networks[0].label;
+        return network;
       } else {
         return null;
       }

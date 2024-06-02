@@ -1,11 +1,15 @@
+import { Blockchain } from "@ankr.com/ankr.js";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image } from "react-native";
-import styled, { useTheme } from "styled-components/native";
+import { ActivityIndicator, Alert } from "react-native";
+import styled from "styled-components/native";
 
+import { AssetType, tokenType } from "@/@types/assets";
+import { useAddAssets, useAssets } from "@/app/api/assets";
 import { UseNetworks } from "@/app/api/network";
 import NetworkOptions from "@/components/network/NetworkOptions";
+import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
@@ -14,29 +18,41 @@ import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
+import {
+  getTokenProperties,
+  isValidERC20Addres,
+} from "@/services/token.service";
 import { defaultImage } from "@/util/DefaultImage";
-import { pixelToNumber } from "@/util/pixelToNumber";
-
-const details = [
-  {
-    title: "symbol",
-    value: "TGR",
-  },
-  {
-    title: "Name",
-    value: "Tegro",
-  },
-  {
-    title: "Decimals",
-    value: "18",
-  },
-];
+import { router } from "expo-router";
 
 export default function AddCustomToken() {
-  const { data: networks } = UseNetworks();
-  const [adress, setAdress] = useState("");
+  const [address, setAddress] = useState<string>("");
+  const { mutate: addAddress } = useAddAssets();
+  const [tokenProperties, setTokenProperties] = useState<tokenType | null>();
+  const { data: assets } = useAssets();
+  const { data: networks, isLoading, isError } = UseNetworks();
+  const [network, setNetwork] = useState<Blockchain>("eth");
+
   const { t } = useTranslation();
-  const theme = useTheme();
+
+  useEffect(() => {
+    const bootstrapAsync = async () => {
+      if (!address || !network || !isValidERC20Addres(address)) {
+        setTokenProperties(null);
+        return;
+      }
+
+      try {
+        const properties = await getTokenProperties(address.trim(), network);
+        setTokenProperties(properties);
+      } catch {
+        setTokenProperties(null);
+      }
+    };
+    bootstrapAsync();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, network]);
+
   const snapPoints = useMemo(() => ["95%", "95%"], []);
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -47,13 +63,59 @@ export default function AddCustomToken() {
   };
 
   const handleApproveModalPress = () => {
+    if (!tokenProperties) {
+      Alert.alert("Can't find token");
+      return;
+    }
+
     approveToken.current?.present();
   };
 
   const scannerHandler = async (data: string) => {
     bottomSheetRef.current?.close();
-    setAdress(data);
+    setAddress(data);
   };
+
+  const importTokenHandler = async () => {
+    if (!tokenProperties) return;
+    const ethAccount = assets?.find((asset) => asset.blockchain === "eth");
+
+    if (!ethAccount) return;
+
+    const asset: AssetType = {
+      icon: defaultImage,
+      name: tokenProperties?.name,
+      symbol: tokenProperties?.symbol,
+      network,
+      blockchain: tokenProperties?.name as Blockchain,
+      account: ethAccount?.account,
+      type: "token",
+    };
+    try {
+      addAddress([asset]);
+      router.push("/(wallet)/home");
+      approveToken.current?.close();
+    } catch (error) {
+      console.log(error);
+      Alert.alert("can't add Addres there is error");
+    }
+  };
+
+  if (isError) {
+    return (
+      <SpacerUi size="4xl">
+        <AlertWithImageUI title="Can't Display Networks" />
+      </SpacerUi>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <SpacerUi size="4xl">
+        <ActivityIndicator />
+      </SpacerUi>
+    );
+  }
 
   return (
     <ScrollContainerUi>
@@ -84,21 +146,36 @@ export default function AddCustomToken() {
             </SpacerUi>
           </BodyUi>
           <FooterUi>
-            <ButtonUi>{t("shared.import")}</ButtonUi>
+            <ButtonUi onPress={importTokenHandler}>
+              {t("shared.import")}
+            </ButtonUi>
             <SpacerUi size="xl">
-              <ButtonUi variant="secondary">{t("shared.cancel")}</ButtonUi>
+              <ButtonUi
+                variant="secondary"
+                onPress={() => approveToken.current?.close()}
+              >
+                {t("shared.cancel")}
+              </ButtonUi>
             </SpacerUi>
           </FooterUi>
         </ScrollContainerUi>
       </BottomSheetModal>
-      <NetworkOptions networks={networks} onSelect={() => {}} required />
+      <NetworkOptions
+        networks={networks}
+        onSelect={(selected) => {
+          if (!selected) return;
+          setNetwork(selected);
+        }}
+        required
+      />
       <BodyUi>
         <SpacerUi size="2xl">
           <TextAreaInputUi
             placeholder="Enter Token Adress"
-            value={adress}
-            onChangeText={(text) => setAdress(text)}
+            value={address}
+            onChangeText={(text) => setAddress(text)}
             multiline
+            autoCapitalize="none"
             numberOfLines={5}
             right={
               <IconUi
@@ -112,34 +189,20 @@ export default function AddCustomToken() {
           />
         </SpacerUi>
         <SpacerUi size="3xl">
-          <TokenDetails>
-            <Row>
-              <LeftContent>
-                <BodyTextUi weight="medium">icon:</BodyTextUi>
-              </LeftContent>
-              <RightContent>
-                <Image
-                  source={{ uri: defaultImage }}
-                  width={pixelToNumber(theme.sizes["xl"])}
-                  height={pixelToNumber(theme.sizes["xl"])}
-                />
-              </RightContent>
-            </Row>
-            {details.map(({ title, value }) => (
-              <SpacerUi size="xl" key={title}>
-                <Row>
-                  <LeftContent>
-                    <BodyTextUi weight="medium">{title}:</BodyTextUi>
-                  </LeftContent>
-                  <RightContent>
-                    <BodyTextUi weight="medium" color="text-second">
-                      {value}
-                    </BodyTextUi>
-                  </RightContent>
-                </Row>
+          {tokenProperties && (
+            <TokenProperties>
+              <TokenProperty label="Name:" value={tokenProperties.name} />
+              <SpacerUi size="xl">
+                <TokenProperty label="Symbol:" value={tokenProperties.symbol} />
               </SpacerUi>
-            ))}
-          </TokenDetails>
+              <SpacerUi size="xl">
+                <TokenProperty
+                  label="Decimals:"
+                  value={tokenProperties.decimals.toString()}
+                />
+              </SpacerUi>
+            </TokenProperties>
+          )}
         </SpacerUi>
       </BodyUi>
       <FooterUi marginSize="sm">
@@ -151,7 +214,20 @@ export default function AddCustomToken() {
   );
 }
 
-const TokenDetails = styled.View`
+const TokenProperty = ({ label, value }: { label: string; value: string }) => (
+  <Row>
+    <LeftContent>
+      <BodyTextUi weight="medium">{label}</BodyTextUi>
+    </LeftContent>
+    <RightContent>
+      <BodyTextUi weight="medium" color="text-second">
+        {value}
+      </BodyTextUi>
+    </RightContent>
+  </Row>
+);
+
+const TokenProperties = styled.View`
   padding: ${({ theme }) => theme.spaces["xl"]};
   background-color: ${({ theme }) => theme.colors["bg-second"]};
   border-radius: ${({ theme }) => theme.sizes["md"]};

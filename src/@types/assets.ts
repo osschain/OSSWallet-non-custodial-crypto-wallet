@@ -13,7 +13,16 @@ export type AssetType = {
     account: AccountType;
     symbol: string;
     blockchain: OSSblockchain;
+    network: string;
+    type: "blockhain" | "token";
+    isShown: boolean;
 };
+
+export type tokenType = {
+    symbol: string;
+    name: string;
+    decimals: string;
+}
 
 
 

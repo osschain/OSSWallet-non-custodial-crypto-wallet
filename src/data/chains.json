@@ -4,59 +4,71 @@
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/btc.png",
     "symbol": "BTC",
     "slip-0044": 0,
-    "blockchain": "btc"
+    "blockchain": "btc",
+    "type": "blockchain",
+    "isShown": true
   },
   {
     "name": "Ether",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/eth.png",
     "symbol": "ETH",
     "slip-0044":60,
-    "blockchain": "eth"
+    "blockchain": "eth",
+    "type": "blockchain",
+    "isShown": true
   },
   {
     "name": "Matic",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/matic.png",
-
     "symbol": "MATIC",
     "slip-0044": 60,
-    "blockchain": "polygon"
-
+    "blockchain": "polygon",
+    "type": "blockchain",
+    "isShown": true
   },
   {
     "name": "Solana",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/sol.png",
     "symbol": "SOL",
     "slip-0044": 501,
-    "blockchain": "solana"
+    "blockchain": "solana",
+    "type": "blockchain",
+    "isShown": true
   },
   {
-    "id": "Binance",
     "name": "Binance",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/bnb.png",
     "symbol": "BNB",
     "slip-0044": 60,
-    "blockchain": "bsc"
-
+    "blockchain": "bsc",
+    "type": "blockchain",
+    "isShown": true
   },
   {
     "name": "Avalanche",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/avax.png",
     "symbol": "AVAX",
     "slip-0044": 60,
-    "blockchain": "avalanche"
+    "blockchain": "avalanche",
+    "type": "blockchain",
+    "isShown": true
   },
   {
     "name": "polygon_zkevm",
     "icon": "https://cryptologos.cc/logos/mantle-mnt-logo.png?v=032",
     "symbol": "MANTLE",
     "slip-0044": 60,
-    "blockchain": "polygon_zkevm"
+    "blockchain": "polygon_zkevm",
+    "type": "blockchain",
+    "isShown": true
   },
   {
     "name": "optimism",
     "icon": "https://cryptologos.cc/logos/optimism-ethereum-op-logo.png?v=032",
     "symbol": "OP",
     "slip-0044": 60,
-    "blockchain": "optimism"
+    "blockchain": "optimism",
+    "type": "blockchain",
+    "isShown": true
   }
 ]

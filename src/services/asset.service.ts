@@ -1,8 +1,9 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { HDNodeWallet } from "ethers";
 
+import { AssetType } from "@/@types/assets";
+import { NetworkType } from "@/@types/network";
 import chains from "@/data/chains.json";
-import { AccountType, AssetType, NetworkType } from "@/providers/AssetProvider";
 
 const bip39 = require("bip39");
 const BIP84 = require('bip84')

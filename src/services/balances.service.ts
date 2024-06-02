@@ -1,19 +1,10 @@
 
 import { AssetType } from "@/@types/assets";
+import { AddresTypes, BalancesType, AddressType } from "@/@types/balances";
 import { ankrProvider } from "@/config/ankr";
 import { solanaEndpoint } from "@/config/endpoints";
 
 
-export type BalancesType = { blockchain: string, balance: string, balanceUsd: string }
-
-export enum AddresTypes {
-    evm = 'eth',
-    btc = 'btc',
-    solana = 'solana'
-}
-
-
-export type addressType = { address: string, type: AddresTypes }
 
 
 export const getAddress = (assets: AssetType[], type: AddresTypes) => {
@@ -37,7 +28,7 @@ export const getAdresses = (assets: AssetType[] | undefined) => {
     const btcAddress = getAddress(assets, AddresTypes.btc)
     const solanaAddres = getAddress(assets, AddresTypes.solana)
 
-    const addresses: addressType[] = [
+    const addresses: AddressType[] = [
         { address: evmAdress, type: AddresTypes.evm },
         { address: btcAddress, type: AddresTypes.btc },
         { address: solanaAddres, type: AddresTypes.solana }

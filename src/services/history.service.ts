@@ -1,13 +1,13 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 
-import { AddresTypes, addressType } from "./balances.service";
 
+import { AddresTypes, AddressType } from "@/@types/balances";
 import { HistoryType } from "@/@types/history";
 import { ankrProvider } from "@/config/ankr";
 import { hexDecoder } from "@/util/hexDecoder";
 
 
-export const getHistories = async (addresses: addressType[]) => {
+export const getHistories = async (addresses: AddressType[]) => {
     const result: HistoryType[] = []
     try {
         for (const { address, type } of addresses) {

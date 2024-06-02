@@ -19,12 +19,20 @@ export type Ref = BottomSheetModal;
 type Props = {
   networks: NetworkType[] | undefined;
   onSelect: (selected: Blockchain | null) => void;
+  required?: boolean;
 };
 
 const NetworkOptions = forwardRef<Ref, Props>(
-  ({ networks, onSelect = () => {} }, ref) => {
+  ({ networks, onSelect = () => {}, required }, ref) => {
     const snapPoints = useMemo(() => ["95%", "95%"], []);
-    const [selected, setSelected] = useState<Blockchain | null>(null);
+    const [selected, setSelected] = useState<Blockchain | null>(() => {
+      if (networks && required) {
+        return networks[0].label;
+      } else {
+        return null;
+      }
+    });
+
     const [searchQuery, setSearchQuery] = useState("");
     const { t } = useTranslation();
 
@@ -48,7 +56,7 @@ const NetworkOptions = forwardRef<Ref, Props>(
     }
 
     const selectHandler = (network: NetworkType) => {
-      if (selected === network.label) {
+      if (selected === network.label && !required) {
         setSelected(null);
         onSelect(null);
       } else {

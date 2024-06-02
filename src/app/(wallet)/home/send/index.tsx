@@ -7,8 +7,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { AssetType } from "@/@types/assets";
 import { useAssets } from "@/app/api/assets";
-import { Usebalances } from "@/app/api/balances";
-import { useNetworks } from "@/app/api/network";
+import { UseBalances } from "@/app/api/balances";
+import { UseNetworks } from "@/app/api/network";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -22,10 +22,10 @@ import useFilteredAssets from "@/hooks/useFilteredAssets";
 export default function Send() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
 
-  const { data: networks } = useNetworks();
+  const { data: networks } = UseNetworks();
   const { data: assets } = useAssets();
 
-  const { data: balances } = Usebalances();
+  const { data: balances } = UseBalances();
   const { t } = useTranslation();
 
   const [searchQuery, setSearchQuery] = useState("");

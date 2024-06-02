@@ -6,7 +6,7 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import { AssetType } from "@/@types/assets";
 import { useAssets } from "@/app/api/assets";
-import { useNetworks } from "@/app/api/network";
+import { UseNetworks } from "@/app/api/network";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import IconUi from "@/components/ui/IconUi";
@@ -20,10 +20,8 @@ export default function Recieve() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const { t } = useTranslation();
   const { data: assets } = useAssets();
-  const { data: networks } = useNetworks();
+  const { data: networks } = UseNetworks();
   const [searchQuery, setSearchQuery] = useState("");
-
-  // Filtering Logic
 
   const filteredAssets = useFilteredAssets(assets, searchQuery, network);
 

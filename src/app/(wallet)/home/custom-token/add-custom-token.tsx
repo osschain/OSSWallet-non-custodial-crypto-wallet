@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Image } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
-import NetworkButton from "@/components/network/NetworkButton";
+import { UseNetworks } from "@/app/api/network";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
@@ -15,7 +15,6 @@ import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
 import { defaultImage } from "@/util/DefaultImage";
-import { networks } from "@/util/mock";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 const details = [
@@ -32,7 +31,9 @@ const details = [
     value: "18",
   },
 ];
+
 export default function AddCustomToken() {
+  const { data: networks } = UseNetworks();
   const [adress, setAdress] = useState("");
   const { t } = useTranslation();
   const theme = useTheme();
@@ -40,11 +41,6 @@ export default function AddCustomToken() {
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const approveToken = useRef<BottomSheetModal>(null);
-  const networkModal = useRef<BottomSheetModal>(null);
-
-  const handlePresentNetworkModal = () => {
-    networkModal.current?.present();
-  };
 
   const handlePresentModalPress = () => {
     bottomSheetRef.current?.present();
@@ -95,17 +91,8 @@ export default function AddCustomToken() {
           </FooterUi>
         </ScrollContainerUi>
       </BottomSheetModal>
-      <NetworkOptions
-        ref={networkModal}
-        networks={networks}
-        onSelect={() => {}}
-      />
+      <NetworkOptions networks={networks} onSelect={() => {}} required />
       <BodyUi>
-        <SpacerUi>
-          <NetworkButton onPress={handlePresentNetworkModal}>
-            {t("shared.all")} {t("shared.network")}
-          </NetworkButton>
-        </SpacerUi>
         <SpacerUi size="2xl">
           <TextAreaInputUi
             placeholder="Enter Token Adress"

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getNetworks } from "@/services/asset.service";
 
 
-export const useNetworks = () => {
+export const UseNetworks = () => {
     return useQuery({
         queryKey: ["networks"],
         queryFn: async () => {

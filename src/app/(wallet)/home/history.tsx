@@ -1,13 +1,13 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { useAssets } from "@/app/api/assets";
 import { useHistories } from "@/app/api/history";
-import { useNetworks } from "@/app/api/network";
+import { UseNetworks } from "@/app/api/network";
 import HistoryItem, { variants } from "@/components/history/history-item";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
@@ -21,7 +21,7 @@ export default function History() {
   const { t } = useTranslation();
   const { data: histories, isLoading } = useHistories();
   const { data: assets } = useAssets();
-  const { data: networks } = useNetworks();
+  const { data: networks } = UseNetworks();
 
   const filteredHistories = useMemo(() => {
     if (!network) {

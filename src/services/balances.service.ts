@@ -72,13 +72,18 @@ export const fetchBalances = async (addresses: { address: string, type: AddresTy
                     blockchain: [],
                     walletAddress: address,
                 });
-                result.push(...balances.assets);
+                result.push(...balances.assets.map((balance) => {
+                    return {
+                        ...balance,
+                        id: balance.blockchain
+                    }
+                }));
             } else if (type === AddresTypes.solana) {
                 const balance = await solanaGetBalance(address)
                 result.push({
                     balance,
                     balanceUsd: "0",
-                    blockchain: type
+                    id: type
                 })
             } else if (type === AddresTypes.btc) {
 
@@ -100,11 +105,11 @@ export const getBalances = async (assets: AssetType[]) => {
         const balances = await fetchBalances(addresses)
 
         const filteredBalane = balances.map(
-            ({ balance, balanceUsd, blockchain }) => {
+            ({ balance, balanceUsd, id }) => {
                 return {
                     balance,
                     balanceUsd,
-                    blockchain,
+                    id,
                 };
             }
         );

@@ -8,6 +8,7 @@ export interface AccountType {
 }
 
 export type AssetType = {
+    id: string;
     icon: string;
     name: string;
     account: AccountType;

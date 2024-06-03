@@ -38,7 +38,7 @@ export const useAddAssets = () => {
       // Check for unique assets
       assets.forEach((newAsset) => {
         const existingIndex = updatedAssets.findIndex(
-          (asset) => asset.contractAddress === newAsset.contractAddress
+          (asset) => asset.id === newAsset.id
         );
         if (existingIndex === -1) {
           updatedAssets.push(newAsset);
@@ -56,6 +56,31 @@ export const useAddAssets = () => {
     async onSuccess() {
       await queryClient.invalidateQueries({ queryKey: ["assets"] });
       await queryClient.invalidateQueries({ queryKey: ["balances"] });
+    },
+  });
+};
+export const useUpdateAsset = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    async mutationFn(updatedAsset: AssetType) {
+      const fetchedAssets = await AsyncStorage.getItem("assets");
+      let updatedAssets: AssetType[] = [];
+      if (fetchedAssets) {
+        updatedAssets = JSON.parse(fetchedAssets);
+      }
+
+      const assetIndex = updatedAssets.findIndex(asset => asset.id === updatedAsset.id);
+
+      if (assetIndex !== -1) {
+        updatedAssets[assetIndex] = updatedAsset;
+        await AsyncStorage.setItem("assets", JSON.stringify(updatedAssets));
+      }
+
+      return updatedAssets;
+    },
+    async onSuccess() {
+      await queryClient.invalidateQueries({ queryKey: ["assets"] });
     },
   });
 };

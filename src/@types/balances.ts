@@ -1,4 +1,4 @@
-export type BalancesType = { blockchain: string, balance: string, balanceUsd: string }
+export type BalancesType = { id: string, balance: string, balanceUsd: string }
 
 export enum AddresTypes {
     evm = 'eth',

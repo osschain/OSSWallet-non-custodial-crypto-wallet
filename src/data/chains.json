@@ -1,5 +1,6 @@
 [
   {
+    "id": "btc",
     "name": "Bitcoin",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/btc.png",
     "symbol": "BTC",
@@ -8,6 +9,7 @@
     "isShown": true
   },
   {
+    "id": "eth",
     "name": "Ether",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/eth.png",
     "symbol": "ETH",
@@ -16,6 +18,7 @@
     "isShown": true
   },
   {
+    "id": "polygon",
     "name": "Matic",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/matic.png",
     "symbol": "MATIC",
@@ -24,6 +27,7 @@
     "isShown": true
   },
   {
+    "id": "solana",
     "name": "Solana",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/sol.png",
     "symbol": "SOL",
@@ -32,6 +36,7 @@
     "isShown": true
   },
   {
+    "id": "bsc",
     "name": "Binance",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/bnb.png",
     "symbol": "BNB",
@@ -40,6 +45,7 @@
     "isShown": true
   },
   {
+    "id": "avalanche",
     "name": "Avalanche",
     "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/avax.png",
     "symbol": "AVAX",
@@ -48,6 +54,7 @@
     "isShown": true
   },
   {
+    "id": "polygon_zkevm",
     "name": "polygon_zkevm",
     "icon": "https://cryptologos.cc/logos/mantle-mnt-logo.png?v=032",
     "symbol": "MANTLE",
@@ -56,6 +63,7 @@
     "isShown": true
   },
   {
+    "id": "optimism",
     "name": "optimism",
     "icon": "https://cryptologos.cc/logos/optimism-ethereum-op-logo.png?v=032",
     "symbol": "OP",

@@ -21,6 +21,7 @@ export default function _layout() {
           contentStyle: {
             backgroundColor: theme.colors["bg-primary"],
           },
+          headerLeft: () => null,
           headerRight: () => {
             return (
               <IconUi

@@ -83,6 +83,7 @@ export default function AddCustomToken() {
     if (!ethAccount) return;
 
     const asset: AssetType = {
+      id: address,
       icon: defaultImage,
       name: tokenProperties?.name,
       symbol: tokenProperties?.symbol,

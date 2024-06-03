@@ -24,8 +24,10 @@ function Index() {
     if (!searchQuery) {
       return assets;
     }
-    return assets?.filter((asset) =>
-      asset.name.toLowerCase().includes(searchQuery.toLowerCase())
+    return assets?.filter(
+      (asset) =>
+        asset.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        asset.contractAddress?.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [assets, searchQuery]);
 

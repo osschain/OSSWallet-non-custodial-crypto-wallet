@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useEffect } from "react";
 
@@ -17,7 +18,8 @@ export default function WalletCreating() {
       if (!assets) {
         return;
       }
-      addAssets(assets);
+
+      await AsyncStorage.setItem("assets", JSON.stringify(assets));
 
       router.push("auth/congretulation");
     }, 0);

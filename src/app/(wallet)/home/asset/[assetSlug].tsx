@@ -13,6 +13,7 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { getAdresses } from "@/services/balances.service";
+import { findAsset } from "@/util/findAsset";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function Asset() {
@@ -21,13 +22,12 @@ export default function Asset() {
   const theme = useTheme();
 
   const { data: assets } = useAssets();
-
-  const asset = assets?.find((asset) => asset.blockchain === slug);
-
+  const asset = findAsset(assets, slug as string);
   const { data: histories, isLoading } = useHistory(
     asset?.account.address,
     asset?.blockchain
   );
+  console.log(slug);
 
   const checkAddres = (from: string): variants | undefined => {
     if (!assets) return;

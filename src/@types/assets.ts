@@ -8,12 +8,21 @@ export interface AccountType {
 }
 
 export type AssetType = {
+    id: string;
     icon: string;
     name: string;
     account: AccountType;
     symbol: string;
     blockchain: OSSblockchain;
+    contractAddress?: string;
+    isShown: boolean;
 };
+
+export type tokenType = {
+    symbol: string;
+    name: string;
+    decimals: string;
+}
 
 
 

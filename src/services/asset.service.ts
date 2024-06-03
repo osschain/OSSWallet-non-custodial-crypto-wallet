@@ -22,7 +22,6 @@ const solanaAccount = async (mnemonic: string) => {
         const address = bs58.encode(keypair.publicKey)
         const privateKey = bs58.encode(keypair.secretKey)
 
-        console.log(address, privateKey)
 
         return { address, publicKey: address, privetKey: privateKey }
     } catch {

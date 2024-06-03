@@ -12,12 +12,13 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { findAsset } from "@/util/findAsset";
 
 export default function Swap() {
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
   const { data: assets } = useAssets();
-  const asset = assets?.find((asset) => asset.blockchain === slug);
+  const asset = findAsset(assets, slug as string);
   const [target, setTarget] = useState<AssetType | null>(null);
   const targetOptions = useRef<BottomSheetModal>(null);
 

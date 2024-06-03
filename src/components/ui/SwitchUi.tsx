@@ -24,12 +24,11 @@ type Props = {
 
 export const SwitchUi = ({ onSwitch, value = false, ...rest }: Props) => {
   const [isEnabled, setIsEnabled] = useState(value);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+    onSwitch(!isEnabled);
+  };
   const theme = useTheme();
-
-  useEffect(() => {
-    if (onSwitch) onSwitch(isEnabled);
-  }, [isEnabled, onSwitch]);
 
   return (
     <Switch

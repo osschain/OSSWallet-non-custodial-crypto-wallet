@@ -3,6 +3,9 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList } from "react-native";
 
+import { AssetType } from "@/@types/assets";
+import { useAssets, useUpdateAsset } from "@/app/api/assets";
+import { UseNetworks } from "@/app/api/network";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import IconUi from "@/components/ui/IconUi";
@@ -11,19 +14,30 @@ import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { assets } from "@/util/mock";
 
 function Index() {
   const [searchQuery, setSearchQuery] = useState("");
   const { t } = useTranslation();
+  const { data: assets } = useAssets();
+  const { mutate: updateAsset } = useUpdateAsset();
   const filteredAssets = useMemo(() => {
     if (!searchQuery) {
       return assets;
     }
-    return assets.filter((network) =>
-      network.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return assets?.filter(
+      (asset) =>
+        asset.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        asset.contractAddress?.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [searchQuery]);
+  }, [assets, searchQuery]);
+
+  const handleAssetShow = (item: AssetType) => {
+    const asset: AssetType = {
+      ...item,
+      isShown: !item.isShown,
+    };
+    updateAsset(asset);
+  };
 
   if (!assets) {
     return (
@@ -56,14 +70,23 @@ function Index() {
 
         <SpacerUi size="xl">
           <FlatList
+            contentContainerStyle={{ paddingTop: 10 }}
             data={filteredAssets}
             renderItem={({ item }) => (
               <SpacerUi size="xl" position="bottom">
                 <ItemUi
-                  uri={item.image}
-                  title={item.title}
-                  description={item.description}
-                  right={<SwitchUi onSwitch={() => {}} />}
+                  uri={item.icon}
+                  title={item.name}
+                  right={
+                    <SpacerUi position="right">
+                      <SwitchUi
+                        value={item.isShown}
+                        onSwitch={() => {
+                          handleAssetShow(item);
+                        }}
+                      />
+                    </SpacerUi>
+                  }
                 />
               </SpacerUi>
             )}

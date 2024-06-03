@@ -24,7 +24,7 @@ export const getHistories = async (addresses: AddressType[]) => {
                         to,
                         from,
                         value: hexDecoder(value).toString(),
-                        blockchain
+                        id: blockchain
                     }
                 })
 
@@ -60,7 +60,7 @@ export const getHistory = async (address: string, blockchain: OSSblockchain) => 
                 to,
                 from,
                 value: hexDecoder(value).toString(),
-                blockchain
+                id: blockchain
             }
         })
 

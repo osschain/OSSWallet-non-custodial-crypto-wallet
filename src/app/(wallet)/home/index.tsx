@@ -32,19 +32,17 @@ export default function Home() {
     return Number(balance?.toFixed(3));
   };
 
-  const calculateBalance = (blockchain: string) => {
+  const calculateBalance = (id: string) => {
     const balance = Number(
-      balances?.find((balance) => blockchain === balance.blockchain)?.balance ||
-        0
+      balances?.find((balance) => id === balance.id)?.balance || 0
     );
 
     return Number(balance.toFixed(3));
   };
 
-  const calculateUsdBalance = (blockchain: string) => {
+  const calculateUsdBalance = (id: string) => {
     const balance = Number(
-      balances?.find((balance) => blockchain === balance.blockchain)
-        ?.balanceUsd || 0
+      balances?.find((balance) => id === balance.id)?.balanceUsd || 0
     );
 
     return Number(balance.toFixed(3));
@@ -74,18 +72,22 @@ export default function Home() {
           <FlatList
             data={assets}
             renderItem={({ item }) => (
-              <SpacerUi size="xl" position="bottom">
-                <Link href={`/(wallet)/home/asset/${item.blockchain}`} asChild>
-                  <TouchableOpacity>
-                    <AssetItem
-                      uri={item.icon}
-                      assetName={item.name}
-                      assetAmount={calculateBalance(item.blockchain)}
-                      usdAmount={calculateUsdBalance(item.blockchain)}
-                    />
-                  </TouchableOpacity>
-                </Link>
-              </SpacerUi>
+              <>
+                {item.isShown && (
+                  <SpacerUi size="xl" position="bottom">
+                    <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
+                      <TouchableOpacity>
+                        <AssetItem
+                          uri={item.icon}
+                          assetName={item.name}
+                          assetAmount={calculateBalance(item.id)}
+                          usdAmount={calculateUsdBalance(item.id)}
+                        />
+                      </TouchableOpacity>
+                    </Link>
+                  </SpacerUi>
+                )}
+              </>
             )}
           />
         )}

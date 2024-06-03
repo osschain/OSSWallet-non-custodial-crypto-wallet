@@ -19,5 +19,5 @@ export const getTokenProperties = async (address: string, blockchain: Blockchain
 };
 
 export const isValidERC20Addres = (address: string) => {
-    return typeof address === 'string' && address.length > 40 && address.startsWith('0x');
+    return typeof address === 'string' && address.length === 42 && address.startsWith('0x');
 }

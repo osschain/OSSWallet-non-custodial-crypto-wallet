@@ -16,6 +16,7 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
+import MessageUi from "@/components/ui/MessageUi";
 import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextAreaInputUi } from "@/components/ui/TextInputUi";
@@ -27,6 +28,8 @@ import { defaultImage } from "@/util/DefaultImage";
 
 export default function AddCustomToken() {
   const [address, setAddress] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
   const { mutate: addAddress } = useAddAssets();
   const [tokenProperties, setTokenProperties] = useState<tokenType | null>();
   const { data: assets } = useAssets();
@@ -43,10 +46,13 @@ export default function AddCustomToken() {
       }
 
       try {
+        setLoading(true);
         const properties = await getTokenProperties(address.trim(), network);
         setTokenProperties(properties);
       } catch {
         setTokenProperties(null);
+      } finally {
+        setLoading(false);
       }
     };
     bootstrapAsync();
@@ -93,11 +99,9 @@ export default function AddCustomToken() {
       isShown: true,
     };
 
-    console.log(asset);
-
     try {
       addAddress([asset]);
-      router.push("/(wallet)/home");
+      router.replace("/(wallet)/home");
       approveToken.current?.close();
     } catch (error) {
       console.log(error);
@@ -192,6 +196,17 @@ export default function AddCustomToken() {
             }
           />
         </SpacerUi>
+        {loading && (
+          <SpacerUi size="4xl">
+            <ActivityIndicator />
+          </SpacerUi>
+        )}
+
+        {address && !tokenProperties && !loading && (
+          <SpacerUi size="xl">
+            <MessageUi>Can't find token</MessageUi>
+          </SpacerUi>
+        )}
         <SpacerUi size="3xl">
           {tokenProperties && (
             <TokenProperties>

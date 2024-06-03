@@ -28,13 +28,14 @@ export default function Home() {
     }, 0);
 
     if (balance === 0) return balance;
-
     return Number(balance?.toFixed(1));
   };
 
   const calculateBalance = (id: string) => {
+    console.log(balances);
     const balance = Number(
-      balances?.find((balance) => id === balance.id)?.balance || 0
+      balances?.find((balance) => id.toLowerCase() === balance.id.toLowerCase())
+        ?.balance || 0
     );
 
     return Number(balance.toFixed(3));
@@ -42,7 +43,8 @@ export default function Home() {
 
   const calculateUsdBalance = (id: string) => {
     const balance = Number(
-      balances?.find((balance) => id === balance.id)?.balanceUsd || 0
+      balances?.find((balance) => id.toLowerCase() === balance.id.toLowerCase())
+        ?.balanceUsd || 0
     );
 
     return Number(balance.toFixed(1));

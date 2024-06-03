@@ -1,8 +1,14 @@
 
+import { Blockchain } from "@ankr.com/ankr.js";
+import { formatUnits } from "ethers";
+
+import { getContract } from "./token.service";
+
 import { AssetType } from "@/@types/assets";
 import { AddresTypes, BalancesType, AddressType } from "@/@types/balances";
 import { ankrProvider } from "@/config/ankr";
 import { solanaEndpoint } from "@/config/endpoints";
+
 
 
 
@@ -27,6 +33,7 @@ export const getAdresses = (assets: AssetType[] | undefined) => {
     const evmAdress = getAddress(assets, AddresTypes.evm);
     const btcAddress = getAddress(assets, AddresTypes.btc)
     const solanaAddres = getAddress(assets, AddresTypes.solana)
+
 
     const addresses: AddressType[] = [
         { address: evmAdress, type: AddresTypes.evm },
@@ -60,9 +67,15 @@ export const solanaGetBalance = async (address: string) => {
     }
 }
 
+export const getCustomTokens = (assets: AssetType[]) => {
+    const customTokens = assets.filter(asset => asset.contractAddress)
+
+    return customTokens
+}
 
 
-export const fetchBalances = async (addresses: { address: string, type: AddresTypes }[]) => {
+
+export const getChainBalances = async (addresses: { address: string, type: AddresTypes }[]) => {
     const result: BalancesType[] = [];
 
     try {
@@ -75,9 +88,10 @@ export const fetchBalances = async (addresses: { address: string, type: AddresTy
                 result.push(...balances.assets.map((balance) => {
                     return {
                         ...balance,
-                        id: balance.blockchain
+                        id: balance.contractAddress ? balance.contractAddress : balance.blockchain
                     }
                 }));
+
             } else if (type === AddresTypes.solana) {
                 const balance = await solanaGetBalance(address)
                 result.push({
@@ -95,6 +109,34 @@ export const fetchBalances = async (addresses: { address: string, type: AddresTy
     }
 };
 
+const getTokenBalance = async (contractAddress: string, address: string, blockchain: string) => {
+    const contract = getContract(contractAddress, blockchain as Blockchain)
+    const rawBalance = await contract.balanceOf(address);
+    const balance = formatUnits(rawBalance);
+
+    return balance
+
+}
+const getTokenBalances = async (tokens: AssetType[]) => {
+    const result: BalancesType[] = []
+
+    for (const { contractAddress, blockchain, account, id } of tokens) {
+        if (!contractAddress) continue;
+
+        const balance = await getTokenBalance(contractAddress, account.address, blockchain)
+
+        result.push({
+            balance,
+            balanceUsd: "0",
+            id
+        })
+    }
+
+    return result
+}
+
+
+
 export const getBalances = async (assets: AssetType[]) => {
 
 
@@ -102,9 +144,16 @@ export const getBalances = async (assets: AssetType[]) => {
     try {
         // if (!evmAdress) return null;
         const addresses = getAdresses(assets)
-        const balances = await fetchBalances(addresses)
+        const chainBalances = await getChainBalances(addresses)
 
-        const filteredBalane = balances.map(
+        // const customTokens = getCustomTokens(assets);
+        // const tokenBalances = await getTokenBalances(customTokens)
+
+        // console.log(tokenBalances)
+
+        // const balances = [...chainBalances, ...tokenBalances]
+
+        const filteredBalane = chainBalances.map(
             ({ balance, balanceUsd, id }) => {
                 return {
                     balance,
@@ -117,6 +166,7 @@ export const getBalances = async (assets: AssetType[]) => {
 
         return filteredBalane;
     } catch (error) {
+        console.log(error)
         throw error
     }
 };

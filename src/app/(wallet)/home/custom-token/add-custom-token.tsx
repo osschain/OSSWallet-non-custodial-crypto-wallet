@@ -30,7 +30,7 @@ export default function AddCustomToken() {
   const [address, setAddress] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  const { mutate: addAddress } = useAddAssets();
+  const { mutate: addAsset } = useAddAssets();
   const [tokenProperties, setTokenProperties] = useState<tokenType | null>();
   const { data: assets } = useAssets();
   const { data: networks, isLoading, isError } = UseNetworks();
@@ -100,7 +100,7 @@ export default function AddCustomToken() {
     };
 
     try {
-      addAddress([asset]);
+      addAsset([asset]);
       router.replace("/(wallet)/home");
       approveToken.current?.close();
     } catch (error) {

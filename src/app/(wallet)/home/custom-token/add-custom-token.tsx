@@ -1,5 +1,6 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { router } from "expo-router";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Alert } from "react-native";
@@ -23,7 +24,6 @@ import {
   isValidERC20Addres,
 } from "@/services/token.service";
 import { defaultImage } from "@/util/DefaultImage";
-import { router } from "expo-router";
 
 export default function AddCustomToken() {
   const [address, setAddress] = useState<string>("");
@@ -86,11 +86,14 @@ export default function AddCustomToken() {
       icon: defaultImage,
       name: tokenProperties?.name,
       symbol: tokenProperties?.symbol,
-      network,
-      blockchain: tokenProperties?.name as Blockchain,
+      blockchain: network,
       account: ethAccount?.account,
-      type: "token",
+      contractAddress: address,
+      isShown: true,
     };
+
+    console.log(asset);
+
     try {
       addAddress([asset]);
       router.push("/(wallet)/home");

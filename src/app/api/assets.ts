@@ -38,7 +38,7 @@ export const useAddAssets = () => {
       // Check for unique assets
       assets.forEach((newAsset) => {
         const existingIndex = updatedAssets.findIndex(
-          (asset) => asset.blockchain === newAsset.blockchain
+          (asset) => asset.contractAddress === newAsset.contractAddress
         );
         if (existingIndex === -1) {
           updatedAssets.push(newAsset);

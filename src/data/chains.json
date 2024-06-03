@@ -5,7 +5,6 @@
     "symbol": "BTC",
     "slip-0044": 0,
     "blockchain": "btc",
-    "type": "blockchain",
     "isShown": true
   },
   {
@@ -14,7 +13,6 @@
     "symbol": "ETH",
     "slip-0044":60,
     "blockchain": "eth",
-    "type": "blockchain",
     "isShown": true
   },
   {
@@ -23,7 +21,6 @@
     "symbol": "MATIC",
     "slip-0044": 60,
     "blockchain": "polygon",
-    "type": "blockchain",
     "isShown": true
   },
   {
@@ -32,7 +29,6 @@
     "symbol": "SOL",
     "slip-0044": 501,
     "blockchain": "solana",
-    "type": "blockchain",
     "isShown": true
   },
   {
@@ -41,7 +37,6 @@
     "symbol": "BNB",
     "slip-0044": 60,
     "blockchain": "bsc",
-    "type": "blockchain",
     "isShown": true
   },
   {
@@ -50,7 +45,6 @@
     "symbol": "AVAX",
     "slip-0044": 60,
     "blockchain": "avalanche",
-    "type": "blockchain",
     "isShown": true
   },
   {
@@ -59,7 +53,6 @@
     "symbol": "MANTLE",
     "slip-0044": 60,
     "blockchain": "polygon_zkevm",
-    "type": "blockchain",
     "isShown": true
   },
   {
@@ -68,7 +61,6 @@
     "symbol": "OP",
     "slip-0044": 60,
     "blockchain": "optimism",
-    "type": "blockchain",
     "isShown": true
   }
 ]

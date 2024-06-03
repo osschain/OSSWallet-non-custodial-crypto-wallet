@@ -10,12 +10,14 @@ import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
+import { findAsset } from "@/util/findAsset";
 
 export default function SendChain() {
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
   const { data: assets } = useAssets();
-  const asset = assets?.find((asset) => asset.blockchain === slug);
+
+  const asset = findAsset(assets, slug as string);
 
   if (!assets || !asset) {
     return (

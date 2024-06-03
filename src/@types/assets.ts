@@ -13,8 +13,7 @@ export type AssetType = {
     account: AccountType;
     symbol: string;
     blockchain: OSSblockchain;
-    network: string;
-    type: "blockhain" | "token";
+    contractAddress?: string;
     isShown: boolean;
 };
 

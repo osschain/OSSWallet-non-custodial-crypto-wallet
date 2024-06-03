@@ -75,7 +75,10 @@ export default function Home() {
             data={assets}
             renderItem={({ item }) => (
               <SpacerUi size="xl" position="bottom">
-                <Link href={`/(wallet)/home/asset/${item.blockchain}`} asChild>
+                <Link
+                  href={`/(wallet)/home/asset/${item.contractAddress ? item.contractAddress : item.blockchain}`}
+                  asChild
+                >
                   <TouchableOpacity>
                     <AssetItem
                       uri={item.icon}

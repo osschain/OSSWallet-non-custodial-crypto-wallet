@@ -29,7 +29,7 @@ export default function Home() {
 
     if (balance === 0) return balance;
 
-    return Number(balance?.toFixed(3));
+    return Number(balance?.toFixed(1));
   };
 
   const calculateBalance = (id: string) => {
@@ -45,7 +45,7 @@ export default function Home() {
       balances?.find((balance) => id === balance.id)?.balanceUsd || 0
     );
 
-    return Number(balance.toFixed(3));
+    return Number(balance.toFixed(1));
   };
 
   return (

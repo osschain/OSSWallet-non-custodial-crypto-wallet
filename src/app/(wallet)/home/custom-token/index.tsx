@@ -68,7 +68,7 @@ function Index() {
           />
         </SpacerUi>
 
-        <SpacerUi size="xl">
+        <SpacerUi size="xl" style={{ flex: 1 }}>
           <FlatList
             contentContainerStyle={{ paddingTop: 10 }}
             data={filteredAssets}

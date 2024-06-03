@@ -12,7 +12,8 @@ export const getTokenProperties = async (address: string, blockchain: Blockchain
         const symbol = await contract.symbol();
         const decimals = await contract.decimals();
         return { name, symbol, decimals };
-    } catch {
+    } catch (error) {
+        console.log(error)
         throw new Error("Failed to fetch token data");
     }
 };

@@ -36,7 +36,9 @@ export default function History() {
   const checkAddres = (from: string): variants | undefined => {
     if (!assets) return;
     const adresses = getAdresses(assets);
-    const isFromMe = adresses.find((adress) => adress.address === from);
+    const isFromMe = adresses.find(
+      (adress) => adress.address.toLowerCase() === from.toLowerCase()
+    );
 
     if (isFromMe) {
       return "send";

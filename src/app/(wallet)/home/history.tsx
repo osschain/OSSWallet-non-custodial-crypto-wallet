@@ -74,8 +74,9 @@ export default function History() {
       <SpacerUi size="xl" style={{ flex: filteredHistories?.length ? 1 : 0 }}>
         <FlatList
           data={filteredHistories}
+          keyExtractor={(item) => item.transactionIndex}
           renderItem={({ item }) => (
-            <SpacerUi size="xl" position="bottom" key={item.to}>
+            <SpacerUi size="xl" position="bottom">
               <HistoryItem
                 walletAddress={item.from}
                 variant={checkAddres(item.from)}

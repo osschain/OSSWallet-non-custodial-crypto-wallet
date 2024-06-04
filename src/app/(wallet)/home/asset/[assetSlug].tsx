@@ -130,7 +130,8 @@ export default function Asset() {
       <SpacerUi size="4xl" style={{ flex: histories?.length ? 1 : 0 }}>
         <FlatList
           data={histories}
-          renderItem={({ item, index }) => (
+          keyExtractor={(item) => item.transactionIndex}
+          renderItem={({ item }) => (
             <SpacerUi size="xl" position="bottom">
               <HistoryItem
                 walletAddress={item.from}

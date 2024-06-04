@@ -5,5 +5,6 @@ export type HistoryType = {
     to: string | undefined;
     value: string;
     id: string | undefined;
-    blockchain: OSSblockchain
+    blockchain: OSSblockchain;
+    transactionIndex: string;
 };

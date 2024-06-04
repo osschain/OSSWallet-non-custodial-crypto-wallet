@@ -18,8 +18,9 @@ export const getHistories = async (addresses: AddressType[]) => {
                     descOrder: true,
                 });
 
-                const filtered = histories.transactions.map(({ to, from, value, blockchain }) => {
+                const filtered = histories.transactions.map(({ transactionIndex, to, from, value, blockchain }) => {
                     return {
+                        transactionIndex,
                         to,
                         from,
                         value: hexDecoder(value).toString(),
@@ -57,8 +58,9 @@ export const getHistory = async (address: string, blockchain: OSSblockchain) => 
         });
 
 
-        const filtered = histories.transactions.map(({ to, from, value, blockchain, contractAddress }) => {
+        const filtered = histories.transactions.map(({ transactionIndex, to, from, value, blockchain, contractAddress }) => {
             return {
+                transactionIndex,
                 to,
                 from,
                 value: hexDecoder(value).toString(),

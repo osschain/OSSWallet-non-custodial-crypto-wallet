@@ -1,10 +1,9 @@
 import { Blockchain } from "@ankr.com/ankr.js";
-
+import { formatEther } from "ethers";
 
 import { AddresTypes, AddressType } from "@/@types/balances";
 import { HistoryType } from "@/@types/history";
 import { ankrProvider } from "@/config/ankr";
-import { hexDecoder } from "@/util/hexDecoder";
 
 
 export const getHistories = async (addresses: AddressType[]) => {
@@ -23,7 +22,7 @@ export const getHistories = async (addresses: AddressType[]) => {
                         transactionIndex,
                         to,
                         from,
-                        value: hexDecoder(value).toString(),
+                        value: formatEther(value),
                         id: blockchain,
                         blockchain: blockchain as OSSblockchain
                     }

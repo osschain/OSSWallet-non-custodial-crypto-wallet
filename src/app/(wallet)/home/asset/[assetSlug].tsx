@@ -23,12 +23,12 @@ export default function Asset() {
 
   const { data: assets } = useAssets();
   const asset = findAsset(assets, slug as string);
-  const { data: histories, isLoading } = useHistory(
-    asset?.account.address,
-    asset?.blockchain
-  );
+  const {
+    data: histories,
+    isLoading,
+    isError,
+  } = useHistory(asset?.account.address, asset?.blockchain);
 
-  console.log(histories);
   const checkAddres = (from: string): variants | undefined => {
     if (!assets) return;
     const adresses = getAdresses(assets);
@@ -44,11 +44,13 @@ export default function Asset() {
     }
   };
 
-  if (!asset) {
+  if (isError) {
     return (
-      <SpacerUi size="3xl">
-        <MessageUi>Something went wrong</MessageUi>
-      </SpacerUi>
+      <ContainerUi>
+        <SpacerUi size="3xl">
+          <MessageUi>Something went wrong</MessageUi>
+        </SpacerUi>
+      </ContainerUi>
     );
   }
 

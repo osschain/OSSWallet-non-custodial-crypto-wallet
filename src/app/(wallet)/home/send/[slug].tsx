@@ -6,7 +6,12 @@ import { useAssets } from "@/app/api/assets";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
+import {
+  BodyUi,
+  ContainerUi,
+  FooterUi,
+  ScrollContainerUi,
+} from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
@@ -15,15 +20,17 @@ import { findAsset } from "@/util/findAsset";
 export default function SendChain() {
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
-  const { data: assets } = useAssets();
+  const { data: assets, isError } = useAssets();
 
   const asset = findAsset(assets, slug as string);
 
-  if (!assets || !asset) {
+  if (isError || !asset) {
     return (
-      <SpacerUi>
-        <MessageUi> t("shared.asset-error")</MessageUi>
-      </SpacerUi>
+      <ContainerUi>
+        <SpacerUi>
+          <MessageUi> t("shared.asset-error")</MessageUi>
+        </SpacerUi>
+      </ContainerUi>
     );
   }
 

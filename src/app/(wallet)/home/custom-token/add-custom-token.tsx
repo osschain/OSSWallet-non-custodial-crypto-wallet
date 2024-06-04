@@ -15,7 +15,12 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
+import {
+  BodyUi,
+  ContainerUi,
+  FooterUi,
+  ScrollContainerUi,
+} from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
@@ -111,9 +116,11 @@ export default function AddCustomToken() {
 
   if (isError) {
     return (
-      <SpacerUi size="4xl">
-        <AlertWithImageUI title="Can't Display Networks" />
-      </SpacerUi>
+      <ContainerUi>
+        <SpacerUi size="4xl">
+          <AlertWithImageUI title="Can't Display Networks" />
+        </SpacerUi>
+      </ContainerUi>
     );
   }
 

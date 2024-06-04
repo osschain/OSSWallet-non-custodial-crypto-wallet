@@ -10,7 +10,12 @@ import { useAssets } from "@/app/api/assets";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
+import {
+  BodyUi,
+  ContainerUi,
+  FooterUi,
+  ScrollContainerUi,
+} from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { findAsset } from "@/util/findAsset";
@@ -19,15 +24,17 @@ export default function RecieveDetails() {
   const [isCopied, setIsCopied] = useState(false);
   const { slug } = useLocalSearchParams();
   const { t } = useTranslation();
-  const { data: assets } = useAssets();
+  const { data: assets, isError } = useAssets();
 
   const asset = findAsset(assets, slug as string);
 
-  if (!assets || !asset) {
+  if (isError || !asset) {
     return (
-      <SpacerUi>
-        <MessageUi>t("shared.asset-error")</MessageUi>
-      </SpacerUi>
+      <ContainerUi>
+        <SpacerUi>
+          <MessageUi>t("shared.asset-error")</MessageUi>
+        </SpacerUi>
+      </ContainerUi>
     );
   }
 

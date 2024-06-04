@@ -27,12 +27,15 @@ export default function Asset() {
     asset?.account.address,
     asset?.blockchain
   );
-  console.log(slug);
 
+  console.log(histories);
   const checkAddres = (from: string): variants | undefined => {
     if (!assets) return;
     const adresses = getAdresses(assets);
-    const isFromMe = adresses.find((adress) => adress.address === from);
+
+    const isFromMe = adresses.find((adress) => {
+      return adress.address.toLowerCase() === from.toLocaleLowerCase();
+    });
 
     if (isFromMe) {
       return "send";
@@ -127,8 +130,8 @@ export default function Asset() {
       <SpacerUi size="4xl" style={{ flex: histories?.length ? 1 : 0 }}>
         <FlatList
           data={histories}
-          renderItem={({ item }) => (
-            <SpacerUi size="xl" position="bottom" key={item.value}>
+          renderItem={({ item, index }) => (
+            <SpacerUi size="xl" position="bottom">
               <HistoryItem
                 walletAddress={item.from}
                 variant={checkAddres(item.from)}

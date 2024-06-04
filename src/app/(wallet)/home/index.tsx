@@ -23,22 +23,22 @@ export default function Home() {
   const { data: balances } = UseBalances();
 
   const totalBalance = () => {
+    console.log(balances);
     const balance = balances?.reduce((prev, current) => {
-      return Number(current.balance) + prev;
+      return Number(current.balanceUsd) + prev;
     }, 0);
 
     if (balance === 0) return balance;
-    return Number(balance?.toFixed(1));
+    return Number(balance?.toFixed(2));
   };
 
   const calculateBalance = (id: string) => {
-    console.log(balances);
     const balance = Number(
       balances?.find((balance) => id.toLowerCase() === balance.id.toLowerCase())
         ?.balance || 0
     );
 
-    return Number(balance.toFixed(3));
+    return balance;
   };
 
   const calculateUsdBalance = (id: string) => {
@@ -47,7 +47,7 @@ export default function Home() {
         ?.balanceUsd || 0
     );
 
-    return Number(balance.toFixed(1));
+    return Number(balance.toFixed(2));
   };
 
   return (

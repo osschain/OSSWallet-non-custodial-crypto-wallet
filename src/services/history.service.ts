@@ -15,7 +15,6 @@ export const getHistories = async (addresses: AddressType[]) => {
                 const histories = await ankrProvider.getTransactionsByAddress({
                     blockchain: [],
                     address: [address],
-                    pageSize: 1,
                     descOrder: true,
                 });
 
@@ -49,19 +48,21 @@ export const getHistory = async (address: string, blockchain: OSSblockchain) => 
     }
 
     try {
+
+
         const histories = await ankrProvider.getTransactionsByAddress({
             blockchain: [blockchain],
             address: [address],
-            pageSize: 1,
             descOrder: true,
         });
 
-        const filtered = histories.transactions.map(({ to, from, value, blockchain }) => {
+
+        const filtered = histories.transactions.map(({ to, from, value, blockchain, contractAddress }) => {
             return {
                 to,
                 from,
                 value: hexDecoder(value).toString(),
-                id: blockchain
+                id: contractAddress ? contractAddress : blockchain
             }
         })
 

@@ -62,7 +62,7 @@ export const getHistory = async (address: string, blockchain: OSSblockchain) => 
                 transactionIndex,
                 to,
                 from,
-                value: hexDecoder(value).toString(),
+                value: formatEther(value),
                 id: contractAddress ? contractAddress : blockchain
             }
         })

@@ -1,16 +1,37 @@
-
-import { Blockchain } from "@ankr.com/ankr.js";
-import { formatUnits } from "ethers";
-
-import { getContract } from "./token.service";
-
 import { AssetType } from "@/@types/assets";
 import { AddresTypes, BalancesType, AddressType } from "@/@types/balances";
 import { ankrProvider } from "@/config/ankr";
 import { solanaEndpoint } from "@/config/endpoints";
 
 
+export const totalBalance = (balances: BalancesType[] | undefined) => {
+    const balance = balances?.reduce((prev, current) => {
+        return Number(current.balanceUsd) + prev;
+    }, 0);
 
+    if (balance === 0) return balance;
+    return Number(balance?.toFixed(2));
+};
+
+export const calculateBalance = (id: string, balances: BalancesType[] | undefined) => {
+    const balance = Number(
+        balances?.find((balance) => {
+            return id.toLowerCase() === balance.id.toLowerCase()
+        })
+            ?.balance || 0
+    );
+
+    return balance;
+};
+
+export const calculateUsdBalance = (id: string, balances: BalancesType[] | undefined) => {
+    const balance = Number(
+        balances?.find((balance) => id.toLowerCase() === balance.id.toLowerCase())
+            ?.balanceUsd || 0
+    );
+
+    return Number(balance.toFixed(2));
+};
 
 
 export const getAddress = (assets: AssetType[], type: AddresTypes) => {
@@ -109,31 +130,6 @@ export const getChainBalances = async (addresses: { address: string, type: Addre
     }
 };
 
-const getTokenBalance = async (contractAddress: string, address: string, blockchain: string) => {
-    const contract = getContract(contractAddress, blockchain as Blockchain)
-    const rawBalance = await contract.balanceOf(address);
-    const balance = formatUnits(rawBalance);
-
-    return balance
-
-}
-const getTokenBalances = async (tokens: AssetType[]) => {
-    const result: BalancesType[] = []
-
-    for (const { contractAddress, blockchain, account, id } of tokens) {
-        if (!contractAddress) continue;
-
-        const balance = await getTokenBalance(contractAddress, account.address, blockchain)
-
-        result.push({
-            balance,
-            balanceUsd: "0",
-            id
-        })
-    }
-
-    return result
-}
 
 
 

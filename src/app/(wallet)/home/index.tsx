@@ -1,6 +1,6 @@
 import { Link, router } from "expo-router";
-import { useState } from "react";
-import { FlatList } from "react-native";
+import { useMemo, useState } from "react";
+import { ActivityIndicator, FlatList } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, { FadeInRight } from "react-native-reanimated";
 import styled from "styled-components/native";
@@ -12,6 +12,11 @@ import NftItem from "@/components/nft/NftItem";
 import SegmentedControl from "@/components/segment";
 import SpacerUi from "@/components/ui/SpacerUi";
 import WalletCard from "@/components/wallet/wallet-card";
+import {
+  calculateBalance,
+  calculateUsdBalance,
+  totalBalance,
+} from "@/services/balances.service";
 import { nfts } from "@/util/mock";
 
 type Segment = "Assets" | "NFT";
@@ -19,42 +24,17 @@ const segmentOptions: Segment[] = ["Assets", "NFT"];
 export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const { data: assets } = useAssets();
+  const { data: balances, isLoading: isBalancesLoading } = UseBalances();
 
-  const { data: balances } = UseBalances();
-
-  const totalBalance = () => {
-    console.log(balances);
-    const balance = balances?.reduce((prev, current) => {
-      return Number(current.balanceUsd) + prev;
-    }, 0);
-
-    if (balance === 0) return balance;
-    return Number(balance?.toFixed(2));
-  };
-
-  const calculateBalance = (id: string) => {
-    const balance = Number(
-      balances?.find((balance) => id.toLowerCase() === balance.id.toLowerCase())
-        ?.balance || 0
-    );
-
-    return balance;
-  };
-
-  const calculateUsdBalance = (id: string) => {
-    const balance = Number(
-      balances?.find((balance) => id.toLowerCase() === balance.id.toLowerCase())
-        ?.balanceUsd || 0
-    );
-
-    return Number(balance.toFixed(2));
-  };
+  const total = useMemo(() => {
+    return totalBalance(balances);
+  }, [balances]);
 
   return (
     <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
       <CardContainer>
         <WalletCard
-          balance={totalBalance()}
+          balance={total}
           onHistory={() => router.push("/(wallet)/home/history")}
           onRecieve={() => router.push("/(wallet)/home/recieve")}
           onSend={() => router.push("/(wallet)/home/send")}
@@ -70,7 +50,12 @@ export default function Home() {
         />
       </SpacerUi>
       <AssetContainer>
-        {segment === "Assets" && (
+        {isBalancesLoading && (
+          <SpacerUi size="xl">
+            <ActivityIndicator />
+          </SpacerUi>
+        )}
+        {segment === "Assets" && !isBalancesLoading && (
           <FlatList
             data={assets}
             renderItem={({ item }) => (
@@ -82,8 +67,8 @@ export default function Home() {
                         <AssetItem
                           uri={item.icon}
                           assetName={item.name}
-                          assetAmount={calculateBalance(item.id)}
-                          usdAmount={calculateUsdBalance(item.id)}
+                          assetAmount={calculateBalance(item.id, balances)}
+                          usdAmount={calculateUsdBalance(item.id, balances)}
                         />
                       </TouchableOpacity>
                     </Link>

@@ -33,8 +33,8 @@ export default function History() {
     );
   }, [histories, network]);
 
-  const checkAddres = (from: string): variants | undefined => {
-    if (!assets) return;
+  const checkAddres = (from: string | undefined): variants | undefined => {
+    if (!assets || !from) return;
     const adresses = getAdresses(assets);
     const isFromMe = adresses.find(
       (adress) => adress.address.toLowerCase() === from.toLowerCase()
@@ -76,7 +76,7 @@ export default function History() {
       <SpacerUi size="xl" style={{ flex: filteredHistories?.length ? 1 : 0 }}>
         <FlatList
           data={filteredHistories}
-          keyExtractor={(item) => item.transactionIndex}
+          keyExtractor={(item) => item.hash}
           renderItem={({ item }) => (
             <SpacerUi size="xl" position="bottom">
               <HistoryItem

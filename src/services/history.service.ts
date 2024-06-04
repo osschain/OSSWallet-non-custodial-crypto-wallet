@@ -11,24 +11,52 @@ export const getHistories = async (addresses: AddressType[]) => {
     try {
         for (const { address, type } of addresses) {
             if (type === AddresTypes.evm) {
-                const histories = await ankrProvider.getTransactionsByAddress({
+                const chainHistories = await ankrProvider.getTransactionsByAddress({
                     blockchain: [],
                     address: [address],
                     descOrder: true,
                 });
 
-                const filtered = histories.transactions.map(({ transactionIndex, to, from, value, blockchain }) => {
+                const tokenHistories = await ankrProvider.getTokenTransfers({
+                    blockchain: [],
+                    address: [address],
+                    descOrder: true,
+                });
+
+                const tranformchainHistories = chainHistories.transactions.map(({ value, hash, to, from, blockchain }) => {
+                    if (!hash || !blockchain || !to) {
+                        return;
+                    }
                     return {
-                        transactionIndex,
                         to,
                         from,
-                        value: formatEther(value),
                         id: blockchain,
+                        hash,
+                        value: formatEther(value),
+                        blockchain: blockchain as OSSblockchain,
+                    }
+                }) as HistoryType[]
+
+
+                const tranformTokenHistories = tokenHistories.transfers.map(({ blockchain, value, transactionHash, toAddress, fromAddress, contractAddress }) => {
+                    if (!transactionHash || !contractAddress || !toAddress || !fromAddress) {
+                        return;
+                    }
+                    return {
+                        to: toAddress,
+                        from: fromAddress,
+                        id: contractAddress,
+                        hash: transactionHash,
+                        value,
                         blockchain: blockchain as OSSblockchain
                     }
-                })
+                }) as HistoryType[]
 
-                result.push(...filtered)
+
+                const histories = [...tranformchainHistories, ...tranformTokenHistories]
+
+
+                result.push(...histories)
 
             }
         }
@@ -41,7 +69,7 @@ export const getHistories = async (addresses: AddressType[]) => {
 
 export type OSSblockchain = Blockchain | "solana" | 'btc';
 
-export const getHistory = async (address: string, blockchain: OSSblockchain) => {
+export const getChainHistory = async (address: string, blockchain: OSSblockchain) => {
 
     if (blockchain === 'solana' || blockchain === "btc") {
         return null
@@ -50,24 +78,65 @@ export const getHistory = async (address: string, blockchain: OSSblockchain) => 
     try {
 
 
-        const histories = await ankrProvider.getTransactionsByAddress({
+        const transactions = await ankrProvider.getTransactionsByAddress({
             blockchain: [blockchain],
             address: [address],
             descOrder: true,
         });
 
 
-        const filtered = histories.transactions.map(({ transactionIndex, to, from, value, blockchain, contractAddress }) => {
+        const histories = transactions.transactions.map(({ hash, to, from, value, blockchain }) => {
+            if (!hash || !blockchain || !to) {
+                return;
+            }
             return {
-                transactionIndex,
                 to,
                 from,
-                value: formastEther(value),
-                id: contractAddress ? contractAddress : blockchain
+                id: blockchain,
+                hash,
+                value: formatEther(value),
+                blockchain: blockchain as OSSblockchain,
             }
-        })
+        }).filter(Boolean) as HistoryType[]
 
-        return filtered
+        return histories
+    } catch (error) {
+        throw error
+    }
+}
+
+export const getTokenHistory = async (address: string, blockchain: OSSblockchain) => {
+
+    if (blockchain === 'solana' || blockchain === "btc") {
+        return null
+    }
+
+    try {
+
+
+        const transactions = await ankrProvider.getTokenTransfers({
+            blockchain: [blockchain],
+            address: [address],
+            descOrder: true,
+        });
+
+        const histories = transactions.transfers.map(({ blockchain, transactionHash, toAddress, fromAddress, value, contractAddress }) => {
+
+            if (!transactionHash || !contractAddress || !toAddress || !fromAddress) {
+                return;
+            }
+
+            return {
+                to: toAddress,
+                from: fromAddress,
+                id: contractAddress,
+                hash: transactionHash,
+                value,
+                blockchain: blockchain as OSSblockchain
+            }
+        }) as HistoryType[]
+
+        return histories
     } catch (error) {
         throw error
     }

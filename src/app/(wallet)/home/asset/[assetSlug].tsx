@@ -1,4 +1,5 @@
 import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, FlatList, Image, View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
@@ -27,10 +28,21 @@ export default function Asset() {
     data: histories,
     isLoading,
     isError,
-  } = useHistory(asset?.account.address, asset?.blockchain);
+  } = useHistory(
+    asset?.account.address,
+    asset?.id as string,
+    asset?.blockchain,
+    !!asset?.contractAddress
+  );
 
-  const checkAddres = (from: string): variants | undefined => {
-    if (!assets) return;
+  const filterHistories = useMemo(() => {
+    return histories?.filter(
+      (history) => history.id.toLowerCase() === asset?.id.toLowerCase()
+    );
+  }, [asset?.id, histories]);
+
+  const checkAddres = (from: string | undefined): variants | undefined => {
+    if (!assets || !from) return;
     const adresses = getAdresses(assets);
 
     const isFromMe = adresses.find((adress) => {
@@ -131,13 +143,13 @@ export default function Asset() {
 
       <SpacerUi size="4xl" style={{ flex: histories?.length ? 1 : 0 }}>
         <FlatList
-          data={histories}
-          keyExtractor={(item) => item.transactionIndex}
+          data={filterHistories}
+          keyExtractor={(item) => item.hash}
           renderItem={({ item }) => (
             <SpacerUi size="xl" position="bottom">
               <HistoryItem
                 walletAddress={item.from}
-                variant={checkAddres(item.from)}
+                variant={checkAddres(item?.from)}
                 amount={item.value}
               />
             </SpacerUi>

@@ -1,10 +1,10 @@
 import { OSSblockchain } from "@/services/history.service";
 
 export type HistoryType = {
-    from: string;
+    blockchain: OSSblockchain,
+    from: string | undefined;
     to: string | undefined;
     value: string;
-    id: string | undefined;
-    blockchain: OSSblockchain;
-    transactionIndex: string;
+    id: string;
+    hash: string;
 };

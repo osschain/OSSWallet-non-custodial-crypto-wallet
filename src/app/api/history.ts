@@ -2,8 +2,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAssets } from "./assets";
 
+import { HistoryType } from "@/@types/history";
 import { getAdresses } from "@/services/balances.service";
-import { OSSblockchain, getHistories, getHistory } from "@/services/history.service";
+import { OSSblockchain, getChainHistory, getHistories, getTokenHistory } from "@/services/history.service";
 
 export const useHistories = () => {
     const { data: assets } = useAssets()
@@ -22,9 +23,9 @@ export const useHistories = () => {
     });
 };
 
-export const useHistory = (adress: string | undefined, blockchain: OSSblockchain | undefined) => {
+export const useHistory = (adress: string | undefined, id: string, blockchain: OSSblockchain | undefined, isToken: boolean) => {
     return useQuery({
-        queryKey: ["history", blockchain],
+        queryKey: ["history", id],
         queryFn: async () => {
 
             if (!blockchain) {
@@ -35,9 +36,22 @@ export const useHistory = (adress: string | undefined, blockchain: OSSblockchain
                 throw new Error("blockchain is not presented");
             }
 
-            const history = await getHistory(adress, blockchain);
+            const histories: HistoryType[] = []
 
-            return history
+            if (!isToken) {
+                const history = await getChainHistory(adress, blockchain) || [];
+
+
+                histories.push(...history)
+            }
+
+            if (isToken) {
+                const history = await getTokenHistory(adress, blockchain) || [];
+                histories.push(...history)
+            }
+
+
+            return histories
         },
     });
 };

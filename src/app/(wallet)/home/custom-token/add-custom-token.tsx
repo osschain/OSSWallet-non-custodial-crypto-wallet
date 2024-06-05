@@ -102,6 +102,7 @@ export default function AddCustomToken() {
       account: ethAccount?.account,
       contractAddress: address,
       isShown: true,
+      isNetwork: false,
     };
 
     try {

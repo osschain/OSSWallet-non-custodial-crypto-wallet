@@ -2,12 +2,12 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
 
+import { AssetType } from "@/@types/assets";
 import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { AssetType } from "@/providers/AssetProvider";
 
 export type Ref = BottomSheetModal;
 
@@ -53,7 +53,7 @@ const AssetOptions = forwardRef<Ref, Props>(
           </SpacerUi>
           {filteredAssets.map((asset) => {
             return (
-              <SpacerUi size="3xl" key={asset.blockchain}>
+              <SpacerUi size="3xl" key={asset.id}>
                 <TouchableOpacity
                   onPress={() => {
                     setSelected(asset.blockchain);

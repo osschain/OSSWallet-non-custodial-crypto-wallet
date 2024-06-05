@@ -7,7 +7,8 @@
     "slip-0044": 60,
     "blockchain": "polygon",
     "isShown": true,
-    "contractAddress": "0x655304E9Cc103b47f0afa0825767D6cCe426717C"
+    "contractAddress": "0x655304E9Cc103b47f0afa0825767D6cCe426717C",
+    "isNetwork": false
   },
   {
     "id": "btc",
@@ -16,7 +17,9 @@
     "symbol": "BTC",
     "slip-0044": 0,
     "blockchain": "btc",
-    "isShown": true
+    "isShown": true,
+    "isNetwork": false
+
   },
   {
     "id": "eth",
@@ -25,7 +28,9 @@
     "symbol": "ETH",
     "slip-0044":60,
     "blockchain": "eth",
-    "isShown": true
+    "isShown": true,
+    "isNetwork": true
+
   },
   {
     "id": "polygon",
@@ -34,7 +39,9 @@
     "symbol": "MATIC",
     "slip-0044": 60,
     "blockchain": "polygon",
-    "isShown": true
+    "isShown": true,
+    "isNetwork": true
+
   },
   {
     "id": "solana",
@@ -43,7 +50,7 @@
     "symbol": "SOL",
     "slip-0044": 501,
     "blockchain": "solana",
-    "isShown": true
+    "isShown": false
   },
   {
     "id": "bsc",
@@ -61,7 +68,9 @@
     "symbol": "AVAX",
     "slip-0044": 60,
     "blockchain": "avalanche",
-    "isShown": true
+    "isShown": true,
+    "isNetwork": true
+
   },
   {
     "id": "polygon_zkevm",
@@ -70,7 +79,9 @@
     "symbol": "zkEVM",
     "slip-0044": 60,
     "blockchain": "polygon_zkevm",
-    "isShown": true
+    "isShown": true,
+    "isNetwork": true
+
   },
   {
     "id": "optimism",
@@ -79,6 +90,7 @@
     "symbol": "OP",
     "slip-0044": 60,
     "blockchain": "optimism",
-    "isShown": true
+    "isShown": true,
+    "isNetwork": true
   }
 ]

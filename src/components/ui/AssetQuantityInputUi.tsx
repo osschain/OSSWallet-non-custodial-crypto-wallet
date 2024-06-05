@@ -7,6 +7,7 @@ import BodyTextUi from "./BodyTextUi";
 import { TextInputUi } from "./TextInputUi";
 
 import { defaultImage } from "@/util/DefaultImage";
+import { SvgUri } from "react-native-svg";
 
 type Props = {
   uri?: string;
@@ -34,7 +35,7 @@ export default function AssetQuantityInputUi({
             </UsdQuantityContainer>
             <TouchableOpacity onPress={onAssetPress}>
               <AssetContainer>
-                <Image source={{ uri }} width={24} height={24} />
+                <SvgUri uri={uri} width={24} height={24} />
                 <BodyTextUi weight="medium">{title}</BodyTextUi>
               </AssetContainer>
             </TouchableOpacity>

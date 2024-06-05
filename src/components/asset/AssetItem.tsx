@@ -26,17 +26,15 @@ const AssetItem = ({
   symbol = "",
   ...rest
 }: Props) => {
-  console.log(uri);
-
   return (
     <Item {...rest}>
       <LeftContent>
         <ImageContainer>
-          <Image
-            source={uri}
-            style={{ width: 32, height: 32 }}
-            contentPosition="left top"
-          />
+          {symbol === "OSS" ? (
+            <Image source={uri} style={{ width: 32, height: 32 }} />
+          ) : (
+            <SvgUri uri={uri} width={32} height={32} />
+          )}
         </ImageContainer>
         <View>
           <HeaderTextUi size="md">{assetName}</HeaderTextUi>

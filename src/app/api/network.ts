@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getNetworks } from "@/services/asset.service";
 import { useAssets } from "./assets";
+
+import { NetworkType } from "@/@types/network";
 
 
 export const UseNetworks = () => {
@@ -13,10 +14,10 @@ export const UseNetworks = () => {
 
             const evmChains = assets.filter((asset) => asset["slip-0044"] === 60 && !asset.contractAddress)
 
-            const network = evmChains.map(chain => {
+            const networks = evmChains.map(chain => {
                 return { icon: chain.icon, label: chain.name }
             })
-            return network
+            return networks as NetworkType[]
         },
         refetchOnWindowFocus: false,
         refetchOnMount: false

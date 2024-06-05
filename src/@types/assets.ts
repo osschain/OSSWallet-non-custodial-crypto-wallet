@@ -16,6 +16,7 @@ export type AssetType = {
     blockchain: OSSblockchain;
     contractAddress?: string;
     isShown: boolean;
+    "slip-0044": string;
 };
 
 export type tokenType = {

@@ -20,6 +20,7 @@ export default function AssetQuantityInputUi({
   title = "OSS",
   usdQuantity = 300,
   onAssetPress = () => {},
+  ...rest
 }: Props) {
   return (
     <View>
@@ -27,9 +28,9 @@ export default function AssetQuantityInputUi({
         right={
           <RightContainer>
             <UsdQuantityContainer>
-              <BodyTextUi weight="medium" color="text-second">
+              {/* <BodyTextUi weight="medium" color="text-second">
                 ~ {usdQuantity} USD
-              </BodyTextUi>
+              </BodyTextUi> */}
             </UsdQuantityContainer>
             <TouchableOpacity onPress={onAssetPress}>
               <AssetContainer>
@@ -39,6 +40,7 @@ export default function AssetQuantityInputUi({
             </TouchableOpacity>
           </RightContainer>
         }
+        {...rest}
       />
     </View>
   );

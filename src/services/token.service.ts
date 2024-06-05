@@ -8,6 +8,7 @@ export const getContract = (address: string, blockchain: Blockchain) => {
     const provider = new JsonRpcProvider(endPoint);
     const contract = new Contract(address, ERC20_ABI, provider);
 
+
     return contract
 }
 

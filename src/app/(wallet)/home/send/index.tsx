@@ -32,10 +32,9 @@ export default function Send() {
 
   const filteredAssets = useFilteredAssets(assets, searchQuery, network);
 
-  const calculateBalance = (blockchain: string) => {
+  const calculateBalance = (id: string) => {
     const balance = Number(
-      balances?.find((balance) => blockchain === balance.blockchain)?.balance ||
-        0
+      balances?.find((balance) => id === balance.id)?.balance || 0
     );
     return Number(balance.toFixed(3));
   };
@@ -74,7 +73,7 @@ export default function Send() {
             <AssetItem
               key={item.name}
               asset={item}
-              balance={calculateBalance(item.blockchain)}
+              balance={calculateBalance(item.id)}
             />
           )}
         />

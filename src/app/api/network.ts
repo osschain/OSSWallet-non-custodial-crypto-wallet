@@ -12,7 +12,7 @@ export const UseNetworks = () => {
         queryFn: async () => {
             if (!assets) throw new Error("NO ASSETS")
 
-            const evmChains = assets.filter((asset) => asset["slip-0044"] === 60 && !asset.contractAddress)
+            const evmChains = assets.filter((asset) => asset.isNetwork && !asset.contractAddress)
 
             const networks = evmChains.map(chain => {
                 return { icon: chain.icon, label: chain.name }

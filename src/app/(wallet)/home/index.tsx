@@ -25,7 +25,6 @@ export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const { data: assets } = useAssets();
   const { data: balances, isLoading: isBalancesLoading } = UseBalances();
-
   const total = useMemo(() => {
     return totalBalance(balances);
   }, [balances]);

@@ -90,7 +90,7 @@ export const getNetworks = (): NetworkType[] => {
     const evmChains = chains.filter((chain) => chain["slip-0044"] === 60 && !chain.contractAddress)
 
     const network = evmChains.map(chain => {
-        return { icon: chain.icon, label: chain.blockchain as Blockchain }
+        return { icon: chain.icon, label: chain.name as Blockchain }
     })
 
     return network

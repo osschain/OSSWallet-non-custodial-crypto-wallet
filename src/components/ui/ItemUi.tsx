@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 import BodyTextUi from "./BodyTextUi";
 import HeaderTextUi from "./HeaderTextUi";
+import { Image } from "expo-image";
 
 type Props = {
   uri?: string;
@@ -16,7 +17,7 @@ export default function ItemUi({ uri, title, description, right }: Props) {
   return (
     <Item>
       <Content>
-        <Image source={{ uri }} />
+        <ItemImg source={{ uri }} />
         <View>
           <HeaderTextUi>{title}</HeaderTextUi>
           {description && <BodyTextUi>{description}</BodyTextUi>}
@@ -37,7 +38,7 @@ const Content = styled.View`
   align-items: center;
 `;
 
-const Image = styled.Image`
+const ItemImg = styled(Image)`
   width: ${({ theme }) => theme.sizes["2xl"]};
   height: ${({ theme }) => theme.sizes["2xl"]};
 `;

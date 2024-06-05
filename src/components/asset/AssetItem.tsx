@@ -1,4 +1,4 @@
-import { Image } from "expo-image";
+import { SvgUri } from "react-native-svg";
 import { ComponentPropsWithoutRef } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
@@ -6,6 +6,9 @@ import styled from "styled-components/native";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { defaultImage } from "@/util/DefaultImage";
+import { Image } from "expo-image";
+const blurhash =
+  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
 type Props = {
   assetName?: string;
@@ -23,11 +26,17 @@ const AssetItem = ({
   symbol = "",
   ...rest
 }: Props) => {
+  console.log(uri);
+
   return (
     <Item {...rest}>
       <LeftContent>
         <ImageContainer>
-          <Icon source={uri} />
+          <Image
+            source={uri}
+            style={{ width: 32, height: 32 }}
+            contentPosition="left top"
+          />
         </ImageContainer>
         <View>
           <HeaderTextUi size="md">{assetName}</HeaderTextUi>
@@ -61,11 +70,6 @@ const LeftContent = styled.View`
 const ImageContainer = styled.View`
   justify-content: center;
   align-items: center;
-`;
-const Icon = styled(Image)`
-  width: ${({ theme }) => theme.sizes["2xl"]};
-  height: ${({ theme }) => theme.sizes["2xl"]};
-  border-radius: 100px;
 `;
 
 const RightContent = styled.View``;

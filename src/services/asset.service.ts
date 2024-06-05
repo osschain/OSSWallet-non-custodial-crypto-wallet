@@ -87,7 +87,7 @@ export const createAssets = async (mnemonic: string) => {
 };
 
 export const getNetworks = (): NetworkType[] => {
-    const evmChains = chains.filter((chain) => chain["slip-0044"] === 60)
+    const evmChains = chains.filter((chain) => chain["slip-0044"] === 60 && !chain.contractAddress)
 
     const network = evmChains.map(chain => {
         return { icon: chain.icon, label: chain.blockchain as Blockchain }

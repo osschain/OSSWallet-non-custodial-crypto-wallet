@@ -15,7 +15,7 @@ export const UseBalances = () => {
                 throw new Error("Asset is not presented");
             }
             const balances = await getBalances(assets);
-
+            console.log("Refetchingasd")
             return balances
         },
         refetchOnWindowFocus: false,

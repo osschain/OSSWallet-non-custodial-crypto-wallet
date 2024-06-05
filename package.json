@@ -71,7 +71,8 @@
     "tweetnacl": "^1.0.3",
     "uuid": "^9.0.1",
     "yup": "^1.4.0",
-    "expo-image": "~1.12.10"
+    "expo-image": "~1.12.10",
+    "react-native-svg": "15.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -1,3 +1,4 @@
+import { Image } from "expo-image";
 import { ComponentPropsWithoutRef } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
@@ -11,6 +12,7 @@ type Props = {
   uri?: string;
   assetAmount?: number;
   usdAmount?: number;
+  symbol: string;
 } & ComponentPropsWithoutRef<typeof Item>;
 
 const AssetItem = ({
@@ -18,18 +20,19 @@ const AssetItem = ({
   uri = defaultImage,
   assetAmount = 0,
   usdAmount = 0,
+  symbol = "",
   ...rest
 }: Props) => {
   return (
     <Item {...rest}>
       <LeftContent>
         <ImageContainer>
-          <Icon source={{ uri }} />
+          <Icon source={uri} />
         </ImageContainer>
         <View>
           <HeaderTextUi size="md">{assetName}</HeaderTextUi>
           <BodyTextUi size="sm" weight="medium" color="text-second">
-            {assetAmount}
+            {assetAmount} {symbol}
           </BodyTextUi>
         </View>
       </LeftContent>
@@ -59,7 +62,7 @@ const ImageContainer = styled.View`
   justify-content: center;
   align-items: center;
 `;
-const Icon = styled.Image`
+const Icon = styled(Image)`
   width: ${({ theme }) => theme.sizes["2xl"]};
   height: ${({ theme }) => theme.sizes["2xl"]};
   border-radius: 100px;

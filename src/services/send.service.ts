@@ -27,7 +27,6 @@ export const sendTransaction = async ({ privateKey, toAddress, blockchain, contr
                 value: transferAmount,
 
             });
-            console.log(tx)
         }
     } catch (error) {
         console.log(error, "ERRORS")

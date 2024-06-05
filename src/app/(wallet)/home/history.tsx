@@ -17,7 +17,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { getAdresses } from "@/services/balances.service";
 
 export default function History() {
-  const [page, setPage] = useState(20);
+  const [page, setPage] = useState(100);
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
@@ -65,7 +65,7 @@ export default function History() {
 
   const handlePagination = () => {
     if (histories[histories?.length - 1].nextPageToken) {
-      setPage((prev) => prev + 20);
+      setPage((prev) => prev + 100);
     } else {
       Alert.alert("...ops", "There is no more histories");
     }

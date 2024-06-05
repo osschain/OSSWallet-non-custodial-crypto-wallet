@@ -8,7 +8,6 @@ import { ankrProvider } from "@/config/ankr";
 
 
 export const getHistories = async (addresses: AddressType[], page: number = 1) => {
-
     const result: HistoryType[] = []
     try {
         for (const { address, type } of addresses) {
@@ -93,7 +92,7 @@ export const getChainHistory = async (address: string, blockchain: OSSblockchain
             blockchain: [blockchain],
             address: [address],
             descOrder: true,
-            pageSize: page,
+            pageSize: page
         });
 
 
@@ -102,6 +101,7 @@ export const getChainHistory = async (address: string, blockchain: OSSblockchain
                 return;
             }
             return {
+                nextPageToken: transactions.nextPageToken,
                 to,
                 from,
                 id: blockchain,
@@ -123,15 +123,16 @@ export const getTokenHistory = async (address: string, blockchain: OSSblockchain
         return []
     }
 
+
     try {
-
-
         const transactions = await ankrProvider.getTokenTransfers({
             blockchain: [blockchain],
             address: [address],
             descOrder: true,
             pageSize: page
+
         });
+
 
         const histories = transactions.transfers.map(({ blockchain, toAddress, fromAddress, value, contractAddress }) => {
 
@@ -140,6 +141,7 @@ export const getTokenHistory = async (address: string, blockchain: OSSblockchain
             }
 
             return {
+                nextPageToken: transactions.nextPageToken,
                 to: toAddress,
                 from: fromAddress,
                 id: contractAddress,

@@ -12,5 +12,7 @@ export const UseNetworks = () => {
             return networks
 
         },
+        refetchOnWindowFocus: false,
+        refetchOnMount: false
     });
 };

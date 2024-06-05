@@ -1,8 +1,18 @@
 [
+	{
+    "id": "0x655304E9Cc103b47f0afa0825767D6cCe426717C",
+    "name": "OSSChain",
+    "icon": "https://assets.osschain.com/icon/osschain.svg",
+    "symbol": "OSS",
+    "slip-0044": 60,
+    "blockchain": "polygon",
+    "isShown": true,
+    "contractAddress": "0x655304E9Cc103b47f0afa0825767D6cCe426717C"
+  },
   {
     "id": "btc",
     "name": "Bitcoin",
-    "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/btc.png",
+    "icon": "https://assets.osschain.com/icon/bitcoin.svg",
     "symbol": "BTC",
     "slip-0044": 0,
     "blockchain": "btc",
@@ -10,8 +20,8 @@
   },
   {
     "id": "eth",
-    "name": "Ether",
-    "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/eth.png",
+    "name": "Ethereum",
+    "icon": "https://assets.osschain.com/icon/ether.svg",
     "symbol": "ETH",
     "slip-0044":60,
     "blockchain": "eth",
@@ -19,8 +29,8 @@
   },
   {
     "id": "polygon",
-    "name": "Matic",
-    "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/matic.png",
+    "name": "Polygon",
+    "icon": "https://assets.osschain.com/icon/polygon.svg",
     "symbol": "MATIC",
     "slip-0044": 60,
     "blockchain": "polygon",
@@ -29,7 +39,7 @@
   {
     "id": "solana",
     "name": "Solana",
-    "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/sol.png",
+    "icon": "https://assets.osschain.com/icon/solana.svg",
     "symbol": "SOL",
     "slip-0044": 501,
     "blockchain": "solana",
@@ -38,7 +48,7 @@
   {
     "id": "bsc",
     "name": "Binance",
-    "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/bnb.png",
+    "icon": "https://assets.osschain.com/icon/binance.svg",
     "symbol": "BNB",
     "slip-0044": 60,
     "blockchain": "bsc",
@@ -47,7 +57,7 @@
   {
     "id": "avalanche",
     "name": "Avalanche",
-    "icon": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/avax.png",
+    "icon": "https://assets.osschain.com/icon/avalanche.svg",
     "symbol": "AVAX",
     "slip-0044": 60,
     "blockchain": "avalanche",
@@ -55,17 +65,17 @@
   },
   {
     "id": "polygon_zkevm",
-    "name": "polygon_zkevm",
-    "icon": "https://cryptologos.cc/logos/mantle-mnt-logo.png?v=032",
-    "symbol": "MANTLE",
+    "name": "Polygon zkEVM",
+    "icon": "https://assets.osschain.com/icon/polygon.svg",
+    "symbol": "zkEVM",
     "slip-0044": 60,
     "blockchain": "polygon_zkevm",
     "isShown": true
   },
   {
     "id": "optimism",
-    "name": "optimism",
-    "icon": "https://cryptologos.cc/logos/optimism-ethereum-op-logo.png?v=032",
+    "name": "Optimism",
+    "icon": "https://assets.osschain.com/icon/optimism.svg",
     "symbol": "OP",
     "slip-0044": 60,
     "blockchain": "optimism",

@@ -20,7 +20,10 @@ export const useAssets = () => {
       }
       return JSON.parse(assets) as AssetType[];
     },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   });
+
 };
 
 export const useAddAssets = () => {

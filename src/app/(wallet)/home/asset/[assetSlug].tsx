@@ -1,10 +1,13 @@
+import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, Alert, FlatList, Image, View } from "react-native";
+import { ActivityIndicator, Alert, FlatList, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import styled, { useTheme } from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
+import { UseBalances } from "@/app/api/balances";
 import { useHistory } from "@/app/api/history";
 import HistoryItem, { variants } from "@/components/history/history-item";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
@@ -13,17 +16,21 @@ import IconUi from "@/components/ui/IconUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { getAdresses } from "@/services/balances.service";
+import {
+  calculateBalance,
+  calculateUsdBalance,
+  getAdresses,
+} from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
 import { pixelToNumber } from "@/util/pixelToNumber";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Asset() {
-  const [page, setPage] = useState(20);
+  const [page, setPage] = useState(100);
 
   const { assetSlug: slug } = useLocalSearchParams();
   const { t } = useTranslation();
   const theme = useTheme();
+  const { data: balances } = UseBalances();
 
   const { data: assets } = useAssets();
   const asset = findAsset(assets, slug as string);
@@ -31,6 +38,7 @@ export default function Asset() {
     data: histories,
     isLoading,
     isError,
+    isRefetching,
   } = useHistory(
     asset?.account.address,
     asset?.id as string,
@@ -60,7 +68,7 @@ export default function Asset() {
     }
   };
 
-  if (isError) {
+  if (isError || !asset) {
     return (
       <ContainerUi>
         <SpacerUi size="3xl">
@@ -74,7 +82,7 @@ export default function Asset() {
     if (!histories) return;
 
     if (histories[histories?.length - 1].nextPageToken) {
-      setPage((prev) => prev + 20);
+      setPage((prev) => prev + 100);
     } else {
       Alert.alert("...ops", "There is no more histories");
     }
@@ -86,16 +94,24 @@ export default function Asset() {
       <SpacerUi size="4xl">
         <ChainDetails>
           <Image
-            source={{ uri: asset?.icon }}
-            width={pixelToNumber(theme.sizes["3xl"])}
-            height={pixelToNumber(theme.sizes["3xl"])}
+            source={asset?.icon}
+            style={{
+              width: pixelToNumber(theme.sizes["3xl"]),
+              height: pixelToNumber(theme.sizes["3xl"]),
+            }}
           />
           <BodyTextUi weight="bold" size="lg">
             {asset?.name}
           </BodyTextUi>
         </ChainDetails>
       </SpacerUi>
-      <SpacerUi size="4xl">
+      <SpacerUi size="3xl">
+        <BodyTextUi weight="semi" size="lg" style={{ textAlign: "center" }}>
+          {calculateBalance(asset?.id, balances)} {asset.symbol} -{" "}
+          {calculateUsdBalance(asset.id, balances)} $
+        </BodyTextUi>
+      </SpacerUi>
+      <SpacerUi size="3xl">
         <Actions>
           <ActionButton>
             <Link href={`/(wallet)/home/send/${slug}`} asChild>
@@ -169,7 +185,7 @@ export default function Asset() {
           )}
           ListFooterComponent={() => (
             <>
-              {!isLoading && (
+              {!isLoading && !!histories?.length && (
                 <SpacerUi style={{ padding: 20 }}>
                   <TouchableOpacity onPress={handlePagination}>
                     <BodyTextUi
@@ -181,6 +197,7 @@ export default function Asset() {
                   </TouchableOpacity>
                 </SpacerUi>
               )}
+              {isRefetching && <ActivityIndicator />}
             </>
           )}
         />

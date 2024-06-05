@@ -20,8 +20,11 @@ export const useHistories = (page: number) => {
 
             return histories
         },
-        placeholderData: keepPreviousData
+        placeholderData: keepPreviousData,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false
     });
+
 };
 
 export const useHistory = (adress: string | undefined, id: string, blockchain: OSSblockchain | undefined, isToken: boolean, page: number) => {
@@ -38,7 +41,7 @@ export const useHistory = (adress: string | undefined, id: string, blockchain: O
             }
 
             const histories: HistoryType[] = []
-
+            console.log("Refffetch")
             if (!isToken) {
                 const history = await getChainHistory(adress, blockchain, page) || [];
                 histories.push(...history)
@@ -52,5 +55,8 @@ export const useHistory = (adress: string | undefined, id: string, blockchain: O
 
             return histories
         },
+        placeholderData: keepPreviousData,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false
     });
 };

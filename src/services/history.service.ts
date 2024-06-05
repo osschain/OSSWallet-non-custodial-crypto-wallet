@@ -1,52 +1,62 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { formatEther } from "ethers";
+import { v4 as uuidv4 } from 'uuid';
 
 import { AddresTypes, AddressType } from "@/@types/balances";
 import { HistoryType } from "@/@types/history";
 import { ankrProvider } from "@/config/ankr";
 
 
-export const getHistories = async (addresses: AddressType[]) => {
+export const getHistories = async (addresses: AddressType[], page: number = 1) => {
+
     const result: HistoryType[] = []
     try {
         for (const { address, type } of addresses) {
             if (type === AddresTypes.evm) {
-                const chainHistories = await ankrProvider.getTransactionsByAddress({
-                    blockchain: [],
-                    address: [address],
-                    descOrder: true,
-                });
 
-                const tokenHistories = await ankrProvider.getTokenTransfers({
-                    blockchain: [],
-                    address: [address],
-                    descOrder: true,
-                });
+                const [chainHistories, tokenHistories] = await Promise.all([
+                    ankrProvider.getTransactionsByAddress({
+                        blockchain: [],
+                        address: [address],
+                        pageSize: page,
+                        descOrder: true,
 
-                const tranformchainHistories = chainHistories.transactions.map(({ value, hash, to, from, blockchain }) => {
-                    if (!hash || !blockchain || !to) {
+                    }),
+                    ankrProvider.getTokenTransfers({
+                        blockchain: [],
+                        address: [address],
+                        pageSize: page,
+
+                        descOrder: true,
+                    })
+                ]);
+
+                const tranformchainHistories = chainHistories.transactions.map(({ value, to, from, blockchain }) => {
+                    if (!blockchain || !to) {
                         return;
                     }
                     return {
+                        nextPageToken: chainHistories.nextPageToken,
                         to,
                         from,
                         id: blockchain,
-                        hash,
+                        key: uuidv4(),
                         value: formatEther(value),
                         blockchain: blockchain as OSSblockchain,
                     }
                 }) as HistoryType[]
 
 
-                const tranformTokenHistories = tokenHistories.transfers.map(({ blockchain, value, transactionHash, toAddress, fromAddress, contractAddress }) => {
-                    if (!transactionHash || !contractAddress || !toAddress || !fromAddress) {
+                const tranformTokenHistories = tokenHistories.transfers.map(({ blockchain, value, toAddress, fromAddress, contractAddress }) => {
+                    if (!contractAddress || !toAddress || !fromAddress) {
                         return;
                     }
                     return {
+                        nextPageToken: tokenHistories.nextPageToken,
                         to: toAddress,
                         from: fromAddress,
                         id: contractAddress,
-                        hash: transactionHash,
+                        key: uuidv4(),
                         value,
                         blockchain: blockchain as OSSblockchain
                     }
@@ -63,16 +73,17 @@ export const getHistories = async (addresses: AddressType[]) => {
         return result
 
     } catch (error) {
+        console.error("Error fetching histories:", error);
         throw error
     }
 }
 
 export type OSSblockchain = Blockchain | "solana" | 'btc';
 
-export const getChainHistory = async (address: string, blockchain: OSSblockchain) => {
+export const getChainHistory = async (address: string, blockchain: OSSblockchain, page: number) => {
 
     if (blockchain === 'solana' || blockchain === "btc") {
-        return null
+        return []
     }
 
     try {
@@ -82,18 +93,19 @@ export const getChainHistory = async (address: string, blockchain: OSSblockchain
             blockchain: [blockchain],
             address: [address],
             descOrder: true,
+            pageSize: page,
         });
 
 
-        const histories = transactions.transactions.map(({ hash, to, from, value, blockchain }) => {
-            if (!hash || !blockchain || !to) {
+        const histories = transactions.transactions.map(({ to, from, value, blockchain }) => {
+            if (!blockchain || !to) {
                 return;
             }
             return {
                 to,
                 from,
                 id: blockchain,
-                hash,
+                key: uuidv4(),
                 value: formatEther(value),
                 blockchain: blockchain as OSSblockchain,
             }
@@ -105,10 +117,10 @@ export const getChainHistory = async (address: string, blockchain: OSSblockchain
     }
 }
 
-export const getTokenHistory = async (address: string, blockchain: OSSblockchain) => {
+export const getTokenHistory = async (address: string, blockchain: OSSblockchain, page: number) => {
 
     if (blockchain === 'solana' || blockchain === "btc") {
-        return null
+        return []
     }
 
     try {
@@ -118,11 +130,12 @@ export const getTokenHistory = async (address: string, blockchain: OSSblockchain
             blockchain: [blockchain],
             address: [address],
             descOrder: true,
+            pageSize: page
         });
 
-        const histories = transactions.transfers.map(({ blockchain, transactionHash, toAddress, fromAddress, value, contractAddress }) => {
+        const histories = transactions.transfers.map(({ blockchain, toAddress, fromAddress, value, contractAddress }) => {
 
-            if (!transactionHash || !contractAddress || !toAddress || !fromAddress) {
+            if (!contractAddress || !toAddress || !fromAddress) {
                 return;
             }
 
@@ -130,7 +143,7 @@ export const getTokenHistory = async (address: string, blockchain: OSSblockchain
                 to: toAddress,
                 from: fromAddress,
                 id: contractAddress,
-                hash: transactionHash,
+                key: uuidv4(),
                 value,
                 blockchain: blockchain as OSSblockchain
             }

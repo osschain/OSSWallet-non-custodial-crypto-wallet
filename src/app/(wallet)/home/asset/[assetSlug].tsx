@@ -1,7 +1,7 @@
 import { Link, Stack, useLocalSearchParams } from "expo-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, FlatList, Image, View } from "react-native";
+import { ActivityIndicator, Alert, FlatList, Image, View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
@@ -16,8 +16,11 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { getAdresses } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
 import { pixelToNumber } from "@/util/pixelToNumber";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Asset() {
+  const [page, setPage] = useState(20);
+
   const { assetSlug: slug } = useLocalSearchParams();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -32,7 +35,8 @@ export default function Asset() {
     asset?.account.address,
     asset?.id as string,
     asset?.blockchain,
-    !!asset?.contractAddress
+    !!asset?.contractAddress,
+    page
   );
 
   const filterHistories = useMemo(() => {
@@ -65,6 +69,16 @@ export default function Asset() {
       </ContainerUi>
     );
   }
+
+  const handlePagination = () => {
+    if (!histories) return;
+
+    if (histories[histories?.length - 1].nextPageToken) {
+      setPage((prev) => prev + 20);
+    } else {
+      Alert.alert("...ops", "There is no more histories");
+    }
+  };
 
   return (
     <ContainerUi>
@@ -144,7 +158,6 @@ export default function Asset() {
       <SpacerUi size="4xl" style={{ flex: histories?.length ? 1 : 0 }}>
         <FlatList
           data={filterHistories}
-          keyExtractor={(item) => item.hash}
           renderItem={({ item }) => (
             <SpacerUi size="xl" position="bottom">
               <HistoryItem
@@ -153,6 +166,22 @@ export default function Asset() {
                 amount={item.value}
               />
             </SpacerUi>
+          )}
+          ListFooterComponent={() => (
+            <>
+              {!isLoading && (
+                <SpacerUi style={{ padding: 20 }}>
+                  <TouchableOpacity onPress={handlePagination}>
+                    <BodyTextUi
+                      color="blue-500"
+                      style={{ textAlign: "center" }}
+                    >
+                      Load More
+                    </BodyTextUi>
+                  </TouchableOpacity>
+                </SpacerUi>
+              )}
+            </>
           )}
         />
       </SpacerUi>

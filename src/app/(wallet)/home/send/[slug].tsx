@@ -62,7 +62,6 @@ export default function SendChain() {
   };
 
   const confirmSend = () => {
-    console.log(Number(amount), amount);
     if (!isAddress(address) || !Number(amount)) {
       Alert.alert("..ops", "velebi arasworadaa sheyvanili");
       return;

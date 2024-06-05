@@ -1,8 +1,8 @@
 import { Blockchain } from "@ankr.com/ankr.js";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { BottomSheetModal, TouchableOpacity } from "@gorhom/bottom-sheet";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Alert, Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { useAssets } from "@/app/api/assets";
@@ -11,15 +11,17 @@ import { UseNetworks } from "@/app/api/network";
 import HistoryItem, { variants } from "@/components/history/history-item";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
+import BodyTextUi from "@/components/ui/BodyTextUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { getAdresses } from "@/services/balances.service";
 
 export default function History() {
+  const [page, setPage] = useState(20);
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
-  const { data: histories, isLoading } = useHistories();
+  const { data: histories, isLoading } = useHistories(page);
   const { data: assets } = useAssets();
   const { data: networks } = UseNetworks();
 
@@ -61,6 +63,14 @@ export default function History() {
     );
   }
 
+  const handlePagination = () => {
+    if (histories[histories?.length - 1].nextPageToken) {
+      setPage((prev) => prev + 20);
+    } else {
+      Alert.alert("...ops", "There is no more histories");
+    }
+  };
+
   return (
     <ContainerUi>
       <SpacerUi size="xl" position="bottom">
@@ -76,7 +86,6 @@ export default function History() {
       <SpacerUi size="xl" style={{ flex: filteredHistories?.length ? 1 : 0 }}>
         <FlatList
           data={filteredHistories}
-          keyExtractor={(item) => item.hash}
           renderItem={({ item }) => (
             <SpacerUi size="xl" position="bottom">
               <HistoryItem
@@ -84,6 +93,15 @@ export default function History() {
                 variant={checkAddres(item.from)}
                 amount={item.value}
               />
+            </SpacerUi>
+          )}
+          ListFooterComponent={() => (
+            <SpacerUi style={{ padding: 20 }}>
+              <TouchableOpacity onPress={handlePagination}>
+                <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
+                  Load More
+                </BodyTextUi>
+              </TouchableOpacity>
             </SpacerUi>
           )}
         />

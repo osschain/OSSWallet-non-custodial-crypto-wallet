@@ -59,7 +59,7 @@ const WalletCard = ({
           </MoneyAmount>
         </SpacerUi>
       </Header>
-      <SpacerUi size="4xl">
+      <SpacerUi size="2xl">
         <Buttons>
           <Button onPress={onRecieve}>
             <ButtonIcon>

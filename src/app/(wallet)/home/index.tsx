@@ -1,10 +1,10 @@
 import { Link, router } from "expo-router";
 import { useMemo, useState } from "react";
-import { ActivityIndicator, FlatList, SafeAreaView } from "react-native";
+import { ActivityIndicator, FlatList } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, { FadeInRight } from "react-native-reanimated";
 import styled from "styled-components/native";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import AssetItem from "@/components/asset/AssetItem";
@@ -31,7 +31,7 @@ export default function Home() {
   }, [balances]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, marginTop: 4 }}>
       <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
         <CardContainer>
           <WalletCard

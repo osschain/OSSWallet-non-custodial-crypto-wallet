@@ -10,7 +10,7 @@ export const totalBalance = (balances: BalancesType[] | undefined) => {
     }, 0);
 
     if (balance === 0) return balance;
-    return Number(balance?.toFixed(2));
+    return balance
 };
 
 export const calculateBalance = (id: string, balances: BalancesType[] | undefined) => {
@@ -30,7 +30,7 @@ export const calculateUsdBalance = (id: string, balances: BalancesType[] | undef
             ?.balanceUsd || 0
     );
 
-    return Number(balance.toFixed(2));
+    return balance
 };
 
 
@@ -152,8 +152,8 @@ export const getBalances = async (assets: AssetType[]) => {
         const filteredBalane = chainBalances.map(
             ({ balance, balanceUsd, id }) => {
                 return {
-                    balance,
-                    balanceUsd,
+                    balance: Number(balance).toFixed(3),
+                    balanceUsd: Number(balanceUsd).toFixed(2),
                     id,
                 };
             }

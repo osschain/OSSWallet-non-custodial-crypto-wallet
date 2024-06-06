@@ -4,7 +4,9 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Platform, useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StatusBar } from "expo-status-bar";
 
 import useFont from "@/hooks/useFonts";
 import AuthProvider from "@/providers/AuthProvider";
@@ -26,6 +28,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { fontsLoaded: loaded, fontError: error } = useFont();
+
   const { i18n } = useTranslation();
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -56,32 +59,37 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const colorScheme = useColorScheme();
+
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <StyledThemeProvider>
-        <AuthProvider>
-          <QueryProvider>
-            <BottomSheetModalProvider>
-              <Stack>
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="auth" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="(wallet)"
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="modal"
-                  options={{ presentation: "modal" }}
-                />
-                <Stack.Screen
-                  name="enter-password"
-                  options={{ headerShown: false }}
-                />
-              </Stack>
-            </BottomSheetModalProvider>
-          </QueryProvider>
-        </AuthProvider>
-      </StyledThemeProvider>
-    </GestureHandlerRootView>
+    <>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <StyledThemeProvider>
+          <AuthProvider>
+            <QueryProvider>
+              <BottomSheetModalProvider>
+                <Stack>
+                  <Stack.Screen name="index" options={{ headerShown: false }} />
+                  <Stack.Screen name="auth" options={{ headerShown: false }} />
+                  <Stack.Screen
+                    name="(wallet)"
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="modal"
+                    options={{ presentation: "modal" }}
+                  />
+                  <Stack.Screen
+                    name="enter-password"
+                    options={{ headerShown: false }}
+                  />
+                </Stack>
+              </BottomSheetModalProvider>
+            </QueryProvider>
+          </AuthProvider>
+        </StyledThemeProvider>
+      </GestureHandlerRootView>
+      <StatusBar style="auto" />
+    </>
   );
 }

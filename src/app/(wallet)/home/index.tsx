@@ -19,8 +19,8 @@ import {
 } from "@/services/balances.service";
 import { nfts } from "@/util/mock";
 
-type Segment = "Assets" | "NFT";
-const segmentOptions: Segment[] = ["Assets", "NFT"];
+type Segment = "Assets" | "NFTS";
+const segmentOptions: Segment[] = ["Assets", "NFTS"];
 export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const { data: assets } = useAssets();
@@ -78,7 +78,7 @@ export default function Home() {
             )}
           />
         )}
-        {segment === "NFT" && (
+        {segment === "NFTS" && (
           <FlatList
             data={nfts}
             key={2}

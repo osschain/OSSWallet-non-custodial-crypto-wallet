@@ -33,7 +33,9 @@ const AssetItem = ({
           <Image source={uri} style={{ width: 40, height: 40 }} />
         </ImageContainer>
         <View>
-          <HeaderTextUi size="md">{assetName}</HeaderTextUi>
+          <HeaderTextUi size="sm" weight="semi">
+            {assetName}
+          </HeaderTextUi>
           <BodyTextUi size="sm" weight="medium" color="text-second">
             {assetAmount} {symbol}
           </BodyTextUi>

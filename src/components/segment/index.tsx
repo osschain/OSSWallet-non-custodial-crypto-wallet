@@ -71,7 +71,7 @@ const SegmentedControl: React.FC<Props> = React.memo(
             >
               <SegmentLabel
                 isActive={option === slOption}
-                size="lg"
+                size="md"
                 weight="medium"
               >
                 {option}

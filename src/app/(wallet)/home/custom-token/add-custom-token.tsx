@@ -192,7 +192,6 @@ export default function AddCustomToken() {
             onChangeText={(text) => setAddress(text)}
             multiline
             autoCapitalize="none"
-            numberOfLines={5}
             right={
               <IconUi
                 library="Ionicons"

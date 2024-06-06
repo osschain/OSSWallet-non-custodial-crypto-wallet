@@ -59,8 +59,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
     <>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -89,7 +87,7 @@ function RootLayoutNav() {
           </AuthProvider>
         </StyledThemeProvider>
       </GestureHandlerRootView>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
     </>
   );
 }

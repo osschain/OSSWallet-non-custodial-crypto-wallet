@@ -117,7 +117,8 @@ const Container = styled.View`
 `;
 
 const CardContainer = styled.View`
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
+  padding: ${({ theme }) => theme.spaces["lg"]}
+    ${({ theme }) => theme.spaces["xl"]};
 `;
 const Spacer = styled.View`
   padding: ${({ theme }) => theme.spaces["lg"]} 0;

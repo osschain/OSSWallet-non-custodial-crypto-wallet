@@ -55,10 +55,17 @@ export const TextInputUi = ({ left, right, ...rest }: Props) => {
 };
 
 export const TextAreaInputUi = ({ left, right, ...rest }: Props) => {
+  const theme = useTheme();
+
   return (
     <InputContainer>
       {left && <LeftContent>{left}</LeftContent>}
-      <Input {...rest} textAlignVertical="top" />
+      <Input
+        placeholderTextColor={theme.colors.placeholder}
+        textAlignVertical="top"
+        {...rest}
+        style={{ minHeight: 160 }}
+      />
       {right && <RightAreaContent>{right}</RightAreaContent>}
     </InputContainer>
   );

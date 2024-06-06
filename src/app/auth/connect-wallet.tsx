@@ -78,10 +78,9 @@ function ConnetWallet() {
         <SpacerUi size="2xl">
           <TextAreaInputUi
             value={mnemonic}
-            onChangeText={(text) => setMnemonic(text)}
             multiline
+            onChangeText={(text) => setMnemonic(text)}
             autoCapitalize="none"
-            numberOfLines={10}
             right={
               <IconUi
                 library="Ionicons"

@@ -11,13 +11,25 @@ type Props = {
   title: string;
   description?: string;
   right?: ReactNode;
+  descUri?: string;
 } & ComponentPropsWithoutRef<typeof Item>;
 
-export default function ItemUi({ uri, title, description, right }: Props) {
+export default function ItemUi({
+  uri,
+  descUri,
+  title,
+  description,
+  right,
+}: Props) {
+  console.log(descUri, "URINA");
   return (
     <Item>
       <Content>
-        <ItemImg source={{ uri }} />
+        <ImgContainer>
+          <ItemImg source={{ uri }} />
+          {descUri && <DescImg source={descUri} />}
+        </ImgContainer>
+
         <View>
           <HeaderTextUi>{title}</HeaderTextUi>
           {description && <BodyTextUi>{description}</BodyTextUi>}
@@ -34,11 +46,22 @@ const Item = styled.View`
 `;
 const Content = styled.View`
   flex-direction: row;
-  gap: 20px;
+  gap: 22px;
   align-items: center;
 `;
 
 const ItemImg = styled(Image)`
   width: ${({ theme }) => theme.sizes["2xl"]};
   height: ${({ theme }) => theme.sizes["2xl"]};
+`;
+const DescImg = styled(Image)`
+  width: 22px;
+  height: 22px;
+  position: absolute;
+
+  right: -60%;
+  top: 45%;
+`;
+const ImgContainer = styled(View)`
+  position: relative;
 `;

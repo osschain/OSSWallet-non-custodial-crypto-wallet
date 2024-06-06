@@ -18,6 +18,7 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
+import { findAsset } from "@/util/findAsset";
 
 export default function Send() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
@@ -73,6 +74,7 @@ export default function Send() {
               key={item.name}
               asset={item}
               balance={calculateBalance(item.id)}
+              assets={assets}
             />
           )}
         />
@@ -84,9 +86,11 @@ export default function Send() {
 const AssetItem = ({
   asset,
   balance,
+  assets,
 }: {
   asset: AssetType;
   balance: number;
+  assets: AssetType[];
 }) => (
   <SpacerUi size="3xl">
     <Link href={`/(wallet)/home/send/${asset.blockchain}`} asChild>
@@ -94,6 +98,11 @@ const AssetItem = ({
         <ItemUi
           title={asset.name}
           uri={asset.icon}
+          descUri={
+            asset.contractAddress
+              ? findAsset(assets, asset.blockchain)?.icon
+              : undefined
+          }
           description={asset.symbol}
           right={
             <BodyTextUi weight="regular">

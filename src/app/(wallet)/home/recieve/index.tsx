@@ -15,6 +15,7 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
+import { findAsset } from "@/util/findAsset";
 
 export default function Recieve() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
@@ -55,14 +56,20 @@ export default function Recieve() {
         <FlatList
           data={filteredAssets}
           keyExtractor={(item) => item.name}
-          renderItem={({ item }) => <AssetItem asset={item} />}
+          renderItem={({ item }) => <AssetItem asset={item} assets={assets} />}
         />
       </SpacerUi>
     </ContainerUi>
   );
 }
 
-const AssetItem = ({ asset }: { asset: AssetType }) => (
+const AssetItem = ({
+  asset,
+  assets,
+}: {
+  assets: AssetType[];
+  asset: AssetType;
+}) => (
   <SpacerUi size="3xl">
     <Link href={`/(wallet)/home/recieve/${asset.blockchain}`}>
       <TouchableOpacity>
@@ -70,6 +77,11 @@ const AssetItem = ({ asset }: { asset: AssetType }) => (
           title={asset.name}
           uri={asset.icon}
           description={asset.symbol}
+          descUri={
+            asset.contractAddress
+              ? findAsset(assets, asset.blockchain)?.icon
+              : undefined
+          }
         />
       </TouchableOpacity>
     </Link>

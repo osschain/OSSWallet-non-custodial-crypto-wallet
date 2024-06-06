@@ -1,10 +1,11 @@
 import { Link, router } from "expo-router";
 import { useMemo, useState } from "react";
-import { ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, { FadeInRight } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import styled from "styled-components/native";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import { useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import AssetItem from "@/components/asset/AssetItem";
@@ -18,10 +19,9 @@ import {
   totalBalance,
 } from "@/services/balances.service";
 import { nfts } from "@/util/mock";
-import { ContainerUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
-type Segment = "Assets" | "NFTS";
-const segmentOptions: Segment[] = ["Assets", "NFTS"];
+type Segment = "Assets" | "NFTs";
+const segmentOptions: Segment[] = ["Assets", "NFTs"];
 export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const { data: assets } = useAssets();
@@ -30,8 +30,10 @@ export default function Home() {
     return totalBalance(balances);
   }, [balances]);
 
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView style={{ flex: 1, marginTop: 4 }}>
+    <Container style={{ paddingTop: insets.top }}>
       <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
         <CardContainer>
           <WalletCard
@@ -42,7 +44,7 @@ export default function Home() {
             onCustomToken={() => router.push("(wallet)/home/custom-token")}
           />
         </CardContainer>
-        <SpacerUi size="3xl">
+        <SpacerUi size="xl">
           <SegmentedControl
             options={segmentOptions}
             selectedOption="Assets"
@@ -63,7 +65,7 @@ export default function Home() {
               renderItem={({ item }) => (
                 <>
                   {item.isShown && (
-                    <SpacerUi size="xl" position="bottom">
+                    <Spacer>
                       <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
                         <TouchableOpacity>
                           <AssetItem
@@ -75,13 +77,13 @@ export default function Home() {
                           />
                         </TouchableOpacity>
                       </Link>
-                    </SpacerUi>
+                    </Spacer>
                   )}
                 </>
               )}
             />
           )}
-          {segment === "NFTS" && (
+          {segment === "NFTs" && (
             <FlatList
               data={nfts}
               key={2}
@@ -91,7 +93,7 @@ export default function Home() {
               }}
               contentContainerStyle={{ justifyContent: "space-between" }}
               renderItem={({ item }) => (
-                <SpacerUi style={{ width: "48%" }} size="xl" position="bottom">
+                <SpacerUi style={{ width: "48%" }} size="xl">
                   <Link href={`/(wallet)/home/nft/${item.id}`} asChild>
                     <TouchableOpacity>
                       <NftItem
@@ -106,16 +108,22 @@ export default function Home() {
           )}
         </AssetContainer>
       </Animated.View>
-    </SafeAreaView>
+    </Container>
   );
 }
+
+const Container = styled.View`
+  flex: 1;
+`;
 
 const CardContainer = styled.View`
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
 `;
+const Spacer = styled.View`
+  padding: ${({ theme }) => theme.spaces["lg"]} 0;
+`;
 
 const AssetContainer = styled.View`
   flex: 1;
-  margin-top: ${({ theme }) => theme.spaces["xl"]};
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
 `;

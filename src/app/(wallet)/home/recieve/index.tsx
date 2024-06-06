@@ -67,7 +67,7 @@ const AssetItem = ({ asset }: { asset: AssetType }) => (
     <Link href={`/(wallet)/home/recieve/${asset.blockchain}`}>
       <TouchableOpacity>
         <ItemUi
-          title={asset.symbol}
+          title={asset.name}
           uri={asset.icon}
           description={asset.blockchain}
         />

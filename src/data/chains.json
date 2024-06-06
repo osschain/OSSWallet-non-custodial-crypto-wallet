@@ -75,7 +75,7 @@
   {
     "id": "polygon_zkevm",
     "name": "Polygon zkEVM",
-    "icon": "https://assets.osschain.com/icon/polygon.svg",
+    "icon": "https://assets.osschain.com/icon/polygon-zkevm.svg",
     "symbol": "zkEVM",
     "slip-0044": 60,
     "blockchain": "polygon_zkevm",

@@ -50,16 +50,20 @@
     "symbol": "SOL",
     "slip-0044": 501,
     "blockchain": "solana",
-    "isShown": false
+    "isShown": false,
+    "isNetwork": false
+
   },
   {
     "id": "bsc",
-    "name": "Binance",
+    "name": "BNB Smart Chain",
     "icon": "https://assets.osschain.com/icon/binance.svg",
     "symbol": "BNB",
     "slip-0044": 60,
     "blockchain": "bsc",
-    "isShown": true
+    "isShown": true,
+    "isNetwork": true
+
   },
   {
     "id": "avalanche",

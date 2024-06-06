@@ -1,4 +1,4 @@
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import { Redirect, Tabs } from "expo-router";
 import { StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";
@@ -23,6 +23,9 @@ export default function TabLayout() {
         screenOptions={{
           tabBarActiveTintColor: theme.colors["text-primary"],
           tabBarInactiveTintColor: theme.colors["text-second"],
+          tabBarStyle: {
+            paddingTop: 10,
+          },
         }}
         sceneContainerStyle={{
           backgroundColor: theme.colors["bg-primary"],
@@ -34,9 +37,9 @@ export default function TabLayout() {
             headerShown: false,
             title: "",
             tabBarIcon: ({ color }) => (
-              <Entypo
+              <Ionicons
                 size={pixelToNumber(theme.sizes["xl"])}
-                name="wallet"
+                name="wallet-outline"
                 color={color}
               />
             ),
@@ -48,8 +51,8 @@ export default function TabLayout() {
             title: "",
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <Ionicons
-                name="swap-horizontal"
+              <AntDesign
+                name="swap"
                 size={pixelToNumber(theme.sizes["xl"])}
                 color={color}
               />
@@ -62,8 +65,8 @@ export default function TabLayout() {
             title: "",
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <Ionicons
-                name="settings"
+              <AntDesign
+                name="setting"
                 size={pixelToNumber(theme.sizes["xl"])}
                 color={color}
               />

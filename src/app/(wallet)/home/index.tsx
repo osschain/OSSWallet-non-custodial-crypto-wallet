@@ -1,6 +1,6 @@
 import { Link, router } from "expo-router";
 import { useMemo, useState } from "react";
-import { ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, { FadeInRight } from "react-native-reanimated";
 import styled from "styled-components/native";
@@ -18,6 +18,7 @@ import {
   totalBalance,
 } from "@/services/balances.service";
 import { nfts } from "@/util/mock";
+import { ContainerUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 
 type Segment = "Assets" | "NFTS";
 const segmentOptions: Segment[] = ["Assets", "NFTS"];
@@ -30,76 +31,82 @@ export default function Home() {
   }, [balances]);
 
   return (
-    <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
-      <CardContainer>
-        <WalletCard
-          balance={total}
-          onHistory={() => router.push("/(wallet)/home/history")}
-          onRecieve={() => router.push("/(wallet)/home/recieve")}
-          onSend={() => router.push("/(wallet)/home/send")}
-        />
-      </CardContainer>
-      <SpacerUi size="3xl">
-        <SegmentedControl
-          options={segmentOptions}
-          selectedOption="Assets"
-          onOptionPress={(option) => {
-            setSegment(option as Segment);
-          }}
-        />
-      </SpacerUi>
-      <AssetContainer>
-        {isBalancesLoading && (
-          <SpacerUi size="xl">
-            <ActivityIndicator />
-          </SpacerUi>
-        )}
-        {segment === "Assets" && !isBalancesLoading && (
-          <FlatList
-            data={assets}
-            renderItem={({ item }) => (
-              <>
-                {item.isShown && (
-                  <SpacerUi size="xl" position="bottom">
-                    <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
-                      <TouchableOpacity>
-                        <AssetItem
-                          uri={item.icon}
-                          assetName={item.name}
-                          symbol={item.symbol}
-                          assetAmount={calculateBalance(item.id, balances)}
-                          usdAmount={calculateUsdBalance(item.id, balances)}
-                        />
-                      </TouchableOpacity>
-                    </Link>
-                  </SpacerUi>
-                )}
-              </>
-            )}
+    <SafeAreaView style={{ flex: 1 }}>
+      <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
+        <CardContainer>
+          <WalletCard
+            balance={total}
+            onHistory={() => router.push("/(wallet)/home/history")}
+            onRecieve={() => router.push("/(wallet)/home/recieve")}
+            onSend={() => router.push("/(wallet)/home/send")}
+            onCustomToken={() => router.push("(wallet)/home/custom-token")}
           />
-        )}
-        {segment === "NFTS" && (
-          <FlatList
-            data={nfts}
-            key={2}
-            numColumns={2}
-            columnWrapperStyle={{
-              justifyContent: "space-between",
+        </CardContainer>
+        <SpacerUi size="3xl">
+          <SegmentedControl
+            options={segmentOptions}
+            selectedOption="Assets"
+            onOptionPress={(option) => {
+              setSegment(option as Segment);
             }}
-            contentContainerStyle={{ justifyContent: "space-between" }}
-            renderItem={({ item }) => (
-              <SpacerUi style={{ width: "48%" }} size="xl" position="bottom">
-                <Link href={`/(wallet)/home/nft/${item.id}`} asChild>
-                  <TouchableOpacity>
-                    <NftItem title={item.title} collection={item.collection} />
-                  </TouchableOpacity>
-                </Link>
-              </SpacerUi>
-            )}
           />
-        )}
-      </AssetContainer>
-    </Animated.View>
+        </SpacerUi>
+        <AssetContainer>
+          {isBalancesLoading && (
+            <SpacerUi size="xl">
+              <ActivityIndicator />
+            </SpacerUi>
+          )}
+          {segment === "Assets" && !isBalancesLoading && (
+            <FlatList
+              data={assets}
+              renderItem={({ item }) => (
+                <>
+                  {item.isShown && (
+                    <SpacerUi size="xl" position="bottom">
+                      <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
+                        <TouchableOpacity>
+                          <AssetItem
+                            uri={item.icon}
+                            assetName={item.name}
+                            symbol={item.symbol}
+                            assetAmount={calculateBalance(item.id, balances)}
+                            usdAmount={calculateUsdBalance(item.id, balances)}
+                          />
+                        </TouchableOpacity>
+                      </Link>
+                    </SpacerUi>
+                  )}
+                </>
+              )}
+            />
+          )}
+          {segment === "NFTS" && (
+            <FlatList
+              data={nfts}
+              key={2}
+              numColumns={2}
+              columnWrapperStyle={{
+                justifyContent: "space-between",
+              }}
+              contentContainerStyle={{ justifyContent: "space-between" }}
+              renderItem={({ item }) => (
+                <SpacerUi style={{ width: "48%" }} size="xl" position="bottom">
+                  <Link href={`/(wallet)/home/nft/${item.id}`} asChild>
+                    <TouchableOpacity>
+                      <NftItem
+                        title={item.title}
+                        collection={item.collection}
+                      />
+                    </TouchableOpacity>
+                  </Link>
+                </SpacerUi>
+              )}
+            />
+          )}
+        </AssetContainer>
+      </Animated.View>
+    </SafeAreaView>
   );
 }
 

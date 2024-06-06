@@ -17,22 +17,7 @@ export default function _layout() {
       <Stack.Screen
         name="index"
         options={{
-          headerTitle: "",
-          contentStyle: {
-            backgroundColor: theme.colors["bg-primary"],
-          },
-          headerRight: () => {
-            return (
-              <IconUi
-                library="AntDesign"
-                name="plus"
-                size="xl"
-                color="icon-second"
-                onPress={() => router.push("(wallet)/home/custom-token")}
-              />
-            );
-          },
-          title: "ossWallet",
+          headerShown: false,
         }}
       />
       <Stack.Screen name="recieve" options={{ headerShown: false }} />

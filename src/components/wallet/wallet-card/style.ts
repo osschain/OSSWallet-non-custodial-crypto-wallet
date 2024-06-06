@@ -61,7 +61,7 @@ export const ButtonBacground = styled.View`
   border-radius: ${({ theme }) => theme.sizes["lg"]};
 `;
 
-export const Options = styled.TouchableOpacity`
+export const CustomTokenButton = styled.TouchableOpacity`
   position: absolute;
   color: ${({ theme }) => theme.colors["pure-white"]};
   top: ${({ theme }) => theme.spaces["xl"]};

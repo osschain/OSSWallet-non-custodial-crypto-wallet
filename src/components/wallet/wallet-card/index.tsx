@@ -1,8 +1,7 @@
 import { ComponentPropsWithoutRef } from "react";
 import { useTranslation } from "react-i18next";
-
 import { ActivityIndicator } from "react-native";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+
 import {
   Card,
   BackgroundGradient,
@@ -12,7 +11,7 @@ import {
   ButtonBacground,
   ButtonIcon,
   MoneyAmount,
-  Options,
+  CustomTokenButton,
 } from "./style";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -25,7 +24,7 @@ type Props = {
   balance?: number;
   onRecieve?: () => void;
   onSend?: () => void;
-  onOptions?: () => void;
+  onCustomToken?: () => void;
   onHistory?: () => void;
 } & ComponentPropsWithoutRef<typeof Card>;
 
@@ -34,7 +33,7 @@ const WalletCard = ({
   balance = undefined,
   onRecieve = () => {},
   onSend = () => {},
-  onOptions = () => {},
+  onCustomToken = () => {},
   onHistory = () => {},
   ...rest
 }: Props) => {
@@ -100,14 +99,9 @@ const WalletCard = ({
           </Button>
         </Buttons>
       </SpacerUi>
-      <Options onPress={onOptions}>
-        <IconUi
-          library="Entypo"
-          name="dots-three-vertical"
-          size="xl"
-          color="icon-primary"
-        />
-      </Options>
+      <CustomTokenButton onPress={onCustomToken}>
+        <IconUi library="AntDesign" name="plus" size="xl" color="pure-white" />
+      </CustomTokenButton>
     </Card>
   );
 };

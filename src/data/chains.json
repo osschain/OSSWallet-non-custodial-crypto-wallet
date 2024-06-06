@@ -24,7 +24,7 @@
   {
     "id": "eth",
     "name": "Ethereum",
-    "icon": "https://assets.osschain.com/icon/ether.svg",
+    "icon": "https://assets.osschain.com/icon/ethereum-eth.svg",
     "symbol": "ETH",
     "slip-0044":60,
     "blockchain": "eth",
@@ -35,7 +35,7 @@
   {
     "id": "polygon",
     "name": "Polygon",
-    "icon": "https://assets.osschain.com/icon/polygon.svg",
+    "icon": "https://assets.osschain.com/icon/polygonpos.svg",
     "symbol": "MATIC",
     "slip-0044": 60,
     "blockchain": "polygon",
@@ -86,7 +86,7 @@
   {
     "id": "optimism",
     "name": "Optimism",
-    "icon": "https://assets.osschain.com/icon/optimism.svg",
+    "icon": "https://assets.osschain.com/icon/optimismpp.svg",
     "symbol": "OP",
     "slip-0044": 60,
     "blockchain": "optimism",

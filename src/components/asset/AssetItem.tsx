@@ -30,7 +30,7 @@ const AssetItem = ({
     <Item {...rest}>
       <LeftContent>
         <ImageContainer>
-          <SvgUri uri={uri} width={40} height={40} />
+          <Image source={uri} style={{ width: 40, height: 40 }} />
         </ImageContainer>
         <View>
           <HeaderTextUi size="md">{assetName}</HeaderTextUi>

@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
@@ -8,6 +8,7 @@ import { TextInputUi } from "./TextInputUi";
 
 import { defaultImage } from "@/util/DefaultImage";
 import { SvgUri } from "react-native-svg";
+import { Image } from "expo-image";
 
 type Props = {
   uri?: string;
@@ -35,7 +36,7 @@ export default function AssetQuantityInputUi({
             </UsdQuantityContainer>
             <TouchableOpacity onPress={onAssetPress}>
               <AssetContainer>
-                <SvgUri uri={uri} width={24} height={24} />
+                <Image source={uri} style={{ width: 24, height: 24 }} />
                 <BodyTextUi weight="medium">{title}</BodyTextUi>
               </AssetContainer>
             </TouchableOpacity>

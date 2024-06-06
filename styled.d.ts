@@ -22,6 +22,8 @@ interface Colors {
   "pure-white": string;
   "icon-primary": string;
   "icon-second": string;
+  "placeholder": "string"
+
 }
 
 interface Spacing {

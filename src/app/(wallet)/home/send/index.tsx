@@ -24,7 +24,6 @@ export default function Send() {
 
   const { data: networks } = UseNetworks();
   const { data: assets } = useAssets();
-
   const { data: balances } = UseBalances();
   const { t } = useTranslation();
 
@@ -93,10 +92,14 @@ const AssetItem = ({
     <Link href={`/(wallet)/home/send/${asset.blockchain}`} asChild>
       <TouchableOpacity>
         <ItemUi
-          title={asset.symbol}
+          title={asset.name}
           uri={asset.icon}
-          description={asset.blockchain}
-          right={<BodyTextUi weight="bold">{balance}</BodyTextUi>}
+          description={asset.symbol}
+          right={
+            <BodyTextUi weight="regular">
+              {balance} {asset.symbol}
+            </BodyTextUi>
+          }
         />
       </TouchableOpacity>
     </Link>

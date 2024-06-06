@@ -20,6 +20,7 @@ export const colorsLight = {
   "pure-white": "#FFFFFF",
   "icon-primary": "#FFFFFF",
   "icon-second": "#000000",
+  "placeholder": "#222"
 };
 
 export const colorsDark = {
@@ -44,4 +45,6 @@ export const colorsDark = {
   "pure-white": "#FFFFFF",
   "icon-primary": "#FFFFFF",
   "icon-second": "#000000",
+  "placeholder": "#222"
+
 };

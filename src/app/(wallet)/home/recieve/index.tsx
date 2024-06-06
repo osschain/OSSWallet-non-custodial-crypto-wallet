@@ -69,7 +69,7 @@ const AssetItem = ({ asset }: { asset: AssetType }) => (
         <ItemUi
           title={asset.name}
           uri={asset.icon}
-          description={asset.blockchain}
+          description={asset.symbol}
         />
       </TouchableOpacity>
     </Link>

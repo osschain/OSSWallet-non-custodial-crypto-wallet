@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 import { getFontStyle } from "@/util/themeUtils";
 
@@ -44,10 +44,11 @@ const LeftContent = styled.View`
 `;
 
 export const TextInputUi = ({ left, right, ...rest }: Props) => {
+  const theme = useTheme();
   return (
     <InputContainer>
       {left && <LeftContent>{left}</LeftContent>}
-      <Input {...rest} />
+      <Input placeholderTextColor={theme.colors.placeholder} {...rest} />
       {right && <RightContent>{right}</RightContent>}
     </InputContainer>
   );

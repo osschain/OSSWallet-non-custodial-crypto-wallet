@@ -10,7 +10,7 @@ export const totalBalance = (balances: BalancesType[] | undefined) => {
     }, 0);
 
     if (balance === 0) return balance;
-    return balance?.toFixed(2)
+    return Number(balance?.toFixed(2))
 };
 
 export const calculateBalance = (id: string, balances: BalancesType[] | undefined) => {

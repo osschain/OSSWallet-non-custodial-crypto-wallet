@@ -15,7 +15,7 @@ export const UseNetworks = () => {
             const evmChains = assets.filter((asset) => asset.isNetwork && !asset.contractAddress)
 
             const networks = evmChains.map(chain => {
-                return { icon: chain.icon, label: chain.name }
+                return { icon: chain.icon, label: chain.name, blockchain: chain.blockchain }
             })
             return networks as NetworkType[]
         },

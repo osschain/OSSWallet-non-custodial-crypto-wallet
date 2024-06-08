@@ -3,11 +3,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { Linking } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import LocaleOptions from "@/components/settings/LocaleOptions";
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
@@ -27,6 +29,53 @@ export default function Settings() {
     i18n.changeLanguage(lang);
     bottomSheetRef.current?.close();
   };
+
+  const termsAndConditions = [
+    {
+      icon: "support-agent",
+      label: "Support",
+      link: "https://twitter.com/osschain",
+    },
+    {
+      icon: "policy",
+      label: "Terms and condition",
+      link: "https://t.me/osschain",
+    },
+    {
+      icon: "local-police",
+      label: "Privacy Policy",
+      link: "https://discord.gg/nRehVPnFxq",
+    },
+  ];
+
+  const socials = [
+    {
+      icon: "twitter",
+      label: "Twitter",
+      link: "https://twitter.com/osschain",
+    },
+    {
+      icon: "telegram",
+      label: "Telegram",
+      link: "https://t.me/osschain",
+    },
+    {
+      icon: "discord",
+      label: "Discord",
+      link: "https://discord.gg/nRehVPnFxq",
+    },
+
+    {
+      icon: "linkedin",
+      label: "Linkedin",
+      link: "https://www.linkedin.com/company/osschain-com-ecosystem",
+    },
+    {
+      icon: "message",
+      label: "Forum",
+      link: "https://forum.osschain.com/",
+    },
+  ];
 
   const locales = [
     {
@@ -144,6 +193,93 @@ export default function Settings() {
           </Setting>
         </TouchableOpacity>
       </SpacerUi>
+      <SpacerUi size="4xl">
+        <HeaderTextUi style={{ textAlign: "center" }} weight="semi" size="lg">
+          Help Center{" "}
+        </HeaderTextUi>
+      </SpacerUi>
+      {termsAndConditions.map((term) => {
+        return (
+          <SpacerUi size="xl">
+            <TouchableOpacity onPress={() => Linking.openURL(social.link)}>
+              <Setting>
+                <Left>
+                  <Icon>
+                    <IconUi
+                      library="MaterialIcons"
+                      name={term.icon}
+                      size="xl"
+                      color="icon-primary"
+                    />
+                  </Icon>
+                  <Title>
+                    <BodyTextUi weight="medium" size="lg">
+                      {term.label}
+                    </BodyTextUi>
+                  </Title>
+                </Left>
+                <Right>
+                  <IconUi
+                    library="Feather"
+                    name="external-link"
+                    size="xl"
+                    color="icon-second"
+                  />
+                </Right>
+                <LocaleOptions
+                  locales={locales}
+                  ref={bottomSheetRef}
+                  onSelect={handleLanguageChange}
+                />
+              </Setting>
+            </TouchableOpacity>
+          </SpacerUi>
+        );
+      })}
+      <SpacerUi size="4xl">
+        <HeaderTextUi style={{ textAlign: "center" }} weight="semi" size="lg">
+          SOCIAL LINKS
+        </HeaderTextUi>
+      </SpacerUi>
+      {socials.map((social) => {
+        return (
+          <SpacerUi size="xl">
+            <TouchableOpacity onPress={() => Linking.openURL(social.link)}>
+              <Setting>
+                <Left>
+                  <Icon>
+                    <IconUi
+                      library="FontAwesome6"
+                      name={social.icon}
+                      size="xl"
+                      color="icon-primary"
+                    />
+                  </Icon>
+                  <Title>
+                    <BodyTextUi weight="medium" size="lg">
+                      {social.label}
+                    </BodyTextUi>
+                  </Title>
+                </Left>
+                <Right>
+                  <IconUi
+                    library="Feather"
+                    name="external-link"
+                    size="xl"
+                    color="icon-second"
+                  />
+                </Right>
+                <LocaleOptions
+                  locales={locales}
+                  ref={bottomSheetRef}
+                  onSelect={handleLanguageChange}
+                />
+              </Setting>
+            </TouchableOpacity>
+          </SpacerUi>
+        );
+      })}
+      <SpacerUi size="xl" />
     </ScrollContainerUi>
   );
 }

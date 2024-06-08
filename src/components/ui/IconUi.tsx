@@ -6,6 +6,7 @@ import {
   Entypo,
   FontAwesome5,
   FontAwesome,
+  FontAwesome6,
   EvilIcons,
 } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
@@ -18,6 +19,7 @@ type IconLibraries = {
   Feather: typeof Feather;
   Entypo: typeof Entypo;
   FontAwesome5: typeof FontAwesome5;
+  FontAwesome6: typeof FontAwesome6;
   AntDesign: typeof AntDesign;
   Ionicons: typeof Ionicons;
   MaterialIcons: typeof MaterialIcons;
@@ -56,6 +58,7 @@ export default function IconUi<T extends IconType>({
     MaterialIcons,
     Entypo,
     FontAwesome5,
+    FontAwesome6,
     FontAwesome,
     EvilIcons,
   };

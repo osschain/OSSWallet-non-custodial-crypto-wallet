@@ -25,7 +25,7 @@ type Props = {
 const NetworkOptions = forwardRef<Ref, Props>(
   ({ networks, onSelect = () => {}, required }, ref) => {
     const snapPoints = useMemo(() => ["95%", "95%"], []);
-    const [selected, setSelected] = useState<Blockchain | null>(() => {
+    const [selected, setSelected] = useState<string | null>(() => {
       if (networks && required) {
         const network = networks[0].label;
         return network;
@@ -62,7 +62,7 @@ const NetworkOptions = forwardRef<Ref, Props>(
         onSelect(null);
       } else {
         setSelected(network.label);
-        onSelect(network.label);
+        onSelect(network.blockchain);
       }
       bottomSheetRef.current?.close();
     };

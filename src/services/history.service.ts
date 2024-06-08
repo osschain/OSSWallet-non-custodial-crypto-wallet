@@ -8,13 +8,13 @@ import { ankrProvider } from "@/config/ankr";
 import { unixTimestampToDate } from "@/util/unixToDate";
 
 
-export const getHistories = async (addresses: AddressType[], page: number = 1, blockchains: Blockchain[]) => {
+export const getHistories = async (addresses: AddressType[], page: number = 1, blockchain: Blockchain[]) => {
     const result: HistoryType[] = []
     try {
         for (const { address, type } of addresses) {
             if (type === AddresTypes.evm) {
-                const tokenHistory = await getChainHistories({ address, blockchain: blockchains, page })
-                const chainHistory = await getTokenHistories({ address, blockchain: blockchains, page })
+                const tokenHistory = await getEvmChainHistories({ address, blockchain, page })
+                const chainHistory = await getEvmTokenHistories({ address, blockchain, page })
 
 
                 const histories = [...tokenHistory, ...chainHistory]
@@ -34,24 +34,19 @@ export const getHistories = async (addresses: AddressType[], page: number = 1, b
 
 export type OSSblockchain = Blockchain | "solana" | 'btc';
 
-type getChainHistoryParams = {
+type EvmHistoriesParams = {
     address: string;
-    blockchain?: Blockchain[] | OSSblockchain;
+    blockchain: Blockchain[] | Blockchain;
     page: number;
 }
 
 
-export const getChainHistories = async ({ address, blockchain, page }: getChainHistoryParams) => {
-
-    if (blockchain === 'solana' || blockchain === "btc") {
-        return []
-    }
-
+export const getEvmChainHistories = async ({ address, blockchain, page }: EvmHistoriesParams) => {
     try {
 
 
         const transactions = await ankrProvider.getTransactionsByAddress({
-            blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
+            blockchain: (Array.isArray(blockchain) ? blockchain : [blockchain]),
             address: [address],
             descOrder: true,
             pageSize: page
@@ -82,16 +77,12 @@ export const getChainHistories = async ({ address, blockchain, page }: getChainH
     }
 }
 
-export const getTokenHistories = async ({ address, blockchain, page }: getChainHistoryParams) => {
+export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHistoriesParams) => {
 
-    if (blockchain === 'solana' || blockchain === "btc") {
-        return []
-    }
-    console.log(blockchain)
 
     try {
         const transactions = await ankrProvider.getTokenTransfers({
-            blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
+            blockchain: (Array.isArray(blockchain) ? blockchain : [blockchain]),
             address: [address],
             descOrder: true,
             pageSize: page

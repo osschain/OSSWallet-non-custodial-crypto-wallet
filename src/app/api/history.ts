@@ -4,7 +4,7 @@ import { useAssets } from "./assets";
 
 import { HistoryType } from "@/@types/history";
 import { getAdresses } from "@/services/balances.service";
-import { OSSblockchain, getChainHistories, getHistories, getTokenHistories } from "@/services/history.service";
+import { OSSblockchain, getEvmChainHistories, getHistories, getEvmTokenHistories } from "@/services/history.service";
 
 export const useHistories = (page: number) => {
     const { data: assets } = useAssets()
@@ -45,16 +45,20 @@ export const useHistory = (address: string | undefined, id: string, blockchain: 
                 throw new Error("address is not presented");
             }
 
+            if (blockchain === "btc" || blockchain === 'solana') {
+                return []
+            }
+
 
 
             const histories: HistoryType[] = []
             if (!isToken) {
-                const history = await getChainHistories({ address, blockchain, page }) || [];
+                const history = await getEvmChainHistories({ address, blockchain, page }) || [];
                 histories.push(...history)
             }
 
             if (isToken) {
-                const history = await getTokenHistories({ address, blockchain, page }) || [];
+                const history = await getEvmTokenHistories({ address, blockchain, page }) || [];
                 histories.push(...history)
             }
 

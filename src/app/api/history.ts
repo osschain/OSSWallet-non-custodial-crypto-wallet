@@ -15,10 +15,15 @@ export const useHistories = (page: number) => {
                 throw new Error("assets is not presented");
             }
 
-            const addresses = getAdresses(assets);
-            const histories = await getHistories(addresses, page);
+            const shownedAssets = assets.filter(asset => asset.isShown)
 
-            return histories
+            const blockchains = Array.from(new Set(shownedAssets.map(asset => asset.blockchain)))
+            const ids = shownedAssets.map(asset => asset.id.toLowerCase())
+            const addresses = getAdresses(assets);
+            const histories = await getHistories(addresses, page, blockchains);
+
+
+            return histories.filter(history => ids.includes(history.id.toLowerCase()))
         },
         placeholderData: keepPreviousData,
         refetchOnWindowFocus: false,
@@ -40,8 +45,9 @@ export const useHistory = (address: string | undefined, id: string, blockchain: 
                 throw new Error("address is not presented");
             }
 
+
+
             const histories: HistoryType[] = []
-            console.log("Refffetch")
             if (!isToken) {
                 const history = await getChainHistories({ address, blockchain, page }) || [];
                 histories.push(...history)

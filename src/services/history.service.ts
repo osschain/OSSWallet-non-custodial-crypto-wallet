@@ -8,14 +8,13 @@ import { ankrProvider } from "@/config/ankr";
 import { unixTimestampToDate } from "@/util/unixToDate";
 
 
-export const getHistories = async (addresses: AddressType[], page: number = 1) => {
+export const getHistories = async (addresses: AddressType[], page: number = 1, blockchains: Blockchain[]) => {
     const result: HistoryType[] = []
     try {
         for (const { address, type } of addresses) {
             if (type === AddresTypes.evm) {
-
-                const tokenHistory = await getTokenHistories({ address, page })
-                const chainHistory = await getTokenHistories({ address, page })
+                const tokenHistory = await getChainHistories({ address, blockchain: blockchains, page })
+                const chainHistory = await getTokenHistories({ address, blockchain: blockchains, page })
 
 
                 const histories = [...tokenHistory, ...chainHistory]
@@ -37,7 +36,7 @@ export type OSSblockchain = Blockchain | "solana" | 'btc';
 
 type getChainHistoryParams = {
     address: string;
-    blockchain?: OSSblockchain;
+    blockchain?: Blockchain[] | OSSblockchain;
     page: number;
 }
 
@@ -52,7 +51,7 @@ export const getChainHistories = async ({ address, blockchain, page }: getChainH
 
 
         const transactions = await ankrProvider.getTransactionsByAddress({
-            blockchain: blockchain ? [blockchain] : [],
+            blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
             address: [address],
             descOrder: true,
             pageSize: page
@@ -88,16 +87,17 @@ export const getTokenHistories = async ({ address, blockchain, page }: getChainH
     if (blockchain === 'solana' || blockchain === "btc") {
         return []
     }
-
+    console.log(blockchain)
 
     try {
         const transactions = await ankrProvider.getTokenTransfers({
-            blockchain: blockchain ? [blockchain] : [],
+            blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
             address: [address],
             descOrder: true,
             pageSize: page
 
         });
+
 
 
         const histories = transactions.transfers.map(({ timestamp, blockchain, toAddress, fromAddress, value, contractAddress }) => {
@@ -117,6 +117,8 @@ export const getTokenHistories = async ({ address, blockchain, page }: getChainH
                 date: timestamp ? unixTimestampToDate(timestamp) : null
             }
         }) as HistoryType[]
+
+        console.log(histories)
 
         return histories
     } catch (error) {

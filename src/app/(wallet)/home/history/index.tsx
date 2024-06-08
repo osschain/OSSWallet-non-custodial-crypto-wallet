@@ -1,5 +1,6 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { BottomSheetModal, TouchableOpacity } from "@gorhom/bottom-sheet";
+import { router } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Alert, Text } from "react-native";
@@ -15,10 +16,9 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { getAdresses } from "@/services/balances.service";
-import { router } from "expo-router";
 
 export default function History() {
-  const [page, setPage] = useState(100);
+  const [page, setPage] = useState(40);
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();

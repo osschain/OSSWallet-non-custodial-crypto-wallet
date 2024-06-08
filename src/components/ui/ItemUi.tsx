@@ -1,10 +1,10 @@
+import { Image } from "expo-image";
 import { ComponentPropsWithoutRef, ReactNode } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "./BodyTextUi";
 import HeaderTextUi from "./HeaderTextUi";
-import { Image } from "expo-image";
 
 type Props = {
   uri?: string;
@@ -21,7 +21,6 @@ export default function ItemUi({
   description,
   right,
 }: Props) {
-  console.log(descUri, "URINA");
   return (
     <Item>
       <Content>
@@ -55,8 +54,8 @@ const ItemImg = styled(Image)`
   height: ${({ theme }) => theme.sizes["2xl"]};
 `;
 const DescImg = styled(Image)`
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 25px;
   position: absolute;
 
   right: -60%;

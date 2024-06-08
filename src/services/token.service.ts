@@ -4,7 +4,7 @@ import { JsonRpcProvider, Contract } from "ethers";
 import { ERC20_ABI } from "@/config/abi"
 
 export const getContract = (address: string, blockchain: Blockchain) => {
-    const endPoint = `https://rpc.ankr.com/${blockchain}/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55`;
+    const endPoint = `https://rpc.ankr.com/${blockchain}/f7c0df84b43c7f9f2c529c76efc01da4b30271a66608da4728f9830ea17d29bc`;
     const provider = new JsonRpcProvider(endPoint);
     const contract = new Contract(address, ERC20_ABI, provider);
 

@@ -9,7 +9,7 @@ export const sendTransaction = async ({ privateKey, toAddress, blockchain, contr
         throw new Error("Cant send")
     }
 
-    const endPoint = `https://rpc.ankr.com/${blockchain}/8831f4b105c93c89b13de27e58213e3abe436958016210ab7be03f2fc7d79d55`
+    const endPoint = `https://rpc.ankr.com/${blockchain}/f7c0df84b43c7f9f2c529c76efc01da4b30271a66608da4728f9830ea17d29bc`
 
     try {
 

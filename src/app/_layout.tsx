@@ -81,6 +81,10 @@ function RootLayoutNav() {
                     name="enter-password"
                     options={{ headerShown: false }}
                   />
+                  <Stack.Screen
+                    name="web-view"
+                    options={{ headerShown: false }}
+                  />
                 </Stack>
               </BottomSheetModalProvider>
             </QueryProvider>

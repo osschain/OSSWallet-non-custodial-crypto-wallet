@@ -1,6 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Linking } from "react-native";
@@ -34,7 +34,7 @@ export default function Settings() {
     {
       icon: "support-agent",
       label: "Support",
-      link: "https://twitter.com/osschain",
+      link: "https://support.osschain.com",
     },
     {
       icon: "policy",
@@ -195,13 +195,20 @@ export default function Settings() {
       </SpacerUi>
       <SpacerUi size="4xl">
         <HeaderTextUi style={{ textAlign: "center" }} weight="semi" size="lg">
-          Help Center{" "}
+          Help Center
         </HeaderTextUi>
       </SpacerUi>
       {termsAndConditions.map((term) => {
         return (
-          <SpacerUi size="xl">
-            <TouchableOpacity onPress={() => Linking.openURL(social.link)}>
+          <SpacerUi size="xl" key={term.label}>
+            <TouchableOpacity
+              onPress={() =>
+                router.push({
+                  pathname: `/web-view`,
+                  params: { link: term.link },
+                })
+              }
+            >
               <Setting>
                 <Left>
                   <Icon>
@@ -226,11 +233,6 @@ export default function Settings() {
                     color="icon-second"
                   />
                 </Right>
-                <LocaleOptions
-                  locales={locales}
-                  ref={bottomSheetRef}
-                  onSelect={handleLanguageChange}
-                />
               </Setting>
             </TouchableOpacity>
           </SpacerUi>
@@ -243,7 +245,7 @@ export default function Settings() {
       </SpacerUi>
       {socials.map((social) => {
         return (
-          <SpacerUi size="xl">
+          <SpacerUi size="xl" key={social.label}>
             <TouchableOpacity onPress={() => Linking.openURL(social.link)}>
               <Setting>
                 <Left>
@@ -269,11 +271,6 @@ export default function Settings() {
                     color="icon-second"
                   />
                 </Right>
-                <LocaleOptions
-                  locales={locales}
-                  ref={bottomSheetRef}
-                  onSelect={handleLanguageChange}
-                />
               </Setting>
             </TouchableOpacity>
           </SpacerUi>

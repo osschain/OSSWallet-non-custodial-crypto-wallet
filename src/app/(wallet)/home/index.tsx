@@ -71,13 +71,6 @@ export default function Home() {
                     <Spacer>
                       <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
                         <TouchableOpacity>
-                          {/* <AssetItem
-                            uri={item.icon}
-                            assetName={item.name}
-                            symbol={item.symbol}
-                            assetAmount={calculateBalance(item.id, balances)}
-                            usdAmount={calculateUsdBalance(item.id, balances)}
-                          /> */}
                           <Asset>
                             <ItemUi
                               title={item.name}

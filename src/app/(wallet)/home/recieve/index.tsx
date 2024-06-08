@@ -71,7 +71,7 @@ const AssetItem = ({
   asset: AssetType;
 }) => (
   <SpacerUi size="3xl">
-    <Link href={`/(wallet)/home/recieve/${asset.blockchain}`}>
+    <Link href={`/(wallet)/home/recieve/${asset.id}`}>
       <TouchableOpacity>
         <ItemUi
           title={asset.name}

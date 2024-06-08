@@ -19,6 +19,9 @@ import {
   totalBalance,
 } from "@/services/balances.service";
 import { nfts } from "@/util/mock";
+import ItemUi from "@/components/ui/ItemUi";
+import { findAsset } from "@/util/findAsset";
+import BodyTextUi from "@/components/ui/BodyTextUi";
 
 type Segment = "Assets" | "NFTs";
 const segmentOptions: Segment[] = ["Assets", "NFTs"];
@@ -68,13 +71,30 @@ export default function Home() {
                     <Spacer>
                       <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
                         <TouchableOpacity>
-                          <AssetItem
+                          {/* <AssetItem
                             uri={item.icon}
                             assetName={item.name}
                             symbol={item.symbol}
                             assetAmount={calculateBalance(item.id, balances)}
                             usdAmount={calculateUsdBalance(item.id, balances)}
-                          />
+                          /> */}
+                          <Asset>
+                            <ItemUi
+                              title={item.name}
+                              uri={item.icon}
+                              description={`${calculateBalance(item.id, balances)} ${item.symbol}`}
+                              descUri={
+                                item.contractAddress
+                                  ? findAsset(assets, item.blockchain)?.icon
+                                  : undefined
+                              }
+                              right={
+                                <BodyTextUi size="md" weight="medium">
+                                  {calculateUsdBalance(item.id, balances)} $
+                                </BodyTextUi>
+                              }
+                            />
+                          </Asset>
                         </TouchableOpacity>
                       </Link>
                     </Spacer>
@@ -127,4 +147,10 @@ const Spacer = styled.View`
 const AssetContainer = styled.View`
   flex: 1;
   padding: 0 ${({ theme }) => theme.spaces["xl"]};
+`;
+
+const Asset = styled.View`
+  background-color: ${({ theme }) => theme.colors["bg-second"]};
+  padding: ${({ theme }) => theme.spaces["xl"]};
+  border-radius: ${({ theme }) => theme.sizes["md"]};
 `;

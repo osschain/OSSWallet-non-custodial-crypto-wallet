@@ -50,16 +50,16 @@ const Content = styled.View`
 `;
 
 const ItemImg = styled(Image)`
-  width: ${({ theme }) => theme.sizes["2xl"]};
-  height: ${({ theme }) => theme.sizes["2xl"]};
+  width: ${({ theme }) => theme.sizes["3.5xl"]};
+  height: ${({ theme }) => theme.sizes["3.5xl"]};
 `;
 const DescImg = styled(Image)`
-  width: 25px;
-  height: 25px;
+  width: 27px;
+  height: 27px;
   position: absolute;
 
-  right: -60%;
-  top: 45%;
+  right: -30%;
+  top: 50%;
 `;
 const ImgContainer = styled(View)`
   position: relative;

@@ -39,12 +39,12 @@ export default function Settings() {
     {
       icon: "policy",
       label: "Terms and condition",
-      link: "https://t.me/osschain",
+      link: "https://law.osschain.com/terms",
     },
     {
       icon: "local-police",
       label: "Privacy Policy",
-      link: "https://discord.gg/nRehVPnFxq",
+      link: "https://law.osschain.com/privacy",
     },
   ];
 

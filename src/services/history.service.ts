@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AddresTypes, AddressType } from "@/@types/balances";
 import { HistoryType } from "@/@types/history";
 import { ankrProvider } from "@/config/ankr";
+import { unixTimestampToDate } from "@/util/unixToDate";
 
 
 export const getHistories = async (addresses: AddressType[], page: number = 1) => {
@@ -13,56 +14,11 @@ export const getHistories = async (addresses: AddressType[], page: number = 1) =
         for (const { address, type } of addresses) {
             if (type === AddresTypes.evm) {
 
-                const [chainHistories, tokenHistories] = await Promise.all([
-                    ankrProvider.getTransactionsByAddress({
-                        blockchain: [],
-                        address: [address],
-                        pageSize: page,
-                        descOrder: true,
-
-                    }),
-                    ankrProvider.getTokenTransfers({
-                        blockchain: [],
-                        address: [address],
-                        pageSize: page,
-
-                        descOrder: true,
-                    })
-                ]);
-
-                const tranformchainHistories = chainHistories.transactions.map(({ value, to, from, blockchain }) => {
-                    if (!blockchain || !to) {
-                        return;
-                    }
-                    return {
-                        nextPageToken: chainHistories.nextPageToken,
-                        to,
-                        from,
-                        id: blockchain,
-                        key: uuidv4(),
-                        value: formatEther(value),
-                        blockchain: blockchain as OSSblockchain,
-                    }
-                }) as HistoryType[]
+                const tokenHistory = await getTokenHistories({ address, page })
+                const chainHistory = await getTokenHistories({ address, page })
 
 
-                const tranformTokenHistories = tokenHistories.transfers.map(({ blockchain, value, toAddress, fromAddress, contractAddress }) => {
-                    if (!contractAddress || !toAddress || !fromAddress) {
-                        return;
-                    }
-                    return {
-                        nextPageToken: tokenHistories.nextPageToken,
-                        to: toAddress,
-                        from: fromAddress,
-                        id: contractAddress,
-                        key: uuidv4(),
-                        value,
-                        blockchain: blockchain as OSSblockchain
-                    }
-                }) as HistoryType[]
-
-
-                const histories = [...tranformchainHistories, ...tranformTokenHistories]
+                const histories = [...tokenHistory, ...chainHistory]
 
 
                 result.push(...histories)
@@ -79,7 +35,14 @@ export const getHistories = async (addresses: AddressType[], page: number = 1) =
 
 export type OSSblockchain = Blockchain | "solana" | 'btc';
 
-export const getChainHistory = async (address: string, blockchain: OSSblockchain, page: number) => {
+type getChainHistoryParams = {
+    address: string;
+    blockchain?: OSSblockchain;
+    page: number;
+}
+
+
+export const getChainHistories = async ({ address, blockchain, page }: getChainHistoryParams) => {
 
     if (blockchain === 'solana' || blockchain === "btc") {
         return []
@@ -89,14 +52,14 @@ export const getChainHistory = async (address: string, blockchain: OSSblockchain
 
 
         const transactions = await ankrProvider.getTransactionsByAddress({
-            blockchain: [blockchain],
+            blockchain: blockchain ? [blockchain] : [],
             address: [address],
             descOrder: true,
             pageSize: page
         });
 
 
-        const histories = transactions.transactions.map(({ to, from, value, blockchain }) => {
+        const histories = transactions.transactions.map(({ timestamp, gasPrice, gasUsed, nonce, to, from, value, blockchain }) => {
             if (!blockchain || !to) {
                 return;
             }
@@ -108,6 +71,9 @@ export const getChainHistory = async (address: string, blockchain: OSSblockchain
                 key: uuidv4(),
                 value: formatEther(value),
                 blockchain: blockchain as OSSblockchain,
+                nonce,
+                fee: Number(gasPrice) * Number(gasUsed),
+                date: timestamp ? unixTimestampToDate(timestamp) : null
             }
         }).filter(Boolean) as HistoryType[]
 
@@ -117,7 +83,7 @@ export const getChainHistory = async (address: string, blockchain: OSSblockchain
     }
 }
 
-export const getTokenHistory = async (address: string, blockchain: OSSblockchain, page: number) => {
+export const getTokenHistories = async ({ address, blockchain, page }: getChainHistoryParams) => {
 
     if (blockchain === 'solana' || blockchain === "btc") {
         return []
@@ -126,7 +92,7 @@ export const getTokenHistory = async (address: string, blockchain: OSSblockchain
 
     try {
         const transactions = await ankrProvider.getTokenTransfers({
-            blockchain: [blockchain],
+            blockchain: blockchain ? [blockchain] : [],
             address: [address],
             descOrder: true,
             pageSize: page
@@ -134,7 +100,7 @@ export const getTokenHistory = async (address: string, blockchain: OSSblockchain
         });
 
 
-        const histories = transactions.transfers.map(({ blockchain, toAddress, fromAddress, value, contractAddress }) => {
+        const histories = transactions.transfers.map(({ timestamp, blockchain, toAddress, fromAddress, value, contractAddress }) => {
 
             if (!contractAddress || !toAddress || !fromAddress) {
                 return;
@@ -147,7 +113,8 @@ export const getTokenHistory = async (address: string, blockchain: OSSblockchain
                 id: contractAddress,
                 key: uuidv4(),
                 value,
-                blockchain: blockchain as OSSblockchain
+                blockchain: blockchain as OSSblockchain,
+                date: timestamp ? unixTimestampToDate(timestamp) : null
             }
         }) as HistoryType[]
 

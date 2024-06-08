@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { Link, Stack, router, useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Alert, FlatList, View } from "react-native";
@@ -176,11 +176,20 @@ export default function Asset() {
           data={filterHistories}
           renderItem={({ item }) => (
             <SpacerUi size="xl" position="bottom">
-              <HistoryItem
-                walletAddress={item.from}
-                variant={checkAddres(item?.from)}
-                amount={item.value}
-              />
+              <TouchableOpacity
+                onPress={() =>
+                  router.push({
+                    pathname: `/(wallet)/home/history/${item.id}`,
+                    params: item,
+                  })
+                }
+              >
+                <HistoryItem
+                  walletAddress={item.from}
+                  variant={checkAddres(item.from)}
+                  amount={item.value}
+                />
+              </TouchableOpacity>
             </SpacerUi>
           )}
           ListFooterComponent={() => (

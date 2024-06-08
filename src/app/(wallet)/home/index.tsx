@@ -11,6 +11,8 @@ import { UseBalances } from "@/app/api/balances";
 import AssetItem from "@/components/asset/AssetItem";
 import NftItem from "@/components/nft/NftItem";
 import SegmentedControl from "@/components/segment";
+import BodyTextUi from "@/components/ui/BodyTextUi";
+import ItemUi from "@/components/ui/ItemUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import WalletCard from "@/components/wallet/wallet-card";
 import {
@@ -18,10 +20,8 @@ import {
   calculateUsdBalance,
   totalBalance,
 } from "@/services/balances.service";
-import { nfts } from "@/util/mock";
-import ItemUi from "@/components/ui/ItemUi";
 import { findAsset } from "@/util/findAsset";
-import BodyTextUi from "@/components/ui/BodyTextUi";
+import { nfts } from "@/util/mock";
 
 type Segment = "Assets" | "NFTs";
 const segmentOptions: Segment[] = ["Assets", "NFTs"];

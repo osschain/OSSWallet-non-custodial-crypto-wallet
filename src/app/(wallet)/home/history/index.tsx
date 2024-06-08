@@ -15,6 +15,7 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { getAdresses } from "@/services/balances.service";
+import { router } from "expo-router";
 
 export default function History() {
   const [page, setPage] = useState(100);
@@ -88,11 +89,20 @@ export default function History() {
           data={filteredHistories}
           renderItem={({ item }) => (
             <SpacerUi size="xl" position="bottom">
-              <HistoryItem
-                walletAddress={item.from}
-                variant={checkAddres(item.from)}
-                amount={item.value}
-              />
+              <TouchableOpacity
+                onPress={() =>
+                  router.push({
+                    pathname: `/(wallet)/home/history/${item.id}`,
+                    params: item,
+                  })
+                }
+              >
+                <HistoryItem
+                  walletAddress={item.from}
+                  variant={checkAddres(item.from)}
+                  amount={item.value}
+                />
+              </TouchableOpacity>
             </SpacerUi>
           )}
           ListFooterComponent={() => (

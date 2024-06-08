@@ -111,7 +111,7 @@ export default function SendChain() {
               onChangeText={(text) => setAmont(text)}
               value={amount}
               uri={asset.icon}
-              title={asset.name}
+              title={asset.symbol}
             />
           </SpacerUi>
         </SpacerUi>

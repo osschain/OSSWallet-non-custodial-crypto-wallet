@@ -3,6 +3,7 @@ import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
 import styled, { useTheme } from "styled-components/native";
 
+import { AssetType } from "@/@types/assets";
 import { useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import AssetHistory from "@/components/asset/AssetHistory";
@@ -21,15 +22,12 @@ import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function Asset() {
   const { assetSlug: slug } = useLocalSearchParams();
-  const { t } = useTranslation();
-  const theme = useTheme();
-  const { data: balances } = UseBalances();
 
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
 
-  if (!asset) {
+  if (!asset || !slug || typeof slug !== "string") {
     return (
       <ContainerUi>
         <SpacerUi size="3xl">
@@ -41,18 +39,34 @@ export default function Asset() {
 
   return (
     <ContainerUi>
-      <Stack.Screen options={{ title: asset?.name }} />
+      <Stack.Screen options={{ title: asset.name }} />
       <SpacerUi size="4xl">
-        <ChainDetails>
-          <Image
-            source={asset?.icon}
-            style={{
-              width: pixelToNumber(theme.sizes["4xl"]),
-              height: pixelToNumber(theme.sizes["4xl"]),
-            }}
-          />
-        </ChainDetails>
+        <AssetDetails asset={asset} slug={slug} />
       </SpacerUi>
+      <SpacerUi size="4xl" style={{ flex: 1 }}>
+        <AssetHistory />
+      </SpacerUi>
+    </ContainerUi>
+  );
+}
+
+const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const { data: balances } = UseBalances();
+
+  return (
+    <>
+      <ChainDetails>
+        <Image
+          source={asset?.icon}
+          style={{
+            width: pixelToNumber(theme.sizes["4xl"]),
+            height: pixelToNumber(theme.sizes["4xl"]),
+          }}
+        />
+      </ChainDetails>
+
       <SpacerUi size="xl">
         <HeaderTextUi weight="semi" size="lg" style={{ textAlign: "center" }}>
           {calculateBalance(asset?.id, balances)} {asset.symbol}
@@ -106,13 +120,9 @@ export default function Asset() {
           </ActionButton>
         </Actions>
       </SpacerUi>
-
-      <SpacerUi size="4xl" style={{ flex: 1 }}>
-        <AssetHistory />
-      </SpacerUi>
-    </ContainerUi>
+    </>
   );
-}
+};
 
 const ChainDetails = styled.View`
   flex-direction: row;

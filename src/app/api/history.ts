@@ -30,7 +30,11 @@ export const useHistories = (page: number) => {
 
 
             const ids = shownedAssets.map(asset => asset.id.toLowerCase())
-            return histories.filter(history => ids.includes(history.id.toLowerCase()))
+
+            const filteredHistory = histories.filter(history => ids.includes(history.id.toLowerCase()))
+
+
+            return filteredHistory
         },
         placeholderData: keepPreviousData,
         refetchOnWindowFocus: false,

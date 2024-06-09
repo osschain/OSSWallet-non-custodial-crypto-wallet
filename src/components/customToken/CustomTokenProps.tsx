@@ -2,7 +2,6 @@ import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "../ui/BodyTextUi";
-import MessageUi from "../ui/MessageUi";
 import SpacerUi from "../ui/SpacerUi";
 
 import { tokenType } from "@/@types/assets";

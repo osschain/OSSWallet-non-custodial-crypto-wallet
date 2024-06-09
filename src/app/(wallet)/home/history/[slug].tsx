@@ -2,13 +2,12 @@ import * as Clipboard from "expo-clipboard";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { ReactNode, useState } from "react";
-import { useTranslation } from "react-i18next";
 import styled from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import IconUi from "@/components/ui/IconUi";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
+import { BodyUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { getAdresses } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";

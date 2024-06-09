@@ -30,9 +30,9 @@ export default function HistoryDetails() {
     );
 
     if (isFromMe) {
-      return true;
-    } else if (!isFromMe) {
       return false;
+    } else if (!isFromMe) {
+      return true;
     }
   };
 

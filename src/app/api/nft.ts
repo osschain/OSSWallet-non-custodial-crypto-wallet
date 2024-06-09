@@ -3,8 +3,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
-import { AddresTypes } from "@/@types/balances";
-import { getAddress } from "@/services/balances.service";
+
 import { getEvmNft, getEvmNfts } from "@/services/nft.service";
 
 

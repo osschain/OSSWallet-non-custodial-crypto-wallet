@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AssetType } from "@/@types/assets";
 import AssetsManager from "@/models/asset.model";
 import { useAuth } from "@/providers/AuthProvider";
+import { useHistories } from "./history";
 
 export const useAssets = () => {
   const { mnemonic } = useAuth();
@@ -66,6 +67,7 @@ export const useAddAssets = () => {
     },
   });
 };
+
 export const useUpdateAsset = () => {
   const queryClient = useQueryClient();
 

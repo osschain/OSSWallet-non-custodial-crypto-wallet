@@ -6,17 +6,12 @@ import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import { useNft } from "@/app/api/nft";
+import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import {
-  BodyUi,
-  ContainerUi,
-  FooterUi,
-  ScrollContainerUi,
-} from "@/components/ui/LayoutsUi";
+import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 
 export default function Nft() {
   const { t } = useTranslation();

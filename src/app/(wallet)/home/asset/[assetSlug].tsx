@@ -1,17 +1,13 @@
 import { Image } from "expo-image";
-import { Link, Stack, router, useLocalSearchParams } from "expo-router";
-import { useMemo, useState } from "react";
+import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, Alert, FlatList, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import styled, { useTheme } from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
-import { useHistory } from "@/app/api/history";
-import HistoryItem, { variants } from "@/components/history/history-item";
-import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
+import AssetHistory from "@/components/asset/AssetHistory";
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
@@ -19,15 +15,11 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import {
   calculateBalance,
   calculateUsdBalance,
-  getAdresses,
 } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
 import { pixelToNumber } from "@/util/pixelToNumber";
-import HeaderTextUi from "@/components/ui/HeaderTextUi";
 
 export default function Asset() {
-  const [page, setPage] = useState(100);
-
   const { assetSlug: slug } = useLocalSearchParams();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -36,41 +28,8 @@ export default function Asset() {
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
-  const {
-    data: histories,
-    isLoading,
-    isError,
-    isRefetching,
-  } = useHistory(
-    asset?.account.address,
-    asset?.id as string,
-    asset?.blockchain,
-    !!asset?.contractAddress,
-    page
-  );
 
-  const filterHistories = useMemo(() => {
-    return histories?.filter(
-      (history) => history.id.toLowerCase() === asset?.id.toLowerCase()
-    );
-  }, [asset?.id, histories]);
-
-  const checkAddres = (from: string | undefined): variants | undefined => {
-    if (!assets || !from) return;
-    const adresses = getAdresses(assets);
-
-    const isFromMe = adresses.find((adress) => {
-      return adress.address.toLowerCase() === from.toLocaleLowerCase();
-    });
-
-    if (isFromMe) {
-      return "send";
-    } else if (!isFromMe) {
-      return "recieved";
-    }
-  };
-
-  if (isError || !asset) {
+  if (!asset) {
     return (
       <ContainerUi>
         <SpacerUi size="3xl">
@@ -79,16 +38,6 @@ export default function Asset() {
       </ContainerUi>
     );
   }
-
-  const handlePagination = () => {
-    if (!histories) return;
-
-    if (histories[histories?.length - 1].nextPageToken) {
-      setPage((prev) => prev + 100);
-    } else {
-      Alert.alert("...ops", "There is no more histories");
-    }
-  };
 
   return (
     <ContainerUi>
@@ -158,59 +107,8 @@ export default function Asset() {
         </Actions>
       </SpacerUi>
 
-      {isLoading && (
-        <SpacerUi size="4xl">
-          <ActivityIndicator />
-        </SpacerUi>
-      )}
-
-      {!histories?.length && !isLoading && (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <AlertWithImageUI title="there is no history" />
-        </View>
-      )}
-
-      <SpacerUi size="4xl" style={{ flex: histories?.length ? 1 : 0 }}>
-        <FlatList
-          data={filterHistories}
-          renderItem={({ item }) => (
-            <SpacerUi size="xl" position="bottom">
-              <TouchableOpacity
-                onPress={() =>
-                  router.push({
-                    pathname: `/(wallet)/home/history/${item.id}`,
-                    params: item,
-                  })
-                }
-              >
-                <HistoryItem
-                  walletAddress={item.from}
-                  variant={checkAddres(item.from)}
-                  amount={item.value}
-                />
-              </TouchableOpacity>
-            </SpacerUi>
-          )}
-          ListFooterComponent={() => (
-            <>
-              {!isLoading && !!histories?.length && (
-                <SpacerUi style={{ padding: 20 }}>
-                  <TouchableOpacity onPress={handlePagination}>
-                    <BodyTextUi
-                      color="blue-500"
-                      style={{ textAlign: "center" }}
-                    >
-                      Load More
-                    </BodyTextUi>
-                  </TouchableOpacity>
-                </SpacerUi>
-              )}
-              {isRefetching && <ActivityIndicator />}
-            </>
-          )}
-        />
+      <SpacerUi size="4xl" style={{ flex: 1 }}>
+        <AssetHistory />
       </SpacerUi>
     </ContainerUi>
   );

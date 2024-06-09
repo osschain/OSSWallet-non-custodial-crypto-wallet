@@ -8,7 +8,7 @@ import styled from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
-import AssetItem from "@/components/asset/AssetItem";
+import { useNfts } from "@/app/api/nft";
 import NftItem from "@/components/nft/NftItem";
 import SegmentedControl from "@/components/segment";
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -21,13 +21,15 @@ import {
   totalBalance,
 } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
-import { nfts } from "@/util/mock";
 
 type Segment = "Assets" | "NFTs";
 const segmentOptions: Segment[] = ["Assets", "NFTs"];
 export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
+  const [page, setPage] = useState(10);
+
   const { data: assets } = useAssets();
+  const { data: nfts } = useNfts(page);
   const { data: balances, isLoading: isBalancesLoading } = UseBalances();
   const total = useMemo(() => {
     return totalBalance(balances);
@@ -107,11 +109,21 @@ export default function Home() {
               contentContainerStyle={{ justifyContent: "space-between" }}
               renderItem={({ item }) => (
                 <SpacerUi style={{ width: "48%" }} size="xl">
-                  <Link href={`/(wallet)/home/nft/${item.id}`} asChild>
+                  <Link
+                    href={{
+                      pathname: `/(wallet)/home/nft/${item.contractAddress}`,
+                      params: {
+                        blockchain: item.blockchain,
+                        tokenId: item.tokenId,
+                      },
+                    }}
+                    asChild
+                  >
                     <TouchableOpacity>
                       <NftItem
-                        title={item.title}
-                        collection={item.collection}
+                        uri={item.image}
+                        title={item.name}
+                        collection={item.collectionName}
                       />
                     </TouchableOpacity>
                   </Link>

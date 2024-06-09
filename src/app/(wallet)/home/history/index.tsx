@@ -16,7 +16,6 @@ import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { getAdresses } from "@/services/balances.service";
 
 export default function History() {
   const [page, setPage] = useState(40);
@@ -94,8 +93,7 @@ const RenderHistoryITem = ({
 
   const checkAddres = (from: string | undefined): variants | undefined => {
     if (!assets || !from) return;
-    const adresses = getAdresses(assets);
-    const isFromMe = adresses.find(
+    const isFromMe = assetManager.addresses.find(
       (adress) => adress.address.toLowerCase() === from.toLowerCase()
     );
 

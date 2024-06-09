@@ -10,7 +10,6 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { BodyUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { getAdresses } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
 
 export default function HistoryDetails() {
@@ -25,16 +24,12 @@ export default function HistoryDetails() {
 
   const isRecieved = (from: string | undefined): boolean | undefined => {
     if (!assets || !from) return;
-    const adresses = getAdresses(assets);
-    const isFromMe = adresses.find(
+
+    const isFromMe = assetManager.addresses.find(
       (adress) => adress.address.toLowerCase() === from.toLowerCase()
     );
 
-    if (isFromMe) {
-      return false;
-    } else if (!isFromMe) {
-      return true;
-    }
+    return !!isFromMe;
   };
 
   const copyFrom = async () => {

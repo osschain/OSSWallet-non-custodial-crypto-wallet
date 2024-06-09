@@ -1,8 +1,8 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 
 import { AssetType } from "@/@types/assets";
-import { AddresTypes } from "@/@types/balances";
-import { getAddress } from "@/services/balances.service";
+import { AddresTypes, AddressType } from "@/@types/balances";
+import { getAddress, getAdresses } from "@/services/balances.service";
 
 
 export default class AssetsManager {
@@ -24,6 +24,10 @@ export default class AssetsManager {
         return getAddress(this.assets, AddresTypes.solana);
     }
 
+    get addresses(): AddressType[] {
+        return getAdresses(this.assets)
+    }
+
     get shownBlockchains(): AssetType[] {
         return this.assets.filter(asset => asset.isShown)
     }
@@ -39,7 +43,7 @@ export default class AssetsManager {
 
     get getEvmlockchains(): AssetType[] {
         const evmBlockchains = this.assets
-            .filter(asset => asset["slip-0044"] === 60)
+            .filter(asset => asset["slip-0044"] === 60 && !asset.contractAddress)
 
         return evmBlockchains;
     }

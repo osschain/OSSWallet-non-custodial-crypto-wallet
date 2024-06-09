@@ -10,7 +10,6 @@ import SpacerUi from "../ui/SpacerUi";
 
 import { useAssets } from "@/app/api/assets";
 import { useHistory } from "@/app/api/history";
-import { getAdresses } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
 
 const AssetHistory = () => {
@@ -64,9 +63,8 @@ const AssetHistory = () => {
 
   const checkAddres = (from: string | undefined): variants | undefined => {
     if (!assets || !from) return;
-    const adresses = getAdresses(assets);
 
-    const isFromMe = adresses.find((adress) => {
+    const isFromMe = assetManager.addresses.find((adress) => {
       return adress.address.toLowerCase() === from.toLocaleLowerCase();
     });
 

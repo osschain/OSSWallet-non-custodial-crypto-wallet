@@ -88,14 +88,6 @@ export const solanaGetBalance = async (address: string) => {
     }
 }
 
-export const getCustomTokens = (assets: AssetType[]) => {
-    const customTokens = assets.filter(asset => asset.contractAddress)
-
-    return customTokens
-}
-
-
-
 export const getChainBalances = async (addresses: { address: string, type: AddresTypes }[]) => {
     const result: BalancesType[] = [];
 
@@ -130,24 +122,11 @@ export const getChainBalances = async (addresses: { address: string, type: Addre
     }
 };
 
-
-
-
-export const getBalances = async (assets: AssetType[]) => {
-
-
-
+export const getBalances = async (addresses: AddressType[]) => {
     try {
-        // if (!evmAdress) return null;
-        const addresses = getAdresses(assets)
         const chainBalances = await getChainBalances(addresses)
 
-        // const customTokens = getCustomTokens(assets);
-        // const tokenBalances = await getTokenBalances(customTokens)
 
-        // console.log(tokenBalances)
-
-        // const balances = [...chainBalances, ...tokenBalances]
 
         const filteredBalane = chainBalances.map(
             ({ balance, balanceUsd, id }) => {
@@ -162,7 +141,6 @@ export const getBalances = async (assets: AssetType[]) => {
 
         return filteredBalane;
     } catch (error) {
-        console.log(error)
         throw error
     }
 };

@@ -16,7 +16,7 @@ export const UseBalances = () => {
             if (!assets) {
                 throw new Error("Asset is not presented");
             }
-            const balances = await getBalances(assets);
+            const balances = await getBalances(assetsManager.addresses);
             return balances
         },
         refetchOnWindowFocus: false,

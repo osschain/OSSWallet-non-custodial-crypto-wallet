@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { FlatList, TouchableOpacity } from "react-native";
+import { ActivityIndicator, FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
 import AlertWithImageUI from "../ui/AlertWithImageUi";
@@ -10,15 +10,29 @@ import { useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import { calculateBalance } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
+import SpacerUi from "../ui/SpacerUi";
 
 const HomeAssets = () => {
-  const { data: balances } = UseBalances();
-  const { data: assetManager, isError } = useAssets();
+  const { data: balances, isLoading: isbalanceLoading } = UseBalances();
+  const {
+    data: assetManager,
+    isError,
+    isLoading: isAssetLoading,
+  } = useAssets();
   const assets = assetManager?.assets;
+
+  if (isAssetLoading || isbalanceLoading) {
+    return (
+      <SpacerUi size="xl">
+        <ActivityIndicator />
+      </SpacerUi>
+    );
+  }
 
   if (!assets?.length || isError) {
     return <AlertWithImageUI title="Can't find NFTS" />;
   }
+
   return (
     <FlatList
       data={assets}

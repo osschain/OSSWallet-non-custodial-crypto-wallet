@@ -1,10 +1,11 @@
-import { AssetType } from "@/@types/assets";
+import { HistoryType } from "@/@types/history";
 
-export default class HistoryManager {
-    public assets: AssetType[];
+export default class History {
+    public histories: HistoryType[];
+    public nextPageToken: string | undefined;
 
-    constructor(histories: AssetType[]) {
-        this.assets = histories;
+    constructor(histories: HistoryType[], nextPageToken: string | undefined) {
+        this.histories = histories;
+        this.nextPageToken = nextPageToken;
     }
-
 }

@@ -1,5 +1,7 @@
 
+import { Blockchain } from "@ankr.com/ankr.js";
 import { OSSblockchain } from "@/services/history.service";
+
 
 export interface AccountType {
     address: string;
@@ -29,4 +31,6 @@ export type tokenType = {
 
 
 
+export type TokenpropertiesType =
+    | (tokenType & { address: string; network: Blockchain })
 

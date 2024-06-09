@@ -23,8 +23,8 @@ export default function History() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
-  const { data: histories, isLoading, isError } = useHistories(page);
-
+  const { data: history, isLoading, isError } = useHistories(page);
+  const histories = history?.histories;
   const { data: networks } = UseNetworks();
 
   const filteredHistories = useMemo(() => {
@@ -52,7 +52,7 @@ export default function History() {
   }
 
   const handlePagination = () => {
-    if (histories[histories?.length - 1].nextPageToken) {
+    if (history?.nextPageToken) {
       setPage((prev) => prev + 40);
     } else {
       Alert.alert("...ops", "There is no more histories");

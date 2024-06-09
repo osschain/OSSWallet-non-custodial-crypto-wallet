@@ -2,8 +2,9 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
-import { HistoryType } from "@/@types/history";
+import History from "@/models/history.model";
 import { OSSblockchain, getEvmChainHistories, getEvmTokenHistories, getEvmHistory } from "@/services/history.service";
+import { err } from "react-native-svg";
 
 export const useHistories = (page: number) => {
     const { data: assetManager } = useAssets()
@@ -13,12 +14,12 @@ export const useHistories = (page: number) => {
             if (!assetManager) {
                 throw new Error("assets is not presented");
             }
-            const histories = await getEvmHistory(assetManager.evmAddress, page, assetManager.shownEvmBlockchain);
+            const history = await getEvmHistory(assetManager.evmAddress, page, assetManager.shownEvmBlockchain);
 
-            const filteredHistory = histories.filter(history => assetManager.shownIds.includes(history.id.toLowerCase()))
+            const filteredHistory = history.histories.filter(history => assetManager.shownIds.includes(history.id.toLowerCase()))
 
 
-            return filteredHistory
+            return new History(filteredHistory, history.nextPageToken)
         },
         placeholderData: keepPreviousData,
         refetchOnWindowFocus: false,
@@ -27,38 +28,57 @@ export const useHistories = (page: number) => {
 
 };
 
-export const useHistory = (address: string | undefined, id: string, blockchain: OSSblockchain | undefined, isToken: boolean, page: number) => {
+type UseHistoryProps = {
+    address: string | undefined;
+    id: string | undefined;
+    blockchain: OSSblockchain | undefined;
+    isToken: boolean;
+    page: number;
+};
+
+export const useHistory = ({ address, id, blockchain, isToken, page }: UseHistoryProps) => {
     return useQuery({
         queryKey: ["history", id, page],
         queryFn: async () => {
 
             if (!blockchain) {
-                throw new Error("blockchain is not presented");
+                console.log("blockchain is not presented")
+                throw new Error();
             }
 
             if (!address) {
-                throw new Error("address is not presented");
+                console.log("address is not presented")
+                throw new Error();
+            }
+
+            if (!id) {
+                console.log("id is not presented")
+                throw new Error();
             }
 
             if (blockchain === "btc" || blockchain === 'solana') {
-                return []
+                throw new Error
             }
 
 
 
-            const histories: HistoryType[] = []
+            let history: History | undefined;
+
             if (!isToken) {
-                const history = await getEvmChainHistories({ address, blockchain, page }) || [];
-                histories.push(...history)
+                const evmChainHistory = await getEvmChainHistories({ address, blockchain, page });
+                history = evmChainHistory;
             }
 
             if (isToken) {
-                const history = await getEvmTokenHistories({ address, blockchain, page }) || [];
-                histories.push(...history)
+                const evmTokenHistory = await getEvmTokenHistories({ address, blockchain, page });
+                history = evmTokenHistory;
             }
 
+            if (!history) {
+                throw new Error()
+            }
 
-            return histories
+            return history
         },
         placeholderData: keepPreviousData,
         refetchOnWindowFocus: false,

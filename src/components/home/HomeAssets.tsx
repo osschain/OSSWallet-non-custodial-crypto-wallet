@@ -5,12 +5,12 @@ import styled from "styled-components/native";
 import AlertWithImageUI from "../ui/AlertWithImageUi";
 import BodyTextUi from "../ui/BodyTextUi";
 import ItemUi from "../ui/ItemUi";
+import SpacerUi from "../ui/SpacerUi";
 
 import { useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import { calculateBalance } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
-import SpacerUi from "../ui/SpacerUi";
 
 const HomeAssets = () => {
   const { data: balances, isLoading: isbalanceLoading } = UseBalances();

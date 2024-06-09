@@ -2,26 +2,24 @@ import { Blockchain } from "@ankr.com/ankr.js";
 import { formatEther } from "ethers";
 import { v4 as uuidv4 } from 'uuid';
 
-import { AddresTypes, AddressType } from "@/@types/balances";
 import { HistoryType } from "@/@types/history";
 import { ankrProvider } from "@/config/ankr";
+import History from "@/models/history.model";
 import { unixTimestampToDate } from "@/util/unixToDate";
 
 
 export const getEvmHistory = async (address: string, page: number = 1, blockchain: Blockchain[]) => {
-    const result: HistoryType[] = []
     try {
         const tokenHistory = await getEvmChainHistories({ address, blockchain, page })
         const chainHistory = await getEvmTokenHistories({ address, blockchain, page })
 
+        const nextPageToken = tokenHistory.nextPageToken ? tokenHistory.nextPageToken : chainHistory.nextPageToken
 
-        const histories = [...tokenHistory, ...chainHistory]
-
-
-        result.push(...histories)
+        const histories = [...tokenHistory.histories, ...chainHistory.histories]
 
 
-        return result
+
+        return new History(histories, nextPageToken)
 
     } catch (error) {
         console.error("Error fetching histories:", error);
@@ -55,7 +53,6 @@ export const getEvmChainHistories = async ({ address, blockchain, page }: EvmHis
                 return;
             }
             return {
-                nextPageToken: transactions.nextPageToken,
                 to,
                 from,
                 id: blockchain,
@@ -67,16 +64,13 @@ export const getEvmChainHistories = async ({ address, blockchain, page }: EvmHis
                 date: timestamp ? unixTimestampToDate(timestamp) : null
             }
         }).filter(Boolean) as HistoryType[]
-
-        return histories
+        return new History(histories, transactions.nextPageToken)
     } catch (error) {
         throw error
     }
 }
 
 export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHistoriesParams) => {
-
-
     try {
         const transactions = await ankrProvider.getTokenTransfers({
             blockchain: (Array.isArray(blockchain) ? blockchain : [blockchain]),
@@ -95,7 +89,6 @@ export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHis
             }
 
             return {
-                nextPageToken: transactions.nextPageToken,
                 to: toAddress,
                 from: fromAddress,
                 id: contractAddress,
@@ -104,10 +97,10 @@ export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHis
                 blockchain: blockchain as OSSblockchain,
                 date: timestamp ? unixTimestampToDate(timestamp) : null
             }
-        }) as HistoryType[]
+        }).filter(Boolean) as HistoryType[]
 
 
-        return histories
+        return new History(histories, transactions.nextPageToken)
     } catch (error) {
         throw error
     }

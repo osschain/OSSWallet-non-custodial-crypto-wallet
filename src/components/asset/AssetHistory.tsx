@@ -19,19 +19,23 @@ const AssetHistory = () => {
 
   const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
+  const isToken = !!asset?.contractAddress;
+  const { account, blockchain, id } = asset || {};
 
   const {
-    data: histories,
+    data: history,
     isLoading,
     isError,
     isRefetching,
-  } = useHistory(
-    asset?.account.address,
-    asset?.id as string,
-    asset?.blockchain,
-    !!asset?.contractAddress,
-    page
-  );
+  } = useHistory({
+    address: account?.address,
+    id,
+    blockchain,
+    isToken,
+    page,
+  });
+
+  const histories = history?.histories;
 
   const assetHistory = useMemo(() => {
     return histories?.filter(
@@ -54,7 +58,7 @@ const AssetHistory = () => {
   const handlePagination = () => {
     if (!histories) return;
 
-    if (histories[histories?.length - 1].nextPageToken) {
+    if (history.nextPageToken) {
       setPage((prev) => prev + 100);
     } else {
       Alert.alert("...ops", "There is no more histories");

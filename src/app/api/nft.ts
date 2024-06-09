@@ -10,18 +10,16 @@ import { getEvmNft, getEvmNfts } from "@/services/nft.service";
 
 export const useNfts = (page: number) => {
     const { data: assetsManager } = useAssets()
-    const assets = assetsManager?.assets;
 
     return useQuery({
         queryKey: ["nfts", page],
         queryFn: async () => {
-            if (!assets) {
+
+            if (!assetsManager) {
                 throw new Error("assets is not presented");
             }
-            const address = getAddress(assets, AddresTypes.evm)
 
-            const nfts = await getEvmNfts(address, page)
-            console.log(nfts, 'nfts')
+            const nfts = await getEvmNfts(assetsManager.evmAddress, page)
             return nfts
         },
         placeholderData: keepPreviousData,

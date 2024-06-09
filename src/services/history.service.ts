@@ -106,7 +106,6 @@ export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHis
             }
         }) as HistoryType[]
 
-        console.log(histories)
 
         return histories
     } catch (error) {

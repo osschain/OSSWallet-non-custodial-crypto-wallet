@@ -3,7 +3,6 @@ import { Blockchain } from "@ankr.com/ankr.js";
 import { AssetType } from "@/@types/assets";
 import { AddresTypes } from "@/@types/balances";
 import { getAddress } from "@/services/balances.service";
-import { OSSblockchain } from "@/services/history.service";
 
 
 export default class AssetsManager {
@@ -13,37 +12,46 @@ export default class AssetsManager {
         this.assets = assets;
     }
 
-    get btcAddress(): string | null {
-        return this.getAddressByType(AddresTypes.btc);
+    get btcAddress(): string {
+        return getAddress(this.assets, AddresTypes.btc);
     }
 
-    get evmAddress(): string | null {
-        return this.getAddressByType(AddresTypes.evm);
+    get evmAddress(): string {
+        return getAddress(this.assets, AddresTypes.evm);
     }
 
-    get solanaAddress(): string | null {
-        return this.getAddressByType(AddresTypes.solana);
+    get solanaAddress(): string {
+        return getAddress(this.assets, AddresTypes.solana);
     }
 
-    get shownBlockchains(): OSSblockchain[] {
-        return this.assets.filter(asset => asset.isShown).map(asset => asset.blockchain);
+    get shownBlockchains(): AssetType[] {
+        return this.assets.filter(asset => asset.isShown)
     }
 
 
-    get getEVMBlockchainsString(): Blockchain {
+    get ids(): string[] {
+        return this.assets.map(asset => asset.id.toLowerCase())
+    }
+
+    get shownIds(): string[] {
+        return this.shownBlockchains.map(asset => asset.id.toLowerCase())
+    }
+
+    get getEvmlockchains(): AssetType[] {
         const evmBlockchains = this.assets
             .filter(asset => asset["slip-0044"] === 60)
-            .map(asset => asset.blockchain) as unknown as Blockchain;
 
         return evmBlockchains;
     }
 
-    private getAddressByType(type: AddresTypes): string | null {
-        try {
-            return getAddress(this.assets, type);
-        } catch (error) {
-            console.error(`Error fetching address of type ${type}:`, error);
-            return null;
-        }
+    get shownEvmBlockchain(): Blockchain[] {
+        const shownedAssets = this.assets.filter(asset => asset.isShown)
+
+        const evmBlockchains = Array.from(new Set(shownedAssets.filter((asset) => asset["slip-0044"]
+            === 60).map(asset => asset.blockchain))) as Blockchain[]
+
+        return evmBlockchains;
     }
+
+
 }

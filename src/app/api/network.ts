@@ -7,20 +7,17 @@ import { NetworkType } from "@/@types/network";
 
 export const UseNetworks = () => {
     const { data: assetManager } = useAssets()
-    const assets = assetManager?.assets;
 
     return useQuery({
         queryKey: ["networks"],
         queryFn: async () => {
+            if (!assetManager) throw new Error("NO ASSETS")
 
-            if (!assets) throw new Error("NO ASSETS")
-
-            const evmChains = assets.filter((asset) => asset.isNetwork && !asset.contractAddress)
-
-            const networks = evmChains.map(chain => {
+            const networks: NetworkType[] = assetManager.getEvmlockchains.map(chain => {
                 return { icon: chain.icon, label: chain.name, blockchain: chain.blockchain }
-            })
-            return networks as NetworkType[]
+            }) as NetworkType[]
+
+            return networks
         },
         refetchOnWindowFocus: false,
         refetchOnMount: false

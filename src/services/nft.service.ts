@@ -21,7 +21,6 @@ export const getEvmNfts = async (address: string, page: number = 10) => {
                 tokenId
             }
         })
-        console.log(nftReference)
 
         return nft
     } catch (error) {
@@ -37,7 +36,6 @@ export const getEvmNft = async (contractAddress: string, blockchain: Blockchain,
         forceFetch: false
     })
 
-    console.log(tokenId)
 
     return nftReference.attributes
 }

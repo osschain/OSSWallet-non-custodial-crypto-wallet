@@ -9,7 +9,12 @@ import { useNft } from "@/app/api/nft";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
+import {
+  BodyUi,
+  ContainerUi,
+  FooterUi,
+  ScrollContainerUi,
+} from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function Nft() {
@@ -20,7 +25,6 @@ export default function Nft() {
     blockchain as Blockchain,
     tokenId as string
   );
-
   if (isLoading) {
     return (
       <SpacerUi>
@@ -29,29 +33,54 @@ export default function Nft() {
     );
   }
   return (
-    <>
+    <ScrollView style={{ flexBasis: 1 }}>
       <Stack.Screen options={{ title: nft?.name }} />
       <BodyUi>
-        <ScrollView>
-          <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
-          <ScrollContainerUi>
-            <SpacerUi size="xl">
-              <HeaderTextUi size="2xl">{nft?.name}</HeaderTextUi>
-            </SpacerUi>
-            <SpacerUi size="xl">
-              <BodyTextUi size="lg" weight="medium" color="text-second">
-                {nft?.description}
-              </BodyTextUi>
-            </SpacerUi>
-          </ScrollContainerUi>
-        </ScrollView>
+        <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
+        <ContainerUi>
+          <SpacerUi size="lg">
+            <HeaderTextUi size="xl">{nft?.name}</HeaderTextUi>
+          </SpacerUi>
+          <SpacerUi size="sm">
+            <BodyTextUi weight="medium" color="text-second">
+              {nft?.description}
+            </BodyTextUi>
+          </SpacerUi>
+          <SpacerUi size="xl">
+            <NftPropertyHeader>Contract Address</NftPropertyHeader>
+            <NftPropertyValue weight="medium" color="text-second">
+              {nftSlug}
+            </NftPropertyValue>
+          </SpacerUi>
+          <SpacerUi>
+            <NftPropertyHeader>Token Id</NftPropertyHeader>
+            <NftPropertyValue weight="medium" color="text-second">
+              {tokenId}
+            </NftPropertyValue>
+          </SpacerUi>
+          <SpacerUi>
+            <NftPropertyHeader>Network</NftPropertyHeader>
+            <NftPropertyValue weight="medium" color="text-second">
+              {blockchain}
+            </NftPropertyValue>
+          </SpacerUi>
+          <SpacerUi>
+            <NftPropertyHeader>Contract Type</NftPropertyHeader>
+            <NftPropertyValue weight="medium" color="text-second">
+              {nft?.contractType}
+            </NftPropertyValue>
+          </SpacerUi>
+        </ContainerUi>
       </BodyUi>
       <Footer marginSize="sm">
         <ButtonUi>{t("shared.transfer")}</ButtonUi>
       </Footer>
-    </>
+    </ScrollView>
   );
 }
+
+const NftPropertyHeader = styled(HeaderTextUi)``;
+const NftPropertyValue = styled(BodyTextUi)``;
 
 const Footer = styled(FooterUi)`
   padding: 0 ${({ theme }) => theme.spaces["xl"]};

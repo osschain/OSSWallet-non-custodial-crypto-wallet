@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList } from "react-native";
 
 import { AssetType } from "@/@types/assets";
@@ -12,7 +13,7 @@ const CustomTokenAssetList = ({ query }: { query: string }) => {
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
   const { mutate: updateAsset } = useUpdateAsset();
-
+  const { t } = useTranslation();
   const filteredAssets = useMemo(() => {
     if (!query) {
       return assets;

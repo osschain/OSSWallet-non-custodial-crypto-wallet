@@ -23,6 +23,7 @@ import {
 } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
 import { pixelToNumber } from "@/util/pixelToNumber";
+import HeaderTextUi from "@/components/ui/HeaderTextUi";
 
 export default function Asset() {
   const [page, setPage] = useState(100);
@@ -96,18 +97,17 @@ export default function Asset() {
           <Image
             source={asset?.icon}
             style={{
-              width: pixelToNumber(theme.sizes["3xl"]),
-              height: pixelToNumber(theme.sizes["3xl"]),
+              width: pixelToNumber(theme.sizes["4xl"]),
+              height: pixelToNumber(theme.sizes["4xl"]),
             }}
           />
-          <BodyTextUi weight="bold" size="lg">
-            {asset?.name}
-          </BodyTextUi>
         </ChainDetails>
       </SpacerUi>
-      <SpacerUi size="3xl">
-        <BodyTextUi weight="semi" size="lg" style={{ textAlign: "center" }}>
-          {calculateBalance(asset?.id, balances)} {asset.symbol} -{" "}
+      <SpacerUi size="xl">
+        <HeaderTextUi weight="semi" size="lg" style={{ textAlign: "center" }}>
+          {calculateBalance(asset?.id, balances)} {asset.symbol}
+        </HeaderTextUi>
+        <BodyTextUi weight="regular" size="md" style={{ textAlign: "center" }}>
           {calculateUsdBalance(asset.id, balances)} $
         </BodyTextUi>
       </SpacerUi>

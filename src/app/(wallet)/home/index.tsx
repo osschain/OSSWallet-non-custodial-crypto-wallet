@@ -1,6 +1,5 @@
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
-import { ActivityIndicator } from "react-native";
 import Animated, { FadeInRight } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import styled from "styled-components/native";

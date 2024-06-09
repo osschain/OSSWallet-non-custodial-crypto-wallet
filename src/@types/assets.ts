@@ -17,6 +17,7 @@ export type AssetType = {
     contractAddress?: string;
     isShown: boolean;
     isNetwork: boolean;
+    "slip-0044": number;
 };
 
 export type tokenType = {

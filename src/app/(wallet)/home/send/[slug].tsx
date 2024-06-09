@@ -27,8 +27,8 @@ export default function SendChain() {
 
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
-  const { data: assets, isError } = useAssets();
-
+  const { data: assetManager, isError } = useAssets();
+  const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
 
   if (isError || !asset) {

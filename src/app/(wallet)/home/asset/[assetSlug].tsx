@@ -33,7 +33,8 @@ export default function Asset() {
   const theme = useTheme();
   const { data: balances } = UseBalances();
 
-  const { data: assets } = useAssets();
+  const { data: assetManager } = useAssets();
+  const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
   const {
     data: histories,

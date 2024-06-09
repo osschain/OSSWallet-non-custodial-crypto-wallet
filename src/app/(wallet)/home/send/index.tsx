@@ -24,7 +24,8 @@ export default function Send() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
 
   const { data: networks } = UseNetworks();
-  const { data: assets } = useAssets();
+  const { data: assetManager } = useAssets();
+  const assets = assetManager?.assets;
   const { data: balances } = UseBalances();
   const { t } = useTranslation();
 

@@ -28,7 +28,9 @@ export default function Home() {
   const [segment, setSegment] = useState<Segment>("Assets");
   const [page, setPage] = useState(10);
 
-  const { data: assets } = useAssets();
+  const { data: assetManager } = useAssets();
+  const assets = assetManager?.assets;
+
   const { data: nfts } = useNfts(page);
   const { data: balances, isLoading: isBalancesLoading } = UseBalances();
   const total = useMemo(() => {

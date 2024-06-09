@@ -20,7 +20,8 @@ import { findAsset } from "@/util/findAsset";
 export default function Recieve() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const { t } = useTranslation();
-  const { data: assets } = useAssets();
+  const { data: assetManager } = useAssets();
+  const assets = assetManager?.assets;
   const { data: networks } = UseNetworks();
   const [searchQuery, setSearchQuery] = useState("");
 

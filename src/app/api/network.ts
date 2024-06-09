@@ -6,10 +6,13 @@ import { NetworkType } from "@/@types/network";
 
 
 export const UseNetworks = () => {
-    const { data: assets } = useAssets()
+    const { data: assetManager } = useAssets()
+    const assets = assetManager?.assets;
+
     return useQuery({
         queryKey: ["networks"],
         queryFn: async () => {
+
             if (!assets) throw new Error("NO ASSETS")
 
             const evmChains = assets.filter((asset) => asset.isNetwork && !asset.contractAddress)

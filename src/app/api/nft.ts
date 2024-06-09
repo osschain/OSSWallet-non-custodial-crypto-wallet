@@ -9,7 +9,9 @@ import { getEvmNft, getEvmNfts } from "@/services/nft.service";
 
 
 export const useNfts = (page: number) => {
-    const { data: assets } = useAssets()
+    const { data: assetsManager } = useAssets()
+    const assets = assetsManager?.assets;
+
     return useQuery({
         queryKey: ["nfts", page],
         queryFn: async () => {

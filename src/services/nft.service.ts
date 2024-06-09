@@ -4,24 +4,29 @@ import { nftType } from "@/@types/nft"
 import { ankrProvider } from "@/config/ankr"
 
 export const getEvmNfts = async (address: string, page: number = 10) => {
-    const nftReference = await ankrProvider.getNFTsByOwner({
-        walletAddress: address,
-        pageSize: page
-    })
+    try {
+        const nftReference = await ankrProvider.getNFTsByOwner({
+            walletAddress: address,
+            pageSize: page
+        })
 
-    const nft: nftType[] = nftReference.assets.map(({ tokenId, blockchain, name, symbol, collectionName, contractAddress, imageUrl }) => {
-        return {
-            name,
-            symbol,
-            collectionName,
-            contractAddress,
-            image: imageUrl,
-            blockchain,
-            tokenId
-        }
-    })
+        const nft: nftType[] = nftReference.assets.map(({ tokenId, blockchain, name, symbol, collectionName, contractAddress, imageUrl }) => {
+            return {
+                name,
+                symbol,
+                collectionName,
+                contractAddress,
+                image: imageUrl,
+                blockchain,
+                tokenId
+            }
+        })
+        console.log(nftReference)
 
-    return nft
+        return nft
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export const getEvmNft = async (contractAddress: string, blockchain: Blockchain, tokenId: string) => {

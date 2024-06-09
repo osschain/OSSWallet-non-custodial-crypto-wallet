@@ -24,8 +24,8 @@ export default function RecieveDetails() {
   const [isCopied, setIsCopied] = useState(false);
   const { slug } = useLocalSearchParams();
   const { t } = useTranslation();
-  const { data: assets, isError } = useAssets();
-
+  const { data: assetManager, isError } = useAssets();
+  const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
 
   if (isError || !asset) {

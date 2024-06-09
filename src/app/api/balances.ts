@@ -6,7 +6,9 @@ import { getBalances } from "@/services/balances.service";
 
 
 export const UseBalances = () => {
-    const { data: assets } = useAssets()
+    const { data: assetsManager } = useAssets()
+    const assets = assetsManager?.assets;
+
     return useQuery({
         queryKey: ["balances"],
         queryFn: async () => {
@@ -15,7 +17,6 @@ export const UseBalances = () => {
                 throw new Error("Asset is not presented");
             }
             const balances = await getBalances(assets);
-            console.log("Refetchingasd")
             return balances
         },
         refetchOnWindowFocus: false,

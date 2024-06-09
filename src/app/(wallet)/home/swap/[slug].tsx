@@ -22,8 +22,10 @@ import { findAsset } from "@/util/findAsset";
 export default function Swap() {
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
-  const { data: assets, isError } = useAssets();
+  const { data: assetManager, isError } = useAssets();
+  const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
+
   const [target, setTarget] = useState<AssetType | null>(null);
   const targetOptions = useRef<BottomSheetModal>(null);
 

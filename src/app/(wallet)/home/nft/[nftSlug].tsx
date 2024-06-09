@@ -16,15 +16,16 @@ import {
   ScrollContainerUi,
 } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 
 export default function Nft() {
   const { t } = useTranslation();
   const { nftSlug, blockchain, tokenId } = useLocalSearchParams();
-  const { data: nft, isLoading } = useNft(
-    nftSlug as string,
-    blockchain as Blockchain,
-    tokenId as string
-  );
+  const {
+    data: nft,
+    isLoading,
+    isError,
+  } = useNft(nftSlug as string, blockchain as Blockchain, tokenId as string);
   if (isLoading) {
     return (
       <SpacerUi>
@@ -32,9 +33,13 @@ export default function Nft() {
       </SpacerUi>
     );
   }
+
+  if (isError) {
+    return <AlertWithImageUI title="Sorry can't Find details" />;
+  }
   return (
     <ScrollView style={{ flexBasis: 1 }}>
-      <Stack.Screen options={{ title: nft?.name }} />
+      <Stack.Screen options={{ title: "NFT" }} />
       <BodyUi>
         <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
         <ContainerUi>

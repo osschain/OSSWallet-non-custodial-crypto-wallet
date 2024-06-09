@@ -5,7 +5,6 @@ import { FlatList } from "react-native";
 
 import { AssetType } from "@/@types/assets";
 import { useAssets, useUpdateAsset } from "@/app/api/assets";
-import { UseNetworks } from "@/app/api/network";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import IconUi from "@/components/ui/IconUi";
@@ -18,7 +17,9 @@ import { TextInputUi } from "@/components/ui/TextInputUi";
 function Index() {
   const [searchQuery, setSearchQuery] = useState("");
   const { t } = useTranslation();
-  const { data: assets } = useAssets();
+  const { data: assetManager } = useAssets();
+  const assets = assetManager?.assets;
+
   const { mutate: updateAsset } = useUpdateAsset();
   const filteredAssets = useMemo(() => {
     if (!searchQuery) {

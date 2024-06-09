@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { AssetType } from "@/@types/assets";
+import AssetsManager from "@/models/asset.model";
 import { useAuth } from "@/providers/AuthProvider";
 
 export const useAssets = () => {
@@ -13,12 +14,15 @@ export const useAssets = () => {
         throw new Error("No mnemonic phrase");
       }
 
-      const assets = await AsyncStorage.getItem("assets");
+      const assetReference = await AsyncStorage.getItem("assets");
 
-      if (!assets) {
+      if (!assetReference) {
         throw new Error("asset's not found");
       }
-      return JSON.parse(assets) as AssetType[];
+
+      const assets = JSON.parse(assetReference) as AssetType[];
+
+      return new AssetsManager(assets)
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false

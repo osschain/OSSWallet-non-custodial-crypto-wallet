@@ -8,22 +8,19 @@ import { ankrProvider } from "@/config/ankr";
 import { unixTimestampToDate } from "@/util/unixToDate";
 
 
-export const getHistories = async (addresses: AddressType[], page: number = 1, blockchain: Blockchain[]) => {
+export const getEvmHistory = async (address: string, page: number = 1, blockchain: Blockchain[]) => {
     const result: HistoryType[] = []
     try {
-        for (const { address, type } of addresses) {
-            if (type === AddresTypes.evm) {
-                const tokenHistory = await getEvmChainHistories({ address, blockchain, page })
-                const chainHistory = await getEvmTokenHistories({ address, blockchain, page })
+        const tokenHistory = await getEvmChainHistories({ address, blockchain, page })
+        const chainHistory = await getEvmTokenHistories({ address, blockchain, page })
 
 
-                const histories = [...tokenHistory, ...chainHistory]
+        const histories = [...tokenHistory, ...chainHistory]
 
 
-                result.push(...histories)
+        result.push(...histories)
 
-            }
-        }
+
         return result
 
     } catch (error) {

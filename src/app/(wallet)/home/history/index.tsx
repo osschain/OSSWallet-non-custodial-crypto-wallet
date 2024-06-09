@@ -54,7 +54,7 @@ export default function History() {
 
   const handlePagination = () => {
     if (histories[histories?.length - 1].nextPageToken) {
-      setPage((prev) => prev + 100);
+      setPage((prev) => prev + 40);
     } else {
       Alert.alert("...ops", "There is no more histories");
     }

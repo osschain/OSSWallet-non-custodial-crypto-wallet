@@ -7,15 +7,11 @@ import QRCode from "react-native-qrcode-svg";
 import styled from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
+import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
-import {
-  BodyUi,
-  ContainerUi,
-  FooterUi,
-  ScrollContainerUi,
-} from "@/components/ui/LayoutsUi";
+import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { findAsset } from "@/util/findAsset";
@@ -29,13 +25,7 @@ export default function RecieveDetails() {
   const asset = findAsset(assets, slug as string);
 
   if (isError || !asset) {
-    return (
-      <ContainerUi>
-        <SpacerUi>
-          <MessageUi>t("shared.asset-error")</MessageUi>
-        </SpacerUi>
-      </ContainerUi>
-    );
+    return <AlertWithImageUI title={t("shared.asset-error")} />;
   }
 
   const copyHandler = async () => {

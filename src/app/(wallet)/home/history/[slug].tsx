@@ -5,6 +5,7 @@ import { ReactNode, useState } from "react";
 import styled from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
+import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import IconUi from "@/components/ui/IconUi";
 import { BodyUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
@@ -47,6 +48,11 @@ export default function HistoryDetails() {
     setIsToCopied(true);
     setIsFromCopied(false);
   };
+
+  if (!asset || !item) {
+    return <AlertWithImageUI title="Can't Display History" />;
+  }
+
   return (
     <ScrollContainerUi>
       {/* <Stack.Screen options={{ title: nft?.title }} /> */}

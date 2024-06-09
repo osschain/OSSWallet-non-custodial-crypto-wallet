@@ -1,5 +1,4 @@
 import { Linking, TouchableOpacity } from "react-native";
-import styled from "styled-components/native";
 
 import { Right, Left, Setting, Title, Icon } from "./style";
 import BodyTextUi from "../ui/BodyTextUi";

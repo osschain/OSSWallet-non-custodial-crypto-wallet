@@ -20,14 +20,14 @@ import { findAsset } from "@/util/findAsset";
 export default function Recieve() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const { t } = useTranslation();
-  const { data: assetManager } = useAssets();
+  const { data: assetManager, isError } = useAssets();
   const assets = assetManager?.assets;
   const { data: networks } = UseNetworks();
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredAssets = useFilteredAssets(assets, searchQuery, network);
 
-  if (!assets) {
+  if (isError || !assets?.length) {
     return <AlertWithImageUI title="No Chains To Display" />;
   }
 

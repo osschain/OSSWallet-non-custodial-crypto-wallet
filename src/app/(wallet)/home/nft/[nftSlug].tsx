@@ -1,6 +1,6 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
 import { ActivityIndicator } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
@@ -14,13 +14,23 @@ import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function Nft() {
-  const { t } = useTranslation();
   const { nftSlug, blockchain, tokenId } = useLocalSearchParams();
   const {
     data: nft,
     isLoading,
     isError,
   } = useNft(nftSlug as string, blockchain as Blockchain, tokenId as string);
+
+  const properties = useMemo(
+    () => [
+      { label: "Contract Address", value: nftSlug },
+      { label: "Token Id", value: tokenId },
+      { label: "Network", value: blockchain },
+      { label: "Contract Type", value: nft?.contractType },
+    ],
+    [nftSlug, tokenId, blockchain, nft?.contractType]
+  );
+
   if (isLoading) {
     return (
       <SpacerUi>
@@ -32,6 +42,7 @@ export default function Nft() {
   if (isError) {
     return <AlertWithImageUI title="Sorry can't Find details" />;
   }
+
   return (
     <ScrollView style={{ flexBasis: 1 }}>
       <Stack.Screen options={{ title: "NFT" }} />
@@ -46,34 +57,18 @@ export default function Nft() {
               {nft?.description}
             </BodyTextUi>
           </SpacerUi>
-          <SpacerUi size="xl">
-            <NftPropertyHeader>Contract Address</NftPropertyHeader>
-            <NftPropertyValue weight="medium" color="text-second">
-              {nftSlug}
-            </NftPropertyValue>
-          </SpacerUi>
-          <SpacerUi>
-            <NftPropertyHeader>Token Id</NftPropertyHeader>
-            <NftPropertyValue weight="medium" color="text-second">
-              {tokenId}
-            </NftPropertyValue>
-          </SpacerUi>
-          <SpacerUi>
-            <NftPropertyHeader>Network</NftPropertyHeader>
-            <NftPropertyValue weight="medium" color="text-second">
-              {blockchain}
-            </NftPropertyValue>
-          </SpacerUi>
-          <SpacerUi>
-            <NftPropertyHeader>Contract Type</NftPropertyHeader>
-            <NftPropertyValue weight="medium" color="text-second">
-              {nft?.contractType}
-            </NftPropertyValue>
-          </SpacerUi>
+          {properties.map((prop, index) => (
+            <SpacerUi key={index} size="xl">
+              <NftPropertyHeader>{prop.label}</NftPropertyHeader>
+              <NftPropertyValue weight="medium" color="text-second">
+                {prop.value}
+              </NftPropertyValue>
+            </SpacerUi>
+          ))}
         </ContainerUi>
       </BodyUi>
       <Footer marginSize="sm">
-        <ButtonUi>{t("shared.transfer")}</ButtonUi>
+        <ButtonUi>Transfer</ButtonUi>
       </Footer>
     </ScrollView>
   );

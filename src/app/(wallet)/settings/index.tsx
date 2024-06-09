@@ -118,7 +118,7 @@ export default function Settings() {
               />
             </Icon>
             <Title>
-              <BodyTextUi weight="medium" size="lg">
+              <BodyTextUi weight="medium" size="md">
                 {t("shared.notification")}
               </BodyTextUi>
             </Title>
@@ -142,7 +142,7 @@ export default function Settings() {
                   />
                 </Icon>
                 <Title>
-                  <BodyTextUi weight="medium" size="lg">
+                  <BodyTextUi weight="medium" size="md">
                     {t("wallet.settings.change-passcode")}
                   </BodyTextUi>
                 </Title>
@@ -172,7 +172,7 @@ export default function Settings() {
                 />
               </Icon>
               <Title>
-                <BodyTextUi weight="medium" size="lg">
+                <BodyTextUi weight="medium" size="md">
                   Choose Language
                 </BodyTextUi>
               </Title>
@@ -194,7 +194,7 @@ export default function Settings() {
         </TouchableOpacity>
       </SpacerUi>
       <SpacerUi size="4xl">
-        <HeaderTextUi style={{ textAlign: "center" }} weight="semi" size="lg">
+        <HeaderTextUi style={{ textAlign: "center" }} weight="semi" size="md">
           Help Center
         </HeaderTextUi>
       </SpacerUi>
@@ -205,7 +205,7 @@ export default function Settings() {
               onPress={() =>
                 router.push({
                   pathname: `/web-view`,
-                  params: { link: term.link },
+                  params: { link: term.link, label: term.label },
                 })
               }
             >
@@ -220,7 +220,7 @@ export default function Settings() {
                     />
                   </Icon>
                   <Title>
-                    <BodyTextUi weight="medium" size="lg">
+                    <BodyTextUi weight="medium" size="md">
                       {term.label}
                     </BodyTextUi>
                   </Title>
@@ -239,7 +239,7 @@ export default function Settings() {
         );
       })}
       <SpacerUi size="4xl">
-        <HeaderTextUi style={{ textAlign: "center" }} weight="semi" size="lg">
+        <HeaderTextUi style={{ textAlign: "center" }} weight="semi" size="md">
           SOCIAL LINKS
         </HeaderTextUi>
       </SpacerUi>
@@ -258,7 +258,7 @@ export default function Settings() {
                     />
                   </Icon>
                   <Title>
-                    <BodyTextUi weight="medium" size="lg">
+                    <BodyTextUi weight="medium" size="md">
                       {social.label}
                     </BodyTextUi>
                   </Title>

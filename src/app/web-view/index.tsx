@@ -4,11 +4,11 @@ import { StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
 
 export default function App() {
-  const { link } = useLocalSearchParams();
+  const { link, label } = useLocalSearchParams();
 
   return (
     <>
-      <Stack.Screen options={{ title: link }} />
+      <Stack.Screen options={{ title: label }} />
       <WebView style={styles.container} source={{ uri: link }} />
     </>
   );

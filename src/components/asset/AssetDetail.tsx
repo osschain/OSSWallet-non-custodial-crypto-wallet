@@ -1,7 +1,7 @@
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 import { AssetType } from "@/@types/assets";
 import { UseBalances } from "@/app/api/balances";

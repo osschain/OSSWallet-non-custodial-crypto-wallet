@@ -3,7 +3,7 @@ import { Blockchain } from "@ankr.com/ankr.js"
 import { nftType } from "@/@types/nft"
 import { ankrProvider } from "@/config/ankr"
 
-export const getEvmNfts = async (address: string, page: number) => {
+export const getEvmNfts = async (address: string, page: number = 10) => {
     const nftReference = await ankrProvider.getNFTsByOwner({
         walletAddress: address,
         pageSize: page

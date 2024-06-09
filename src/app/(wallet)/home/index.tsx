@@ -121,6 +121,7 @@ export default function Home() {
                   >
                     <TouchableOpacity>
                       <NftItem
+                        networkUri={findAsset(assets, item.blockchain)?.icon}
                         uri={item.image}
                         title={item.name}
                         collection={item.collectionName}

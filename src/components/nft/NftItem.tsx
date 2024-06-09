@@ -1,23 +1,26 @@
+import { Image as ExpoImage } from "expo-image";
 import { Image } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-
 type Props = {
   uri?: string;
   title?: string;
   collection?: string;
+  networkUri?: string;
 };
 
 const NftItem = ({
   uri,
   title = "cantDisplay",
   collection = "can't Display",
+  networkUri = "",
 }: Props) => {
   return (
     <Item>
       <Body>
+        <NetowrkImage source={networkUri} />
         {uri ? (
           <NftImage resizeMode="cover" source={{ uri }} />
         ) : (
@@ -95,6 +98,15 @@ const Collection = styled(BodyTextUi)`
   padding-left: ${({ theme }) => theme.spaces["lg"]};
   padding-bottom: ${({ theme }) => theme.spaces["xl"]};
   max-width: 90%;
+`;
+
+const NetowrkImage = styled(ExpoImage)`
+  position: absolute;
+  top: -4px;
+  right: -1px;
+  height: 40px;
+  width: 40px;
+  z-index: 10;
 `;
 
 export default NftItem;

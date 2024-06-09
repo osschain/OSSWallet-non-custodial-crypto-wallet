@@ -59,7 +59,7 @@ const AssetHistory = () => {
     if (!histories) return;
 
     if (history.nextPageToken) {
-      setPage((prev) => prev + 100);
+      setPage((prev) => prev + 20);
     } else {
       Alert.alert("...ops", "There is no more histories");
     }

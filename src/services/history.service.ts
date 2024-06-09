@@ -64,6 +64,7 @@ export const getEvmChainHistories = async ({ address, blockchain, page }: EvmHis
                 date: timestamp ? unixTimestampToDate(timestamp) : null
             }
         }).filter(Boolean) as HistoryType[]
+
         return new History(histories, transactions.nextPageToken)
     } catch (error) {
         throw error

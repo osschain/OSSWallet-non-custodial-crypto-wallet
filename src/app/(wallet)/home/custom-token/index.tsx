@@ -17,36 +17,6 @@ import { TextInputUi } from "@/components/ui/TextInputUi";
 function Index() {
   const [searchQuery, setSearchQuery] = useState("");
   const { t } = useTranslation();
-  const { data: assetManager } = useAssets();
-  const assets = assetManager?.assets;
-
-  const { mutate: updateAsset } = useUpdateAsset();
-  const filteredAssets = useMemo(() => {
-    if (!searchQuery) {
-      return assets;
-    }
-    return assets?.filter(
-      (asset) =>
-        asset.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        asset.contractAddress?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [assets, searchQuery]);
-
-  const handleAssetShow = (item: AssetType) => {
-    const asset: AssetType = {
-      ...item,
-      isShown: !item.isShown,
-    };
-    updateAsset(asset);
-  };
-
-  if (!assets) {
-    return (
-      <AlertWithImageUI
-        title={t("wallet.home.custom-token.index.no-custom-tokens-alert")}
-      />
-    );
-  }
 
   return (
     <ContainerUi>
@@ -70,28 +40,7 @@ function Index() {
         </SpacerUi>
 
         <SpacerUi size="xl" style={{ flex: 1 }}>
-          <FlatList
-            contentContainerStyle={{ paddingTop: 10 }}
-            data={filteredAssets}
-            renderItem={({ item }) => (
-              <SpacerUi size="xl" position="bottom">
-                <ItemUi
-                  uri={item.icon}
-                  title={item.name}
-                  right={
-                    <SpacerUi position="right">
-                      <SwitchUi
-                        value={item.isShown}
-                        onSwitch={() => {
-                          handleAssetShow(item);
-                        }}
-                      />
-                    </SpacerUi>
-                  }
-                />
-              </SpacerUi>
-            )}
-          />
+          <CustoAssetList query={searchQuery} />
         </SpacerUi>
       </BodyUi>
       <FooterUi marginSize="sm">
@@ -113,5 +62,62 @@ function Index() {
     </ContainerUi>
   );
 }
+
+const CustoAssetList = ({ query }: { query: string }) => {
+  const { data: assetManager } = useAssets();
+  const assets = assetManager?.assets;
+  const { mutate: updateAsset } = useUpdateAsset();
+
+  const filteredAssets = useMemo(() => {
+    if (!query) {
+      return assets;
+    }
+    return assets?.filter(
+      (asset) =>
+        asset.name.toLowerCase().includes(query.toLowerCase()) ||
+        asset.contractAddress?.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [assets, query]);
+
+  const handleAssetShow = (item: AssetType) => {
+    const asset: AssetType = {
+      ...item,
+      isShown: !item.isShown,
+    };
+    updateAsset(asset);
+  };
+
+  if (!assets) {
+    return (
+      <AlertWithImageUI
+        title={t("wallet.home.custom-token.index.no-custom-tokens-alert")}
+      />
+    );
+  }
+  return (
+    <FlatList
+      contentContainerStyle={{ paddingTop: 10 }}
+      data={filteredAssets}
+      renderItem={({ item }) => (
+        <SpacerUi size="xl" position="bottom">
+          <ItemUi
+            uri={item.icon}
+            title={item.name}
+            right={
+              <SpacerUi position="right">
+                <SwitchUi
+                  value={item.isShown}
+                  onSwitch={() => {
+                    handleAssetShow(item);
+                  }}
+                />
+              </SpacerUi>
+            }
+          />
+        </SpacerUi>
+      )}
+    />
+  );
+};
 
 export default Index;

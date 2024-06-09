@@ -50,6 +50,7 @@ const HelpCenter = () => {
                   <Icon>
                     <IconUi
                       library="MaterialIcons"
+                      // @ts-ignore
                       name={term.icon}
                       size="xl"
                       color="icon-primary"

@@ -1,16 +1,19 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import { useNft } from "@/app/api/nft";
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function Nft() {
+  const { t } = useTranslation();
   const { nftSlug, blockchain, tokenId } = useLocalSearchParams();
   const { data: nft, isLoading } = useNft(
     nftSlug as string,
@@ -44,7 +47,7 @@ export default function Nft() {
         </ScrollView>
       </BodyUi>
       <Footer marginSize="sm">
-        {/* <ButtonUi>{t("shared.transfer")}</ButtonUi> */}
+        <ButtonUi>{t("shared.transfer")}</ButtonUi>
       </Footer>
     </>
   );

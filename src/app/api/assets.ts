@@ -1,10 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { AssetType } from "@/@types/assets";
+
+import { AssetPrices, AssetType } from "@/@types/assets";
 import AssetsManager from "@/models/asset.model";
 import { useAuth } from "@/providers/AuthProvider";
-import { useHistories } from "./history";
 
 export const useAssets = () => {
   const { mnemonic } = useAuth();
@@ -92,4 +92,27 @@ export const useUpdateAsset = () => {
       await queryClient.invalidateQueries({ queryKey: ["assets"] });
     },
   });
+};
+
+
+export const useAssetPrices = () => {
+  return useQuery({
+    queryKey: ["assetPrices"],
+    queryFn: async () => {
+      const response = await fetch("https://assets.osschain.com/market-data");
+      const data = await response.json() as AssetPrices[];
+
+      console.log(data, "??")
+
+      if (!data) {
+        throw new Error("asset's not found");
+      }
+
+
+      return data
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
+  });
+
 };

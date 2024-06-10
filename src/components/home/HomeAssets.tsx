@@ -1,5 +1,10 @@
 import { Link } from "expo-router";
-import { ActivityIndicator, FlatList, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import styled from "styled-components/native";
 
 import AlertWithImageUI from "../ui/AlertWithImageUi";
@@ -7,9 +12,12 @@ import BodyTextUi from "../ui/BodyTextUi";
 import ItemUi from "../ui/ItemUi";
 import SpacerUi from "../ui/SpacerUi";
 
-import { useAssets } from "@/app/api/assets";
+import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
-import { calculateBalance } from "@/services/balances.service";
+import {
+  calculateBalance,
+  calculateUsdBalance,
+} from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
 
 const HomeAssets = () => {
@@ -20,6 +28,11 @@ const HomeAssets = () => {
     isLoading: isAssetLoading,
   } = useAssets();
   const assets = assetManager?.assets;
+
+  const { data: assetPrices } = useAssetPrices();
+
+  const price = (symbol: string) =>
+    assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4);
 
   if (isAssetLoading || isbalanceLoading) {
     return (
@@ -46,16 +59,25 @@ const HomeAssets = () => {
                     <ItemUi
                       title={item.name}
                       uri={item.icon}
-                      description={`${calculateBalance(item.id, balances)} ${item.symbol}`}
+                      description={`${price(item.symbol)} $`}
                       descUri={
                         item.contractAddress
                           ? findAsset(assets, item.blockchain)?.icon
                           : undefined
                       }
                       right={
-                        <BodyTextUi size="md" weight="medium">
-                          {calculateBalance(item.id, balances)} $
-                        </BodyTextUi>
+                        <View>
+                          <BodyTextUi size="md" weight="medium">
+                            {calculateBalance(item.id, balances)} {item.symbol}
+                          </BodyTextUi>
+                          <BodyTextUi
+                            size="md"
+                            weight="medium"
+                            style={{ textAlign: "right" }}
+                          >
+                            {calculateUsdBalance(item.id, balances)} $
+                          </BodyTextUi>
+                        </View>
                       }
                     />
                   </Asset>

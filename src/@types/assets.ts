@@ -10,6 +10,12 @@ export interface AccountType {
     privateKey: string;
 }
 
+export type AssetPrices = {
+    symbol: string;
+    price: number;
+    price_change_24h: number;
+}
+
 export type AssetType = {
     id: string;
     icon: string;

@@ -40,7 +40,7 @@ const HomeAssets = () => {
     Number(
       assetPrices
         ?.find((asset) => asset.symbol === symbol)
-        ?.price_change_24h.toFixed(4)
+        ?.price_change_24h.toFixed(2)
     ) || 0;
 
   if (isAssetLoading || isbalanceLoading) {
@@ -69,9 +69,16 @@ const HomeAssets = () => {
                       title={item.name}
                       uri={item.icon}
                       leftBottom={
-                        <View style={{ flexDirection: "row", gap: 5 }}>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            gap: 5,
+                            alignItems: "center",
+                          }}
+                        >
                           <BodyTextUi>{price(item.symbol)} $</BodyTextUi>
                           <BodyTextUi
+                            size="sm"
                             style={{
                               color:
                                 change(item.symbol) > 0

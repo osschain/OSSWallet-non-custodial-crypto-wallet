@@ -104,7 +104,7 @@ const AssetItem = ({
               ? findAsset(assets, asset.blockchain)?.icon
               : undefined
           }
-          description={asset.symbol}
+          leftBottom={<BodyTextUi>{asset.symbol}</BodyTextUi>}
           right={
             <BodyTextUi weight="regular">
               {balance} {asset.symbol}

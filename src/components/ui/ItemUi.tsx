@@ -3,13 +3,12 @@ import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 
-import BodyTextUi from "./BodyTextUi";
 import HeaderTextUi from "./HeaderTextUi";
 
 type Props = {
   uri?: string;
   title: string;
-  description?: string;
+  leftBottom?: ReactNode;
   right?: ReactNode;
   descUri?: string;
 } & ComponentPropsWithoutRef<typeof Item>;
@@ -18,7 +17,7 @@ export default function ItemUi({
   uri,
   descUri,
   title,
-  description,
+  leftBottom,
   right,
 }: Props) {
   return (
@@ -31,7 +30,7 @@ export default function ItemUi({
 
         <View>
           <HeaderTextUi>{title}</HeaderTextUi>
-          {description && <BodyTextUi>{description}</BodyTextUi>}
+          {leftBottom && leftBottom}
         </View>
       </Content>
       {right && <View>{right}</View>}

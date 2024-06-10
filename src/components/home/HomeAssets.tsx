@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 import AlertWithImageUI from "../ui/AlertWithImageUi";
 import BodyTextUi from "../ui/BodyTextUi";
@@ -22,6 +22,7 @@ import { findAsset } from "@/util/findAsset";
 
 const HomeAssets = () => {
   const { data: balances, isLoading: isbalanceLoading } = UseBalances();
+  const theme = useTheme();
   const {
     data: assetManager,
     isError,
@@ -32,7 +33,15 @@ const HomeAssets = () => {
   const { data: assetPrices } = useAssetPrices();
 
   const price = (symbol: string) =>
-    assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4);
+    assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4) ||
+    0;
+
+  const change = (symbol: string) =>
+    Number(
+      assetPrices
+        ?.find((asset) => asset.symbol === symbol)
+        ?.price_change_24h.toFixed(4)
+    ) || 0;
 
   if (isAssetLoading || isbalanceLoading) {
     return (
@@ -59,7 +68,23 @@ const HomeAssets = () => {
                     <ItemUi
                       title={item.name}
                       uri={item.icon}
-                      description={`${price(item.symbol)} $`}
+                      leftBottom={
+                        <View style={{ flexDirection: "row", gap: 5 }}>
+                          <BodyTextUi>{price(item.symbol)} $</BodyTextUi>
+                          <BodyTextUi
+                            style={{
+                              color:
+                                change(item.symbol) > 0
+                                  ? theme.colors["green-700"]
+                                  : theme.colors["red-700"],
+                            }}
+                          >
+                            {change(item.symbol) > 0
+                              ? "+" + change(item.symbol) + " %"
+                              : change(item.symbol) + " %"}
+                          </BodyTextUi>
+                        </View>
+                      }
                       descUri={
                         item.contractAddress
                           ? findAsset(assets, item.blockchain)?.icon

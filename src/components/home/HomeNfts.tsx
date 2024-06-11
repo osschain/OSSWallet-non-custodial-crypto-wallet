@@ -15,10 +15,10 @@ import { findAsset } from "@/util/findAsset";
 const HomeNfts = () => {
   const { data: nfts, isError, isLoading: isNftLoading } = useNfts(10);
   const { data: assetManager } = useAssets();
-  const { isLoading: isBalanceLoading } = UseBalances();
   const assets = assetManager?.assets;
+  const { isLoading: isBalancesLoading } = UseBalances();
 
-  if (isNftLoading || isBalanceLoading) {
+  if (isNftLoading || isBalancesLoading) {
     return (
       <SpacerUi size="xl">
         <ActivityIndicator />

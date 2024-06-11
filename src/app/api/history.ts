@@ -4,7 +4,7 @@ import { useAssets } from "./assets";
 
 import History from "@/models/history.model";
 import { OSSblockchain, getEvmChainHistories, getEvmTokenHistories, getEvmHistory } from "@/services/history.service";
-import { err } from "react-native-svg";
+
 
 export const useHistories = (page: number) => {
     const { data: assetManager } = useAssets()

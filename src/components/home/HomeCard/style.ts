@@ -61,9 +61,25 @@ export const ButtonBacground = styled.View`
   border-radius: ${({ theme }) => theme.sizes["lg"]};
 `;
 
-export const CustomTokenButton = styled.TouchableOpacity`
-  position: absolute;
-  color: ${({ theme }) => theme.colors["pure-white"]};
-  top: ${({ theme }) => theme.spaces["xl"]};
-  right: ${({ theme }) => theme.spaces["xl"]};
+export const TopRight = styled.View`
+top: ${({ theme }) => theme.spaces["xl"]};
+position: absolute;
+flex-direction: row;
+right: ${({ theme }) => theme.spaces["xl"]};
+gap: ${({ theme }) => theme.spaces["lg"]};
+
 `;
+
+export const NotificationContainer = styled.View`
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: -10px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100px;
+  background-color: ${({ theme }) => theme.colors["blue-100"]};
+
+`;
+

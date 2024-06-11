@@ -12,7 +12,6 @@ export const UseBalances = () => {
     return useQuery({
         queryKey: ["balances"],
         queryFn: async () => {
-
             if (!assets) {
                 throw new Error("Asset is not presented");
             }

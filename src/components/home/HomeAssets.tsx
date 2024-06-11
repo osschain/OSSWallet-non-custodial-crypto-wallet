@@ -13,15 +13,14 @@ import ItemUi from "../ui/ItemUi";
 import SpacerUi from "../ui/SpacerUi";
 
 import { useAssetPrices, useAssets } from "@/app/api/assets";
-import { UseBalances } from "@/app/api/balances";
 import {
   calculateBalance,
   calculateUsdBalance,
 } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
+import { UseBalances } from "@/app/api/balances";
 
 const HomeAssets = () => {
-  const { data: balances, isLoading: isbalanceLoading } = UseBalances();
   const theme = useTheme();
   const {
     data: assetManager,
@@ -29,9 +28,8 @@ const HomeAssets = () => {
     isLoading: isAssetLoading,
   } = useAssets();
   const assets = assetManager?.assets;
-
   const { data: assetPrices } = useAssetPrices();
-
+  const { data: balances, isLoading: isBalancesLoading } = UseBalances();
   const price = (symbol: string) =>
     assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4) ||
     0;
@@ -43,7 +41,7 @@ const HomeAssets = () => {
         ?.price_change_24h.toFixed(2)
     ) || 0;
 
-  if (isAssetLoading || isbalanceLoading) {
+  if (isAssetLoading || isBalancesLoading) {
     return (
       <SpacerUi size="xl">
         <ActivityIndicator />

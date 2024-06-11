@@ -102,7 +102,6 @@ export const useAssetPrices = () => {
       const response = await fetch("https://assets.osschain.com/market-data");
       const data = await response.json() as AssetPrices[];
 
-      console.log(data, "??")
 
       if (!data) {
         throw new Error("asset's not found");

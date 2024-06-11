@@ -1,7 +1,9 @@
-import { ComponentPropsWithoutRef } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ComponentPropsWithoutRef, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 
+import { useTheme } from "styled-components/native";
 import {
   Card,
   BackgroundGradient,
@@ -11,33 +13,52 @@ import {
   ButtonBacground,
   ButtonIcon,
   MoneyAmount,
-  CustomTokenButton,
+  TopRight,
+  NotificationContainer,
 } from "./style";
 
+import { UseBalances } from "@/app/api/balances";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { totalBalance } from "@/services/balances.service";
 
 type Props = {
   label?: string;
-  balance?: number;
   onRecieve?: () => void;
   onSend?: () => void;
   onCustomToken?: () => void;
   onHistory?: () => void;
+  onNotification: () => void;
 } & ComponentPropsWithoutRef<typeof Card>;
 
-const WalletCard = ({
+const HomeCard = ({
   label = "OSSWallet",
-  balance = undefined,
   onRecieve = () => {},
   onSend = () => {},
   onCustomToken = () => {},
   onHistory = () => {},
+  onNotification = () => {},
   ...rest
 }: Props) => {
   const { t } = useTranslation();
+  const [notificaitonNum, setNotificationNum] = useState<string | null>(null);
+  const { data: balances, isLoading } = UseBalances();
+  const theme = useTheme();
+  useEffect(() => {
+    const bootAsync = async () => {
+      const notificaitonNum = await AsyncStorage.getItem("notificationNumber");
+      setNotificationNum(notificaitonNum);
+    };
+
+    bootAsync();
+  }, []);
+
+  const balance = useMemo(() => {
+    return totalBalance(balances);
+  }, [balances]);
+
   return (
     <Card {...rest}>
       <BackgroundGradient
@@ -51,7 +72,7 @@ const WalletCard = ({
         </HeaderTextUi>
         <SpacerUi size="xl">
           <MoneyAmount size="2xl">
-            {!balance && balance !== 0 ? (
+            {isLoading ? (
               <ActivityIndicator style={{ height: 41.3 }} />
             ) : (
               "$" + balance
@@ -99,11 +120,31 @@ const WalletCard = ({
           </Button>
         </Buttons>
       </SpacerUi>
-      <CustomTokenButton onPress={onCustomToken}>
-        <IconUi library="AntDesign" name="plus" size="xl" color="pure-white" />
-      </CustomTokenButton>
+      <TopRight>
+        <TouchableOpacity onPress={onNotification}>
+          <IconUi
+            library="Ionicons"
+            name="notifications-outline"
+            size="xl"
+            color="pure-white"
+          />
+          <NotificationContainer style={{}}>
+            <BodyTextUi size="sm" color="pure-white">
+              {notificaitonNum}
+            </BodyTextUi>
+          </NotificationContainer>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onCustomToken}>
+          <IconUi
+            library="AntDesign"
+            name="plus"
+            size="xl"
+            color="pure-white"
+          />
+        </TouchableOpacity>
+      </TopRight>
     </Card>
   );
 };
 
-export default WalletCard;
+export default HomeCard;

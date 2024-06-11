@@ -1,7 +1,9 @@
 import { AssetType } from "@/@types/assets";
 import { AddresTypes, BalancesType, AddressType } from "@/@types/balances";
+import { UseBalances } from "@/app/api/balances";
 import { ankrProvider } from "@/config/ankr";
 import { solanaEndpoint } from "@/config/endpoints";
+import { err } from "react-native-svg";
 
 
 export const totalBalance = (balances: BalancesType[] | undefined) => {
@@ -81,16 +83,15 @@ export const solanaGetBalance = async (address: string) => {
             body: JSON.stringify(data)
         })
         const balance = await response.json()
-
-        return balance.result.value
+        return balance?.result?.value || 0
     } catch (error) {
+        console.log('solana error')
         throw error
     }
 }
 
 export const getChainBalances = async (addresses: { address: string, type: AddresTypes }[]) => {
     const result: BalancesType[] = [];
-
     try {
         for (const { address, type } of addresses) {
             if (type === AddresTypes.evm) {
@@ -141,6 +142,7 @@ export const getBalances = async (addresses: AddressType[]) => {
 
         return filteredBalane;
     } catch (error) {
+        console.log(error, "BALANCE ERROR")
         throw error
     }
 };

@@ -4,8 +4,6 @@ import Animated, { FadeInRight } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import styled from "styled-components/native";
 
-import { BalancesType } from "@/@types/balances";
-import { UseBalances } from "@/app/api/balances";
 import HomeAssets from "@/components/home/HomeAssets";
 import HomeCard from "@/components/home/HomeCard";
 import HomeNfts from "@/components/home/HomeNfts";

@@ -15,7 +15,8 @@ import SpacerUi from "@/components/ui/SpacerUi";
 export default function Swap() {
   const [exchangable, setExchangable] = useState<AssetType | null>(null);
   const [target, setTarget] = useState<AssetType | null>(null);
-  const { data: assets } = useAssets();
+  const { data: assetManager } = useAssets();
+  const assets = assetManager?.assets;
   const { t } = useTranslation();
   const exchangableOptions = useRef<BottomSheetModal>(null);
   const targetOptions = useRef<BottomSheetModal>(null);

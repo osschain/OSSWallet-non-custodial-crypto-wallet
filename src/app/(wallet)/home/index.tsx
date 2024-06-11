@@ -23,7 +23,6 @@ export default function Home() {
             onRecieve={() => router.push("/(wallet)/home/recieve")}
             onSend={() => router.push("/(wallet)/home/send")}
             onCustomToken={() => router.push("(wallet)/home/custom-token")}
-            onNotification={() => {}}
           />
         </CardContainer>
         <SpacerUi size="xl" style={{ flex: 1 }}>

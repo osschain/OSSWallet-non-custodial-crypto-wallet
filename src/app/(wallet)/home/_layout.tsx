@@ -30,7 +30,7 @@ export default function _layout() {
       (notification) => notification.id
     );
 
-    if (isRecent && cachedNotifications.length > 0) {
+    if (!isRecent && cachedNotifications.length > 0) {
       return cachedNotifications;
     }
 

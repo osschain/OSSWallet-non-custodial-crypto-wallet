@@ -23,6 +23,8 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { totalBalance } from "@/services/balances.service";
+import { Link } from "expo-router";
+import { useNotificationsNum } from "@/app/api/notifications";
 
 type Props = {
   label?: string;
@@ -30,7 +32,6 @@ type Props = {
   onSend?: () => void;
   onCustomToken?: () => void;
   onHistory?: () => void;
-  onNotification: () => void;
 } & ComponentPropsWithoutRef<typeof Card>;
 
 const HomeCard = ({
@@ -39,22 +40,11 @@ const HomeCard = ({
   onSend = () => {},
   onCustomToken = () => {},
   onHistory = () => {},
-  onNotification = () => {},
   ...rest
 }: Props) => {
   const { t } = useTranslation();
-  const [notificaitonNum, setNotificationNum] = useState<string | null>(null);
+  const { data: notificaitonNum } = useNotificationsNum();
   const { data: balances, isLoading } = UseBalances();
-  const theme = useTheme();
-  useEffect(() => {
-    const bootAsync = async () => {
-      const notificaitonNum = await AsyncStorage.getItem("notificationNumber");
-      setNotificationNum(notificaitonNum);
-    };
-
-    bootAsync();
-  }, []);
-
   const balance = useMemo(() => {
     return totalBalance(balances);
   }, [balances]);
@@ -121,19 +111,23 @@ const HomeCard = ({
         </Buttons>
       </SpacerUi>
       <TopRight>
-        <TouchableOpacity onPress={onNotification}>
-          <IconUi
-            library="Ionicons"
-            name="notifications-outline"
-            size="xl"
-            color="pure-white"
-          />
-          <NotificationContainer style={{}}>
-            <BodyTextUi size="sm" color="pure-white">
-              {notificaitonNum}
-            </BodyTextUi>
-          </NotificationContainer>
-        </TouchableOpacity>
+        <Link href="notificationsModal" asChild>
+          <TouchableOpacity>
+            <IconUi
+              library="Ionicons"
+              name="notifications-outline"
+              size="xl"
+              color="pure-white"
+            />
+            {notificaitonNum ? (
+              <NotificationContainer>
+                <BodyTextUi size="sm" color="pure-white">
+                  {notificaitonNum}
+                </BodyTextUi>
+              </NotificationContainer>
+            ) : null}
+          </TouchableOpacity>
+        </Link>
         <TouchableOpacity onPress={onCustomToken}>
           <IconUi
             library="AntDesign"

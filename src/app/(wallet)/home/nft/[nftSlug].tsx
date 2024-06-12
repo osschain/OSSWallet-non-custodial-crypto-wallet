@@ -1,6 +1,7 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
@@ -14,6 +15,7 @@ import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function Nft() {
+  const { t } = useTranslation();
   const { nftSlug, blockchain, tokenId } = useLocalSearchParams();
   const {
     data: nft,
@@ -23,11 +25,15 @@ export default function Nft() {
 
   const properties = useMemo(
     () => [
-      { label: "Contract Address", value: nftSlug },
-      { label: "Token Id", value: tokenId },
-      { label: "Network", value: blockchain },
-      { label: "Contract Type", value: nft?.contractType },
+      { label: t("wallet.home.nft.slug.contract-address"), value: nftSlug },
+      { label: t("wallet.home.nft.slug.token-id"), value: tokenId },
+      { label: t("shared.network"), value: blockchain },
+      {
+        label: t("wallet.home.nft.slug.contract-type"),
+        value: nft?.contractType,
+      },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [nftSlug, tokenId, blockchain, nft?.contractType]
   );
 
@@ -40,12 +46,12 @@ export default function Nft() {
   }
 
   if (isError) {
-    return <AlertWithImageUI title="Sorry can't Find details" />;
+    return <AlertWithImageUI title={t("wallet.home.nft.slug.alert-error")} />;
   }
 
   return (
     <ScrollView style={{ flexBasis: 1 }}>
-      <Stack.Screen options={{ title: "NFT" }} />
+      <Stack.Screen options={{ title: t("shared.NFT") }} />
       <BodyUi>
         <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
         <ContainerUi>
@@ -68,7 +74,7 @@ export default function Nft() {
         </ContainerUi>
       </BodyUi>
       <Footer marginSize="sm">
-        <ButtonUi>Transfer</ButtonUi>
+        <ButtonUi>{t("shared.transfer")}</ButtonUi>
       </Footer>
     </ScrollView>
   );

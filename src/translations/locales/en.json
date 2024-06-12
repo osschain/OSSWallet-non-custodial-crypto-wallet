@@ -75,7 +75,12 @@
           }
         },
         "nft": {
-
+          "slug": {
+            "contract-address": "Contract Address",
+            "token-id": "Token Id",
+            "contract-type": "Contract-Type",
+            "alert-error": "Sorry can't Find details"
+          }
         },
         "recieve": {
           "recieve-details": {
@@ -147,6 +152,7 @@
       "recipent": "Recipent",
       "amount": "Amount",
       "nonce": "Nonce",
-      "explorer": "Explorer"
+      "explorer": "Explorer",
+      "NFT": "NFT"
     }
 }

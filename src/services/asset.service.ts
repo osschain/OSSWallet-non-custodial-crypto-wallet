@@ -2,6 +2,7 @@ import { HDNodeWallet } from "ethers";
 
 import { AssetType } from "@/@types/assets";
 import chains from "@/data/chains.json";
+import { encrypt } from "@/util/es";
 
 const bip39 = require("bip39");
 const BIP84 = require('bip84')
@@ -10,7 +11,7 @@ const { derivePath } = require("ed25519-hd-key");
 const nacl = require("tweetnacl");
 
 
-const solanaAccount = async (mnemonic: string) => {
+const solanaAccount = async (mnemonic: string, password: string) => {
     try {
         const seed = await bip39.mnemonicToSeed(mnemonic);
         const path = "m/44'/501'/0'";
@@ -21,30 +22,29 @@ const solanaAccount = async (mnemonic: string) => {
         const privateKey = bs58.encode(keypair.secretKey)
 
 
-        return { address, publicKey: address, privetKey: privateKey }
+        return { address, publicKey: address, privetKey: await encrypt(privateKey, password) }
     } catch {
         throw new Error("error at solanaAccount creating");
     }
 
 };
 
-const btcAccount = (mnemonic: string) => {
+const btcAccount = async (mnemonic: string, password: string) => {
     try {
         const root = new BIP84.fromMnemonic(mnemonic)
         const child = root.deriveAccount(0)
         const account = new BIP84.fromZPrv(child)
 
-        return { address: account.getAddress(0), publicKey: account.getPublicKey(0), privetKey: account.getPrivateKey(0) }
-    } catch {
+        return { address: account.getAddress(0), publicKey: account.getPublicKey(0), privetKey: encrypt(account.getPrivateKey(0), password) }
+    } catch (error) {
+        console.log(error)
         throw new Error("error at btc creating");
-
     }
 }
 
-export const createAssets = async (mnemonic: string) => {
-
+export const createAssets = async (mnemonic: string, password: string) => {
     if (!mnemonic) {
-        console.log('no Mnemonic')
+        console.log(' Mnemonic')
         return;
     }
 
@@ -53,24 +53,24 @@ export const createAssets = async (mnemonic: string) => {
             mnemonic as string
         );
 
-
         const assets = await Promise.all(chains.map(async (chain) => {
             if (chain["slip-0044"] === 60) {
                 return {
                     ...chain,
                     account: {
-                        privateKey: evmAccount.privateKey,
+                        privateKey: await encrypt(evmAccount.privateKey, password),
                         publicKey: evmAccount.publicKey,
                         address: evmAccount.address
                     }
                 };
             } else if (chain["slip-0044"] === 0) {
+                const account = await btcAccount(mnemonic, password)
                 return {
                     ...chain,
-                    account: btcAccount(mnemonic)
+                    account
                 };
             } else if (chain["slip-0044"] === 501) {
-                const account = await solanaAccount(mnemonic);
+                const account = await solanaAccount(mnemonic, password);
                 return {
                     ...chain,
                     account
@@ -81,6 +81,7 @@ export const createAssets = async (mnemonic: string) => {
         return assets as AssetType[];
     } catch (error) {
         console.log(error);
+        throw error
     }
 };
 

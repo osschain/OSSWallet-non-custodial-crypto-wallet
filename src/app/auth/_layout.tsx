@@ -31,6 +31,7 @@ export default function AuthLayout() {
       <Stack.Screen name="mnemonic-checking" />
       <Stack.Screen name="password-setup" />
       <Stack.Screen name="wallet-creating" options={{ headerShown: false }} />
+      <Stack.Screen name="auth-error" options={{ headerShown: false }} />
       <Stack.Screen name="congretulation" options={{ headerShown: false }} />
       <Stack.Screen name="connect-wallet" />
     </Stack>

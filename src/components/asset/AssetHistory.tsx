@@ -37,10 +37,10 @@ const AssetHistory = () => {
   });
 
   const { t } = useTranslation();
-
   const histories = history?.histories;
 
   const assetHistory = useMemo(() => {
+    if (!histories) return;
     return histories?.filter(
       (history) => history.id.toLowerCase() === asset?.id.toLowerCase()
     );
@@ -72,16 +72,21 @@ const AssetHistory = () => {
   };
 
   const checkAddres = (from: string | undefined): variants | undefined => {
-    if (!assets || !from) return;
+    if (!assetManager || !from) return;
 
-    const isFromMe = assetManager.addresses.find((adress) => {
-      return adress.address.toLowerCase() === from.toLocaleLowerCase();
-    });
+    try {
+      const isFromMe = assetManager.addresses.find((adress) => {
+        return adress.address.toLowerCase() === from.toLocaleLowerCase();
+      });
 
-    if (isFromMe) {
-      return "send";
-    } else if (!isFromMe) {
-      return "recieved";
+      if (isFromMe) {
+        return "send";
+      } else if (!isFromMe) {
+        return "recieved";
+      }
+    } catch (error) {
+      console.log(error);
+      return "error";
     }
   };
 

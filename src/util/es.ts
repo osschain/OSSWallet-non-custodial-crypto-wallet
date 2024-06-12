@@ -1,7 +1,13 @@
 import CryptoES from "crypto-es";
 
 export const encrypt = async (encrypted: string, password: string) => {
-  return CryptoES.AES.encrypt(encrypted, password).toString();
+  try {
+    const enc = CryptoES.AES.encrypt(encrypted, password).toString();
+    return enc
+
+  } catch (error) {
+    throw error
+  }
 };
 
 export const decrypt = async (encrypted: string | null, password: string) => {

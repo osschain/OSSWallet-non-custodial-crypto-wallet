@@ -82,7 +82,6 @@ export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHis
             pageSize: page
 
         });
-        console.log(transactions)
 
 
         const histories = transactions.transfers.map(({ transactionHash, timestamp, blockchain, toAddress, fromAddress, value, contractAddress }) => {
@@ -106,6 +105,7 @@ export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHis
 
         return new History(histories, transactions.nextPageToken)
     } catch (error) {
+        console.log(error)
         throw error
     }
 }

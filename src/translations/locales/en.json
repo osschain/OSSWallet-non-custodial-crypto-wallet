@@ -56,7 +56,7 @@
         "asset": {
           "error": "Something went wrong",
           "history-error": "there is no history",
-          "more-history-error": "There is no more histories",
+          "more-history-error": "There is no more histories"
         },
         "custom-token": {
           "index": {
@@ -99,7 +99,7 @@
             "qr-code": "QR Code"
           },
           "index": {
-            "alert-error": "No Chains To Display",
+            "alert-error": "No Chains To Display"
           }
         },
         "send": {
@@ -150,8 +150,7 @@
           "to-address-placeholder": "Enter address",
            "to": "to",
            "from": "from",
-          "title": "Swapp",
-
+          "title": "Swapp"
         }
       },
       "settings": {
@@ -164,7 +163,7 @@
         "change-passcode": {
           "title": "Change Passcode"
         }
-      },
+      }
       
     },
     "pascode": {

@@ -79,6 +79,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const encryptAndSaveMnemonic = async (password: string) => {
     if (!password || !mnemonic) return;
 
+    setSetupPass(password);
     const encryptedMnemonic = await encrypt(mnemonic, password);
     await SecureStore.setItemAsync("mnemonic", encryptedMnemonic);
   };

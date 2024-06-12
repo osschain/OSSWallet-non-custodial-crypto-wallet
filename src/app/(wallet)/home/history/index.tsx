@@ -93,21 +93,25 @@ const RenderHistoryITem = ({
 }) => {
   const { t } = useTranslation();
   const { data: assetManager } = useAssets();
-  const assets = assetManager?.assets;
 
   const checkAddres = (from: string | undefined): variants | undefined => {
-    if (!assets || !from) return;
-    const isFromMe = assetManager.addresses.find(
-      (adress) => adress.address.toLowerCase() === from.toLowerCase()
-    );
+    if (!assetManager || !from) return;
 
-    if (isFromMe) {
-      return "send";
-    } else if (!isFromMe) {
-      return "recieved";
+    try {
+      const isFromMe = assetManager.addresses.find((adress) => {
+        return adress.address.toLowerCase() === from.toLocaleLowerCase();
+      });
+
+      if (isFromMe) {
+        return "send";
+      } else if (!isFromMe) {
+        return "recieved";
+      }
+    } catch (error) {
+      console.log(error);
+      return "error";
     }
   };
-
   return (
     <FlatList
       data={histories}

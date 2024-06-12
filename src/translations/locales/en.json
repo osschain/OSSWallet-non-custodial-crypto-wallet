@@ -127,16 +127,23 @@
       },
       "swap": {
         "swap-in-progress": {
+          "title": "swap-in-progress",
           "header": "Swap in progress",
           "description": " Your transaction has been sent to the network and will be processed in a few seconds"
+        },
+        "index": {
+          "title": "Swapp"
         }
       },
       "settings": {
-        "change-passcode": "Change Passcode",
-        "help-center": {
+        "index": {
+          "title": "Settings",
           "support": "Support",
           "terms-and-conditions": "Terms and condition",
           "privacy-policy": "Privacy Policy"
+        },
+        "change-passcode": {
+          "title": "Change Passcode"
         }
       }
     },

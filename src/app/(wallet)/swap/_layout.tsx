@@ -1,8 +1,10 @@
 import { Stack } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/native";
 
 export default function _layout() {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Stack
       screenOptions={{
@@ -13,8 +15,14 @@ export default function _layout() {
         },
       }}
     >
-      <Stack.Screen name="index" options={{ title: "Swap" }} />
-      <Stack.Screen name="swap-in-progress" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="index"
+        options={{ title: t("wallet.swap.index.title") }}
+      />
+      <Stack.Screen
+        name={t("wallet.swap.swap-in-progress.title")}
+        options={{ headerShown: false }}
+      />
     </Stack>
   );
 }

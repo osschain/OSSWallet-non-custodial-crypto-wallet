@@ -1,3 +1,4 @@
+import HelpCenter from "@/components/settings/HelpCenter";
 import LanguageSetting from "@/components/settings/LanguageSetting";
 import NotificationSetting from "@/components/settings/NotificationSetting";
 import PasswordSeting from "@/components/settings/PasswordSetting";
@@ -17,6 +18,7 @@ export default function Settings() {
       <SpacerUi size="xl">
         <LanguageSetting />
       </SpacerUi>
+      <HelpCenter />
       <SocialLinks />
       <SpacerUi size="xl" />
     </ScrollContainerUi>

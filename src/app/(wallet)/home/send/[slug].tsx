@@ -1,11 +1,13 @@
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { isAddress } from "ethers";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
+import SendConfirm from "@/components/send/SendConfirm";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
@@ -20,6 +22,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { sendTransaction } from "@/services/send.service";
 import { findAsset } from "@/util/findAsset";
+import SendDetails from "@/components/send/SendDetails";
 
 export default function SendChain() {
   const [address, setAddress] = useState("");
@@ -30,6 +33,12 @@ export default function SendChain() {
   const { data: assetManager, isError } = useAssets();
   const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
+
+  const sendConfirm = useRef<BottomSheetModal>(null);
+
+  const handleApproveModalPress = () => {
+    sendConfirm.current?.present();
+  };
 
   if (isError || !asset) {
     return (
@@ -67,28 +76,15 @@ export default function SendChain() {
       return;
     }
 
-    Alert.alert(
-      "Confirm Action",
-      "Are you sure you want to perform this action?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Action cancelled"),
-          style: "cancel",
-        },
-        {
-          text: "Yes",
-          onPress: () => {
-            sendHandler();
-          },
-        },
-      ],
-      { cancelable: false }
-    );
+    handleApproveModalPress();
   };
 
   return (
     <ScrollContainerUi>
+      <SendConfirm ref={sendConfirm} onConfirm={sendHandler}>
+        <SendDetails details={undefined} loading={false} />
+      </SendConfirm>
+
       <Stack.Screen options={{ title: `Send ${asset?.name}` }} />
       <BodyUi>
         <SpacerUi size="3xl">

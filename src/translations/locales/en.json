@@ -91,6 +91,16 @@
         },
         "swap": {},
         "history": {
+          "index": {
+            "title": "History",
+            "no-histories-error": "There is no more histories",
+            "alert-error": "Can't find history"
+          },
+          "slug": {
+            "title": "History",
+            "alert-error": "Can't Display History",
+            "block-explorer": "Explore on block explorer"
+          },
           "no-history-alert": "No History Yet"
         }
       },
@@ -133,6 +143,10 @@
       "asset-error": "No assets",
       "search": "Search",
       "notification": "Notification",
-      "loadMore": "load more"
+      "loadMore": "load more",
+      "recipent": "Recipent",
+      "amount": "Amount",
+      "nonce": "Nonce",
+      "explorer": "Explorer"
     }
 }

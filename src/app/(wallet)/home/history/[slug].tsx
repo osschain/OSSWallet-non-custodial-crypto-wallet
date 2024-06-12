@@ -12,6 +12,7 @@ import IconUi from "@/components/ui/IconUi";
 import { BodyUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { findAsset } from "@/util/findAsset";
+import { useTranslation } from "react-i18next";
 
 const blockExplorer = {
   eth: "https://etherscan.io/tx",
@@ -32,6 +33,7 @@ const explorers = [
 ];
 
 export default function HistoryDetails() {
+  const { t } = useTranslation();
   const [isFromCopied, setIsFromCopied] = useState(false);
   const [isToCopied, setIsToCopied] = useState(false);
 
@@ -64,7 +66,9 @@ export default function HistoryDetails() {
   };
 
   if (!asset || !item) {
-    return <AlertWithImageUI title="Can't Display History" />;
+    return (
+      <AlertWithImageUI title={t("wallet.home.history.slug.alert-error")} />
+    );
   }
 
   const blockExplorerHandler = () => {
@@ -75,7 +79,7 @@ export default function HistoryDetails() {
     const url = `${blockExplorer[asset?.blockchain]}/${item.hash}`;
     router.push({
       pathname: `/web-view`,
-      params: { link: url, label: "Explorer" },
+      params: { link: url, label: t("shared.explorer") },
     });
   };
 
@@ -97,7 +101,7 @@ export default function HistoryDetails() {
         <SpacerUi size="4xl">
           <HistoryProperties>
             <HistoryProperty
-              label="Recipent"
+              label={t("shared.recipent")}
               value={item.to as string}
               action={
                 <IconUi
@@ -110,7 +114,7 @@ export default function HistoryDetails() {
               }
             />
             <HistoryProperty
-              label="From"
+              label={t("shared.from")}
               value={item.from as string}
               action={
                 <IconUi
@@ -123,12 +127,12 @@ export default function HistoryDetails() {
               }
             />
             <HistoryProperty
-              label="Amount"
+              label={t("shared.amount")}
               value={`${item.value}  ${asset?.symbol}`}
             />
             <HistoryProperty
-              label="nonce"
-              value={(item.nonce as string) || "Can't find"}
+              label={t("shared.nonce")}
+              value={(item.nonce as string) || ""}
             />
             <HistoryProperty label="date" value={item.date as string} />
           </HistoryProperties>
@@ -136,7 +140,9 @@ export default function HistoryDetails() {
 
         <SpacerUi size="2xl">
           <ButtonUi onPress={blockExplorerHandler} variant="secondary">
-            <BodyTextUi color="blue-700">Explore on block explorer</BodyTextUi>
+            <BodyTextUi color="blue-700">
+              {t("wallet.home.history.slug.block-explorer")}
+            </BodyTextUi>
           </ButtonUi>
         </SpacerUi>
       </BodyUi>

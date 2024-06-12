@@ -55,7 +55,10 @@ export default function History() {
     if (history?.nextPageToken) {
       setPage((prev) => prev + 40);
     } else {
-      Alert.alert("...ops", "There is no more histories");
+      Alert.alert(
+        t("shared.error-label"),
+        t("wallet.home.history.index.no-histories-error")
+      );
     }
   };
 
@@ -69,7 +72,7 @@ export default function History() {
         />
       </SpacerUi>
       {!filteredHistories?.length && (
-        <AlertWithImageUi title="Can't find history" />
+        <AlertWithImageUi title={t("wallet.home.history.index.alert-error")} />
       )}
       <SpacerUi size="xl" style={{ flex: filteredHistories?.length ? 1 : 0 }}>
         <RenderHistoryITem
@@ -88,6 +91,7 @@ const RenderHistoryITem = ({
   histories: HistoryType[];
   onLoadMore: () => void;
 }) => {
+  const { t } = useTranslation();
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
 
@@ -129,7 +133,7 @@ const RenderHistoryITem = ({
         <SpacerUi style={{ padding: 20 }}>
           <TouchableOpacity onPress={onLoadMore}>
             <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
-              Load More
+              title={t("shared.loadMore")}
             </BodyTextUi>
           </TouchableOpacity>
         </SpacerUi>

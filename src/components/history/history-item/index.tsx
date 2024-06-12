@@ -22,8 +22,8 @@ type Props = {
 } & ComponentPropsWithoutRef<typeof Item>;
 
 const HistoryItem = ({
-  variant = "send",
-  walletAddress = "No Adress",
+  variant = "",
+  walletAddress = "",
   amount = "2.5",
   ...rest
 }: Props) => {

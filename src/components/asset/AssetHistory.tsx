@@ -1,5 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Alert } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
@@ -35,6 +36,8 @@ const AssetHistory = () => {
     page,
   });
 
+  const { t } = useTranslation();
+
   const histories = history?.histories;
 
   const assetHistory = useMemo(() => {
@@ -52,7 +55,7 @@ const AssetHistory = () => {
   }
 
   if (isError || !histories?.length) {
-    return <AlertWithImageUI title="there is no history" />;
+    return <AlertWithImageUI title={t("wallet.home.asset.history-error")} />;
   }
 
   const handlePagination = () => {
@@ -61,7 +64,10 @@ const AssetHistory = () => {
     if (history.nextPageToken) {
       setPage((prev) => prev + 20);
     } else {
-      Alert.alert("...ops", "There is no more histories");
+      Alert.alert(
+        t("shared.error-label"),
+        t("wallet.home.asset.more-history-error")
+      );
     }
   };
 
@@ -106,7 +112,7 @@ const AssetHistory = () => {
             <SpacerUi style={{ padding: 20 }}>
               <TouchableOpacity onPress={handlePagination}>
                 <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
-                  Load More
+                  {t("shared.loadMore")}
                 </BodyTextUi>
               </TouchableOpacity>
             </SpacerUi>

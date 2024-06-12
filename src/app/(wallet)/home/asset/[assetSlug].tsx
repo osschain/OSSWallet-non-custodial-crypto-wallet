@@ -1,4 +1,5 @@
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 import { useAssets } from "@/app/api/assets";
 import AssetDetails from "@/components/asset/AssetDetail";
@@ -10,7 +11,7 @@ import { findAsset } from "@/util/findAsset";
 
 export default function Asset() {
   const { assetSlug: slug } = useLocalSearchParams();
-
+  const { t } = useTranslation();
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
@@ -19,7 +20,7 @@ export default function Asset() {
     return (
       <ContainerUi>
         <SpacerUi size="3xl">
-          <MessageUi>Something went wrong</MessageUi>
+          <MessageUi>{t("wallet.home.asset.error")}</MessageUi>
         </SpacerUi>
       </ContainerUi>
     );

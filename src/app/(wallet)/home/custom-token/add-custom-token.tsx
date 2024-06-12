@@ -18,6 +18,7 @@ import {
   getTokenProperties,
   isValidERC20Addres,
 } from "@/services/token.service";
+import { Wallet } from "ethers";
 
 export default function AddCustomToken() {
   const [loading, setLoading] = useState(false);
@@ -54,7 +55,10 @@ export default function AddCustomToken() {
 
   const handleApproveModalPress = () => {
     if (!tokenProperties) {
-      Alert.alert("Can't find token");
+      Alert.alert(
+        t("shared.error-label"),
+        t("wallet.home.custom-token.add-custom-token.cant-find-error")
+      );
       return;
     }
 
@@ -67,7 +71,10 @@ export default function AddCustomToken() {
     const evmAsset = generateEvmAsset(tokenProperties, assets);
 
     if (!evmAsset) {
-      Alert.alert("...ops", "Can't Generate Asset");
+      Alert.alert(
+        t("shared.error-label"),
+        t("wallet.home.custom-token.add-custom-token.cant-generate-error")
+      );
       return;
     }
 
@@ -77,7 +84,10 @@ export default function AddCustomToken() {
       approveToken.current?.close();
     } catch (error) {
       console.log(error);
-      Alert.alert("can't add Addres there is error");
+      Alert.alert(
+        t("shared.error-label"),
+        t("wallet.home.custom-token.add-custom-token.cant-add-addres")
+      );
     }
   };
 

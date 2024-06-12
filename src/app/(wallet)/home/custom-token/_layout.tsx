@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Platform } from "react-native";
 import { useTheme } from "styled-components";
 
@@ -6,6 +7,7 @@ import IosHeaderLeft from "@/components/layout/IosHeaderLeft";
 
 export default function _layout() {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Stack
       screenOptions={{
@@ -18,10 +20,15 @@ export default function _layout() {
         },
       }}
     >
-      <Stack.Screen name="index" options={{ title: "Custom Tokens" }} />
+      <Stack.Screen
+        name="index"
+        options={{ title: t("wallet.home.custom-token.index.title") }}
+      />
       <Stack.Screen
         name="add-custom-token"
-        options={{ title: "Add custom tokens" }}
+        options={{
+          title: t("wallet.home.custom-token.add-custom-token.title"),
+        }}
       />
     </Stack>
   );

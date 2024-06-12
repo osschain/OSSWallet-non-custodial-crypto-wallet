@@ -49,14 +49,23 @@
       "home": {
         "index": {
         },
-        "asset": {},
+        "asset": {
+          "error": "Something went wrong",
+          "history-error": "there is no history",
+          "more-history-error": "There is no more histories",
+        },
         "custom-token": {
           "index": {
+            "title": "Custom Tokens",
             "no-custom-tokens-alert": "Custom tokens haven’t been added. You can search for tokens or add them manually",
             "add-button-text": "Add Custom Token",
             "search-input-placeholder": "Search by name or paste address"
           },
           "add-custom-token": {
+            "cant-find-error": "Can't find token",
+            "cant-generate-error": "Can't Generate Asset",
+            "cant-add-addres": "can't add Addres there is error",
+            "title": "Add Custom Tokens",
             "import-token-button": "Import Token",
             "adress-input-placeholder": "Enter Token Address",
             "warning-first": "Trade at your own risk!",
@@ -123,6 +132,7 @@
       "transfer": "Transfer",
       "asset-error": "No assets",
       "search": "Search",
-      "notification": "Notification"
+      "notification": "Notification",
+      "loadMore": "load more"
     }
 }

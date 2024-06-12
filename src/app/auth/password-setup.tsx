@@ -1,5 +1,6 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import EnterPassCode from "@/components/auth/EnterPassCode";
 import { useAuth } from "@/providers/AuthProvider";
@@ -8,7 +9,7 @@ function PasswordSetup() {
   const { encryptAndSaveMnemonic } = useAuth();
   const [password, setPassword] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (password && password === confirmPassword) {
       continueHandler(password);
@@ -25,12 +26,12 @@ function PasswordSetup() {
     <>
       {!password ? (
         <EnterPassCode
-          header="Enter Passcode"
+          header={t("auth.password-setup.enter-passcode")}
           onPasswordFull={(password) => setPassword(password)}
         />
       ) : (
         <EnterPassCode
-          header="Confirm Passcode"
+          header={t("auth.password-setup.confirm-passocde")}
           onPasswordFull={(password) => setConfirmPassword(password)}
         />
       )}

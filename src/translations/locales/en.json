@@ -41,7 +41,9 @@
         "password-required": "Passcode is required",
         "password-min-length": "Passcode must contain at least 8 characters",
         "password-confirm-required": "Please confirm your passcode",
-        "password-match": "Passcode must match"
+        "password-match": "Passcode must match",
+        "enter-passcode": "Enter Passcode",
+        "confirm-passocde": "Confirm-passcode"
       }
      
     },

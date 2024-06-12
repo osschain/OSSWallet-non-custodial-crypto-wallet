@@ -132,7 +132,12 @@
         }
       },
       "settings": {
-        "change-passcode": "Change Passcode"
+        "change-passcode": "Change Passcode",
+        "help-center": {
+          "support": "Support",
+          "terms-and-conditions": "Terms and condition",
+          "privacy-policy": "Privacy Policy"
+        }
       }
     },
     "pascode": {

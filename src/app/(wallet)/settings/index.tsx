@@ -1,4 +1,5 @@
 import styled, { useTheme } from "styled-components/native";
+
 import HelpCenter from "@/components/settings/HelpCenter";
 import LanguageSetting from "@/components/settings/LanguageSetting";
 import NotificationSetting from "@/components/settings/NotificationSetting";
@@ -6,7 +7,6 @@ import PasswordSeting from "@/components/settings/PasswordSetting";
 import SocialLinks from "@/components/settings/SocialLinks";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { View } from "react-native";
 
 export default function Settings() {
   const theme = useTheme();

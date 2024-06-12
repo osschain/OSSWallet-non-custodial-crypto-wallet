@@ -1,32 +1,36 @@
 import { router } from "expo-router";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { Right, Left, Setting, Title, Icon } from "./style";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
-import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
-const termsAndConditions = [
-  {
-    icon: "support-agent",
-    label: "Support",
-    link: "https://support.osschain.com",
-  },
-  {
-    icon: "policy",
-    label: "Terms and condition",
-    link: "https://law.osschain.com/terms",
-  },
-  {
-    icon: "local-police",
-    label: "Privacy Policy",
-    link: "https://law.osschain.com/privacy",
-  },
-];
-
 const HelpCenter = () => {
+  const { t } = useTranslation();
+
+  const termsAndConditions = useMemo(() => {
+    return [
+      {
+        icon: "support-agent",
+        label: t("wallet.settings.help-center.support"),
+        link: "https://support.osschain.com",
+      },
+      {
+        icon: "policy",
+        label: t("wallet.settings.help-center.terms-and-conditions"),
+        link: "https://law.osschain.com/terms",
+      },
+      {
+        icon: "local-police",
+        label: t("wallet.settings.help-center.privacy-policy"),
+        link: "https://law.osschain.com/privacy",
+      },
+    ];
+  }, []);
   return (
     <>
       {termsAndConditions.map((term, index) => {

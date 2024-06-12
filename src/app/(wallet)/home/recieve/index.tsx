@@ -16,6 +16,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
 import { findAsset } from "@/util/findAsset";
+import BodyTextUi from "@/components/ui/BodyTextUi";
 
 export default function Recieve() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
@@ -79,7 +80,7 @@ const AssetItem = ({
         <ItemUi
           title={asset.name}
           uri={asset.icon}
-          description={asset.symbol}
+          leftBottom={<BodyTextUi>{asset.symbol}</BodyTextUi>}
           descUri={
             asset.contractAddress
               ? findAsset(assets, asset.blockchain)?.icon

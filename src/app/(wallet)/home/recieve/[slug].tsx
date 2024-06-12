@@ -83,7 +83,7 @@ export default function RecieveDetails() {
             />
           }
         >
-          Share
+          {t("shared.share")}
         </ButtonUi>
         <ButtonUi
           variant="secondary"

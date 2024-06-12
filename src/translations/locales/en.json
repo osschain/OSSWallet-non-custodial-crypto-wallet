@@ -84,6 +84,7 @@
         },
         "recieve": {
           "recieve-details": {
+            "title": "Recieve",
             "warning": "Do not send other blockchain network here!",
             "wallet-adress": "Wallet Adress",
             "Copy Address": "Copy Address",
@@ -153,6 +154,7 @@
       "amount": "Amount",
       "nonce": "Nonce",
       "explorer": "Explorer",
-      "NFT": "NFT"
+      "NFT": "NFT",
+      "share": "Share"
     }
 }

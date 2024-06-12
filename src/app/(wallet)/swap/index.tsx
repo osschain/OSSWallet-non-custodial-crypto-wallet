@@ -53,10 +53,10 @@ export default function Swap() {
       />
       <BodyUi>
         <SpacerUi size="2xl">
-          <HeaderTextUi>From</HeaderTextUi>
+          <HeaderTextUi>{t("wallet.swap.index.from")}</HeaderTextUi>
           <SpacerUi size="lg">
             <AssetQuantityInputUi
-              placeholder="Enter Adress"
+              placeholder={t("wallet.swap.index.to-address-placeholder")}
               uri={exchangable?.icon}
               title={exchangable?.name}
               onAssetPress={handleExchangableOptionsPress}
@@ -65,12 +65,12 @@ export default function Swap() {
         </SpacerUi>
         <SpacerUi size="2xl">
           <SpacerUi size="lg">
-            <HeaderTextUi>To</HeaderTextUi>
+            <HeaderTextUi>{t("wallet.swap.index.to")}</HeaderTextUi>
             <SpacerUi size="lg">
               <AssetQuantityInputUi
                 uri={target?.icon}
                 title={target?.name}
-                placeholder="Enter Adress"
+                placeholder={t("wallet.swap.index.from-address-placeholder")}
                 onAssetPress={handleTargetOptionsPress}
               />
             </SpacerUi>

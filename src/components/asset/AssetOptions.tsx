@@ -8,6 +8,7 @@ import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
+import { useTranslation } from "react-i18next";
 
 export type Ref = BottomSheetModal;
 
@@ -19,6 +20,7 @@ type Props = {
 
 const AssetOptions = forwardRef<Ref, Props>(
   ({ assets, defSelected, onSelect = () => {} }, ref) => {
+    const { t } = useTranslation();
     const snapPoints = useMemo(() => ["95%", "95%"], []);
     const [selected, setSelected] = useState(defSelected || null);
     const [searchQuery, setSearchQuery] = useState("");
@@ -40,7 +42,7 @@ const AssetOptions = forwardRef<Ref, Props>(
             <TextInputUi
               value={searchQuery}
               onChangeText={setSearchQuery}
-              placeholder="Search "
+              placeholder={t("shared.search")}
               left={
                 <IconUi
                   library="AntDesign"

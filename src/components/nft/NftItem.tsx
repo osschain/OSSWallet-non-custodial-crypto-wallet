@@ -13,8 +13,8 @@ type Props = {
 
 const NftItem = ({
   uri,
-  title = "cantDisplay",
-  collection = "can't Display",
+  title = "",
+  collection = "",
   networkUri = "",
 }: Props) => {
   return (

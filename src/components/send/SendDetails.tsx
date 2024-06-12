@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 
@@ -14,6 +15,7 @@ const SendDetails = ({
   details: tokenType | undefined | null;
   loading: boolean;
 }) => {
+  const { t } = useTranslation();
   if (loading) {
     return (
       loading && (
@@ -37,9 +39,15 @@ const SendDetails = ({
       </SpacerUi>
       <SpacerUi size="4xl">
         <Details>
-          <Detail label="Asset:" value={details?.name} />
+          <Detail
+            label={`${t("wallet.home.send.send-details.asset")}:`}
+            value={details?.name}
+          />
           <SpacerUi size="xl">
-            <Detail label="From:" value={details?.symbol} />
+            <Detail
+              label={`${t("wallet.home.send.send-details.from")}:`}
+              value={details?.symbol}
+            />
           </SpacerUi>
 
           <SpacerUi size="xl">
@@ -50,9 +58,15 @@ const SendDetails = ({
 
       <SpacerUi size="xl">
         <Details>
-          <Detail label="Network fee:" value={details?.name} />
+          <Detail
+            label={`${t("wallet.home.send.send-details.fee")}:`}
+            value={details?.name}
+          />
           <SpacerUi size="xl">
-            <Detail label="max Total:" value={details?.symbol} />
+            <Detail
+              label={`${t("wallet.home.send.send-details.max-total")}:`}
+              value={details?.symbol}
+            />
           </SpacerUi>
         </Details>
       </SpacerUi>

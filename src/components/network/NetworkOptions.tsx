@@ -53,7 +53,7 @@ const NetworkOptions = forwardRef<Ref, Props>(
     }, [networks, searchQuery]);
 
     if (!networks || networks.length === 0) {
-      return <AlertWithImageUI title="Can't find networks" />;
+      return <AlertWithImageUI title={t("networks.alert-error")} />;
     }
 
     const selectHandler = (network: NetworkType) => {
@@ -83,7 +83,7 @@ const NetworkOptions = forwardRef<Ref, Props>(
               <TextInputUi
                 value={searchQuery}
                 onChangeText={setSearchQuery}
-                placeholder="Search "
+                placeholder={t("shared.search")}
                 left={
                   <IconUi
                     library="AntDesign"

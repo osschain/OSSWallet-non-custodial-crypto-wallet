@@ -73,7 +73,11 @@
             "warning-first": "Trade at your own risk!",
             "warning-second": "Anyone can create a token, including creating fake versions of existing tokens that claim to represent projects.",
             "warning-third": "If you purchase this token, you may not be able to sell it back.",
-            "warning-forth": "Buy adding this as a custom token, you confirm that all further interactions with it are at your own risk."
+            "warning-forth": "Buy adding this as a custom token, you confirm that all further interactions with it are at your own risk.",
+            "address-input-placeholder": "Enter Token Address",
+            "decimals": "Decimals",
+            "symbol": "Symbol",
+            "name": "Name"
           }
         },
         "nft": {
@@ -107,10 +111,18 @@
             "inputs-value-error": "velebi arasworadaa sheyvanili",
             "asset-sent-message":  "Asset sent successfully",
             "asset-sent-title": "sented",
-            "addres-input-placeholder": "Enter Address"
+            "addres-input-placeholder": "Enter Address",
+            "asset": "Asset",
+            "from": "From",
+            "to": "To",
+            "fee": "Network Fee",
+            "max-total": "Max Total"
+
           }
         },
-        "swap": {},
+        "swap": {
+          "addres-input-placeholder": "Enter Address"
+        },
         "history": {
           "index": {
             "title": "History",
@@ -132,7 +144,12 @@
           "description": " Your transaction has been sent to the network and will be processed in a few seconds"
         },
         "index": {
-          "title": "Swapp"
+          "from-address-placeholder": "Enter address",
+          "to-address-placeholder": "Enter address",
+           "to": "to",
+           "from": "from",
+          "title": "Swapp",
+
         }
       },
       "settings": {
@@ -145,7 +162,8 @@
         "change-passcode": {
           "title": "Change Passcode"
         }
-      }
+      },
+      
     },
     "pascode": {
       "password-incorrect": "Passcode is not correct",
@@ -153,6 +171,10 @@
       "confirm-header": "Confirm Passcode",
       "remove-session": "Remove Session",
       "current-passcode": "Current Pass Code"
+    },
+    "networks": {
+      "alert-error": "Can't find networks",
+      
     },
     
     "shared": {

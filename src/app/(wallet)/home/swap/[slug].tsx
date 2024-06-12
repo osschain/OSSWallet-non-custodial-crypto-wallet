@@ -45,7 +45,9 @@ export default function Swap() {
 
   return (
     <ScrollContainerUi>
-      <Stack.Screen options={{ title: `Swap ${asset?.name} ` }} />
+      <Stack.Screen
+        options={{ title: `${t("shared.swap")} ${asset?.name} ` }}
+      />
 
       <AssetOptions
         assets={assets as AssetType[]}
@@ -60,7 +62,7 @@ export default function Swap() {
           <HeaderTextUi>From</HeaderTextUi>
           <SpacerUi size="lg">
             <AssetQuantityInputUi
-              placeholder="Enter Adress"
+              placeholder={t("wallet.home.swap.addres-input-placeholder")}
               uri={asset?.icon}
               title={asset?.name}
             />
@@ -73,7 +75,7 @@ export default function Swap() {
               <AssetQuantityInputUi
                 uri={target?.icon}
                 title={target?.name}
-                placeholder="Enter Adress"
+                placeholder={t("wallet.home.swap.addres-input-placeholder")}
                 onAssetPress={handleTargetOptionsPress}
               />
             </SpacerUi>

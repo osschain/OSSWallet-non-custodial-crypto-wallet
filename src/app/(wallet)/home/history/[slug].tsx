@@ -1,16 +1,35 @@
 import * as Clipboard from "expo-clipboard";
 import { Image } from "expo-image";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { ReactNode, useState } from "react";
 import styled from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import ButtonUi from "@/components/ui/ButtonUi";
 import IconUi from "@/components/ui/IconUi";
 import { BodyUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { findAsset } from "@/util/findAsset";
+
+const blockExplorer = {
+  eth: "https://etherscan.io/tx",
+  bsc: "https://bscscan.com/tx",
+  polygon: "https://polygonscan.com/tx",
+  polygon_zkevm: "https://zkevm.polygonscan.com/tx",
+  avalanche: "https://subnets.avax.network/c-chain/tx",
+  optimism: "https://optimistic.etherscan.io/tx",
+};
+
+const explorers = [
+  "eth",
+  "bsc",
+  "polygon",
+  "polygon_zkevm",
+  "avalanche",
+  "optimism",
+];
 
 export default function HistoryDetails() {
   const [isFromCopied, setIsFromCopied] = useState(false);
@@ -47,6 +66,18 @@ export default function HistoryDetails() {
   if (!asset || !item) {
     return <AlertWithImageUI title="Can't Display History" />;
   }
+
+  const blockExplorerHandler = () => {
+    if (!asset.blockchain) return;
+    if (!explorers.includes(asset.blockchain)) return;
+
+    // @ts-ignore
+    const url = `${blockExplorer[asset?.blockchain]}/${item.hash}`;
+    router.push({
+      pathname: `/web-view`,
+      params: { link: url, label: "Explorer" },
+    });
+  };
 
   return (
     <ScrollContainerUi>
@@ -101,6 +132,12 @@ export default function HistoryDetails() {
             />
             <HistoryProperty label="date" value={item.date as string} />
           </HistoryProperties>
+        </SpacerUi>
+
+        <SpacerUi size="2xl">
+          <ButtonUi onPress={blockExplorerHandler} variant="secondary">
+            <BodyTextUi color="blue-700">Explore on block explorer</BodyTextUi>
+          </ButtonUi>
         </SpacerUi>
       </BodyUi>
     </ScrollContainerUi>

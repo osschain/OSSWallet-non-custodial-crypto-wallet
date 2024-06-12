@@ -38,11 +38,6 @@ const socials = [
 const SocialLinks = () => {
   return (
     <>
-      <SpacerUi size="4xl">
-        <HeaderTextUi style={{ textAlign: "center" }} weight="semi" size="md">
-          SOCIAL LINKS
-        </HeaderTextUi>
-      </SpacerUi>
       {socials.map((social) => {
         return (
           <SpacerUi size="xl" key={social.label}>

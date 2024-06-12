@@ -29,12 +29,7 @@ const termsAndConditions = [
 const HelpCenter = () => {
   return (
     <>
-      <SpacerUi size="4xl">
-        <HeaderTextUi style={{ textAlign: "center" }} weight="semi" size="md">
-          Help Center
-        </HeaderTextUi>
-      </SpacerUi>
-      {termsAndConditions.map((term) => {
+      {termsAndConditions.map((term, index) => {
         return (
           <SpacerUi size="xl" key={term.label}>
             <TouchableOpacity

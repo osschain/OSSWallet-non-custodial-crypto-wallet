@@ -10,4 +10,5 @@ export type HistoryType = {
     id: string;
     key: string;
     fee: number;
+    hash: string;
 };

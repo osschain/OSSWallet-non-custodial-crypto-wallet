@@ -48,10 +48,11 @@ export const getEvmChainHistories = async ({ address, blockchain, page }: EvmHis
         });
 
 
-        const histories = transactions.transactions.map(({ timestamp, gasPrice, gasUsed, nonce, to, from, value, blockchain }) => {
+        const histories = transactions.transactions.map(({ hash, timestamp, gasPrice, gasUsed, nonce, to, from, value, blockchain }) => {
             if (!blockchain || !to) {
                 return;
             }
+
             return {
                 to,
                 from,
@@ -61,7 +62,8 @@ export const getEvmChainHistories = async ({ address, blockchain, page }: EvmHis
                 blockchain: blockchain as OSSblockchain,
                 nonce,
                 fee: Number(gasPrice) * Number(gasUsed),
-                date: timestamp ? unixTimestampToDate(timestamp) : null
+                date: timestamp ? unixTimestampToDate(timestamp) : null,
+                hash
             }
         }).filter(Boolean) as HistoryType[]
 
@@ -80,10 +82,10 @@ export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHis
             pageSize: page
 
         });
+        console.log(transactions)
 
 
-
-        const histories = transactions.transfers.map(({ timestamp, blockchain, toAddress, fromAddress, value, contractAddress }) => {
+        const histories = transactions.transfers.map(({ transactionHash, timestamp, blockchain, toAddress, fromAddress, value, contractAddress }) => {
 
             if (!contractAddress || !toAddress || !fromAddress) {
                 return;
@@ -96,7 +98,8 @@ export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHis
                 key: uuidv4(),
                 value,
                 blockchain: blockchain as OSSblockchain,
-                date: timestamp ? unixTimestampToDate(timestamp) : null
+                date: timestamp ? unixTimestampToDate(timestamp) : null,
+                hash: transactionHash
             }
         }).filter(Boolean) as HistoryType[]
 

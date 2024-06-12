@@ -8,6 +8,7 @@ import styled from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
 import SendConfirm from "@/components/send/SendConfirm";
+import SendDetails from "@/components/send/SendDetails";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
@@ -22,7 +23,6 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { sendTransaction } from "@/services/send.service";
 import { findAsset } from "@/util/findAsset";
-import SendDetails from "@/components/send/SendDetails";
 
 export default function SendChain() {
   const [address, setAddress] = useState("");
@@ -60,19 +60,25 @@ export default function SendChain() {
         amount,
       });
 
-      Alert.alert("Sent", "Asset Sent");
+      Alert.alert(
+        t("wallet.home.send.send-details.asset-sent-title"),
+        t("wallet.home.send.send-details.asset-sent-message")
+      );
     } catch {
       console.log("error");
       Alert.alert(
-        "..ops",
-        "sorry there is error can't send transaction try later"
+        t("shared.error-label"),
+        t("wallet.home.send.send-details.cant-send-transaction-error")
       );
     }
   };
 
   const confirmSend = () => {
     if (!isAddress(address) || !Number(amount)) {
-      Alert.alert("..ops", "velebi arasworadaa sheyvanili");
+      Alert.alert(
+        t("shared.error-label"),
+        t("wallet.home.send.send-details.inputs-value-error")
+      );
       return;
     }
 
@@ -85,7 +91,7 @@ export default function SendChain() {
         <SendDetails details={undefined} loading={false} />
       </SendConfirm>
 
-      <Stack.Screen options={{ title: `Send ${asset?.name}` }} />
+      <Stack.Screen options={{ title: `${t("shared.send")} ${asset?.name}` }} />
       <BodyUi>
         <SpacerUi size="3xl">
           <MessageUi>{t("wallet.home.send.warning")}</MessageUi>
@@ -97,7 +103,9 @@ export default function SendChain() {
             <TextInputUi
               onChangeText={(text) => setAddress(text)}
               value={address}
-              placeholder="Enter Adress"
+              placeholder={t(
+                "wallet.home.send.send-details.addres-input-placeholder"
+              )}
             />
           </SpacerUi>
         </SpacerUi>

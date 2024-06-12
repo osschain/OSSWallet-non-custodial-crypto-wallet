@@ -89,11 +89,21 @@
             "wallet-adress": "Wallet Adress",
             "Copy Address": "Copy Address",
             "qr-code": "QR Code"
+          },
+          "index": {
+            "alert-error": "No Chains To Display",
           }
         },
         "send": {
           "warning": "Check address before send, you cen't refund it",
-          "for-whom": "For Whom"
+          "for-whom": "For Whom",
+          "send-details": {
+            "cant-send-transaction-error": "sorry there is error can't send transaction try later",
+            "inputs-value-error": "velebi arasworadaa sheyvanili",
+            "asset-sent-message":  "Asset sent successfully",
+            "asset-sent-title": "sented",
+            "addres-input-placeholder": "Enter Address"
+          }
         },
         "swap": {},
         "history": {

@@ -28,7 +28,9 @@ export default function Recieve() {
   const filteredAssets = useFilteredAssets(assets, searchQuery, network);
 
   if (isError || !assets?.length) {
-    return <AlertWithImageUI title="No Chains To Display" />;
+    return (
+      <AlertWithImageUI title={t("wallet.home.recieve.index.alert-error")} />
+    );
   }
 
   return (

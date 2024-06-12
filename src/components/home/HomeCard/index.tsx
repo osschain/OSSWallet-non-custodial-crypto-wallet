@@ -1,9 +1,8 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ComponentPropsWithoutRef, useEffect, useMemo, useState } from "react";
+import { Link } from "expo-router";
+import { ComponentPropsWithoutRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 
-import { useTheme } from "styled-components/native";
 import {
   Card,
   BackgroundGradient,
@@ -18,13 +17,12 @@ import {
 } from "./style";
 
 import { UseBalances } from "@/app/api/balances";
+import { useNotificationsNum } from "@/app/api/notifications";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { totalBalance } from "@/services/balances.service";
-import { Link } from "expo-router";
-import { useNotificationsNum } from "@/app/api/notifications";
 
 type Props = {
   label?: string;

@@ -1,5 +1,6 @@
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
@@ -13,6 +14,7 @@ import { useNfts } from "@/app/api/nft";
 import { findAsset } from "@/util/findAsset";
 
 const HomeNfts = () => {
+  const { t } = useTranslation();
   const { data: nfts, isError, isLoading: isNftLoading } = useNfts(10);
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
@@ -27,7 +29,7 @@ const HomeNfts = () => {
   }
 
   if (!nfts?.length || isError) {
-    return <AlertWithImageUI title="Can't find NFTS" />;
+    return <AlertWithImageUI title={t("wallet.home.index.nft-allert-error")} />;
   }
 
   return (

@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Platform } from "react-native";
 import { useTheme } from "styled-components/native";
 
@@ -6,6 +7,7 @@ import IosHeaderLeft from "@/components/layout/IosHeaderLeft";
 
 export default function _layout() {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Stack
       screenOptions={{
@@ -17,7 +19,10 @@ export default function _layout() {
         },
       }}
     >
-      <Stack.Screen name="index" options={{ title: "Send" }} />
+      <Stack.Screen
+        name="index"
+        options={{ title: t("wallet.home.send.index.title") }}
+      />
     </Stack>
   );
 }

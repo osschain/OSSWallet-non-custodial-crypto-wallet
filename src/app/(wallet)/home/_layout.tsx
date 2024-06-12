@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useQueryClient } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 import { Platform } from "react-native";

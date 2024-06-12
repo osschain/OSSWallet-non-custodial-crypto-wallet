@@ -48,6 +48,8 @@
     "wallet": {
       "home": {
         "index": {
+          "nft-allert-error":"Can't find NFTS",
+          "asset-allert-error": "Can't find Assets"
         },
         "asset": {
           "error": "Something went wrong",
@@ -95,6 +97,9 @@
           }
         },
         "send": {
+          "index": {
+            "title": "Send"
+          },
           "warning": "Check address before send, you cen't refund it",
           "for-whom": "For Whom",
           "send-details": {

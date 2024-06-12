@@ -1,4 +1,6 @@
 import { Link } from "expo-router";
+import { useTransition } from "react";
+import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   FlatList,
@@ -13,15 +15,16 @@ import ItemUi from "../ui/ItemUi";
 import SpacerUi from "../ui/SpacerUi";
 
 import { useAssetPrices, useAssets } from "@/app/api/assets";
+import { UseBalances } from "@/app/api/balances";
 import {
   calculateBalance,
   calculateUsdBalance,
 } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
-import { UseBalances } from "@/app/api/balances";
 
 const HomeAssets = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const {
     data: assetManager,
     isError,
@@ -50,7 +53,9 @@ const HomeAssets = () => {
   }
 
   if (!assets?.length || isError) {
-    return <AlertWithImageUI title="Can't find NFTS" />;
+    return (
+      <AlertWithImageUI title={t("wallet.home.index.asset-allert-error")} />
+    );
   }
 
   return (

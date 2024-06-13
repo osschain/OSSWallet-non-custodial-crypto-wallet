@@ -6,6 +6,7 @@ export const encrypt = async (encrypted: string, password: string) => {
     return enc
 
   } catch (error) {
+    console.log(error);
     throw error
   }
 };

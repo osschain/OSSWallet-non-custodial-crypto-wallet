@@ -17,11 +17,11 @@ import {
 } from "./style";
 
 import { UseBalances } from "@/app/api/balances";
-import { useNotificationsNum } from "@/app/api/notifications";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useNotification } from "@/providers/NotificationsProvider";
 import { totalBalance } from "@/services/balances.service";
 
 type Props = {
@@ -41,7 +41,7 @@ const HomeCard = ({
   ...rest
 }: Props) => {
   const { t } = useTranslation();
-  const { data: notificaitonNum } = useNotificationsNum();
+  const { newNotifsNumber } = useNotification();
   const { data: balances, isLoading } = UseBalances();
   const balance = useMemo(() => {
     return totalBalance(balances);
@@ -117,10 +117,10 @@ const HomeCard = ({
               size="xl"
               color="pure-white"
             />
-            {notificaitonNum ? (
+            {newNotifsNumber ? (
               <NotificationContainer>
                 <BodyTextUi size="sm" color="pure-white">
-                  {notificaitonNum}
+                  {newNotifsNumber}
                 </BodyTextUi>
               </NotificationContainer>
             ) : null}

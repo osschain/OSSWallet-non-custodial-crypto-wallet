@@ -14,7 +14,6 @@ export const useNotifications = () => {
             }
 
             const notifications = JSON.parse(notificationsStr)
-            console.log("OK")
             if (notifications) {
                 AsyncStorage.setItem("notificationNumber", JSON.stringify(0))
                 await queryClient.invalidateQueries({ queryKey: ["notificationsNum"] });

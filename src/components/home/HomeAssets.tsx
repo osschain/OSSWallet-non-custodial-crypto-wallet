@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
@@ -21,10 +21,13 @@ import {
   calculateUsdBalance,
 } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
+import { RefreshControl } from "react-native-gesture-handler";
 
 const HomeAssets = () => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const [refreshing, setRefreshing] = useState(false);
+
   const {
     data: assetManager,
     isError,
@@ -122,6 +125,14 @@ const HomeAssets = () => {
           )}
         </>
       )}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={() => {
+            console.log("REF");
+          }}
+        />
+      }
     />
   );
 };

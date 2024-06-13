@@ -23,7 +23,7 @@ const PasswordSeting = () => {
             </Icon>
             <Title>
               <BodyTextUi weight="medium" size="md">
-                {t("wallet.settings.change-passcode")}
+                {t("wallet.settings.change-passcode.title")}
               </BodyTextUi>
             </Title>
           </Left>

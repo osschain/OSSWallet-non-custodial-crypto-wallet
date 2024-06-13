@@ -40,7 +40,6 @@ export const getAddress = (assets: AssetType[], type: AddresTypes) => {
     try {
         const address = assets.find((asset) => asset.blockchain === type)?.account
             .address;
-
         return address as string
     } catch {
         throw new Error("Can't find adress");

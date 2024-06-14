@@ -16,7 +16,7 @@ import { findAsset } from "@/util/findAsset";
 
 const AssetHistory = () => {
   const { assetSlug: slug } = useLocalSearchParams();
-  const [page, setPage] = useState(20);
+  const [page, setPage] = useState(10);
   const { data: assetManager } = useAssets();
   const queryClient = useQueryClient();
   const assets = assetManager?.assets;
@@ -60,16 +60,7 @@ const AssetHistory = () => {
   }
 
   const handlePagination = () => {
-    if (!histories) return;
-
-    if (history.nextPageToken) {
-      setPage((prev) => prev + 20);
-    } else {
-      Alert.alert(
-        t("shared.error-label"),
-        t("wallet.home.asset.more-history-error")
-      );
-    }
+    setPage((prev) => prev + 20);
   };
 
   const checkAddres = (from: string | undefined): variants | undefined => {
@@ -90,42 +81,50 @@ const AssetHistory = () => {
       return "error";
     }
   };
-
   return (
     <FlatList
       data={assetHistory}
       renderItem={({ item }) => (
-        <SpacerUi size="xl" position="bottom">
-          <TouchableOpacity
-            onPress={() =>
-              router.push({
-                pathname: `/(wallet)/home/history/${item.id}`,
-                params: item,
-              })
-            }
-          >
-            <HistoryItem
-              walletAddress={item.from}
-              variant={checkAddres(item.from)}
-              amount={item.value}
-            />
-          </TouchableOpacity>
-        </SpacerUi>
+        <>
+          <SpacerUi size="xl" position="bottom">
+            <TouchableOpacity
+              onPress={() =>
+                router.push({
+                  pathname: `/(wallet)/home/history/${item.id}`,
+                  params: item,
+                })
+              }
+            >
+              <HistoryItem
+                walletAddress={item.from}
+                variant={checkAddres(item.from)}
+                amount={item.value}
+              />
+            </TouchableOpacity>
+          </SpacerUi>
+        </>
       )}
       ListFooterComponent={() => (
-        <SpacerUi style={{ padding: 20 }}>
-          {isRefetching ? (
-            <ActivityIndicator />
-          ) : (
-            <SpacerUi style={{ padding: 20 }}>
-              <TouchableOpacity onPress={handlePagination}>
-                <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
-                  {t("shared.loadMore")}
-                </BodyTextUi>
-              </TouchableOpacity>
+        <>
+          {history?.nextPageToken && (
+            <SpacerUi style={{ paddingBottom: 20 }}>
+              {isRefetching ? (
+                <ActivityIndicator style={{ padding: 20 }} />
+              ) : (
+                <SpacerUi style={{ padding: 20 }}>
+                  <TouchableOpacity onPress={handlePagination}>
+                    <BodyTextUi
+                      color="blue-500"
+                      style={{ textAlign: "center" }}
+                    >
+                      {t("shared.loadMore")}
+                    </BodyTextUi>
+                  </TouchableOpacity>
+                </SpacerUi>
+              )}
             </SpacerUi>
           )}
-        </SpacerUi>
+        </>
       )}
       refreshControl={
         <RefreshControl

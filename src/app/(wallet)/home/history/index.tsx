@@ -19,7 +19,7 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function History() {
-  const [page, setPage] = useState(40);
+  const [page, setPage] = useState(20);
 
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -58,14 +58,7 @@ export default function History() {
   }
 
   const handlePagination = () => {
-    if (history?.nextPageToken) {
-      setPage((prev) => prev + 40);
-    } else {
-      Alert.alert(
-        t("shared.error-label"),
-        t("wallet.home.history.index.no-histories-error")
-      );
-    }
+    setPage((prev) => prev + 40);
   };
 
   return (
@@ -85,6 +78,7 @@ export default function History() {
           histories={filteredHistories}
           onLoadMore={handlePagination}
           isRefetching={isRefetching}
+          nextPageToken={history?.nextPageToken}
         />
       </SpacerUi>
     </ContainerUi>
@@ -95,10 +89,12 @@ const RenderHistoryITem = ({
   histories,
   onLoadMore,
   isRefetching,
+  nextPageToken,
 }: {
   histories: HistoryType[];
   onLoadMore: () => void;
   isRefetching: boolean;
+  nextPageToken: string | undefined;
 }) => {
   const { t } = useTranslation();
   const { data: assetManager } = useAssets();
@@ -144,17 +140,21 @@ const RenderHistoryITem = ({
         </SpacerUi>
       )}
       ListFooterComponent={() => (
-        <SpacerUi style={{ padding: 20 }}>
-          {isRefetching ? (
-            <ActivityIndicator />
-          ) : (
-            <TouchableOpacity onPress={onLoadMore}>
-              <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
-                {t("shared.loadMore")}
-              </BodyTextUi>
-            </TouchableOpacity>
+        <>
+          {nextPageToken && (
+            <SpacerUi style={{ padding: 20 }}>
+              {isRefetching ? (
+                <ActivityIndicator />
+              ) : (
+                <TouchableOpacity onPress={onLoadMore}>
+                  <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
+                    {t("shared.loadMore")}
+                  </BodyTextUi>
+                </TouchableOpacity>
+              )}
+            </SpacerUi>
           )}
-        </SpacerUi>
+        </>
       )}
       refreshControl={
         <RefreshControl

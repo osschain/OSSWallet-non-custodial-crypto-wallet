@@ -22,7 +22,7 @@ type Props = {
 } & ComponentPropsWithoutRef<typeof Item>;
 
 const HistoryItem = ({
-  variant = "",
+  variant = "send",
   walletAddress = "",
   amount = "2.5",
   ...rest
@@ -68,7 +68,7 @@ const HistoryItem = ({
       </LeftContent>
       {variant !== "error" && (
         <RightContent>
-          <Amount size="md" variant={variant}>
+          <Amount numberOfLines={1} size="md" variant={variant}>
             {variant === "recieved" ? "+" : "-"} {amount}
           </Amount>
         </RightContent>

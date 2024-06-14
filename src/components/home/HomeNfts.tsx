@@ -1,8 +1,9 @@
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
+import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, RefreshControl } from "react-native-gesture-handler";
 
 import NftItem from "../nft/NftItem";
 import AlertWithImageUI from "../ui/AlertWithImageUi";
@@ -15,6 +16,7 @@ import { findAsset } from "@/util/findAsset";
 
 const HomeNfts = () => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const { data: nfts, isError, isLoading: isNftLoading } = useNfts(10);
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
@@ -64,6 +66,14 @@ const HomeNfts = () => {
           </Link>
         </SpacerUi>
       )}
+      refreshControl={
+        <RefreshControl
+          onRefresh={async () => {
+            await queryClient.invalidateQueries({ queryKey: ["nfts"] });
+          }}
+          refreshing={false}
+        />
+      }
     />
   );
 };

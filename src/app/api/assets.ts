@@ -11,6 +11,7 @@ export const useAssets = () => {
   return useQuery({
     queryKey: ["assets"],
     queryFn: async () => {
+
       if (!mnemonic) {
         throw new Error("No mnemonic phrase");
       }
@@ -38,7 +39,6 @@ export const useAddAssets = () => {
     async mutationFn(assets: AssetType[]) {
       const fetchedAssets = await AsyncStorage.getItem("assets");
       let updatedAssets: AssetType[] = [];
-
       if (fetchedAssets) {
         updatedAssets = JSON.parse(fetchedAssets);
       }

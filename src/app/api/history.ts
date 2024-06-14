@@ -14,6 +14,7 @@ export const useHistories = (page: number) => {
             if (!assetManager) {
                 throw new Error("assets is not presented");
             }
+
             const history = await getEvmHistory(assetManager.evmAddress, page, assetManager.shownEvmBlockchain);
 
             const filteredHistory = history.histories.filter(history => assetManager.shownIds.includes(history.id.toLowerCase()))
@@ -45,7 +46,7 @@ export const useHistory = ({ address, id, blockchain, isToken, page }: UseHistor
                 console.log("blockchain is not presented")
                 throw new Error();
             }
-
+            console.log("HISTORY")
             if (!address) {
                 console.log("address is not presented")
                 throw new Error();

@@ -1,10 +1,11 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { BottomSheetModal, TouchableOpacity } from "@gorhom/bottom-sheet";
+import { useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Alert } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, RefreshControl } from "react-native-gesture-handler";
 
 import { HistoryType } from "@/@types/history";
 import { useAssets } from "@/app/api/assets";
@@ -93,6 +94,7 @@ const RenderHistoryITem = ({
 }) => {
   const { t } = useTranslation();
   const { data: assetManager } = useAssets();
+  const queryClient = useQueryClient();
 
   const checkAddres = (from: string | undefined): variants | undefined => {
     if (!assetManager || !from) return;
@@ -142,6 +144,14 @@ const RenderHistoryITem = ({
           </TouchableOpacity>
         </SpacerUi>
       )}
+      refreshControl={
+        <RefreshControl
+          onRefresh={async () => {
+            await queryClient.invalidateQueries({ queryKey: ["histories"] });
+          }}
+          refreshing={false}
+        />
+      }
     />
   );
 };

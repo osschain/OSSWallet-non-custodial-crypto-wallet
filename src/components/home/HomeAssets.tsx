@@ -1,5 +1,5 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "expo-router";
-import { useState, useTransition } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { RefreshControl } from "react-native-gesture-handler";
 import styled, { useTheme } from "styled-components/native";
 
 import AlertWithImageUI from "../ui/AlertWithImageUi";
@@ -21,13 +22,11 @@ import {
   calculateUsdBalance,
 } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
-import { RefreshControl } from "react-native-gesture-handler";
 
 const HomeAssets = () => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const [refreshing, setRefreshing] = useState(false);
-
+  const queryClient = useQueryClient();
   const {
     data: assetManager,
     isError,
@@ -127,10 +126,10 @@ const HomeAssets = () => {
       )}
       refreshControl={
         <RefreshControl
-          refreshing={refreshing}
-          onRefresh={() => {
-            console.log("REF");
+          onRefresh={async () => {
+            await queryClient.invalidateQueries({ queryKey: ["assets"] });
           }}
+          refreshing={false}
         />
       }
     />

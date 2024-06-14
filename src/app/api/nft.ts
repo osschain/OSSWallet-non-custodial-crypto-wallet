@@ -19,6 +19,7 @@ export const useNfts = (page: number) => {
             }
 
             const nfts = await getEvmNfts(assetsManager.evmAddress, page)
+
             return nfts
         },
         placeholderData: keepPreviousData,

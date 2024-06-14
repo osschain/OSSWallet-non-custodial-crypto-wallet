@@ -1,7 +1,8 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, Alert } from "react-native";
+import { ActivityIndicator, Alert, RefreshControl } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import HistoryItem, { variants } from "../history/history-item";
@@ -17,7 +18,7 @@ const AssetHistory = () => {
   const { assetSlug: slug } = useLocalSearchParams();
   const [page, setPage] = useState(20);
   const { data: assetManager } = useAssets();
-
+  const queryClient = useQueryClient();
   const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
   const isToken = !!asset?.contractAddress;
@@ -125,6 +126,14 @@ const AssetHistory = () => {
           {isRefetching && <ActivityIndicator />}
         </>
       )}
+      refreshControl={
+        <RefreshControl
+          onRefresh={async () => {
+            await queryClient.invalidateQueries({ queryKey: ["history"] });
+          }}
+          refreshing={false}
+        />
+      }
     />
   );
 };

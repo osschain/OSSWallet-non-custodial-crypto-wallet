@@ -34,7 +34,8 @@ export const AssetAmount = styled(BodyTextUi)`
   width: 40%;
 `;
 export const RightContent = styled.View`
-  
+   width: 60%;
+   align-items: flex-end;
 `;
 
 export const Amount = styled(HeaderTextUi) <{ variant: variants }>`
@@ -42,4 +43,6 @@ export const Amount = styled(HeaderTextUi) <{ variant: variants }>`
     props.variant === "recieved"
       ? props.theme.colors["green-500"]
       : props.theme.colors["red-500"]};
+    width: 60%;
+    text-align: right;
 `;

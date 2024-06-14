@@ -1,17 +1,17 @@
-import { Blockchain } from "@ankr.com/ankr.js";
+import { Blockchain, GetTokenTransfersReply, GetTransactionsByAddressReply } from "@ankr.com/ankr.js";
 import { formatEther } from "ethers";
 import { v4 as uuidv4 } from 'uuid';
 
 import { HistoryType } from "@/@types/history";
-import { ankrProvider } from "@/config/ankr";
+import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
 import History from "@/models/history.model";
 import { unixTimestampToDate } from "@/util/unixToDate";
 
 
-export const getEvmHistory = async (address: string, page: number = 1, blockchain: Blockchain[]) => {
+export const getEvmHistory = async (address: string, page: number = 1, blockchain: Blockchain[], pageToken: string | undefined) => {
     try {
-        const tokenHistory = await getEvmChainHistories({ address, blockchain, page })
-        const chainHistory = await getEvmTokenHistories({ address, blockchain, page })
+        const tokenHistory = await getEvmChainHistories({ address, blockchain, page, pageToken })
+        const chainHistory = await getEvmTokenHistories({ address, blockchain, page: pageToken })
 
         const nextPageToken = tokenHistory.nextPageToken ? tokenHistory.nextPageToken : chainHistory.nextPageToken
 
@@ -33,20 +33,27 @@ type EvmHistoriesParams = {
     address: string;
     blockchain: Blockchain[] | Blockchain;
     page: number;
+    pageToken: undefined | string,
 }
 
 
-export const getEvmChainHistories = async ({ address, blockchain, page }: EvmHistoriesParams) => {
+export const getEvmChainHistories = async ({ address, blockchain, page, pageToken }: EvmHistoriesParams) => {
     try {
 
 
-        const transactions = await ankrProvider.getTransactionsByAddress({
+        const response = await httpClient.post(ApiEndpoints.GET_CHAIN_TRANSFER, {
+            id: 1,
+            wallet_address: address,
             blockchain: (Array.isArray(blockchain) ? blockchain : [blockchain]),
-            address: [address],
-            descOrder: true,
-            pageSize: page
-        });
+            page_size: page,
+            page_token: pageToken
+        }) as ApiResponse<GetTransactionsByAddressReply>
 
+        if (!response.data.success) {
+            throw new Error()
+        }
+
+        const transactions = response.data.ans.result
 
         const histories = transactions.transactions.map(({ hash, timestamp, gasPrice, gasUsed, nonce, to, from, value, blockchain }) => {
             if (!blockchain || !to) {
@@ -73,16 +80,22 @@ export const getEvmChainHistories = async ({ address, blockchain, page }: EvmHis
     }
 }
 
-export const getEvmTokenHistories = async ({ address, blockchain, page }: EvmHistoriesParams) => {
+export const getEvmTokenHistories = async ({ address, blockchain, page, pageToken }: EvmHistoriesParams) => {
     try {
-        const transactions = await ankrProvider.getTokenTransfers({
+
+        const response = await httpClient.post(ApiEndpoints.GET_TOKEN_TRANSFER, {
+            id: 1,
+            wallet_address: address,
             blockchain: (Array.isArray(blockchain) ? blockchain : [blockchain]),
-            address: [address],
-            descOrder: true,
-            pageSize: page
+            page_size: page,
+            page_token: pageToken
+        }) as ApiResponse<GetTokenTransfersReply>
 
-        });
+        if (!response.data.success) {
+            throw new Error()
+        }
 
+        const transactions = response.data.ans.result
 
         const histories = transactions.transfers.map(({ transactionHash, timestamp, blockchain, toAddress, fromAddress, value, contractAddress }) => {
 

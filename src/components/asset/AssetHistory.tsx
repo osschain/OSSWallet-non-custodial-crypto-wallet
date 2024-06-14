@@ -39,14 +39,12 @@ const AssetHistory = () => {
 
   const { t } = useTranslation();
   const histories = history?.histories;
-
   const assetHistory = useMemo(() => {
     if (!histories) return;
     return histories?.filter(
       (history) => history.id.toLowerCase() === asset?.id.toLowerCase()
     );
   }, [asset?.id, histories]);
-
   if (isLoading) {
     return (
       <SpacerUi size="4xl">
@@ -55,7 +53,7 @@ const AssetHistory = () => {
     );
   }
 
-  if (isError || !histories?.length) {
+  if (isError || !assetHistory?.length) {
     return <AlertWithImageUI title={t("wallet.home.asset.history-error")} />;
   }
 

@@ -15,3 +15,16 @@ const baseUrl = "https://hidden-slice-426318-j1.ey.r.appspot.com"
 export const httpClient = axios.create({
     baseURL: baseUrl,
 });
+
+export interface ApiResponse<T> {
+    data: {
+        ans: {
+            id: number;
+            jsonrpc: string;
+            result: T;
+        };
+        message: string;
+        status: number;
+        success: boolean;
+    };
+}

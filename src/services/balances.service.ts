@@ -1,9 +1,9 @@
 import { AssetType } from "@/@types/assets";
 import { AddresTypes, BalancesType, AddressType } from "@/@types/balances";
-import { UseBalances } from "@/app/api/balances";
 import { ankrProvider } from "@/config/ankr";
+import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
 import { solanaEndpoint } from "@/config/endpoints";
-import { err } from "react-native-svg";
+import { GetAccountBalanceHistoricalReply } from "@ankr.com/ankr.js";
 
 
 export const totalBalance = (balances: BalancesType[] | undefined) => {
@@ -94,10 +94,20 @@ export const getChainBalances = async (addresses: { address: string, type: Addre
     try {
         for (const { address, type } of addresses) {
             if (type === AddresTypes.evm) {
-                const balances = await ankrProvider.getAccountBalance({
+
+
+                const response = await httpClient.post(ApiEndpoints.GET_ACCOUNT_BALANCE, {
+                    wallet_address: address,
                     blockchain: [],
-                    walletAddress: address,
-                });
+                    id: 1
+                }) as ApiResponse<GetAccountBalanceHistoricalReply>
+
+                if (!response.data.success) {
+                    throw new Error()
+                }
+
+                const balances = response.data.ans.result
+
                 result.push(...balances.assets.map((balance) => {
                     return {
                         ...balance,

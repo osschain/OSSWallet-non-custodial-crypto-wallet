@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, Alert } from "react-native";
+import { ActivityIndicator } from "react-native";
 import { FlatList, RefreshControl } from "react-native-gesture-handler";
 
 import { HistoryType } from "@/@types/history";

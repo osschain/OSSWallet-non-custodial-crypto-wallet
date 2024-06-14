@@ -1,9 +1,9 @@
+import { GetAccountBalanceHistoricalReply } from "@ankr.com/ankr.js";
+
 import { AssetType } from "@/@types/assets";
 import { AddresTypes, BalancesType, AddressType } from "@/@types/balances";
-import { ankrProvider } from "@/config/ankr";
 import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
 import { solanaEndpoint } from "@/config/endpoints";
-import { GetAccountBalanceHistoricalReply } from "@ankr.com/ankr.js";
 
 
 export const totalBalance = (balances: BalancesType[] | undefined) => {

@@ -3,7 +3,6 @@ import { Platform } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import IosHeaderLeft from "@/components/layout/IosHeaderLeft";
-import NothificationProvider from "@/providers/NotificationsProvider";
 
 export default function _layout() {
   const theme = useTheme();

@@ -57,9 +57,9 @@ const Container = styled.View`
   flex: 1;
 `;
 
+// prettier-ignore
 const CardContainer = styled.View`
-  padding: ${({ theme }) => theme.spaces["lg"]}
-    ${({ theme }) => theme.spaces["xl"]};
+  padding: ${({ theme }) => theme.spaces["lg"]} ${({ theme }) => theme.spaces["xl"]};
 `;
 
 const SegmentContainer = styled.View`

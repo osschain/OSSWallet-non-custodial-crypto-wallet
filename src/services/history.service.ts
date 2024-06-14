@@ -11,7 +11,7 @@ import { unixTimestampToDate } from "@/util/unixToDate";
 export const getEvmHistory = async (address: string, page: number = 1, blockchain: Blockchain[], pageToken: string | undefined) => {
     try {
         const tokenHistory = await getEvmChainHistories({ address, blockchain, page, pageToken })
-        const chainHistory = await getEvmTokenHistories({ address, blockchain, page: pageToken })
+        const chainHistory = await getEvmTokenHistories({ address, blockchain, page, pageToken })
 
         const nextPageToken = tokenHistory.nextPageToken ? tokenHistory.nextPageToken : chainHistory.nextPageToken
 

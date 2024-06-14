@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, Alert, RefreshControl } from "react-native";
+import { ActivityIndicator, RefreshControl } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import HistoryItem, { variants } from "../history/history-item";

@@ -12,7 +12,7 @@ const SendDetails = ({
   details,
   loading,
 }: {
-  details: DetailsType;
+  details: DetailsType | null;
   loading: boolean;
 }) => {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ const SendDetails = ({
       </HeaderTextUi>
       <SpacerUi size="4xl">
         <HeaderTextUi size="xl" style={{ textAlign: "center" }}>
-          -{details.amount} {details.symbol}
+          -{details?.amount} {details?.symbol}
         </HeaderTextUi>
       </SpacerUi>
       <SpacerUi size="4xl">
@@ -76,7 +76,13 @@ const SendDetails = ({
   );
 };
 
-const Detail = ({ label, value }: { label: string; value: string }) => (
+const Detail = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string | number | undefined | null;
+}) => (
   <Row>
     <LeftContent>
       <BodyTextUi weight="medium">{label}</BodyTextUi>

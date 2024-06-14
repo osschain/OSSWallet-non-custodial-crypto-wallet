@@ -1,4 +1,4 @@
-import styled, { useTheme } from "styled-components/native";
+import styled from "styled-components/native";
 
 import HelpCenter from "@/components/settings/HelpCenter";
 import LanguageSetting from "@/components/settings/LanguageSetting";
@@ -9,7 +9,6 @@ import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function Settings() {
-  const theme = useTheme();
   return (
     <ScrollContainerUi>
       <SpacerUi>

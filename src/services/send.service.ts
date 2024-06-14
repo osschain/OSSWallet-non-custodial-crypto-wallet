@@ -1,7 +1,7 @@
 
 import { OSSblockchain } from "./history.service";
 
-import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
+import { ApiEndpoints, httpClient } from "@/config/axios";
 import { chainIds } from "@/config/blockchain";
 
 type sendTransationType = { gasFee: number, privateKey: string, toAddress: string, fromAddress: string, blockchain: OSSblockchain, contractAddress?: string, amount: string }

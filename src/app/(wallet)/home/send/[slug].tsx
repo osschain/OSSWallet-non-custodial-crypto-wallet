@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
 
-import { useAssets } from "@/app/api/assets";
+import { useAssetPrices, useAssets } from "@/app/api/assets";
 import SendConfirm from "@/components/send/SendConfirm";
 import SendDetails from "@/components/send/SendDetails";
 import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
@@ -21,24 +21,45 @@ import {
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { sendTransaction } from "@/services/send.service";
+import { fetchGasFee, sendTransaction } from "@/services/send.service";
+import { decrypt, encrypt } from "@/util/es";
 import { findAsset } from "@/util/findAsset";
+// eslint-disable-next-line import/order
+import { useAuth } from "@/providers/AuthProvider";
+
+export type DetailsType = {
+  name: string; // Name of the asset
+  symbol: string; // Symbol of the asset
+  from: string;
+  to: string; // Recipient address or identifier
+  fee: number; // Transaction fee
+  maxTotal: number | null; // Maximum total value, might be a string representing a large number,
+  amount: string;
+};
 
 export default function SendChain() {
   const [address, setAddress] = useState("");
-  const [amount, setAmont] = useState("");
+  const [details, setDetails] = useState<DetailsType | null>(null);
+  const [loadingDetails, setLoadingDetails] = useState(false);
+  const [gasFeeWey, setGasFeeWey] = useState<number | undefined>();
 
+  const [amount, setAmont] = useState("");
+  const { setupPass } = useAuth();
   const { t } = useTranslation();
   const { slug } = useLocalSearchParams();
   const { data: assetManager, isError } = useAssets();
   const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
-
+  const { data: assetPrices } = useAssetPrices();
   const sendConfirm = useRef<BottomSheetModal>(null);
 
   const handleApproveModalPress = () => {
     sendConfirm.current?.present();
   };
+
+  const getPrice = (symbol: string) =>
+    assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4) ||
+    null;
 
   if (isError || !asset) {
     return (
@@ -50,22 +71,46 @@ export default function SendChain() {
     );
   }
 
+  const getGasFee = async () => {
+    const gasFee = await fetchGasFee({
+      contractAddress: asset.contractAddress,
+      toAddress: address,
+      fromAddress: asset.account.address,
+      amount,
+      blockchain: asset.blockchain,
+    });
+    return gasFee;
+  };
+
   const sendHandler = async () => {
     try {
-      await sendTransaction({
-        privateKey: asset?.account.privateKey as string,
+      const enncryptedPrivateKey = await decrypt(
+        asset.account.privateKey,
+        setupPass as string
+      );
+      console.log(enncryptedPrivateKey);
+      if (!enncryptedPrivateKey) {
+        throw new Error();
+      }
+
+      console.log(asset.account.privateKey);
+      const config = {
+        privateKey: enncryptedPrivateKey,
         toAddress: address,
         blockchain: asset.blockchain,
         contractAddress: asset.contractAddress,
         amount,
-      });
+        gasFee: gasFeeWey as number,
+        fromAddress: asset.account.address,
+      };
+
+      await sendTransaction(config);
 
       Alert.alert(
         t("wallet.home.send.send-details.asset-sent-title"),
         t("wallet.home.send.send-details.asset-sent-message")
       );
     } catch {
-      console.log("error");
       Alert.alert(
         t("shared.error-label"),
         t("wallet.home.send.send-details.cant-send-transaction-error")
@@ -73,7 +118,36 @@ export default function SendChain() {
     }
   };
 
-  const confirmSend = () => {
+  const setDetaills = async () => {
+    try {
+      setLoadingDetails(true);
+      const gasFee = await getGasFee();
+      if (!gasFee) {
+        throw new Error();
+      }
+      setGasFeeWey(gasFee?.gas_fee_wei);
+      const price = getPrice(asset.symbol);
+
+      const details: DetailsType = {
+        name: asset.name,
+        symbol: asset.symbol,
+        to: address,
+        from: asset.account.address,
+        fee: gasFee?.gas_fee_wei,
+        maxTotal: price ? Number(price) * Number(amount) : null,
+        amount,
+      };
+      setDetails(details);
+      setLoadingDetails(false);
+    } catch {
+      Alert.alert(
+        t("shared.error-label"),
+        t("wallet.home.send.send-details.cant-send-transaction-error")
+      );
+    }
+  };
+
+  const confirmSend = async () => {
     if (!isAddress(address) || !Number(amount)) {
       Alert.alert(
         t("shared.error-label"),
@@ -81,14 +155,18 @@ export default function SendChain() {
       );
       return;
     }
-
+    try {
+      setDetaills();
+    } catch {
+      return;
+    }
     handleApproveModalPress();
   };
 
   return (
     <ScrollContainerUi>
       <SendConfirm ref={sendConfirm} onConfirm={sendHandler}>
-        <SendDetails details={undefined} loading={false} />
+        <SendDetails details={details} loading={loadingDetails} />
       </SendConfirm>
 
       <Stack.Screen options={{ title: `${t("shared.send")} ${asset?.name}` }} />

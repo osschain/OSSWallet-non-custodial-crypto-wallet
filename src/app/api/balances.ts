@@ -20,6 +20,5 @@ export const UseBalances = () => {
         },
         refetchOnWindowFocus: false,
         refetchOnMount: false,
-        retry: false
     });
 };

@@ -4,7 +4,7 @@ import { WebView } from "react-native-webview";
 
 export default function App() {
   const { link, label } = useLocalSearchParams();
-
+  console.log(link);
   return (
     <>
       <Stack.Screen options={{ title: label as string }} />

@@ -17,17 +17,17 @@ const HelpCenter = () => {
       {
         icon: "support-agent",
         label: t("wallet.settings.index.support"),
-        link: "https://support.osschain.com",
+        link: "https://support.osschain.com/",
       },
       {
         icon: "policy",
         label: t("wallet.settings.index.terms-and-conditions"),
-        link: "https://law.osschain.com/terms",
+        link: "https://law.osschain.com/terms/",
       },
       {
         icon: "local-police",
         label: t("wallet.settings.index.privacy-policy"),
-        link: "https://law.osschain.com/privacy",
+        link: "https://law.osschain.com/privacy/",
       },
     ];
   }, []);

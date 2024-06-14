@@ -6,13 +6,13 @@ import BodyTextUi from "../ui/BodyTextUi";
 import HeaderTextUi from "../ui/HeaderTextUi";
 import SpacerUi from "../ui/SpacerUi";
 
-import { tokenType } from "@/@types/assets";
+import { DetailsType } from "@/app/(wallet)/home/send/[slug]";
 
 const SendDetails = ({
   details,
   loading,
 }: {
-  details: tokenType | undefined | null;
+  details: DetailsType;
   loading: boolean;
 }) => {
   const { t } = useTranslation();
@@ -25,16 +25,13 @@ const SendDetails = ({
       )
     );
   }
-  //   if (!details) {
-  //     return null;
-  //   }
 
   return (
     <>
       <HeaderTextUi style={{ textAlign: "center" }}>Transfer</HeaderTextUi>
       <SpacerUi size="4xl">
         <HeaderTextUi size="xl" style={{ textAlign: "center" }}>
-          -50 OSS
+          -{details.amount} OSS
         </HeaderTextUi>
       </SpacerUi>
       <SpacerUi size="4xl">
@@ -51,7 +48,7 @@ const SendDetails = ({
           </SpacerUi>
 
           <SpacerUi size="xl">
-            <Detail label="to:" value={details?.symbol} />
+            <Detail label="to:" value={details?.to} />
           </SpacerUi>
         </Details>
       </SpacerUi>
@@ -60,12 +57,12 @@ const SendDetails = ({
         <Details>
           <Detail
             label={`${t("wallet.home.send.send-details.fee")}:`}
-            value={details?.name}
+            value={details?.fee}
           />
           <SpacerUi size="xl">
             <Detail
               label={`${t("wallet.home.send.send-details.max-total")}:`}
-              value={details?.symbol}
+              value={details?.maxTotal}
             />
           </SpacerUi>
         </Details>

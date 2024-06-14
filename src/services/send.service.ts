@@ -4,17 +4,17 @@ import { OSSblockchain } from "./history.service";
 import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
 import { chainIds } from "@/config/blockchain";
 
-type sendTransationType = { gasFee: number, privateKey: string, toAddress: string, blockchain: OSSblockchain, contractAddress?: string, amount: string }
+type sendTransationType = { gasFee: number, privateKey: string, toAddress: string, fromAddress: string, blockchain: OSSblockchain, contractAddress?: string, amount: string }
 
-export const sendTransaction = async ({ privateKey, toAddress, blockchain, contractAddress, amount, gasFee }: sendTransationType) => {
+export const sendTransaction = async ({ privateKey, toAddress, blockchain, fromAddress, contractAddress, amount, gasFee }: sendTransationType) => {
     if (blockchain === "btc" || blockchain === "solana") {
         throw new Error("Cant send")
     }
 
-    // const endPoint = `https://rpc.ankr.com/${blockchain}/f7c0df84b43c7f9f2c529c76efc01da4b30271a66608da4728f9830ea17d29bc`
 
     const config = {
         private_key: privateKey,
+        sender_address: fromAddress,
         receiver_address: toAddress,
         amount,
         chain_id: chainIds[blockchain],
@@ -22,7 +22,6 @@ export const sendTransaction = async ({ privateKey, toAddress, blockchain, contr
         calculated_gas_fee: gasFee,
     }
     try {
-
         const isToken = !!contractAddress
 
         if (isToken) {
@@ -49,7 +48,12 @@ export const sendTransaction = async ({ privateKey, toAddress, blockchain, contr
 
 
 type gasPriceType = { fromAddress: string, toAddress: string, blockchain: OSSblockchain, contractAddress?: string, amount: string }
-
+type GasFeeType = {
+    gas_fee_native: number; // Represents the gas fee in native currency units
+    gas_fee_wei: number; // Represents the gas fee in wei
+    native_currency: string; // The name of the native currency (e.g., "MATIC")
+    success: boolean; // Indicates if the operation was successful
+};
 export const fetchGasFee = async ({ contractAddress, toAddress, fromAddress, amount, blockchain }: gasPriceType) => {
     try {
         const config = {
@@ -65,13 +69,15 @@ export const fetchGasFee = async ({ contractAddress, toAddress, fromAddress, amo
             const response = await httpClient.post(ApiEndpoints.CALCULATE_TOKEN_GAS_PRICE, {
                 ...config,
                 token_contract_address: contractAddress
-            }) as ApiResponse<any>
-            console.log(response.data)
+            })
+
+            return response.data as GasFeeType
         } else {
             const response = await httpClient.post(ApiEndpoints.CALCULATE_CHAIN_GAS_PRICE, {
                 ...config,
             })
-            console.log(response)
+
+            return response.data as GasFeeType
         }
     } catch (error) {
         console.log(error)

@@ -92,6 +92,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     const decryptedMnemonic = await decrypt(encryptedMnemonic, password);
 
     if (decryptedMnemonic) {
+      setSetupPass(password);
       addMnemonic(decryptedMnemonic);
     }
   };

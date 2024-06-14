@@ -9,10 +9,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
 import AuthProvider from "@/providers/AuthProvider";
-import QueryProvider from "@/providers/QueryProvider";
-import StyledThemeProvider from "@/providers/StyledThemeProvider";
 import { ErrorBoundaryProvider } from "@/providers/ErrorBoundery";
 import NothificationProvider from "@/providers/NotificationsProvider";
+import QueryProvider from "@/providers/QueryProvider";
+import StyledThemeProvider from "@/providers/StyledThemeProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -60,6 +60,8 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const { t } = useTranslation();
+
   return (
     <>
       <ErrorBoundaryProvider>
@@ -86,7 +88,7 @@ function RootLayoutNav() {
                         name="notificationsModal"
                         options={{
                           presentation: "modal",
-                          title: "Notifications",
+                          title: t("shared.notification"),
                         }}
                       />
                       <Stack.Screen

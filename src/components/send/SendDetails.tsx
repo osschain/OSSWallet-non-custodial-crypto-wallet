@@ -28,10 +28,12 @@ const SendDetails = ({
 
   return (
     <>
-      <HeaderTextUi style={{ textAlign: "center" }}>Transfer</HeaderTextUi>
+      <HeaderTextUi style={{ textAlign: "center" }}>
+        {t("wallet.home.send.send-details.title")}
+      </HeaderTextUi>
       <SpacerUi size="4xl">
         <HeaderTextUi size="xl" style={{ textAlign: "center" }}>
-          -{details.amount} OSS
+          -{details.amount} {details.symbol}
         </HeaderTextUi>
       </SpacerUi>
       <SpacerUi size="4xl">
@@ -48,7 +50,10 @@ const SendDetails = ({
           </SpacerUi>
 
           <SpacerUi size="xl">
-            <Detail label="to:" value={details?.to} />
+            <Detail
+              label={`${t("wallet.home.send.send-details.to")}:`}
+              value={details?.to}
+            />
           </SpacerUi>
         </Details>
       </SpacerUi>

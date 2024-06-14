@@ -22,7 +22,7 @@ const HelpCenter = () => {
       {
         icon: "policy",
         label: t("wallet.settings.index.terms-and-conditions"),
-        link: "https://law.osschain.com/terms/",
+        link: "https://law.osschain.com/terms/index.html",
       },
       {
         icon: "local-police",

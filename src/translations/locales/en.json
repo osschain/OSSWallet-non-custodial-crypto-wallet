@@ -118,8 +118,8 @@
             "from": "From",
             "to": "To",
             "fee": "Network Fee",
-            "max-total": "Max Total"
-
+            "max-total": "Max Total",
+            "title": "Tranfers"
           }
         },
         "swap": {
@@ -158,7 +158,8 @@
           "title": "Settings",
           "support": "Support",
           "terms-and-conditions": "Terms and condition",
-          "privacy-policy": "Privacy Policy"
+          "privacy-policy": "Privacy Policy",
+          "choose-langnuage": "Choose Language"
         },
         "change-passcode": {
           "title": "Change Passcode"
@@ -205,6 +206,8 @@
       "nonce": "Nonce",
       "explorer": "Explorer",
       "NFT": "NFT",
-      "share": "Share"
+      "share": "Share",
+      "notificationns": "Notifications",
+      "date": "Date"
     }
 }

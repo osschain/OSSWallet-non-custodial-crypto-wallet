@@ -134,7 +134,10 @@ export default function HistoryDetails() {
               label={t("shared.nonce")}
               value={(item.nonce as string) || ""}
             />
-            <HistoryProperty label="date" value={item.date as string} />
+            <HistoryProperty
+              label={t("shared.date")}
+              value={item.date as string}
+            />
           </HistoryProperties>
         </SpacerUi>
 

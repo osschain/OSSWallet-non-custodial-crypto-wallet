@@ -21,11 +21,10 @@ import {
 import MessageUi from "@/components/ui/MessageUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { fetchGasFee, sendTransaction } from "@/services/send.service";
-import { decrypt, encrypt } from "@/util/es";
-import { findAsset } from "@/util/findAsset";
-// eslint-disable-next-line import/order
 import { useAuth } from "@/providers/AuthProvider";
+import { fetchGasFee, sendTransaction } from "@/services/send.service";
+import { decrypt } from "@/util/es";
+import { findAsset } from "@/util/findAsset";
 
 export type DetailsType = {
   name: string; // Name of the asset
@@ -88,12 +87,11 @@ export default function SendChain() {
         asset.account.privateKey,
         setupPass as string
       );
-      console.log(enncryptedPrivateKey);
+
       if (!enncryptedPrivateKey) {
         throw new Error();
       }
 
-      console.log(asset.account.privateKey);
       const config = {
         privateKey: enncryptedPrivateKey,
         toAddress: address,

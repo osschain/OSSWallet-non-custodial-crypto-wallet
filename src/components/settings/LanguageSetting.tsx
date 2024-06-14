@@ -39,7 +39,7 @@ const locales = [
 ];
 
 const LanguageSetting = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = () => {
@@ -66,7 +66,7 @@ const LanguageSetting = () => {
           </Icon>
           <Title>
             <BodyTextUi weight="medium" size="md">
-              Choose Language
+              {t("wallet.settings.index.choose-langnuage")}
             </BodyTextUi>
           </Title>
         </Left>

@@ -19,6 +19,7 @@ export const UseBalances = () => {
             return balances
         },
         refetchOnWindowFocus: false,
-        refetchOnMount: false
+        refetchOnMount: false,
+        retry: false
     });
 };

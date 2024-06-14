@@ -18,13 +18,14 @@ export const useNfts = (page: number) => {
                 throw new Error("assets is not presented");
             }
 
-            const nfts = await getEvmNfts(assetsManager.evmAddress, page)
+            const nfts = await getEvmNfts(assetsManager.evmAddress, page, undefined)
 
             return nfts
         },
         placeholderData: keepPreviousData,
         refetchOnWindowFocus: false,
-        refetchOnMount: false
+        refetchOnMount: false,
+        retry: false
     });
 
 };
@@ -41,7 +42,8 @@ export const useNft = (address: string, blockchain: Blockchain, tokenId: string)
         },
         placeholderData: keepPreviousData,
         refetchOnWindowFocus: false,
-        refetchOnMount: false
+        refetchOnMount: false,
+        retry: false
     });
 
 };

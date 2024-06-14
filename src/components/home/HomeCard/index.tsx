@@ -44,7 +44,7 @@ const HomeCard = ({
   const { newNotifsNumber } = useNotification();
   const { data: balances, isLoading } = UseBalances();
   const balance = useMemo(() => {
-    return totalBalance(balances);
+    return totalBalance(balances) || 0;
   }, [balances]);
 
   return (

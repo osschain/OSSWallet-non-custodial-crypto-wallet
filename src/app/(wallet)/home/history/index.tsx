@@ -24,7 +24,12 @@ export default function History() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
-  const { data: history, isLoading, isError } = useHistories(page);
+  const {
+    data: history,
+    isLoading,
+    isError,
+    isRefetching,
+  } = useHistories(page);
   const histories = history?.histories;
   const { data: networks } = UseNetworks();
 
@@ -79,6 +84,7 @@ export default function History() {
         <RenderHistoryITem
           histories={filteredHistories}
           onLoadMore={handlePagination}
+          isRefetching={isRefetching}
         />
       </SpacerUi>
     </ContainerUi>
@@ -88,9 +94,11 @@ export default function History() {
 const RenderHistoryITem = ({
   histories,
   onLoadMore,
+  isRefetching,
 }: {
   histories: HistoryType[];
   onLoadMore: () => void;
+  isRefetching: boolean;
 }) => {
   const { t } = useTranslation();
   const { data: assetManager } = useAssets();
@@ -137,11 +145,15 @@ const RenderHistoryITem = ({
       )}
       ListFooterComponent={() => (
         <SpacerUi style={{ padding: 20 }}>
-          <TouchableOpacity onPress={onLoadMore}>
-            <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
-              title={t("shared.loadMore")}
-            </BodyTextUi>
-          </TouchableOpacity>
+          {isRefetching ? (
+            <ActivityIndicator />
+          ) : (
+            <TouchableOpacity onPress={onLoadMore}>
+              <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
+                {t("shared.loadMore")}
+              </BodyTextUi>
+            </TouchableOpacity>
+          )}
         </SpacerUi>
       )}
       refreshControl={

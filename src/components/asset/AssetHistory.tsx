@@ -113,8 +113,10 @@ const AssetHistory = () => {
         </SpacerUi>
       )}
       ListFooterComponent={() => (
-        <>
-          {!isLoading && !!histories?.length && (
+        <SpacerUi style={{ padding: 20 }}>
+          {isRefetching ? (
+            <ActivityIndicator />
+          ) : (
             <SpacerUi style={{ padding: 20 }}>
               <TouchableOpacity onPress={handlePagination}>
                 <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
@@ -123,8 +125,7 @@ const AssetHistory = () => {
               </TouchableOpacity>
             </SpacerUi>
           )}
-          {isRefetching && <ActivityIndicator />}
-        </>
+        </SpacerUi>
       )}
       refreshControl={
         <RefreshControl

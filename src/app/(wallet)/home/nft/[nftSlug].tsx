@@ -56,17 +56,17 @@ export default function Nft() {
         <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
         <ContainerUi>
           <SpacerUi size="lg">
-            <HeaderTextUi size="xl">{nft?.name}</HeaderTextUi>
+            <HeaderTextUi size="md">{nft?.name}</HeaderTextUi>
           </SpacerUi>
           <SpacerUi size="sm">
-            <BodyTextUi weight="medium" color="text-second">
+            <BodyTextUi weight="sm" color="text-second">
               {nft?.description}
             </BodyTextUi>
           </SpacerUi>
           {properties.map((prop, index) => (
             <SpacerUi key={index} size="xl">
-              <NftPropertyHeader>{prop.label}</NftPropertyHeader>
-              <NftPropertyValue weight="medium" color="text-second">
+              <NftPropertyHeader size="md">{prop.label}</NftPropertyHeader>
+              <NftPropertyValue size="sm" weight="medium" color="text-second">
                 {prop.value}
               </NftPropertyValue>
             </SpacerUi>

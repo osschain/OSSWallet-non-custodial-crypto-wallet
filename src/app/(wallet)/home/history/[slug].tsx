@@ -2,6 +2,7 @@ import * as Clipboard from "expo-clipboard";
 import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
 import { ReactNode, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components/native";
 
 import { useAssets } from "@/app/api/assets";
@@ -11,8 +12,8 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import IconUi from "@/components/ui/IconUi";
 import { BodyUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import TruncatedText from "@/components/ui/TruncatedTextUi";
 import { findAsset } from "@/util/findAsset";
-import { useTranslation } from "react-i18next";
 
 const blockExplorer = {
   eth: "https://etherscan.io/tx",
@@ -166,14 +167,15 @@ const HistoryProperty = ({
       <BodyTextUi weight="medium">{label}</BodyTextUi>
     </LeftContent>
     <RightContent>
-      <BodyTextUi
-        style={{ width: "90%" }}
-        numberOfLines={1}
+      <TruncatedText
+        endLength={7}
+        startLength={7}
+        maxLength={7}
         weight="medium"
         color="text-second"
-      >
-        {value}
-      </BodyTextUi>
+        text={value}
+      />
+
       {action && action}
     </RightContent>
   </Row>

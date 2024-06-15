@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 
 import { variants } from "./index";
 
-import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 
 export const Item = styled.View`
@@ -29,10 +28,7 @@ export const IconContainer = styled.View`
 export const Label = styled(HeaderTextUi)`
   text-transform: capitalize;
 `;
-export const AssetAmount = styled(BodyTextUi)`
-  color: ${({ theme }) => theme.colors["text-second"]};
-  width: 40%;
-`;
+
 export const RightContent = styled.View`
    width: 60%;
    align-items: flex-end;

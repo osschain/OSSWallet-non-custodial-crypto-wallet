@@ -7,11 +7,11 @@ import {
   RightContent,
   Label,
   IconContainer,
-  AssetAmount,
   Amount,
 } from "./style";
 
 import IconUi from "@/components/ui/IconUi";
+import TruncatedText from "@/components/ui/TruncatedTextUi";
 
 export type variants = "recieved" | "send" | "error";
 
@@ -56,14 +56,15 @@ const HistoryItem = ({
         <IconContainer>{iconVariant()}</IconContainer>
         <View>
           <Label size="md">{variant}:</Label>
-          <AssetAmount
-            numberOfLines={1}
+          <TruncatedText
+            startLength={7}
+            endLength={7}
+            maxLength={15}
             size="sm"
             weight="medium"
             color="text-second"
-          >
-            {walletAddress}
-          </AssetAmount>
+            text={walletAddress}
+          />
         </View>
       </LeftContent>
       {variant !== "error" && (

@@ -6,7 +6,6 @@ import { useAuth } from "@/providers/AuthProvider";
 export default function AuthLayout() {
   const theme = useTheme();
   const { encryptedMnemonic, mnemonic } = useAuth();
-
   if (encryptedMnemonic && !mnemonic) {
     return <Redirect href="/enter-password" />;
   }

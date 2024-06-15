@@ -2,6 +2,8 @@ import { Image as ExpoImage } from "expo-image";
 import { Image } from "react-native";
 import styled from "styled-components/native";
 
+import SpacerUi from "../ui/SpacerUi";
+
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 type Props = {
@@ -42,14 +44,15 @@ const NftItem = ({
 
         <Title
           color="pure-white"
-          size="lg"
+          size="sm"
           weight="bold"
           numberOfLines={1}
           ellipsizeMode="tail"
         >
           {title}
         </Title>
-        <Collection
+        <SpacerUi size="xl" />
+        {/* <Collection
           size="sm"
           color="pure-white"
           weight="medium"
@@ -57,7 +60,7 @@ const NftItem = ({
           ellipsizeMode="tail"
         >
           {collection}
-        </Collection>
+        </Collection> */}
       </Footer>
     </Item>
   );

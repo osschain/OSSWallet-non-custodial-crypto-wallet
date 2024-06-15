@@ -154,8 +154,10 @@ export default function SendChain() {
         symbol: asset.symbol,
         to: address,
         from: asset.account.address,
-        fee: gasFee?.gas_fee_native,
-        maxTotal: price ? Number(price) * Number(amount) : null,
+        fee: Number(gasFee?.gas_fee_native.toFixed(5)),
+        maxTotal: price
+          ? Number((Number(price) * Number(amount)).toFixed(5))
+          : null,
         amount,
         blockhain: asset.blockchain,
       };

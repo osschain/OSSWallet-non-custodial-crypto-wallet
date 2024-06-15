@@ -105,8 +105,8 @@ const NetowrkImage = styled(ExpoImage)`
   position: absolute;
   top: -4px;
   right: -1px;
-  height: 40px;
-  width: 40px;
+  height: 27px;
+  width: 27px;
   z-index: 10;
 `;
 

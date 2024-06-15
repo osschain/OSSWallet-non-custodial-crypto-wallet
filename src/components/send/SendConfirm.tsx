@@ -8,11 +8,13 @@ import SpacerUi from "../ui/SpacerUi";
 
 type Props = {
   onConfirm: () => void;
+  isLoading: boolean;
   children: ReactNode;
+  isDetialsLoading: boolean;
 };
 
 const SendConfirm = forwardRef<BottomSheetModal, Props>(
-  ({ onConfirm, children }, ref) => {
+  ({ onConfirm, isLoading, children, isDetialsLoading }, ref) => {
     const snapPoints = useMemo(() => ["95%", "95%"], []);
     const { t } = useTranslation();
     return (
@@ -25,7 +27,13 @@ const SendConfirm = forwardRef<BottomSheetModal, Props>(
         <ScrollContainerUi>
           <BodyUi>{children}</BodyUi>
           <FooterUi>
-            <ButtonUi onPress={onConfirm}> {t("shared.confirm")}</ButtonUi>
+            <ButtonUi
+              onPress={onConfirm}
+              disabled={isDetialsLoading || isLoading}
+              isLoading={isLoading}
+            >
+              {t("shared.confirm")}
+            </ButtonUi>
             <SpacerUi size="xl">
               <ButtonUi
                 variant="secondary"

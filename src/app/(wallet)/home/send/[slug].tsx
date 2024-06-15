@@ -40,6 +40,8 @@ export default function SendChain() {
   const [address, setAddress] = useState("");
   const [details, setDetails] = useState<DetailsType | null>(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
+  const [isTransactionCreting, setisTransactionCreating] = useState(false);
+
   const [gasFeeWey, setGasFeeWey] = useState<number | undefined>();
 
   const [amount, setAmont] = useState("");
@@ -51,7 +53,6 @@ export default function SendChain() {
   const asset = findAsset(assets, slug as string);
   const { data: assetPrices } = useAssetPrices();
   const sendConfirm = useRef<BottomSheetModal>(null);
-
   const handleApproveModalPress = () => {
     sendConfirm.current?.present();
   };
@@ -83,6 +84,7 @@ export default function SendChain() {
 
   const sendHandler = async () => {
     try {
+      setisTransactionCreating(true);
       const enncryptedPrivateKey = await decrypt(
         asset.account.privateKey,
         setupPass as string
@@ -125,6 +127,8 @@ export default function SendChain() {
         t("shared.error-label"),
         t("wallet.home.send.send-details.cant-send-transaction-error")
       );
+    } finally {
+      setisTransactionCreating(false);
     }
   };
 
@@ -148,12 +152,13 @@ export default function SendChain() {
         amount,
       };
       setDetails(details);
-      setLoadingDetails(false);
     } catch {
       Alert.alert(
         t("shared.error-label"),
         t("wallet.home.send.send-details.cant-send-transaction-error")
       );
+    } finally {
+      setLoadingDetails(false);
     }
   };
 
@@ -175,7 +180,12 @@ export default function SendChain() {
 
   return (
     <ScrollContainerUi>
-      <SendConfirm ref={sendConfirm} onConfirm={sendHandler}>
+      <SendConfirm
+        isDetialsLoading={loadingDetails}
+        isLoading={isTransactionCreting}
+        ref={sendConfirm}
+        onConfirm={sendHandler}
+      >
         <SendDetails details={details} loading={loadingDetails} />
       </SendConfirm>
 

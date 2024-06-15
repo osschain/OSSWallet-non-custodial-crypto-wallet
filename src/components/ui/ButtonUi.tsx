@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, ReactNode, forwardRef } from "react";
 import {
+  ActivityIndicator,
   GestureResponderEvent,
   Text,
   TouchableOpacity,
@@ -71,10 +72,21 @@ type Props = {
   icon?: ReactNode;
   onPress?: (e: GestureResponderEvent) => void;
   children: ReactNode;
+  isLoading?: boolean;
 } & ComponentPropsWithoutRef<typeof Button>;
 
 const ButtonUi = forwardRef<TouchableOpacity, Props>(
-  ({ variant = "primary", onPress, icon, children, ...rest }, ref) => {
+  (
+    {
+      variant = "primary",
+      isLoading = false,
+      onPress,
+      icon,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
     return (
       <Button ref={ref} variant={variant} onPress={onPress} {...rest}>
         <View
@@ -84,7 +96,11 @@ const ButtonUi = forwardRef<TouchableOpacity, Props>(
             flexDirection: "row",
           }}
         >
-          <ButtonText variant={variant}>{children}</ButtonText>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <ButtonText variant={variant}>{children}</ButtonText>
+          )}
           {icon && <Icon>{icon}</Icon>}
         </View>
       </Button>

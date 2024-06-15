@@ -111,6 +111,14 @@ const HomeCard = ({
         </Buttons>
       </SpacerUi>
       <TopRight>
+        <TouchableOpacity onPress={onCustomToken}>
+          <IconUi
+            library="AntDesign"
+            name="plus"
+            size="xl"
+            color="pure-white"
+          />
+        </TouchableOpacity>
         <Link href="notificationsModal" asChild>
           <TouchableOpacity>
             <IconUi
@@ -128,14 +136,6 @@ const HomeCard = ({
             ) : null}
           </TouchableOpacity>
         </Link>
-        <TouchableOpacity onPress={onCustomToken}>
-          <IconUi
-            library="AntDesign"
-            name="plus"
-            size="xl"
-            color="pure-white"
-          />
-        </TouchableOpacity>
       </TopRight>
     </Card>
   );

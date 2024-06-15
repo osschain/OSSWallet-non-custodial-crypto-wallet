@@ -127,7 +127,8 @@ const HomeAssets = () => {
       refreshControl={
         <RefreshControl
           onRefresh={async () => {
-            await queryClient.invalidateQueries({ queryKey: ["assets"] });
+            await queryClient.invalidateQueries({ queryKey: ["balances"] });
+            await queryClient.invalidateQueries({ queryKey: ["assetPrices"] });
           }}
           refreshing={false}
         />

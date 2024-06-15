@@ -4,7 +4,7 @@ import { OSSblockchain } from "./history.service";
 import { ApiEndpoints, httpClient } from "@/config/axios";
 import { chainIds } from "@/config/blockchain";
 
-type sendTransationType = { gasFee: number, privateKey: string, toAddress: string, fromAddress: string, blockchain: OSSblockchain, contractAddress?: string, amount: string }
+type sendTransationType = { gasFee: number, privateKey: string, toAddress: string, fromAddress: string, blockchain: OSSblockchain, contractAddress?: string, amount: number }
 
 export const sendTransaction = async ({ privateKey, toAddress, blockchain, fromAddress, contractAddress, amount, gasFee }: sendTransationType) => {
     if (blockchain === "btc" || blockchain === "solana") {
@@ -21,6 +21,7 @@ export const sendTransaction = async ({ privateKey, toAddress, blockchain, fromA
         blockchain,
         calculated_gas_fee: gasFee,
     }
+
     try {
         const isToken = !!contractAddress
 
@@ -29,14 +30,11 @@ export const sendTransaction = async ({ privateKey, toAddress, blockchain, fromA
                 ...config,
                 token_contract_address: contractAddress
             })
-
-            console.log(response)
         } else {
             const response = await httpClient.post(ApiEndpoints.CRYPTO_CHAIN_TRANSFER, {
                 ...config,
             })
             console.log(response)
-
         }
     } catch (error) {
         console.log(error, 'error')
@@ -47,7 +45,7 @@ export const sendTransaction = async ({ privateKey, toAddress, blockchain, fromA
 
 
 
-type gasPriceType = { fromAddress: string, toAddress: string, blockchain: OSSblockchain, contractAddress?: string, amount: string }
+type gasPriceType = { fromAddress: string, toAddress: string, blockchain: OSSblockchain, contractAddress?: string, amount: number }
 type GasFeeType = {
     gas_fee_native: number; // Represents the gas fee in native currency units
     gas_fee_wei: number; // Represents the gas fee in wei
@@ -64,8 +62,8 @@ export const fetchGasFee = async ({ contractAddress, toAddress, fromAddress, amo
         }
 
         const isToken = !!contractAddress
-
         if (isToken) {
+
             const response = await httpClient.post(ApiEndpoints.CALCULATE_TOKEN_GAS_PRICE, {
                 ...config,
                 token_contract_address: contractAddress

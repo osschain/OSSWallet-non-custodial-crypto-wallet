@@ -1,7 +1,7 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Mnemonic } from "ethers";
 import { router } from "expo-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
@@ -18,8 +18,13 @@ import { useAuth } from "@/providers/AuthProvider";
 
 function ConnetWallet() {
   const [mnemonic, setMnemonic] = useState<string>("");
-  const { addMnemonic } = useAuth();
+  const { addMnemonic, addIsImporting } = useAuth();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    addIsImporting(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const handlePresentModalPress = () => {

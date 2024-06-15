@@ -44,6 +44,14 @@
         "password-match": "Passcode must match",
         "enter-passcode": "Enter Passcode",
         "confirm-passocde": "Confirm-passcode"
+      },
+      "creating-wallet": {
+        "wallet-is-creating": "Wallet is Creatinng",
+        "wallet-is-imporing": "Wallet is importing",
+        "updated": {
+          "wallet-is-creating": "Wallet is Creatinng",
+          "wallet-is-imporing": "Wallet is importing"
+        }
       }
      
     },

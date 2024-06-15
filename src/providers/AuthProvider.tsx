@@ -14,6 +14,8 @@ type AuthData = {
   loading: boolean;
   encryptedMnemonic: string | null;
   setupPass: string | null;
+  isImporting: boolean;
+  addIsImporting: (bool: boolean) => void;
   addMnemonic: (mnemonic: string) => void;
   addSetupPass: (mnemonic: string) => void;
   clearMnemonic: () => void;
@@ -28,6 +30,7 @@ const AuthContext = createContext<AuthData>({
   loading: true,
   encryptedMnemonic: null,
   setupPass: null,
+  isImporting: false,
   addSetupPass: () => {},
   addMnemonic: () => {},
   clearMnemonic: () => {},
@@ -35,6 +38,7 @@ const AuthContext = createContext<AuthData>({
   decryptAndSaveMnemonic: () => {},
   checkPassword: () => Promise.resolve(false),
   removeEncryptedMnemonic: () => {},
+  addIsImporting: () => {},
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
@@ -43,6 +47,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   );
   const [mnemonic, setMnemonic] = useState<string | null>(null);
   const [setupPass, setSetupPass] = useState<string | null>(null);
+  const [isImporting, setIsImporting] = useState<boolean>(false);
 
   const [loading, setLoading] = useState(true);
 
@@ -71,6 +76,10 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   };
   const addSetupPass = (pass: string) => {
     setSetupPass(mnemonic);
+  };
+
+  const addIsImporting = (bool: boolean) => {
+    setIsImporting(bool);
   };
   const clearMnemonic = () => {
     setMnemonic(null);
@@ -114,6 +123,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         loading,
         mnemonic,
         setupPass,
+        isImporting,
         addSetupPass,
         addMnemonic,
         clearMnemonic,
@@ -122,6 +132,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         encryptedMnemonic,
         decryptAndSaveMnemonic,
         removeEncryptedMnemonic,
+        addIsImporting,
       }}
     >
       {children}

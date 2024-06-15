@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useAddAssets } from "@/app/api/assets";
 import AuthLoading from "@/components/auth/AuthLoading";
@@ -8,9 +9,9 @@ import { useAuth } from "@/providers/AuthProvider";
 import { createAssets } from "@/services/asset.service";
 
 export default function WalletCreating() {
-  const { mnemonic, setupPass } = useAuth();
+  const { mnemonic, setupPass, isImporting } = useAuth();
   const { mutate: addAssets } = useAddAssets();
-
+  const { t } = useTranslation();
   useEffect(() => {
     setTimeout(async () => {
       try {
@@ -34,5 +35,13 @@ export default function WalletCreating() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <AuthLoading label="Wallet is Creating" />;
+  return (
+    <AuthLoading
+      label={
+        isImporting
+          ? t("auth.creating-wallet.wallet-is-imporing")
+          : t("auth.creating-wallet.wallet-is-creating")
+      }
+    />
+  );
 }

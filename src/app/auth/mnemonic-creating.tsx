@@ -27,7 +27,7 @@ import { useAuth } from "@/providers/AuthProvider";
 const bip39 = require("bip39");
 
 export default function MnemonicCreating() {
-  const { addMnemonic } = useAuth();
+  const { addMnemonic, addIsImporting } = useAuth();
   const { t } = useTranslation();
   const [isError, setIserror] = useState(false);
 
@@ -40,6 +40,10 @@ export default function MnemonicCreating() {
       ],
     };
   });
+
+  useEffect(() => {
+    addIsImporting(false);
+  }, []);
 
   useEffect(() => {
     const bootstrap = () => {

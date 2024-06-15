@@ -16,7 +16,6 @@ import SpacerUi from "@/components/ui/SpacerUi";
 
 const AuthLoading = ({ label }: { label: string }) => {
   const animation = useSharedValue(0);
-  const { t } = useTranslation();
   const animationStyle = useAnimatedStyle(() => {
     return {
       transform: [

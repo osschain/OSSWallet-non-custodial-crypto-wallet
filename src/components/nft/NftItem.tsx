@@ -42,7 +42,7 @@ const NftItem = ({
 
         <Title
           color="pure-white"
-          size="xl"
+          size="lg"
           weight="bold"
           numberOfLines={1}
           ellipsizeMode="tail"
@@ -50,6 +50,7 @@ const NftItem = ({
           {title}
         </Title>
         <Collection
+          size="sm"
           color="pure-white"
           weight="medium"
           numberOfLines={1}

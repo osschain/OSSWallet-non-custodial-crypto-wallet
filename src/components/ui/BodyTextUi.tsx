@@ -12,7 +12,7 @@ import { getFontStyle } from "@/util/themeUtils";
 interface Props {
   size?: BodyFontSizesType;
   color?: ColorsType;
-  theme: DefaultTheme;
+  theme?: DefaultTheme;
   weight?: FontWeightsType;
 }
 

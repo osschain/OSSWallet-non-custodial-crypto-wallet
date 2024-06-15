@@ -6,6 +6,7 @@ import AlertWithImageUI from "../ui/AlertWithImageUi";
 import BodyTextUi from "../ui/BodyTextUi";
 import HeaderTextUi from "../ui/HeaderTextUi";
 import SpacerUi from "../ui/SpacerUi";
+import TruncatedText from "../ui/TruncatedTextUi";
 
 import { DetailsType } from "@/app/(wallet)/home/send/[slug]";
 
@@ -40,6 +41,7 @@ const SendDetails = ({
       <HeaderTextUi style={{ textAlign: "center" }}>
         {t("wallet.home.send.send-details.title")}
       </HeaderTextUi>
+
       <SpacerUi size="4xl">
         <HeaderTextUi size="xl" style={{ textAlign: "center" }}>
           -{details?.amount} {details?.symbol}
@@ -54,8 +56,6 @@ const SendDetails = ({
           <SpacerUi size="xl">
             <Detail
               label={`${t("wallet.home.send.send-details.from")}:`}
-              textStyle={{ width: "90%" }}
-              numberOfLines={1}
               value={details?.from}
             />
           </SpacerUi>
@@ -64,7 +64,6 @@ const SendDetails = ({
             <Detail
               label={`${t("wallet.home.send.send-details.to")}:`}
               value={details?.to}
-              textStyle={{ width: "90%" }}
               numberOfLines={1}
             />
           </SpacerUi>
@@ -92,27 +91,32 @@ const SendDetails = ({
 const Detail = ({
   label,
   value,
-  textStyle,
-  numberOfLines,
+  isTruncated = false,
 }: {
   label: string;
   value: string | number | undefined | null;
-  textStyle?: any;
   numberOfLines?: number;
+  isTruncated?: boolean;
 }) => (
   <Row>
     <LeftContent>
       <BodyTextUi weight="medium">{label}</BodyTextUi>
     </LeftContent>
     <RightContent>
-      <BodyTextUi
-        style={{ ...textStyle }}
-        numberOfLines={numberOfLines}
-        weight="medium"
-        color="text-second"
-      >
-        {value}
-      </BodyTextUi>
+      {isTruncated ? (
+        <TruncatedText
+          text={value as string}
+          maxLength={8}
+          startLength={7}
+          endLength={7}
+          weight="medium"
+          color="text-second"
+        />
+      ) : (
+        <BodyTextUi weight="medium" color="text-second">
+          {value}
+        </BodyTextUi>
+      )}
     </RightContent>
   </Row>
 );

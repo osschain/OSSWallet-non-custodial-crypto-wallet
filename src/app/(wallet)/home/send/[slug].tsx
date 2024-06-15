@@ -7,11 +7,13 @@ import { Alert } from "react-native";
 import styled from "styled-components/native";
 
 import { useAssetPrices, useAssets } from "@/app/api/assets";
+import { UseBalances } from "@/app/api/balances";
+import SendAmountInput from "@/components/send/SendAddressInput";
 import SendConfirm from "@/components/send/SendConfirm";
 import SendDetails from "@/components/send/SendDetails";
-import AssetQuantityInputUi from "@/components/ui/AssetQuantityInputUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import IconUi from "@/components/ui/IconUi";
 import {
   BodyUi,
   ContainerUi,
@@ -19,9 +21,11 @@ import {
   ScrollContainerUi,
 } from "@/components/ui/LayoutsUi";
 import MessageUi from "@/components/ui/MessageUi";
+import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
+import { calculateBalance } from "@/services/balances.service";
 import { fetchGasFee, sendTransaction } from "@/services/send.service";
 import { decrypt } from "@/util/es";
 import { findAsset } from "@/util/findAsset";
@@ -41,6 +45,7 @@ export default function SendChain() {
   const [details, setDetails] = useState<DetailsType | null>(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
   const [isTransactionCreting, setisTransactionCreating] = useState(false);
+  const { data: balances } = UseBalances();
 
   const [gasFeeWey, setGasFeeWey] = useState<number | undefined>();
 
@@ -56,6 +61,8 @@ export default function SendChain() {
   const handleApproveModalPress = () => {
     sendConfirm.current?.present();
   };
+
+  const scanAddress = useRef<BottomSheetModal>(null);
 
   const getPrice = (symbol: string) =>
     assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4) ||
@@ -76,7 +83,7 @@ export default function SendChain() {
       contractAddress: asset.contractAddress,
       toAddress: address,
       fromAddress: asset.account.address,
-      amount,
+      amount: Number(amount),
       blockchain: asset.blockchain,
     });
     return gasFee;
@@ -90,17 +97,16 @@ export default function SendChain() {
         setupPass as string
       );
 
-      const gasFee = await getGasFee();
-      console.log(gasFee?.gas_fee_wei, gasFeeWey);
-      if (gasFee?.gas_fee_wei !== gasFeeWey) {
-        Alert.alert(
-          t("shared.error-label"),
-          t("wallet.home.send.send-details.fee-is-not-same-alert")
-        );
-        setDetaills();
+      // const gasFee = await getGasFee();
+      // if (gasFee?.gas_fee_wei !== gasFeeWey) {
+      //   Alert.alert(
+      //     t("shared.error-label"),
+      //     t("wallet.home.send.send-details.fee-is-not-same-alert")
+      //   );
+      //   setDetaills();
 
-        return;
-      }
+      //   return;
+      // }
 
       if (!enncryptedPrivateKey) {
         throw new Error();
@@ -111,7 +117,7 @@ export default function SendChain() {
         toAddress: address,
         blockchain: asset.blockchain,
         contractAddress: asset.contractAddress,
-        amount,
+        amount: Number(amount),
         gasFee: gasFeeWey as number,
         fromAddress: asset.account.address,
       };
@@ -141,7 +147,7 @@ export default function SendChain() {
       }
       setGasFeeWey(gasFee?.gas_fee_wei);
       const price = getPrice(asset.symbol);
-
+      console.log(amount);
       const details: DetailsType = {
         name: asset.name,
         symbol: asset.symbol,
@@ -153,10 +159,6 @@ export default function SendChain() {
       };
       setDetails(details);
     } catch {
-      Alert.alert(
-        t("shared.error-label"),
-        t("wallet.home.send.send-details.cant-send-transaction-error")
-      );
     } finally {
       setLoadingDetails(false);
     }
@@ -188,6 +190,13 @@ export default function SendChain() {
       >
         <SendDetails details={details} loading={loadingDetails} />
       </SendConfirm>
+      <ScannerModalUi
+        ref={scanAddress}
+        onBarcodeScanner={(address) => {
+          setAddress(address);
+          scanAddress.current?.close();
+        }}
+      />
 
       <Stack.Screen options={{ title: `${t("shared.send")} ${asset?.name}` }} />
       <BodyUi>
@@ -201,6 +210,15 @@ export default function SendChain() {
             <TextInputUi
               onChangeText={(text) => setAddress(text)}
               value={address}
+              right={
+                <IconUi
+                  library="Ionicons"
+                  name="scan"
+                  size="xl"
+                  color="icon-second"
+                  onPress={() => scanAddress.current?.present()}
+                />
+              }
               placeholder={t(
                 "wallet.home.send.send-details.addres-input-placeholder"
               )}
@@ -209,8 +227,12 @@ export default function SendChain() {
         </SpacerUi>
         <SpacerUi size="2xl">
           <SpacerUi size="lg">
-            <AssetQuantityInputUi
+            <SendAmountInput
               onChangeText={(text) => setAmont(text)}
+              onMaxPress={() => {
+                const balance = calculateBalance(asset.id, balances);
+                setAmont(balance.toString());
+              }}
               value={amount}
               uri={asset.icon}
               title={asset.symbol}

@@ -38,6 +38,7 @@ export type DetailsType = {
   fee: number; // Transaction fee
   maxTotal: number | null; // Maximum total value, might be a string representing a large number,
   amount: string;
+  blockhain: string;
 };
 
 export default function SendChain() {
@@ -156,6 +157,7 @@ export default function SendChain() {
         fee: gasFee?.gas_fee_native,
         maxTotal: price ? Number(price) * Number(amount) : null,
         amount,
+        blockhain: asset.blockchain,
       };
       setDetails(details);
     } catch {

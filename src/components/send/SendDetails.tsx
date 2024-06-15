@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 
+import AlertWithImageUI from "../ui/AlertWithImageUi";
 import BodyTextUi from "../ui/BodyTextUi";
 import HeaderTextUi from "../ui/HeaderTextUi";
 import SpacerUi from "../ui/SpacerUi";
@@ -23,6 +24,14 @@ const SendDetails = ({
           <ActivityIndicator />
         </SpacerUi>
       )
+    );
+  }
+
+  if (!details) {
+    return (
+      <AlertWithImageUI
+        title={t("wallet.home.send.send-details.cant-fetch-details-error")}
+      />
     );
   }
 
@@ -66,7 +75,7 @@ const SendDetails = ({
         <Details>
           <Detail
             label={`${t("wallet.home.send.send-details.fee")}:`}
-            value={details?.fee + " " + details?.symbol}
+            value={details?.fee + " " + details?.blockhain}
           />
           <SpacerUi size="xl">
             <Detail

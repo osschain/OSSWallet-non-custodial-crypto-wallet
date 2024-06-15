@@ -118,7 +118,8 @@
           "for-whom": "For Whom",
           "send-details": {
             "cant-send-transaction-error": "sorry there is error can't send transaction try later",
-            "inputs-value-error": "velebi arasworadaa sheyvanili",
+            "cant-fetch-details-error": "sorry can't show details",
+            "inputs-value-error": "Input values are incorrect",
             "asset-sent-message":  "Asset sent successfully",
             "asset-sent-title": "sented",
             "addres-input-placeholder": "Enter Address",
@@ -128,7 +129,10 @@
             "fee": "Network Fee",
             "max-total": "Max Total",
             "title": "Tranfers",
-            "fee-is-not-same-alert": "Sorry Fee is diferent, check new and agree if you are okey"
+            "fee-is-not-same-alert": "Sorry Fee is diferent, check new and agree if you are okey",
+            "updated": {
+              "cant-fetch-details-error": "sorry can't show details"
+            }
           }
         },
         "swap": {
@@ -218,6 +222,10 @@
       "share": "Share",
       "notificationns": "Notifications",
       "date": "Date",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "logout": "Log out",
+      "updated": {
+        "logout": "Log out"
+      }
     }
 }

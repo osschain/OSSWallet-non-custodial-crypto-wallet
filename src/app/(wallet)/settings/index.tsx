@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 
 import HelpCenter from "@/components/settings/HelpCenter";
 import LanguageSetting from "@/components/settings/LanguageSetting";
+import LogoOut from "@/components/settings/Logout";
 import NotificationSetting from "@/components/settings/NotificationSetting";
 import PasswordSeting from "@/components/settings/PasswordSetting";
 import SocialLinks from "@/components/settings/SocialLinks";
@@ -28,6 +29,10 @@ export default function Settings() {
         <Line />
         <SocialLinks />
       </SpacerUi>
+      <SpacerUi size="xl">
+        <LogoOut />
+      </SpacerUi>
+
       <SpacerUi size="xl" />
     </ScrollContainerUi>
   );

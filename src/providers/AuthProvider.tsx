@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
 import {
   PropsWithChildren,
@@ -23,6 +24,7 @@ type AuthData = {
   checkPassword: (password: string) => Promise<boolean>;
   decryptAndSaveMnemonic: (password: string) => void;
   removeEncryptedMnemonic: () => void;
+  logOut: () => void;
 };
 
 const AuthContext = createContext<AuthData>({
@@ -39,6 +41,7 @@ const AuthContext = createContext<AuthData>({
   checkPassword: () => Promise.resolve(false),
   removeEncryptedMnemonic: () => {},
   addIsImporting: () => {},
+  logOut: () => {},
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
@@ -106,6 +109,16 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     }
   };
 
+  const logOut = async () => {
+    await SecureStore.deleteItemAsync("mnemonic");
+    await AsyncStorage.removeItem("assets");
+    setEncryptedMnemonic(null);
+    setMnemonic(null);
+    setSetupPass(null);
+    setIsImporting(false);
+    setLoading(false);
+  };
+
   const checkPassword = async (password: string) => {
     const encryptedMnemonic = await getEncryptedMnemonic();
     const mnemonic = await decrypt(encryptedMnemonic, password);
@@ -133,6 +146,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         decryptAndSaveMnemonic,
         removeEncryptedMnemonic,
         addIsImporting,
+        logOut,
       }}
     >
       {children}

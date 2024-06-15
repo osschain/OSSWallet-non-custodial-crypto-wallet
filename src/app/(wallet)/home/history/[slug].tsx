@@ -102,6 +102,7 @@ export default function HistoryDetails() {
         <SpacerUi size="4xl">
           <HistoryProperties>
             <HistoryProperty
+              isTruncated
               label={t("shared.recipent")}
               value={item.to as string}
               action={
@@ -115,6 +116,7 @@ export default function HistoryDetails() {
               }
             />
             <HistoryProperty
+              isTruncated
               label={t("shared.from")}
               value={item.from as string}
               action={
@@ -157,24 +159,30 @@ const HistoryProperty = ({
   label,
   value,
   action,
+  isTruncated,
 }: {
   label: string;
   value: string;
   action?: ReactNode;
+  isTruncated?: boolean;
 }) => (
   <Row>
     <LeftContent>
       <BodyTextUi weight="medium">{label}</BodyTextUi>
     </LeftContent>
     <RightContent>
-      <TruncatedText
-        endLength={7}
-        startLength={7}
-        maxLength={7}
-        weight="medium"
-        color="text-second"
-        text={value}
-      />
+      {isTruncated ? (
+        <TruncatedText
+          endLength={7}
+          startLength={7}
+          maxLength={7}
+          text={value}
+        />
+      ) : (
+        <BodyTextUi weight="medium" color="text-second">
+          {value}
+        </BodyTextUi>
+      )}
 
       {action && action}
     </RightContent>

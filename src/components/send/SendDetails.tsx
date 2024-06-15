@@ -55,6 +55,7 @@ const SendDetails = ({
           />
           <SpacerUi size="xl">
             <Detail
+              isTruncated
               label={`${t("wallet.home.send.send-details.from")}:`}
               value={details?.from}
             />
@@ -62,6 +63,7 @@ const SendDetails = ({
 
           <SpacerUi size="xl">
             <Detail
+              isTruncated
               label={`${t("wallet.home.send.send-details.to")}:`}
               value={details?.to}
               numberOfLines={1}
@@ -106,7 +108,7 @@ const Detail = ({
       {isTruncated ? (
         <TruncatedText
           text={value as string}
-          maxLength={8}
+          maxLength={20}
           startLength={7}
           endLength={7}
           weight="medium"

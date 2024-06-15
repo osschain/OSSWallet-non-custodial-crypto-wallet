@@ -83,7 +83,6 @@ const HomeCard = ({
             <ButtonBacground />
           </Button>
           <Button onPress={onSend}>
-            <BodyTextUi color="pure-white">{t("shared.send")}</BodyTextUi>
             <ButtonIcon>
               <IconUi
                 library="Feather"
@@ -92,10 +91,11 @@ const HomeCard = ({
                 color="icon-primary"
               />
             </ButtonIcon>
+            <BodyTextUi color="pure-white">{t("shared.send")}</BodyTextUi>
+
             <ButtonBacground />
           </Button>
           <Button onPress={onHistory}>
-            <BodyTextUi color="pure-white">{t("shared.history")}</BodyTextUi>
             <ButtonIcon>
               <IconUi
                 library="MaterialIcons"
@@ -104,6 +104,8 @@ const HomeCard = ({
                 color="icon-primary"
               />
             </ButtonIcon>
+            <BodyTextUi color="pure-white">{t("shared.history")}</BodyTextUi>
+
             <ButtonBacground />
           </Button>
         </Buttons>

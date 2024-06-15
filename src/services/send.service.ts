@@ -39,7 +39,7 @@ export const sendTransaction = async ({ privateKey, toAddress, blockchain, fromA
 
         }
     } catch (error) {
-        console.log(error,)
+        console.log(error, 'error')
         throw error
     }
 

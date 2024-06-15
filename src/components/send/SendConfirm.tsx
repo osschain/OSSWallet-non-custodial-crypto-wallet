@@ -25,7 +25,7 @@ const SendConfirm = forwardRef<BottomSheetModal, Props>(
         <ScrollContainerUi>
           <BodyUi>{children}</BodyUi>
           <FooterUi>
-            <ButtonUi onPress={onConfirm}>Confirm</ButtonUi>
+            <ButtonUi onPress={onConfirm}> {t("shared.confirm")}</ButtonUi>
             <SpacerUi size="xl">
               <ButtonUi
                 variant="secondary"

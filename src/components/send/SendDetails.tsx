@@ -45,7 +45,9 @@ const SendDetails = ({
           <SpacerUi size="xl">
             <Detail
               label={`${t("wallet.home.send.send-details.from")}:`}
-              value={details?.symbol}
+              textStyle={{ width: "90%" }}
+              numberOfLines={1}
+              value={details?.from}
             />
           </SpacerUi>
 
@@ -53,6 +55,8 @@ const SendDetails = ({
             <Detail
               label={`${t("wallet.home.send.send-details.to")}:`}
               value={details?.to}
+              textStyle={{ width: "90%" }}
+              numberOfLines={1}
             />
           </SpacerUi>
         </Details>
@@ -62,12 +66,12 @@ const SendDetails = ({
         <Details>
           <Detail
             label={`${t("wallet.home.send.send-details.fee")}:`}
-            value={details?.fee}
+            value={details?.fee + " " + details?.symbol}
           />
           <SpacerUi size="xl">
             <Detail
               label={`${t("wallet.home.send.send-details.max-total")}:`}
-              value={details?.maxTotal}
+              value={details?.maxTotal + " $"}
             />
           </SpacerUi>
         </Details>
@@ -79,16 +83,25 @@ const SendDetails = ({
 const Detail = ({
   label,
   value,
+  textStyle,
+  numberOfLines,
 }: {
   label: string;
   value: string | number | undefined | null;
+  textStyle?: any;
+  numberOfLines?: number;
 }) => (
   <Row>
     <LeftContent>
       <BodyTextUi weight="medium">{label}</BodyTextUi>
     </LeftContent>
     <RightContent>
-      <BodyTextUi weight="medium" color="text-second">
+      <BodyTextUi
+        style={{ ...textStyle }}
+        numberOfLines={numberOfLines}
+        weight="medium"
+        color="text-second"
+      >
         {value}
       </BodyTextUi>
     </RightContent>
@@ -101,9 +114,14 @@ const Details = styled.View`
   border-radius: ${({ theme }) => theme.sizes["md"]};
 `;
 
-const LeftContent = styled.View``;
+const LeftContent = styled.View`
+  width: 40%;
+`;
 
-const RightContent = styled.View``;
+const RightContent = styled.View`
+  width: 60%;
+  align-items: flex-end;
+`;
 
 const Row = styled.View`
   flex-direction: row;

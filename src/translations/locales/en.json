@@ -119,7 +119,8 @@
             "to": "To",
             "fee": "Network Fee",
             "max-total": "Max Total",
-            "title": "Tranfers"
+            "title": "Tranfers",
+            "fee-is-not-same-alert": "Sorry Fee is diferent, check new and agree if you are okey"
           }
         },
         "swap": {
@@ -208,6 +209,7 @@
       "NFT": "NFT",
       "share": "Share",
       "notificationns": "Notifications",
-      "date": "Date"
+      "date": "Date",
+      "confirm": "Confirm"
     }
 }

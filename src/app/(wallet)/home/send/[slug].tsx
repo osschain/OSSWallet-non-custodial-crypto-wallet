@@ -88,6 +88,18 @@ export default function SendChain() {
         setupPass as string
       );
 
+      const gasFee = await getGasFee();
+      console.log(gasFee?.gas_fee_wei, gasFeeWey);
+      if (gasFee?.gas_fee_wei !== gasFeeWey) {
+        Alert.alert(
+          t("shared.error-label"),
+          t("wallet.home.send.send-details.fee-is-not-same-alert")
+        );
+        setDetaills();
+
+        return;
+      }
+
       if (!enncryptedPrivateKey) {
         throw new Error();
       }
@@ -131,7 +143,7 @@ export default function SendChain() {
         symbol: asset.symbol,
         to: address,
         from: asset.account.address,
-        fee: gasFee?.gas_fee_wei,
+        fee: gasFee?.gas_fee_native,
         maxTotal: price ? Number(price) * Number(amount) : null,
         amount,
       };

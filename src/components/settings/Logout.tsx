@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -11,8 +12,11 @@ import { useAuth } from "@/providers/AuthProvider";
 const LogoOut = () => {
   const { t } = useTranslation();
   const { logOut } = useAuth();
+  const queryClient = useQueryClient();
+
   const logoutHandler = async () => {
     await logOut();
+    queryClient.resetQueries();
     router.replace("/auth");
   };
   return (

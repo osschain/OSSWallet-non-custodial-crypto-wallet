@@ -51,7 +51,7 @@ export default function HistoryDetails() {
       (adress) => adress.address.toLowerCase() === from.toLowerCase()
     );
 
-    return !!isFromMe;
+    return !isFromMe;
   };
 
   const copyFrom = async () => {

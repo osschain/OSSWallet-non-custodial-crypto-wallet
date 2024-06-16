@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, ScrollView, View } from "react-native";
+import { View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
+
+import { ScrollContainerUi } from "../ui/LayoutsUi";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { pixelToNumber } from "@/util/pixelToNumber";
 
 const passwordLength = 6;
 
@@ -77,7 +78,7 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
   };
 
   return (
-    <Container>
+    <ScrollContainerUi>
       <Body>
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <BannerImage
@@ -98,60 +99,44 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
             </HeaderTextUi>
           </SpacerUi>
         </View>
-        <SpacerUi size="lg">
-          <SpacerUi size="3.5xl">
-            <HeaderText size="md" color="text-second" weight="medium">
-              {header}
-            </HeaderText>
-          </SpacerUi>
+        <SpacerUi size="4xl">
+          <HeaderText size="md" color="text-second" weight="medium">
+            {header}
+          </HeaderText>
         </SpacerUi>
         <SpacerUi size="3xl">
-          <ScrollView>
-            <Inputs>
-              {inputs.map((input, index) => {
-                return (
-                  <Input key={index}>
-                    <HeaderTextUi weight="bold" size="3xl">
-                      {input !== null && "*"}
-                    </HeaderTextUi>
-                  </Input>
-                );
-              })}
-            </Inputs>
-          </ScrollView>
+          <Inputs>
+            {inputs.map((input, index) => {
+              return (
+                <Input key={index}>
+                  <HeaderTextUi weight="bold" size="3xl">
+                    {input !== null && "*"}
+                  </HeaderTextUi>
+                </Input>
+              );
+            })}
+          </Inputs>
         </SpacerUi>
       </Body>
 
       <Footer>
         <CustomKeyboard>
-          <FlatList
-            data={keys}
-            numColumns={3}
-            columnWrapperStyle={{
-              justifyContent: "flex-start",
-              alignItems: "center",
-              gap: pixelToNumber(theme.sizes["xl"]),
-            }}
-            contentContainerStyle={{ gap: pixelToNumber(theme.sizes["xl"]) }}
-            renderItem={({ item: key }) => (
-              <Key onPress={() => handleKeyPress(key)}>
-                <HeaderTextUi size="2xl" weight="bold">
-                  {key}
-                </HeaderTextUi>
-              </Key>
-            )}
-          />
+          {keys.map((key, index) => {
+            return (
+              <KeyWrapper key={index}>
+                <Key onPress={() => handleKeyPress(key)}>
+                  <HeaderTextUi size="2xl" weight="bold">
+                    {key}
+                  </HeaderTextUi>
+                </Key>
+              </KeyWrapper>
+            );
+          })}
         </CustomKeyboard>
       </Footer>
-    </Container>
+    </ScrollContainerUi>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
-`;
 
 const Body = styled.View`
   flex: 1;
@@ -178,9 +163,15 @@ const Input = styled.View`
 `;
 
 const Footer = styled.View`
-  margin: ${({ theme }) => theme.spaces["4xl"]} 0;
+  margin: ${({ theme }) => theme.spaces["3xl"]} 0;
+  justify-content: center;
 `;
 
+const KeyWrapper = styled.View`
+  width: 33%;
+  align-items: center;
+  margin-top: ${({ theme }) => theme.spaces["xl"]};
+`;
 const Key = styled.TouchableOpacity`
   border-radius: 100px;
   justify-content: center;
@@ -192,6 +183,8 @@ const Key = styled.TouchableOpacity`
 
 const CustomKeyboard = styled.View`
   align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 const BannerImage = styled.Image`
   width: 100px;

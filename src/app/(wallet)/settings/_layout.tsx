@@ -19,10 +19,7 @@ export default function _layout() {
         name="index"
         options={{ title: t("wallet.settings.index.title") }}
       />
-      <Stack.Screen
-        name="change-pass-code"
-        options={{ title: t("wallet.settings.change-passcode.title") }}
-      />
+      <Stack.Screen name="change-pass-code" options={{ title: "" }} />
     </Stack>
   );
 }

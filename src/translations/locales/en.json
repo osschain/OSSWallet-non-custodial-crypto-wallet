@@ -118,6 +118,8 @@
           "for-whom": "For Whom",
           "send-details": {
             "cant-send-transaction-error": "sorry there is error can't send transaction try later",
+            "wrong-fee-error": "sorry fee is changed, check new one",
+            "no-balance-error": "you don't have anouth balance",
             "cant-fetch-details-error": "sorry can't show details",
             "inputs-value-error": "Input values are incorrect",
             "asset-sent-message":  "Asset sent successfully",

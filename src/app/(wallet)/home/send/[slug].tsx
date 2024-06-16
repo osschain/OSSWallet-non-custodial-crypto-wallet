@@ -129,11 +129,25 @@ export default function SendChain() {
         t("wallet.home.send.send-details.asset-sent-title"),
         t("wallet.home.send.send-details.asset-sent-message")
       );
-    } catch {
-      Alert.alert(
-        t("shared.error-label"),
-        t("wallet.home.send.send-details.cant-send-transaction-error")
-      );
+    } catch (error) {
+      const status = error.response.status;
+      if (status === 409) {
+        Alert.alert(
+          t("shared.error-label"),
+          t("wallet.home.send.send-details.wrong-fee-error")
+        );
+        setDetaills();
+      } else if (status === 500) {
+        Alert.alert(
+          t("shared.error-label"),
+          t("wallet.home.send.send-details.no-balance-error")
+        );
+      } else {
+        Alert.alert(
+          t("shared.error-label"),
+          t("wallet.home.send.send-details.cant-send-transaction-error")
+        );
+      }
     } finally {
       setisTransactionCreating(false);
     }

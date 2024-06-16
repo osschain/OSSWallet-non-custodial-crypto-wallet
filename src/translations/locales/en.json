@@ -133,7 +133,9 @@
             "title": "Tranfers",
             "fee-is-not-same-alert": "Sorry Fee is diferent, check new and agree if you are okey",
             "updated": {
-              "cant-fetch-details-error": "sorry can't show details"
+              "cant-fetch-details-error": "sorry can't show details",
+              "wrong-fee-error": "sorry fee is changed, check new one",
+              "no-balance-error": "you don't have anouth balance"
             }
           }
         },

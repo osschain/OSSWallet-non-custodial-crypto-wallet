@@ -1,6 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { isAddress } from "ethers";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
@@ -29,6 +29,7 @@ import { calculateBalance } from "@/services/balances.service";
 import { fetchGasFee, sendTransaction } from "@/services/send.service";
 import { decrypt } from "@/util/es";
 import { findAsset } from "@/util/findAsset";
+import { Amount } from "@/components/history/history-item/style";
 
 export type DetailsType = {
   name: string; // Name of the asset
@@ -90,6 +91,8 @@ export default function SendChain() {
     return gasFee;
   };
 
+  const balance = calculateBalance(asset.id, balances);
+
   const sendHandler = async () => {
     try {
       setisTransactionCreating(true);
@@ -97,17 +100,6 @@ export default function SendChain() {
         asset.account.privateKey,
         setupPass as string
       );
-
-      // const gasFee = await getGasFee();
-      // if (gasFee?.gas_fee_wei !== gasFeeWey) {
-      //   Alert.alert(
-      //     t("shared.error-label"),
-      //     t("wallet.home.send.send-details.fee-is-not-same-alert")
-      //   );
-      //   setDetaills();
-
-      //   return;
-      // }
 
       if (!enncryptedPrivateKey) {
         throw new Error();
@@ -124,11 +116,8 @@ export default function SendChain() {
       };
 
       await sendTransaction(config);
-
-      Alert.alert(
-        t("wallet.home.send.send-details.asset-sent-title"),
-        t("wallet.home.send.send-details.asset-sent-message")
-      );
+      sendConfirm.current?.close();
+      router.push(`/(wallet)/home/asset/${asset.id}`);
     } catch (error) {
       const status = error.response.status;
       if (status === 409) {
@@ -195,6 +184,13 @@ export default function SendChain() {
     } catch {
       return;
     }
+    if (Number(amount) > balance) {
+      Alert.alert(
+        t("shared.error-label"),
+        t("wallet.home.send.send-details.no-balance-error")
+      );
+      return;
+    }
     handleApproveModalPress();
   };
 
@@ -248,7 +244,6 @@ export default function SendChain() {
             <SendAmountInput
               onChangeText={(text) => setAmont(text)}
               onMaxPress={() => {
-                const balance = calculateBalance(asset.id, balances);
                 setAmont(balance.toString());
               }}
               value={amount}

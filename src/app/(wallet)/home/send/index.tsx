@@ -18,6 +18,7 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
+import { calculateBalance } from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
 
 export default function Send() {
@@ -32,13 +33,6 @@ export default function Send() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredAssets = useFilteredAssets(assets, searchQuery, network);
-
-  const calculateBalance = (id: string) => {
-    const balance = Number(
-      balances?.find((balance) => id === balance.id)?.balance || 0
-    );
-    return Number(balance.toFixed(3));
-  };
 
   if (!assets) {
     return <AlertWithImageUI title={t("shared.asset-error")} />;
@@ -74,7 +68,7 @@ export default function Send() {
             <AssetItem
               key={item.name}
               asset={item}
-              balance={calculateBalance(item.id)}
+              balance={calculateBalance(item.id, balances)}
               assets={assets}
             />
           )}

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FlatList, ScrollView } from "react-native";
+import { useTranslation } from "react-i18next";
+import { FlatList, ScrollView, View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
@@ -29,6 +30,7 @@ type Props = {
 };
 
 function EnterPassCode({ onPasswordFull, header }: Props) {
+  const { t } = useTranslation();
   const [inputs, setInputs] = useState(Array(passwordLength).fill(null));
   const theme = useTheme();
   const clearInputs = () => {
@@ -77,7 +79,26 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
   return (
     <Container>
       <Body>
-        <SpacerUi size="4xl">
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <BannerImage
+            resizeMode="contain"
+            source={require("@/assets/images/ossLogo.png")}
+          />
+          <SpacerUi size="lg">
+            <HeaderTextUi adjustsFontSizeToFit size="3xl" weight="bold">
+              {t("auth.index.header")}
+            </HeaderTextUi>
+            <HeaderTextUi
+              style={{ textAlign: "right", marginTop: -15 }}
+              adjustsFontSizeToFit
+              size="sm"
+              weight="bold"
+            >
+              By OSS
+            </HeaderTextUi>
+          </SpacerUi>
+        </View>
+        <SpacerUi size="lg">
           <SpacerUi size="3.5xl">
             <HeaderText size="md" color="text-second" weight="medium">
               {header}
@@ -172,5 +193,8 @@ const Key = styled.TouchableOpacity`
 const CustomKeyboard = styled.View`
   align-items: center;
 `;
-
+const BannerImage = styled.Image`
+  width: 100px;
+  height: 100px;
+`;
 export default EnterPassCode;

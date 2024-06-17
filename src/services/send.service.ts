@@ -79,5 +79,6 @@ export const fetchGasFee = async ({ contractAddress, toAddress, fromAddress, amo
         }
     } catch (error) {
         console.log(error)
+        throw error
     }
 }

@@ -13,11 +13,13 @@ import { lightTheme, darkTheme } from "@/themes";
 type StyledThemeType = {
   toggleTheme: () => void;
   theme: DefaultTheme;
+  currentMode: modes | null;
 };
 
 const StyledThemeContext = createContext<StyledThemeType>({
   toggleTheme: () => {},
   theme: lightTheme,
+  currentMode: null,
 });
 
 type modes = "light" | "dark";
@@ -52,7 +54,7 @@ const StyledThemeProvider = ({ children }: PropsWithChildren) => {
   const theme = currentMode === "light" ? lightTheme : darkTheme;
 
   return (
-    <StyledThemeContext.Provider value={{ toggleTheme, theme }}>
+    <StyledThemeContext.Provider value={{ toggleTheme, theme, currentMode }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </StyledThemeContext.Provider>
   );

@@ -1,10 +1,13 @@
 import { Redirect, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useTheme } from "styled-components/native";
 
 import { useAuth } from "@/providers/AuthProvider";
+import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 export default function AuthLayout() {
   const theme = useTheme();
+  const { currentMode } = useStyledTheme();
   const { encryptedMnemonic, mnemonic } = useAuth();
   if (encryptedMnemonic && !mnemonic) {
     return <Redirect href="/enter-password" />;
@@ -36,6 +39,7 @@ export default function AuthLayout() {
       <Stack.Screen name="auth-error" options={{ headerShown: false }} />
       <Stack.Screen name="congretulation" options={{ headerShown: false }} />
       <Stack.Screen name="connect-wallet" />
+      <StatusBar style={currentMode === "dark" ? "light" : "dark"} />
     </Stack>
   );
 }

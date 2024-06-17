@@ -1,14 +1,16 @@
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import { Redirect, Tabs } from "expo-router";
-import { StatusBar } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { useTheme } from "styled-components/native";
 
 import { useAuth } from "@/providers/AuthProvider";
+import { useStyledTheme } from "@/providers/StyledThemeProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function TabLayout() {
   const { mnemonic, encryptedMnemonic } = useAuth();
   const theme = useTheme();
+  const { currentMode } = useStyledTheme();
   if (!mnemonic && !encryptedMnemonic) {
     return <Redirect href="/auth/" />;
   }
@@ -85,7 +87,7 @@ export default function TabLayout() {
           }}
         />
       </Tabs>
-      <StatusBar />
+      <StatusBar style={currentMode === "dark" ? "light" : "dark"} />
     </>
   );
 }

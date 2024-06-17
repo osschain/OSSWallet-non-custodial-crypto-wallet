@@ -6,9 +6,12 @@ import { useTheme } from "styled-components/native";
 
 import EnterPassCode from "@/components/auth/EnterPassCode";
 import { useAuth } from "@/providers/AuthProvider";
+import { useStyledTheme } from "@/providers/StyledThemeProvider";
+import { StatusBar } from "expo-status-bar";
 
 function EnterPassowrd() {
   const theme = useTheme();
+  const { currentMode } = useStyledTheme();
   const { t } = useTranslation();
 
   const { checkPassword, decryptAndSaveMnemonic, mnemonic, encryptedMnemonic } =
@@ -41,14 +44,17 @@ function EnterPassowrd() {
   }
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: theme.colors["bg-primary"] }}
-    >
-      <EnterPassCode
-        header={t("pascode.header")}
-        onPasswordFull={handlePasswordCheck}
-      />
-    </SafeAreaView>
+    <>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: theme.colors["bg-primary"] }}
+      >
+        <EnterPassCode
+          header={t("pascode.header")}
+          onPasswordFull={handlePasswordCheck}
+        />
+      </SafeAreaView>
+      <StatusBar style={currentMode === "dark" ? "light" : "dark"} />
+    </>
   );
 }
 

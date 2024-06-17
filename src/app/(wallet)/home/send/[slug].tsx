@@ -8,6 +8,7 @@ import styled from "styled-components/native";
 
 import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
+import { Amount } from "@/components/history/history-item/style";
 import SendAmountInput from "@/components/send/SendAddressInput";
 import SendConfirm from "@/components/send/SendConfirm";
 import SendDetails from "@/components/send/SendDetails";
@@ -29,7 +30,6 @@ import { calculateBalance } from "@/services/balances.service";
 import { fetchGasFee, sendTransaction } from "@/services/send.service";
 import { decrypt } from "@/util/es";
 import { findAsset } from "@/util/findAsset";
-import { Amount } from "@/components/history/history-item/style";
 
 export type DetailsType = {
   name: string; // Name of the asset
@@ -44,6 +44,7 @@ export type DetailsType = {
 
 export default function SendChain() {
   const [address, setAddress] = useState("");
+
   const [details, setDetails] = useState<DetailsType | null>(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
   const [isTransactionCreting, setisTransactionCreating] = useState(false);
@@ -151,7 +152,6 @@ export default function SendChain() {
       }
       setGasFeeWey(gasFee?.gas_fee_wei);
       const price = getPrice(asset.symbol);
-      console.log(amount);
       const details: DetailsType = {
         name: asset.name,
         symbol: asset.symbol,

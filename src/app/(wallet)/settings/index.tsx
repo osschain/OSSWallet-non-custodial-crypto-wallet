@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 
+import DarkModeSetting from "@/components/settings/DarkModeSetting";
 import HelpCenter from "@/components/settings/HelpCenter";
 import LanguageSetting from "@/components/settings/LanguageSetting";
 import LogoOut from "@/components/settings/Logout";
@@ -14,6 +15,9 @@ export default function Settings() {
     <ScrollContainerUi>
       <SpacerUi>
         <NotificationSetting />
+      </SpacerUi>
+      <SpacerUi>
+        <DarkModeSetting />
       </SpacerUi>
       <SpacerUi size="xl">
         <PasswordSeting />

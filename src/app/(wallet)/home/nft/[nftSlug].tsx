@@ -1,5 +1,5 @@
 import { Blockchain } from "@ankr.com/ankr.js";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
@@ -16,16 +16,27 @@ import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function Nft() {
   const { t } = useTranslation();
-  const { nftSlug, blockchain, tokenId } = useLocalSearchParams();
+  const {
+    nftSlug: contractAddress,
+    blockchain,
+    tokenId,
+  } = useLocalSearchParams();
   const {
     data: nft,
     isLoading,
     isError,
-  } = useNft(nftSlug as string, blockchain as Blockchain, tokenId as string);
+  } = useNft(
+    contractAddress as string,
+    blockchain as Blockchain,
+    tokenId as string
+  );
 
   const properties = useMemo(
     () => [
-      { label: t("wallet.home.nft.slug.contract-address"), value: nftSlug },
+      {
+        label: t("wallet.home.nft.slug.contract-address"),
+        value: contractAddress,
+      },
       { label: t("wallet.home.nft.slug.token-id"), value: tokenId },
       { label: t("shared.network"), value: blockchain },
       {
@@ -34,7 +45,7 @@ export default function Nft() {
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [nftSlug, tokenId, blockchain, nft?.contractType]
+    [contractAddress, tokenId, blockchain, nft?.contractType]
   );
 
   if (isLoading) {
@@ -74,7 +85,18 @@ export default function Nft() {
         </ContainerUi>
       </BodyUi>
       <Footer marginSize="sm">
-        <ButtonUi>{t("shared.transfer")}</ButtonUi>
+        <Link
+          href={{
+            pathname: `/(wallet)/home/nft/transfer/${contractAddress}`,
+            params: {
+              blockchain,
+              tokenId,
+            },
+          }}
+          asChild
+        >
+          <ButtonUi>{t("shared.transfer")}</ButtonUi>
+        </Link>
       </Footer>
     </ScrollView>
   );

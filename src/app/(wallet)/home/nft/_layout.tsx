@@ -17,6 +17,8 @@ export default function _layout() {
           backgroundColor: theme.colors["bg-primary"],
         },
       }}
-    />
+    >
+      <Stack.Screen name="transfer" options={{ headerShown: false }} />
+    </Stack>
   );
 }

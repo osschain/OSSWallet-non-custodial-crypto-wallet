@@ -96,6 +96,14 @@
             "token-id": "Token Id",
             "contract-type": "Contract-Type",
             "alert-error": "Sorry can't Find details"
+          },
+          "transfer": {
+            "alert-text": " The NFT will be send to this address. Be careful when sending an NFTto another user.",
+            "address-input-placeholder": "Enter Adress"
+          },
+          "updated": {
+            "alert-text": " The NFT will be send to this address. Be careful when sending an NFTto another user.",
+            "address-input-placeholder": "Enter Adress"
           }
         },
         "recieve": {
@@ -228,8 +236,12 @@
       "date": "Date",
       "confirm": "Confirm",
       "logout": "Log out",
+      "dark-mode": "Dark Mode",
+      "for-whom": "For Whom",
       "updated": {
-        "logout": "Log out"
+        "logout": "Log out",
+        "dark-mode": "Dark Mode",
+        "for-whom": "For Whom"
       }
     }
 }

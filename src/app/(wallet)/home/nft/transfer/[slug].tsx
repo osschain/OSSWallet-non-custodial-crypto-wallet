@@ -74,8 +74,7 @@ export default function TransferNft() {
       <BodyUi>
         <SpacerUi size="3xl">
           <BodyTextUi weight="semi" color="text-second">
-            The NFT will be send to this address. Be careful when sending an NFT
-            to another user.
+            {t("wallet.home.nft.transfer.alert-text")}
           </BodyTextUi>
         </SpacerUi>
         <SpacerUi>
@@ -88,7 +87,7 @@ export default function TransferNft() {
           />
         </SpacerUi>
         <SpacerUi size="3xl">
-          <HeaderTextUi>{t("wallet.home.send.for-whom")}</HeaderTextUi>
+          <HeaderTextUi>{t("shared.for-whom")}</HeaderTextUi>
           <SpacerUi size="lg">
             <TextInputUi
               onChangeText={(text) => setAddress(text)}
@@ -103,7 +102,7 @@ export default function TransferNft() {
                 />
               }
               placeholder={t(
-                "wallet.home.send.send-details.addres-input-placeholder"
+                "wallet.home.nft.transfer.address-input-placeholder"
               )}
             />
           </SpacerUi>
@@ -119,7 +118,7 @@ export default function TransferNft() {
           disabled={!isCorrectAddress || !details}
           variant={isCorrectAddress && details ? "primary" : "secondary"}
         >
-          Confirm
+          {t("shared.confirm")}
         </ButtonUi>
       </FooterUi>
     </ScrollContainerUi>

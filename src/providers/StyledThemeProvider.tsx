@@ -1,8 +1,10 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, {
   createContext,
   useContext,
   useState,
   PropsWithChildren,
+  useEffect,
 } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components/native";
 
@@ -22,6 +24,26 @@ type modes = "light" | "dark";
 
 const StyledThemeProvider = ({ children }: PropsWithChildren) => {
   const [currentMode, setCurrentMode] = useState<modes>("light");
+
+  useEffect(() => {
+    const bootAsync = async () => {
+      const theme = await AsyncStorage.getItem("theme");
+
+      if (theme) {
+        setCurrentMode(theme as unknown as modes);
+      }
+    };
+
+    bootAsync();
+  }, []);
+
+  useEffect(() => {
+    const bootAsync = async () => {
+      await AsyncStorage.setItem("theme", currentMode);
+    };
+
+    bootAsync();
+  }, [currentMode]);
 
   const toggleTheme = () => {
     setCurrentMode((prevMode) => (prevMode === "light" ? "dark" : "light"));

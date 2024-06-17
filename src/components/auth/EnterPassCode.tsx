@@ -182,6 +182,8 @@ const Key = styled.TouchableOpacity`
 `;
 
 const CustomKeyboard = styled.View`
+  width: 85%;
+  margin: auto;
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;

@@ -23,8 +23,11 @@ export default function TabLayout() {
         screenOptions={{
           tabBarActiveTintColor: theme.colors["text-primary"],
           tabBarInactiveTintColor: theme.colors["text-second"],
+          headerTintColor: theme.colors["text-primary"],
+
           tabBarStyle: {
             paddingTop: 10,
+            backgroundColor: theme.colors["bg-primary"],
           },
         }}
         sceneContainerStyle={{

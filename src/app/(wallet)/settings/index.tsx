@@ -16,7 +16,7 @@ export default function Settings() {
       <SpacerUi>
         <NotificationSetting />
       </SpacerUi>
-      <SpacerUi>
+      <SpacerUi size="xl">
         <DarkModeSetting />
       </SpacerUi>
       <SpacerUi size="xl">

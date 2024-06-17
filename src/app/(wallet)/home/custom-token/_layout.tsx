@@ -13,8 +13,10 @@ export default function _layout() {
       screenOptions={{
         headerShadowVisible: false,
         headerTitleAlign: "center",
-        headerLeft: () => (Platform.OS === "ios" ? <IosHeaderLeft /> : null),
+        headerStyle: { backgroundColor: theme.colors["bg-primary"] },
+        headerTintColor: theme.colors["text-primary"],
 
+        headerLeft: () => (Platform.OS === "ios" ? <IosHeaderLeft /> : null),
         contentStyle: {
           backgroundColor: theme.colors["bg-primary"],
         },

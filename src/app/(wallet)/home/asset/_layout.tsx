@@ -10,7 +10,9 @@ export default function _layout() {
     <Stack
       screenOptions={{
         headerShadowVisible: false,
+        headerStyle: { backgroundColor: theme.colors["bg-primary"] },
         headerTitleAlign: "center",
+        headerTintColor: theme.colors["text-primary"],
         headerLeft: () => (Platform.OS === "ios" ? <IosHeaderLeft /> : null),
         contentStyle: {
           backgroundColor: theme.colors["bg-primary"],

@@ -10,6 +10,9 @@ export default function _layout() {
       screenOptions={{
         headerShadowVisible: false,
         headerTitleAlign: "center",
+        headerStyle: { backgroundColor: theme.colors["bg-primary"] },
+        headerTintColor: theme.colors["text-primary"],
+
         contentStyle: {
           backgroundColor: theme.colors["bg-primary"],
         },

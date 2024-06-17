@@ -10,6 +10,9 @@ export default function _layout() {
       screenOptions={{
         headerShadowVisible: false,
         headerTitleAlign: "center",
+        headerStyle: { backgroundColor: theme.colors["bg-primary"] },
+        headerTintColor: theme.colors["text-primary"],
+
         contentStyle: {
           backgroundColor: theme.colors["bg-primary"],
         },
@@ -20,8 +23,11 @@ export default function _layout() {
         options={{ title: t("wallet.swap.index.title") }}
       />
       <Stack.Screen
-        name={t("wallet.swap.swap-in-progress.title")}
-        options={{ headerShown: false }}
+        name="swap-in-progress"
+        options={{
+          headerShown: false,
+          title: t("wallet.swap.swap-in-progress.title"),
+        }}
       />
     </Stack>
   );

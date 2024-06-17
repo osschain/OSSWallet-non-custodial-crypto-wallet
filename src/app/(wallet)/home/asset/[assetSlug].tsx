@@ -15,7 +15,6 @@ export default function Asset() {
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
-
   if (!asset || !slug || typeof slug !== "string") {
     return (
       <ContainerUi>
@@ -28,7 +27,11 @@ export default function Asset() {
 
   return (
     <ContainerUi>
-      <Stack.Screen options={{ title: asset.name }} />
+      <Stack.Screen
+        options={{
+          title: asset.name,
+        }}
+      />
       <SpacerUi size="4xl">
         <AssetDetails asset={asset} slug={slug} />
       </SpacerUi>

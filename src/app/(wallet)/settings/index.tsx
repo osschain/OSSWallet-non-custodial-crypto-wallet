@@ -42,6 +42,6 @@ export default function Settings() {
   );
 }
 const Line = styled.View`
-  border-width: 1px;
+  border-width: 1.5px;
   border-color: ${({ theme }) => theme.colors["border-color"]};
 `;

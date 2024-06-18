@@ -109,13 +109,14 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
             {inputs.map((input, index) => {
               return (
                 <Input key={index}>
-                  <HeaderTextUi
-                    weight="bold"
-                    size="3xl"
-                    style={{ lineHeight: 62 }}
-                  >
-                    {input !== null && "*"}
-                  </HeaderTextUi>
+                  {input !== null && (
+                    <IconUi
+                      size="xl"
+                      color="text-second"
+                      library="FontAwesome"
+                      name="asterisk"
+                    />
+                  )}
                 </Input>
               );
             })}

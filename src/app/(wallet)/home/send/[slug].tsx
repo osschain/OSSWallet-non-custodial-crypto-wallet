@@ -8,7 +8,6 @@ import styled from "styled-components/native";
 
 import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
-import { Amount } from "@/components/history/history-item/style";
 import SendAmountInput from "@/components/send/SendAddressInput";
 import SendConfirm from "@/components/send/SendConfirm";
 import SendDetails from "@/components/send/SendDetails";
@@ -196,6 +195,7 @@ export default function SendChain() {
 
   return (
     <ScrollContainerUi>
+      <Stack.Screen options={{ title: `${t("shared.send")} ${asset?.name}` }} />
       <SendConfirm
         isDetialsLoading={loadingDetails}
         isLoading={isTransactionCreting}
@@ -212,7 +212,6 @@ export default function SendChain() {
         }}
       />
 
-      <Stack.Screen options={{ title: `${t("shared.send")} ${asset?.name}` }} />
       <BodyUi>
         <SpacerUi size="3xl">
           <MessageUi>{t("wallet.home.send.warning")}</MessageUi>

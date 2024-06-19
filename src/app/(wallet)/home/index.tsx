@@ -1,5 +1,6 @@
 import { router } from "expo-router";
 import { useState } from "react";
+import { View } from "react-native";
 import Animated, { FadeInRight } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import styled from "styled-components/native";
@@ -46,8 +47,14 @@ const HomeSegment = () => {
         }}
       />
       <SegmentContainer>
-        {segment === "Assets" && <HomeAssets />}
-        {segment === "NFTs" && <HomeNfts />}
+        <View style={{ display: segment === "Assets" ? "flex" : "none" }}>
+          <HomeAssets />
+        </View>
+        <View
+          style={{ display: segment === "NFTs" ? "flex" : "none", flex: 1 }}
+        >
+          <HomeNfts />
+        </View>
       </SegmentContainer>
     </>
   );

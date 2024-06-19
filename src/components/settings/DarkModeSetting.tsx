@@ -9,7 +9,7 @@ import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 const DarkModeSetting = () => {
   const { t } = useTranslation();
-  const { toggleTheme } = useStyledTheme();
+  const { toggleTheme, currentMode } = useStyledTheme();
   const handleDarkModeToggle = (isEnabled: boolean) => {
     toggleTheme();
   };
@@ -31,7 +31,10 @@ const DarkModeSetting = () => {
         </Title>
       </Left>
       <Right>
-        <SwitchUi onSwitch={handleDarkModeToggle} />
+        <SwitchUi
+          value={currentMode === "dark"}
+          onSwitch={handleDarkModeToggle}
+        />
       </Right>
     </Setting>
   );

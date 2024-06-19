@@ -1,3 +1,5 @@
+import { Blockchain } from "@ankr.com/ankr.js";
+
 export const chainIds = {
     "arbitrum": 42161, // Official Chain ID for Arbitrum One
     "avalanche": 43114, // Official Chain ID for Avalanche C-Chain
@@ -21,3 +23,8 @@ export const chainIds = {
     "btc": 0, // Not applicable, but traditionally BTC is identified as 0
     "solana": 101, // Solana does not use EVM-based Chain IDs, but it’s often referenced with 101 for Mainnet Beta
 };
+
+
+
+
+export const blockchains: Blockchain[] = ["polygon", "eth", "polygon", "bsc", "avalanche", "polygon_zkevm", "optimism"]

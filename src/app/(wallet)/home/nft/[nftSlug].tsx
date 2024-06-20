@@ -1,5 +1,5 @@
 import { Blockchain } from "@ankr.com/ankr.js";
-import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
@@ -62,7 +62,6 @@ export default function Nft() {
 
   return (
     <ScrollView style={{ flexBasis: 1 }}>
-      <Stack.Screen options={{ title: t("shared.NFT") }} />
       <BodyUi>
         <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
         <ContainerUi>

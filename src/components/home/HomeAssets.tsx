@@ -39,10 +39,15 @@ const HomeAssets = () => {
     assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4) ||
     0;
 
-  const change = (symbol: string) =>
+  const priceChange = (symbol: string) =>
     Number(
       assetPrices
-        ?.find((asset) => asset.symbol === symbol)
+        ?.find((asset) => {
+          return (
+            asset.symbol === symbol ||
+            (asset.symbol === "MATIC" && symbol === "zkEVM")
+          );
+        })
         ?.price_change_24h.toFixed(2)
     ) || 0;
 
@@ -88,14 +93,14 @@ const HomeAssets = () => {
                             size="sm"
                             style={{
                               color:
-                                change(item.symbol) > 0
+                                priceChange(item.symbol) > 0
                                   ? theme.colors["green-700"]
                                   : theme.colors["red-700"],
                             }}
                           >
-                            {change(item.symbol) > 0
-                              ? "+" + change(item.symbol) + " %"
-                              : change(item.symbol) + " %"}
+                            {priceChange(item.symbol) > 0
+                              ? "+" + priceChange(item.symbol) + " %"
+                              : priceChange(item.symbol) + " %"}
                           </BodyTextUi>
                         </View>
                       }

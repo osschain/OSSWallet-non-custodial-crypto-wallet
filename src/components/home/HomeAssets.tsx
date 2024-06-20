@@ -72,7 +72,10 @@ const HomeAssets = () => {
         <>
           {item.isShown && (
             <Spacer
-              style={{ marginTop: index === 0 ? 14 : 7, marginBottom: 7 }}
+              style={{
+                marginTop: index === 0 ? 14 : 7,
+                marginBottom: assets.length - 1 === index ? 14 : 7,
+              }}
             >
               <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
                 <TouchableOpacity>

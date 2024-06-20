@@ -20,12 +20,14 @@ export const useNfts = (page: number) => {
 
             const nfts = await getEvmNfts(assetsManager.evmAddress, page, undefined)
 
+            if (!nfts) {
+                throw new Error()
+            }
             return nfts
         },
         placeholderData: keepPreviousData,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
-        retry: false
     });
 
 };

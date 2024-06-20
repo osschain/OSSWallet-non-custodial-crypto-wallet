@@ -1,5 +1,6 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { Wallet } from "ethers";
 import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -18,7 +19,6 @@ import {
   getTokenProperties,
   isValidERC20Addres,
 } from "@/services/token.service";
-import { Wallet } from "ethers";
 
 export default function AddCustomToken() {
   const [loading, setLoading] = useState(false);

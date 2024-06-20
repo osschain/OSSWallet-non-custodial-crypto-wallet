@@ -1,5 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native";
 
 import { AssetType } from "@/@types/assets";
@@ -8,7 +9,8 @@ import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components/native";
+import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 export type Ref = BottomSheetModal;
 
@@ -20,6 +22,8 @@ type Props = {
 
 const AssetOptions = forwardRef<Ref, Props>(
   ({ assets, defSelected, onSelect = () => {} }, ref) => {
+    const theme = useTheme();
+    const { currentMode } = useStyledTheme();
     const { t } = useTranslation();
     const snapPoints = useMemo(() => ["95%", "95%"], []);
     const [selected, setSelected] = useState(defSelected || null);
@@ -36,7 +40,20 @@ const AssetOptions = forwardRef<Ref, Props>(
     }, [assets, searchQuery]);
 
     return (
-      <BottomSheetModal ref={ref} index={0} snapPoints={snapPoints}>
+      <BottomSheetModal
+        handleStyle={{
+          backgroundColor: theme.colors["bg-primary"],
+        }}
+        backgroundStyle={{ backgroundColor: theme.colors["bg-primary"] }}
+        handleIndicatorStyle={{
+          backgroundColor:
+            currentMode === "dark" ? theme.colors["pure-white"] : "black",
+          borderWidth: 0,
+        }}
+        ref={ref}
+        index={0}
+        snapPoints={snapPoints}
+      >
         <ContainerUi>
           <SpacerUi size="3xl">
             <TextInputUi

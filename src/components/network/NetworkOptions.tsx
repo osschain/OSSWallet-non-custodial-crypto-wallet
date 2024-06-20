@@ -13,6 +13,8 @@ import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
+import { useTheme } from "styled-components/native";
+import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 export type Ref = BottomSheetModal;
 
@@ -33,6 +35,8 @@ const NetworkOptions = forwardRef<Ref, Props>(
         return null;
       }
     });
+    const theme = useTheme();
+    const { currentMode } = useStyledTheme();
 
     const [searchQuery, setSearchQuery] = useState("");
     const { t } = useTranslation();
@@ -74,6 +78,15 @@ const NetworkOptions = forwardRef<Ref, Props>(
           {selected && selected}
         </NetworkButton>
         <BottomSheetModal
+          handleStyle={{
+            backgroundColor: theme.colors["bg-primary"],
+          }}
+          backgroundStyle={{ backgroundColor: theme.colors["bg-primary"] }}
+          handleIndicatorStyle={{
+            backgroundColor:
+              currentMode === "dark" ? theme.colors["pure-white"] : "black",
+            borderWidth: 0,
+          }}
           ref={bottomSheetRef}
           index={0}
           snapPoints={snapPoints}

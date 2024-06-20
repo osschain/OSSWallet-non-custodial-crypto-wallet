@@ -8,6 +8,7 @@ import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 export type Ref = BottomSheetModal;
 
@@ -22,7 +23,7 @@ const LocaleOptions = forwardRef<Ref, Props>(
     const snapPoints = useMemo(() => ["45%", "45%"], []);
     const [selected, setSelected] = useState(defSelected || null);
     const theme = useTheme();
-
+    const { currentMode } = useStyledTheme();
     const bootstrapAsync = async () => {
       const lang = await AsyncStorage.getItem("lang");
       if (lang) {
@@ -34,6 +35,15 @@ const LocaleOptions = forwardRef<Ref, Props>(
     bootstrapAsync();
     return (
       <BottomSheetModal
+        handleStyle={{
+          backgroundColor: theme.colors["bg-primary"],
+        }}
+        backgroundStyle={{ backgroundColor: theme.colors["bg-primary"] }}
+        handleIndicatorStyle={{
+          backgroundColor:
+            currentMode === "dark" ? theme.colors["pure-white"] : "black",
+          borderWidth: 0,
+        }}
         handleStyle={{
           borderTopWidth: 1,
           borderColor: theme.colors["border-color"],

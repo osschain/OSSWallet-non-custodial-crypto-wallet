@@ -6,7 +6,7 @@ import History from "@/models/history.model";
 import { OSSblockchain, getEvmChainHistories, getEvmTokenHistories, getEvmHistory } from "@/services/history.service";
 
 
-export const useHistories = (page: number) => {
+export const useHistories = (page: number, pageToken: string | undefined) => {
     const { data: assetManager } = useAssets()
     return useQuery({
         queryKey: ["histories", page],
@@ -15,7 +15,7 @@ export const useHistories = (page: number) => {
                 throw new Error("assets is not presented");
             }
 
-            const history = await getEvmHistory(assetManager.evmAddress, page, assetManager.shownEvmBlockchain);
+            const history = await getEvmHistory(assetManager.evmAddress, page, assetManager.shownEvmBlockchain, pageToken);
 
             const filteredHistory = history.histories.filter(history => assetManager.shownIds.includes(history.id.toLowerCase()))
 
@@ -35,9 +35,10 @@ type UseHistoryProps = {
     blockchain: OSSblockchain | undefined;
     isToken: boolean;
     page: number;
+    pageToken: string | undefined;
 };
 
-export const useHistory = ({ address, id, blockchain, isToken, page }: UseHistoryProps) => {
+export const useHistory = ({ address, id, blockchain, isToken, page, pageToken }: UseHistoryProps) => {
     return useQuery({
         queryKey: ["history", id, page],
         queryFn: async () => {
@@ -66,12 +67,12 @@ export const useHistory = ({ address, id, blockchain, isToken, page }: UseHistor
             let history: History | undefined;
 
             if (!isToken) {
-                const evmChainHistory = await getEvmChainHistories({ address, blockchain, page });
+                const evmChainHistory = await getEvmChainHistories({ address, blockchain, page, pageToken });
                 history = evmChainHistory;
             }
 
             if (isToken) {
-                const evmTokenHistory = await getEvmTokenHistories({ address, blockchain, page });
+                const evmTokenHistory = await getEvmTokenHistories({ address, blockchain, page, pageToken });
                 history = evmTokenHistory;
             }
 

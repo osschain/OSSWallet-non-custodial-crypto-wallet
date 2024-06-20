@@ -17,6 +17,8 @@ import { findAsset } from "@/util/findAsset";
 const AssetHistory = () => {
   const { assetSlug: slug } = useLocalSearchParams();
   const [page, setPage] = useState(10);
+  const [pageToken, setPageToken] = useState<string | undefined>();
+
   const { data: assetManager } = useAssets();
   const queryClient = useQueryClient();
   const assets = assetManager?.assets;
@@ -35,6 +37,7 @@ const AssetHistory = () => {
     blockchain,
     isToken,
     page,
+    pageToken,
   });
 
   const { t } = useTranslation();
@@ -58,7 +61,10 @@ const AssetHistory = () => {
   }
 
   const handlePagination = () => {
-    setPage((prev) => prev + 20);
+    if (history?.nextPageToken) {
+      setPageToken(history.nextPageToken);
+      setPage((prev) => prev + 10);
+    }
   };
 
   const checkAddres = (from: string | undefined): variants | undefined => {

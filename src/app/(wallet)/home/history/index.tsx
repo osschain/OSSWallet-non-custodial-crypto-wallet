@@ -20,6 +20,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function History() {
   const [page, setPage] = useState(20);
+  const [pageToken, setPageToken] = useState<string | undefined>();
 
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -29,7 +30,7 @@ export default function History() {
     isLoading,
     isError,
     isRefetching,
-  } = useHistories(page);
+  } = useHistories(page, pageToken);
   const histories = history?.histories;
   const { data: networks } = UseNetworks();
 
@@ -58,7 +59,10 @@ export default function History() {
   }
 
   const handlePagination = () => {
-    setPage((prev) => prev + 40);
+    if (history?.nextPageToken) {
+      setPageToken(history.nextPageToken);
+      setPage((prev) => prev + 40);
+    }
   };
 
   return (

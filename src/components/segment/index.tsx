@@ -3,6 +3,7 @@ import { TouchableOpacity, useWindowDimensions } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 type Props = {
   options: string[];
@@ -23,7 +24,7 @@ const SegmentedControl: React.FC<Props> = React.memo(
     const [slOption, setslOption] = useState(selectedOption);
     const internalPadding = 20;
     const segmentedControlWidth = windowWidth;
-
+    const { currentMode } = useStyledTheme();
     const itemWidth =
       (segmentedControlWidth - internalPadding) / options.length;
 
@@ -39,6 +40,7 @@ const SegmentedControl: React.FC<Props> = React.memo(
       <Container
         style={[
           {
+            borderBottomWidth: currentMode === "dark" ? 0 : 0.2,
             width: segmentedControlWidth,
             paddingLeft: internalPadding / 2,
           },
@@ -99,7 +101,6 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
   height: 55px;
-  border-bottom-width: 0.2px;
   border-color: ${($props) => $props.theme.colors["blue-500"]};
 `;
 

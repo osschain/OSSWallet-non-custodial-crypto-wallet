@@ -43,6 +43,7 @@ const CustomTokenAssetList = ({ query }: { query: string }) => {
   return (
     <FlatList
       contentContainerStyle={{ paddingTop: 10 }}
+      showsVerticalScrollIndicator={false}
       data={filteredAssets}
       renderItem={({ item }) => (
         <SpacerUi size="xl" position="bottom">

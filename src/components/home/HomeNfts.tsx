@@ -37,6 +37,7 @@ const HomeNfts = () => {
   return (
     <FlatList
       data={nfts}
+      showsVerticalScrollIndicator={false}
       key={2}
       numColumns={2}
       columnWrapperStyle={{

@@ -62,6 +62,7 @@ export default function Send() {
       </SpacerUi>
       <SpacerUi size="xl" style={{ flex: 1 }}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={filteredAssets}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (

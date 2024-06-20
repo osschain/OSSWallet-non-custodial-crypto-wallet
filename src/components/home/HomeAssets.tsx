@@ -68,6 +68,7 @@ const HomeAssets = () => {
   return (
     <FlatList
       data={assets}
+      showsVerticalScrollIndicator={false}
       renderItem={({ item, index }) => (
         <>
           {item.isShown && (

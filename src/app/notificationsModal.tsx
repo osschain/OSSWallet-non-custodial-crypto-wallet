@@ -33,6 +33,7 @@ export default function ModalScreen() {
       <SpacerUi size="xl" />
       <FlatList
         data={notifs}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <SpacerUi size="xl" position="bottom">
             <TouchableOpacity

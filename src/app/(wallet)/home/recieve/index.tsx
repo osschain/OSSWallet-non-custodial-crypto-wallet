@@ -9,6 +9,7 @@ import { useAssets } from "@/app/api/assets";
 import { UseNetworks } from "@/app/api/network";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
+import BodyTextUi from "@/components/ui/BodyTextUi";
 import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
@@ -16,7 +17,6 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
 import { findAsset } from "@/util/findAsset";
-import BodyTextUi from "@/components/ui/BodyTextUi";
 
 export default function Recieve() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
@@ -58,6 +58,7 @@ export default function Recieve() {
       </SpacerUi>
       <SpacerUi size="xl" style={{ flex: 1 }}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={filteredAssets}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <AssetItem asset={item} assets={assets} />}

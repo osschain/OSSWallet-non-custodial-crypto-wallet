@@ -88,6 +88,7 @@ const AssetHistory = () => {
   return (
     <FlatList
       data={assetHistory}
+      showsVerticalScrollIndicator={false}
       renderItem={({ item }) => (
         <>
           <SpacerUi size="xl" position="bottom">

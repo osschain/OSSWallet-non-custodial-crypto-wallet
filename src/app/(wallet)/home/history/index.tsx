@@ -125,6 +125,7 @@ const RenderHistoryITem = ({
   return (
     <FlatList
       data={histories}
+      showsVerticalScrollIndicator={false}
       renderItem={({ item }) => (
         <SpacerUi size="xl" position="bottom">
           <TouchableOpacity

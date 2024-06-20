@@ -63,10 +63,12 @@ const HomeAssets = () => {
   return (
     <FlatList
       data={assets}
-      renderItem={({ item }) => (
+      renderItem={({ item, index }) => (
         <>
           {item.isShown && (
-            <Spacer>
+            <Spacer
+              style={{ marginTop: index === 0 ? 14 : 7, marginBottom: 7 }}
+            >
               <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
                 <TouchableOpacity>
                   <Asset>
@@ -137,9 +139,7 @@ const HomeAssets = () => {
   );
 };
 
-const Spacer = styled.View`
-  padding: ${({ theme }) => theme.spaces["lg"]} 0;
-`;
+const Spacer = styled.View``;
 
 const Asset = styled.View`
   background-color: ${({ theme }) => theme.colors["bg-second"]};

@@ -12,6 +12,10 @@ export default function _layout() {
         headerShadowVisible: false,
         headerTitleAlign: "center",
         headerLeft: () => (Platform.OS === "ios" ? <IosHeaderLeft /> : null),
+        headerStyle: {
+          backgroundColor: theme.colors["bg-primary"],
+        },
+        headerTintColor: theme.colors["text-primary"],
         contentStyle: {
           backgroundColor: theme.colors["bg-primary"],
         },

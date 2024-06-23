@@ -30,6 +30,8 @@ export default function TabLayout() {
           tabBarStyle: {
             paddingTop: 10,
             backgroundColor: theme.colors["bg-primary"],
+            borderTopColor: theme.colors["border-color"],
+            borderTopWidth: 1,
           },
         }}
         sceneContainerStyle={{

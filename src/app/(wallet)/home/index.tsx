@@ -1,5 +1,6 @@
 import { router } from "expo-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import Animated, { FadeInRight } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -12,9 +13,9 @@ import SegmentedControl from "@/components/segment";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 type Segment = "Assets" | "NFTs";
-const segmentOptions: Segment[] = ["Assets", "NFTs"];
 export default function Home() {
   const insets = useSafeAreaInsets();
+
   return (
     <Container style={{ paddingTop: insets.top }}>
       <Animated.View entering={FadeInRight.duration(300)} style={{ flex: 1 }}>
@@ -36,6 +37,11 @@ export default function Home() {
 
 const HomeSegment = () => {
   const [segment, setSegment] = useState<Segment>("Assets");
+  const { t } = useTranslation();
+
+  const segmentOptions = useMemo((): Segment[] => {
+    return [t("shared.assets"), "NFTs"];
+  }, [t]);
 
   return (
     <>

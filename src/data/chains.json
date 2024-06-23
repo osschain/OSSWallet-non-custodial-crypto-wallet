@@ -1,5 +1,5 @@
 [
-	{
+  {
     "id": "0x655304E9Cc103b47f0afa0825767D6cCe426717C",
     "name": "OSSChain",
     "icon": "https://assets.osschain.com/icon/osschain.svg",
@@ -19,18 +19,16 @@
     "blockchain": "btc",
     "isShown": true,
     "isNetwork": false
-
   },
   {
     "id": "eth",
     "name": "Ethereum",
     "icon": "https://assets.osschain.com/icon/ethereum-eth.svg",
     "symbol": "ETH",
-    "slip-0044":60,
+    "slip-0044": 60,
     "blockchain": "eth",
     "isShown": true,
     "isNetwork": true
-
   },
   {
     "id": "polygon",
@@ -41,7 +39,6 @@
     "blockchain": "polygon",
     "isShown": true,
     "isNetwork": true
-
   },
   {
     "id": "solana",
@@ -50,9 +47,8 @@
     "symbol": "SOL",
     "slip-0044": 501,
     "blockchain": "solana",
-    "isShown": false,
+    "isShown": true,
     "isNetwork": false
-
   },
   {
     "id": "bsc",
@@ -63,7 +59,6 @@
     "blockchain": "bsc",
     "isShown": true,
     "isNetwork": true
-
   },
   {
     "id": "avalanche",
@@ -74,7 +69,6 @@
     "blockchain": "avalanche",
     "isShown": true,
     "isNetwork": true
-
   },
   {
     "id": "polygon_zkevm",
@@ -85,7 +79,6 @@
     "blockchain": "polygon_zkevm",
     "isShown": true,
     "isNetwork": true
-
   },
   {
     "id": "optimism",

@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.View`
   flex: 1;
@@ -32,7 +33,7 @@ export default function CameraUi({
   ...rest
 }: ComponentPropsWithRef<typeof CameraView>) {
   const [permission, requestPermission] = useCameraPermissions();
-
+  const { t } = useTranslation();
   if (!permission) {
     // Camera permissions are still loading
     return <View />;
@@ -43,10 +44,10 @@ export default function CameraUi({
     return (
       <Container>
         <StyledHeaderTextUi size="xl" style={{ textAlign: "center" }}>
-          We need your permission to show the camera
+          {t("camera.ask-permision")}
         </StyledHeaderTextUi>
         <Button variant="primary" onPress={requestPermission}>
-          Grant Permission{" "}
+          {t("camera.grant-permision")}
         </Button>
       </Container>
     );

@@ -203,6 +203,10 @@
     "remove-session": "Remove Session",
     "current-passcode": "Current Pass Code"
   },
+  "camera": {
+    "ask-permision": "We need your permission to show the camera",
+    "grant-permision": "Grant Permission"
+  },
   "networks": {
     "alert-error": "Can't find networks"
   },
@@ -240,6 +244,7 @@
     "logout": "Log out",
     "dark-mode": "Dark Mode",
     "for-whom": "For Whom",
+    "assets": "Assets",
     "updated": {
       "logout": "Log out",
       "dark-mode": "Dark Mode",

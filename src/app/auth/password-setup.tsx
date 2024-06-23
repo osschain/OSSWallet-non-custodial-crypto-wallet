@@ -31,7 +31,7 @@ function PasswordSetup() {
         />
       ) : (
         <EnterPassCode
-          header={t("auth.password-setup.confirm-passocde")}
+          header={t("pascode.confirm-header")}
           onPasswordFull={(password) => setConfirmPassword(password)}
         />
       )}

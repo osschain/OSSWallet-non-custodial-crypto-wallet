@@ -33,7 +33,6 @@ type Props = {
 function EnterPassCode({ onPasswordFull, header }: Props) {
   const { t } = useTranslation();
   const [inputs, setInputs] = useState(Array(passwordLength).fill(null));
-  const theme = useTheme();
   const clearInputs = () => {
     setInputs(Array(passwordLength).fill(null));
   };

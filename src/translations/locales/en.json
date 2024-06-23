@@ -1,253 +1,249 @@
 {
-    "auth": {
-      "index": {
-        "header": "OSSWallet",
-        "description": "OSSWallet allows you to make fast and secure blockchain-based payments without intermediaries.",
-        "connect-wallet": "Add existing wallet",
-        "create-new": "Create a new wallet"
-      },
-      "mnemonic-creating": {
-        "header": "Take a pen and paper",
-        "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key on the devices.",
-        "no-mnemonic-error": "Sorry we can't generate mnemonic, go back and try again",
-        "making-wallet": "Making a mnemonic Phrase..."
-      },
-      "mnemonic-checking": {
-        "header": "Let's check",
-        "description": "To make sure you spelled the words correctly, enter words",
-        "checking-error": "Words are not correct"
-      }, 
-      "mnemonic-back-uping": {
-        "header": "OSSWallet",
-        "description": "Write these 12 words in exactly that order and hide them in a safe place."
-      },
-      "congretulation": {
-        "header": "Congratulations",
-        "description": "Your wallet successfully created.",
-        "go-to-the-wallet": "Go To The Wallet",
-        "importing-description": "Your wallet successfully imported.",
-        "creating-description": "Your wallet successfully created.",
-        "updated": {
-          "importing-description": "Your wallet successfully imported.",
-          "creating-description": "Your wallet successfully created.",
-        }
-      },
-      "connect-wallet": {
-        "header": "Enter the secret key",
-        "description": "To restore access, enter the 12 secret words you received when creating a wallet",
-        "scannned-error":"Scanned Mnemonic is not valid try other",
-        "format-error":"Mnemonic Phrase does not have correct format, make sure to put 12 word and remove extra spaces",
-        "connect-wallet": "Add existing wallet"
-      },
-      "password-setup": {
-        "header": "Create Passcode",
-        "description": "We will use your passcode for secure your mnemonic phrase, so create strong passcode",
-        "password-setup-header": "Create passcode", 
-        "password-setup-description": "We will use your passcode for secure your mnemonic phrase, so create strong passcode", 
-        "password-required": "Passcode is required",
-        "password-min-length": "Passcode must contain at least 8 characters",
-        "password-confirm-required": "Please confirm your passcode",
-        "password-match": "Passcode must match",
-        "enter-passcode": "Enter Passcode",
-        "confirm-passocde": "Confirm-passcode"
-      },
-      "creating-wallet": {
-        "wallet-is-creating": "Wallet is Creatinng",
-        "wallet-is-imporing": "Wallet is importing",
-        "updated": {
-          "wallet-is-creating": "Wallet is Creatinng",
-          "wallet-is-imporing": "Wallet is importing"
-        }
-      }
-     
+  "auth": {
+    "index": {
+      "header": "OSSWallet",
+      "description": "OSSWallet allows you to make fast and secure blockchain-based payments without intermediaries.",
+      "connect-wallet": "Add existing wallet",
+      "create-new": "Create a new wallet"
     },
-    "wallet": {
-      "home": {
+    "mnemonic-creating": {
+      "header": "Take a pen and paper",
+      "description": "Get ready to write down the secret key. This is the only way to regain access to the wallet. It is safest not to store the key on the devices.",
+      "no-mnemonic-error": "Sorry we can't generate mnemonic, go back and try again",
+      "making-wallet": "Making a mnemonic Phrase..."
+    },
+    "mnemonic-checking": {
+      "header": "Let's check",
+      "description": "To make sure you spelled the words correctly, enter words",
+      "checking-error": "Words are not correct"
+    },
+    "mnemonic-back-uping": {
+      "header": "OSSWallet",
+      "description": "Write these 12 words in exactly that order and hide them in a safe place."
+    },
+    "congretulation": {
+      "header": "Congratulations",
+      "description": "Your wallet successfully created.",
+      "go-to-the-wallet": "Go To The Wallet",
+      "importing-description": "Your wallet successfully imported.",
+      "creating-description": "Your wallet successfully created.",
+      "updated": {
+        "importing-description": "Your wallet successfully imported.",
+        "creating-description": "Your wallet successfully created."
+      }
+    },
+    "connect-wallet": {
+      "header": "Enter the secret key",
+      "description": "To restore access, enter the 12 secret words you received when creating a wallet",
+      "scannned-error": "Scanned Mnemonic is not valid try other",
+      "format-error": "Mnemonic Phrase does not have correct format, make sure to put 12 word and remove extra spaces",
+      "connect-wallet": "Add existing wallet"
+    },
+    "password-setup": {
+      "header": "Create Passcode",
+      "description": "We will use your passcode for secure your mnemonic phrase, so create strong passcode",
+      "password-setup-header": "Create passcode",
+      "password-setup-description": "We will use your passcode for secure your mnemonic phrase, so create strong passcode",
+      "password-required": "Passcode is required",
+      "password-min-length": "Passcode must contain at least 8 characters",
+      "password-confirm-required": "Please confirm your passcode",
+      "password-match": "Passcode must match",
+      "enter-passcode": "Enter Passcode",
+      "confirm-passocde": "Confirm-passcode"
+    },
+    "creating-wallet": {
+      "wallet-is-creating": "Wallet is Creatinng",
+      "wallet-is-imporing": "Wallet is importing",
+      "updated": {
+        "wallet-is-creating": "Wallet is Creatinng",
+        "wallet-is-imporing": "Wallet is importing"
+      }
+    }
+  },
+  "wallet": {
+    "home": {
+      "index": {
+        "nft-allert-error": "Can't find NFTS",
+        "asset-allert-error": "Can't find Assets"
+      },
+      "asset": {
+        "error": "Something went wrong",
+        "history-error": "there is no history",
+        "more-history-error": "There is no more histories"
+      },
+      "custom-token": {
         "index": {
-          "nft-allert-error":"Can't find NFTS",
-          "asset-allert-error": "Can't find Assets"
+          "title": "Custom Tokens",
+          "no-custom-tokens-alert": "Custom tokens haven’t been added. You can search for tokens or add them manually",
+          "add-button-text": "Add Custom Token",
+          "search-input-placeholder": "Search by name or paste address"
         },
-        "asset": {
-          "error": "Something went wrong",
-          "history-error": "there is no history",
-          "more-history-error": "There is no more histories"
+        "add-custom-token": {
+          "cant-find-error": "Can't find token",
+          "cant-generate-error": "Can't Generate Asset",
+          "cant-add-addres": "can't add Addres there is error",
+          "title": "Add Custom Tokens",
+          "import-token-button": "Import Token",
+          "adress-input-placeholder": "Enter Token Address",
+          "warning-first": "Trade at your own risk!",
+          "warning-second": "Anyone can create a token, including creating fake versions of existing tokens that claim to represent projects.",
+          "warning-third": "If you purchase this token, you may not be able to sell it back.",
+          "warning-forth": "Buy adding this as a custom token, you confirm that all further interactions with it are at your own risk.",
+          "address-input-placeholder": "Enter Token Address",
+          "decimals": "Decimals",
+          "symbol": "Symbol",
+          "name": "Name"
+        }
+      },
+      "nft": {
+        "slug": {
+          "contract-address": "Contract Address",
+          "token-id": "Token Id",
+          "contract-type": "Contract-Type",
+          "alert-error": "Sorry can't Find details"
         },
-        "custom-token": {
-          "index": {
-            "title": "Custom Tokens",
-            "no-custom-tokens-alert": "Custom tokens haven’t been added. You can search for tokens or add them manually",
-            "add-button-text": "Add Custom Token",
-            "search-input-placeholder": "Search by name or paste address"
-          },
-          "add-custom-token": {
-            "cant-find-error": "Can't find token",
-            "cant-generate-error": "Can't Generate Asset",
-            "cant-add-addres": "can't add Addres there is error",
-            "title": "Add Custom Tokens",
-            "import-token-button": "Import Token",
-            "adress-input-placeholder": "Enter Token Address",
-            "warning-first": "Trade at your own risk!",
-            "warning-second": "Anyone can create a token, including creating fake versions of existing tokens that claim to represent projects.",
-            "warning-third": "If you purchase this token, you may not be able to sell it back.",
-            "warning-forth": "Buy adding this as a custom token, you confirm that all further interactions with it are at your own risk.",
-            "address-input-placeholder": "Enter Token Address",
-            "decimals": "Decimals",
-            "symbol": "Symbol",
-            "name": "Name"
-          }
+        "transfer": {
+          "alert-text": " The NFT will be send to this address. Be careful when sending an NFTto another user.",
+          "address-input-placeholder": "Enter Adress"
         },
-        "nft": {
-          "slug": {
-            "contract-address": "Contract Address",
-            "token-id": "Token Id",
-            "contract-type": "Contract-Type",
-            "alert-error": "Sorry can't Find details"
-          },
-          "transfer": {
-            "alert-text": " The NFT will be send to this address. Be careful when sending an NFTto another user.",
-            "address-input-placeholder": "Enter Adress"
-          },
+        "updated": {
+          "alert-text": " The NFT will be send to this address. Be careful when sending an NFTto another user.",
+          "address-input-placeholder": "Enter Adress"
+        }
+      },
+      "recieve": {
+        "recieve-details": {
+          "title": "Recieve",
+          "warning": "Do not send other blockchain network here!",
+          "wallet-adress": "Wallet Adress",
+          "Copy Address": "Copy Address",
+          "qr-code": "QR Code"
+        },
+        "index": {
+          "alert-error": "No Chains To Display"
+        }
+      },
+      "send": {
+        "index": {
+          "title": "Send"
+        },
+        "warning": "Check address before send, you cen't refund it",
+        "for-whom": "For Whom",
+        "send-details": {
+          "cant-send-transaction-error": "sorry there is error can't send transaction try later",
+          "wrong-fee-error": "sorry fee is changed, check new one",
+          "no-balance-error": "you don't have anouth balance",
+          "cant-fetch-details-error": "sorry can't show details",
+          "inputs-value-error": "Input values are incorrect",
+          "asset-sent-message": "Asset sent successfully",
+          "asset-sent-title": "sented",
+          "addres-input-placeholder": "Enter Address",
+          "asset": "Asset",
+          "from": "From",
+          "to": "To",
+          "fee": "Network Fee",
+          "max-total": "Max Total",
+          "title": "Tranfers",
+          "fee-is-not-same-alert": "Sorry Fee is diferent, check new and agree if you are okey",
           "updated": {
-            "alert-text": " The NFT will be send to this address. Be careful when sending an NFTto another user.",
-            "address-input-placeholder": "Enter Adress"
-          }
-        },
-        "recieve": {
-          "recieve-details": {
-            "title": "Recieve",
-            "warning": "Do not send other blockchain network here!",
-            "wallet-adress": "Wallet Adress",
-            "Copy Address": "Copy Address",
-            "qr-code": "QR Code"
-          },
-          "index": {
-            "alert-error": "No Chains To Display"
-          }
-        },
-        "send": {
-          "index": {
-            "title": "Send"
-          },
-          "warning": "Check address before send, you cen't refund it",
-          "for-whom": "For Whom",
-          "send-details": {
-            "cant-send-transaction-error": "sorry there is error can't send transaction try later",
-            "wrong-fee-error": "sorry fee is changed, check new one",
-            "no-balance-error": "you don't have anouth balance",
             "cant-fetch-details-error": "sorry can't show details",
-            "inputs-value-error": "Input values are incorrect",
-            "asset-sent-message":  "Asset sent successfully",
-            "asset-sent-title": "sented",
-            "addres-input-placeholder": "Enter Address",
-            "asset": "Asset",
-            "from": "From",
-            "to": "To",
-            "fee": "Network Fee",
-            "max-total": "Max Total",
-            "title": "Tranfers",
-            "fee-is-not-same-alert": "Sorry Fee is diferent, check new and agree if you are okey",
-            "updated": {
-              "cant-fetch-details-error": "sorry can't show details",
-              "wrong-fee-error": "sorry fee is changed, check new one",
-              "no-balance-error": "you don't have anouth balance"
-            }
+            "wrong-fee-error": "sorry fee is changed, check new one",
+            "no-balance-error": "you don't have anouth balance"
           }
-        },
-        "swap": {
-          "addres-input-placeholder": "Enter Address"
-        },
-        "history": {
-          "index": {
-            "title": "History",
-            "no-histories-error": "There is no more histories",
-            "alert-error": "Can't find history"
-          },
-          "slug": {
-            "title": "History",
-            "alert-error": "Can't Display History",
-            "block-explorer": "Explore on block explorer"
-          },
-          "no-history-alert": "No History Yet"
         }
       },
       "swap": {
-        "swap-in-progress": {
-          "title": "swap-in-progress",
-          "header": "Swap in progress",
-          "description": " Your transaction has been sent to the network and will be processed in a few seconds"
-        },
-        "index": {
-          "from-address-placeholder": "Enter address",
-          "to-address-placeholder": "Enter address",
-           "to": "to",
-           "from": "from",
-          "title": "Swapp"
-        }
+        "addres-input-placeholder": "Enter Address"
       },
-      "settings": {
+      "history": {
         "index": {
-          "title": "Settings",
-          "support": "Support",
-          "terms-and-conditions": "Terms and condition",
-          "privacy-policy": "Privacy Policy",
-          "choose-langnuage": "Choose Language"
+          "title": "History",
+          "no-histories-error": "There is no more histories",
+          "alert-error": "Can't find history"
         },
-        "change-passcode": {
-          "title": "Change Passcode"
-        }
+        "slug": {
+          "title": "History",
+          "alert-error": "Can't Display History",
+          "block-explorer": "Explore on block explorer"
+        },
+        "no-history-alert": "No History Yet"
       }
-      
     },
-    "pascode": {
-      "password-incorrect": "Passcode is not correct",
-      "header": "Enter Passcode",
-      "confirm-header": "Confirm Passcode",
-      "remove-session": "Remove Session",
-      "current-passcode": "Current Pass Code"
+    "swap": {
+      "swap-in-progress": {
+        "title": "swap-in-progress",
+        "header": "Swap in progress",
+        "description": " Your transaction has been sent to the network and will be processed in a few seconds"
+      },
+      "index": {
+        "from-address-placeholder": "Enter address",
+        "to-address-placeholder": "Enter address",
+        "to": "to",
+        "from": "from",
+        "title": "Swapp"
+      }
     },
-    "networks": {
-      "alert-error": "Can't find networks"
-      
-    },
-    
-    "shared": {
-      "continue": "Continue",
-      "and": "and",
-      "error-label": "ops...",
-      "password": "Passcode",
-      "confirm-password": "Confirm Passcode",
-      "send": "Send",
-      "receive": "Receive",
-      "history": "History",
-      "all": "All",
-      "network": "Network",
-      "token": "Token",
-      "swap": "Swap",
-      "import": "Import",
-      "cancel": "Cancel",
-      "from": "From",
-      "done": "Done",
-      "transfer": "Transfer",
-      "asset-error": "No assets",
-      "search": "Search",
-      "notification": "Notification",
-      "loadMore": "load more",
-      "recipent": "Recipent",
-      "amount": "Amount",
-      "nonce": "Nonce",
-      "explorer": "Explorer",
-      "NFT": "NFT",
-      "share": "Share",
-      "notificationns": "Notifications",
-      "date": "Date",
-      "confirm": "Confirm",
-      "logout": "Log out",
-      "dark-mode": "Dark Mode",
-      "for-whom": "For Whom",
-      "updated": {
-        "logout": "Log out",
-        "dark-mode": "Dark Mode",
-        "for-whom": "For Whom"
+    "settings": {
+      "index": {
+        "title": "Settings",
+        "support": "Support",
+        "terms-and-conditions": "Terms and condition",
+        "privacy-policy": "Privacy Policy",
+        "choose-langnuage": "Choose Language"
+      },
+      "change-passcode": {
+        "title": "Change Passcode"
       }
     }
+  },
+  "pascode": {
+    "password-incorrect": "Passcode is not correct",
+    "header": "Enter Passcode",
+    "confirm-header": "Confirm Passcode",
+    "remove-session": "Remove Session",
+    "current-passcode": "Current Pass Code"
+  },
+  "networks": {
+    "alert-error": "Can't find networks"
+  },
+  "shared": {
+    "continue": "Continue",
+    "and": "and",
+    "error-label": "ops...",
+    "password": "Passcode",
+    "confirm-password": "Confirm Passcode",
+    "send": "Send",
+    "receive": "Receive",
+    "history": "History",
+    "all": "All",
+    "network": "Network",
+    "token": "Token",
+    "swap": "Swap",
+    "import": "Import",
+    "cancel": "Cancel",
+    "from": "From",
+    "done": "Done",
+    "transfer": "Transfer",
+    "asset-error": "No assets",
+    "search": "Search",
+    "notification": "Notification",
+    "loadMore": "load more",
+    "recipent": "Recipent",
+    "amount": "Amount",
+    "nonce": "Nonce",
+    "explorer": "Explorer",
+    "NFT": "NFT",
+    "share": "Share",
+    "notificationns": "Notifications",
+    "date": "Date",
+    "confirm": "Confirm",
+    "logout": "Log out",
+    "dark-mode": "Dark Mode",
+    "for-whom": "For Whom",
+    "updated": {
+      "logout": "Log out",
+      "dark-mode": "Dark Mode",
+      "for-whom": "For Whom"
+    }
+  }
 }

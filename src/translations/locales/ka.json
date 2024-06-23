@@ -24,7 +24,9 @@
     "congretulation": {
       "header": "გილოცავთ",
       "description": "თქვენი საფულე წარმატებით შეიქმნა.",
-      "go-to-the-wallet": "გადასვლა საფულეში"
+      "go-to-the-wallet": "გადასვლა საფულეში",
+      "importing-description": "საფულე წარმატებით დაიმპორტირდა",
+      "creating-description": "საფულე სარწმატებით შეიქმნა"
     },
     "connect-wallet": {
       "header": "შეიყვანეთ საიდუმლო გასაღები",
@@ -78,6 +80,7 @@
           "cant-add-addres": "მისამართის დამატება ვერ ხერხდება, არის შეცდომა",
           "title": "მორგებული ტოკენების დამატება",
           "import-token-button": "ტოკენის იმპორტი",
+          "address-input-placeholder": "შეიყვანეთ ტოკენის მისამართი",
           "warning-first": "ვაჭრობა თქვენი რისკის ფასად!",
           "warning-second": "ნებისმიერს შეუძლია შექმნას ტოკენი, მათ შორის არსებული ტოკენების ყალბი ვერსიები, რომლებიც ამტკიცებენ, რომ წარმოადგენენ პროექტებს.",
           "warning-third": "ამ ტოკენის შეძენის შემთხვევაში, შესაძლოა ვერ შეძლოთ მისი უკან გაყიდვა.",
@@ -145,7 +148,9 @@
           }
         }
       },
-     
+      "swap": {
+        "addres-input-placeholder": "შეიყვანეთ მისამართი"
+      },
       "history": {
         "index": {
           "title": "ისტორია",
@@ -158,84 +163,83 @@
           "block-explorer": "ბლოკის ექსპლორერზე ნახვა"
         },
         "no-history-alert": "ჯერ ისტორია არ არის"
-      },
-      "swap": {
-        "swap-in-progress": {
-          "title": "მიმდინარეობს გაცვლა",
-          "header": "მიმდინარეობს გაცვლა",
-          "description": "თქვენი ტრანზაქცია გაიგზავნა ქსელში და დამუშავდება რამდენიმე წამში"
-        },
-        "index": {
-          "from-address-placeholder": "შეიყვანეთ მისამართი",
-          "to-address-placeholder": "შეიყვანეთ მისამართი",
-          "to": "მიმღები",
-          "from": "გამგზავნი",
-          "title": "გაცვლა"
-        }
-      },
-      "settings": {
-        "index": {
-          "title": "პარამეტრები",
-          "support": "მხარდაჭერა",
-          "terms-and-conditions": "წესები და პირობები",
-          "privacy-policy": "კონფიდენციალურობის პოლიტიკა",
-          "choose-langnuage": "აირჩიეთ ენა"
-        },
-        "change-passcode": {
-          "title": "პაროლის შეცვლა"
-        }
-      },
-      "pascode": {
-        "password-incorrect": "პაროლი არასწორია",
-        "header": "შეიყვანეთ პაროლი",
-        "confirm-header": "დაადასტურეთ პაროლი",
-        "remove-session": "სესიის წაშლა",
-        "current-passcode": "მიმდინარე პაროლი"
-      },
-      "networks": {
-        "alert-error": "ქსელების პოვნა ვერ ხერხდება"
-      },
-      "shared": {
-        "continue": "გაგრძელება",
-        "and": "და",
-        "error-label": "უპს...",
-        "password": "პაროლი",
-        "confirm-password": "დაადასტურეთ პაროლი",
-        "send": "გაგზავნა",
-        "receive": "მიღება",
-        "history": "ისტორია",
-        "all": "ყველა",
-        "network": "ქსელი",
-        "token": "ტოკენი",
-        "swap": "გაცვლა",
-        "import": "იმპორტი",
-        "cancel": "გაუქმება",
-        "from": "გამგზავნი",
-        "done": "შესრულებულია",
-        "transfer": "გადარიცხვა",
-        "asset-error": "აქტივები არ არის",
-        "search": "ძებნა",
-        "notification": "შეტყობინება",
-        "loadMore": "მეტის ჩატვირთვა",
-        "recipent": "მიმღები",
-        "amount": "რაოდენობა",
-        "nonce": "Nonce",
-        "explorer": "ექსპლორერი",
-        "NFT": "NFT",
-        "share": "გაზიარება",
-        "notificationns": "შეტყობინებები",
-        "date": "თარიღი",
-        "confirm": "დადასტურება",
-        "logout": "გასვლა",
-        "dark-mode": "მუქი რეჟიმი",
-        "for-whom": "ვისთვის",
-        "updated": {
-          "logout": "გასვლა",
-          "dark-mode": "მუქი რეჟიმი",
-          "for-whom": "ვისთვის"
-        }
       }
+    },
+    "swap": {
+      "swap-in-progress": {
+        "title": "მიმდინარეობს გაცვლა",
+        "header": "მიმდინარეობს გაცვლა",
+        "description": "თქვენი ტრანზაქცია გაიგზავნა ქსელში და დამუშავდება რამდენიმე წამში"
+      },
+      "index": {
+        "from-address-placeholder": "შეიყვანეთ მისამართი",
+        "to-address-placeholder": "შეიყვანეთ მისამართი",
+        "to": "მიმღები",
+        "from": "გამგზავნი",
+        "title": "გაცვლა"
+      }
+    },
+    "settings": {
+      "index": {
+        "title": "პარამეტრები",
+        "support": "მხარდაჭერა",
+        "terms-and-conditions": "წესები და პირობები",
+        "privacy-policy": "კონფიდენციალურობის პოლიტიკა",
+        "choose-langnuage": "აირჩიეთ ენა"
+      },
+      "change-passcode": {
+        "title": "პაროლის შეცვლა"
+      }
+    }
+  },
+  "pascode": {
+    "password-incorrect": "პაროლი არასწორია",
+    "header": "შეიყვანეთ პაროლი",
+    "confirm-header": "დაადასტურეთ პაროლი",
+    "remove-session": "სესიის წაშლა",
+    "current-passcode": "მიმდინარე პაროლი"
+  },
+  "networks": {
+    "alert-error": "ქსელების პოვნა ვერ ხერხდება"
+  },
+  "shared": {
+    "continue": "გაგრძელება",
+    "and": "და",
+    "error-label": "უპს...",
+    "password": "პაროლი",
+    "confirm-password": "დაადასტურეთ პაროლი",
+    "send": "გაგზავნა",
+    "receive": "მიღება",
+    "history": "ისტორია",
+    "all": "ყველა",
+    "network": "ქსელი",
+    "token": "ტოკენი",
+    "swap": "გაცვლა",
+    "import": "იმპორტი",
+    "cancel": "გაუქმება",
+    "from": "გამგზავნი",
+    "done": "შესრულებულია",
+    "transfer": "გადარიცხვა",
+    "asset-error": "აქტივები არ არის",
+    "search": "ძებნა",
+    "notification": "შეტყობინება",
+    "loadMore": "მეტის ჩატვირთვა",
+    "recipent": "მიმღები",
+    "amount": "რაოდენობა",
+    "nonce": "Nonce",
+    "explorer": "ექსპლორერი",
+    "NFT": "NFT",
+    "share": "გაზიარება",
+    "notificationns": "შეტყობინებები",
+    "date": "თარიღი",
+    "confirm": "დადასტურება",
+    "logout": "გასვლა",
+    "dark-mode": "მუქი რეჟიმი",
+    "for-whom": "ვისთვის",
+    "updated": {
+      "logout": "გასვლა",
+      "dark-mode": "მუქი რეჟიმი",
+      "for-whom": "ვისთვის"
     }
   }
 }
-

@@ -24,7 +24,7 @@ export default function ItemUi({
     <Item>
       <Content>
         <ImgContainer>
-          <ItemImg source={{ uri }} />
+          <ItemImg style={{ opacity: 1 }} source={{ uri }} />
           {descUri && <DescImg source={descUri} />}
         </ImgContainer>
 

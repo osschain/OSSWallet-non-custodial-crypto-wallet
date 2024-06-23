@@ -1,6 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { forwardRef, useMemo, useState } from "react";
+import React, { forwardRef, useEffect, useMemo, useState } from "react";
 import { TouchableOpacity } from "react-native";
 
 import BottomSheetModalUi from "../ui/BottomSheetModal";
@@ -22,15 +22,19 @@ const LocaleOptions = forwardRef<Ref, Props>(
   ({ locales, defSelected, onSelect = () => {} }, ref) => {
     const snapPoints = useMemo(() => ["45%", "45%"], []);
     const [selected, setSelected] = useState(defSelected || null);
-    const bootstrapAsync = async () => {
-      const lang = await AsyncStorage.getItem("lang");
-      if (lang) {
-        setSelected(lang);
-      } else {
-        setSelected("en");
-      }
-    };
-    bootstrapAsync();
+
+    useEffect(() => {
+      const bootstrapAsync = async () => {
+        const lang = await AsyncStorage.getItem("lang");
+        if (lang) {
+          setSelected(lang);
+        } else {
+          setSelected("en");
+        }
+      };
+      bootstrapAsync();
+    }, []);
+
     return (
       <BottomSheetModalUi ref={ref} snapPoints={snapPoints}>
         <ContainerUi

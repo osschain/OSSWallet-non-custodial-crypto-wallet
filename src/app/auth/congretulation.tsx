@@ -8,8 +8,10 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { useAuth } from "@/providers/AuthProvider";
 const Congretulation = () => {
   const { t } = useTranslation();
+  const { isImporting } = useAuth();
   const continueHandler = () => {
     router.push("/(wallet)");
   };
@@ -28,7 +30,9 @@ const Congretulation = () => {
         </SpacerUi>
         <SpacerUi size="xl">
           <DescriptionText size="lg" color="text-second" weight="regular">
-            {t("auth.congretulation.description")}
+            {isImporting
+              ? t("auth.congretulation.importing-description")
+              : t("auth.congretulation.creating-description")}
           </DescriptionText>
         </SpacerUi>
       </Body>

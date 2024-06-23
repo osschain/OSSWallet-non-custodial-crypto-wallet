@@ -2,7 +2,6 @@ import { Linking, TouchableOpacity } from "react-native";
 
 import { Right, Left, Setting, Title, Icon } from "./style";
 import BodyTextUi from "../ui/BodyTextUi";
-import HeaderTextUi from "../ui/HeaderTextUi";
 import IconUi from "../ui/IconUi";
 import SpacerUi from "../ui/SpacerUi";
 

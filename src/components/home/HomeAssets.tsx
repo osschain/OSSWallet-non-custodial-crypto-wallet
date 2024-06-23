@@ -35,9 +35,15 @@ const HomeAssets = () => {
   const assets = assetManager?.assets;
   const { data: assetPrices } = useAssetPrices();
   const { data: balances, isLoading: isBalancesLoading } = UseBalances();
+
   const price = (symbol: string) =>
-    assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4) ||
-    0;
+    assetPrices
+      ?.find(
+        (asset) =>
+          asset.symbol === symbol ||
+          (asset.symbol === "MATIC" && symbol === "zkEVM")
+      )
+      ?.price.toFixed(4) || 0;
 
   const priceChange = (symbol: string) =>
     Number(

@@ -100,7 +100,7 @@ export const useAssetPrices = () => {
     queryKey: ["assetPrices"],
     queryFn: async () => {
       const response = await fetch("https://assets.osschain.com/market-data");
-      const data = await response.json() as AssetPrices[];
+      const data = await response.json();
 
 
       if (!data) {
@@ -108,7 +108,7 @@ export const useAssetPrices = () => {
       }
 
 
-      return data
+      return data as AssetPrices[]
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false

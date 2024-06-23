@@ -10,11 +10,15 @@ interface PropsType {
   position?: Positions;
   size?: Sizes;
   theme: DefaultTheme;
+  fullHeight?: boolean;
 }
 
 const SpacerUi = styled(View)<PropsType>`
-  ${({ position = "top", size = "md", theme }) =>
-    `margin-${position}: ${theme.spaces[size]}`}
+  ${({ position = "top", size = "md", theme, fullHeight }) =>
+    `
+    margin-${position}: ${theme.spaces[size]};
+    ${fullHeight ? "flex: 1;" : ""}
+  `}
 `;
 
 export default SpacerUi;

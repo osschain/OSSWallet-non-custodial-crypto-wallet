@@ -34,7 +34,7 @@ function Index() {
           />
         </SpacerUi>
 
-        <SpacerUi size="xl" style={{ flex: 1 }}>
+        <SpacerUi size="xl" fullHeight>
           <CustomTokenAssetList query={searchQuery} />
         </SpacerUi>
       </BodyUi>

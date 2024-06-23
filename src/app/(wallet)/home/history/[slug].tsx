@@ -90,7 +90,7 @@ export default function HistoryDetails() {
       <BodyUi>
         <SpacerUi size="2xl">
           <Header>
-            <Image source={asset?.icon} style={{ width: 50, height: 50 }} />
+            <HistoryImage source={asset?.icon} />
             <SpacerUi size="lg">
               <BodyTextUi weight="semi">
                 {isRecieved(item.from as string) ? "Recieved: " : "Sent: "}
@@ -212,4 +212,9 @@ const RightContent = styled.View`
 const Row = styled.View`
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const HistoryImage = styled(Image)`
+  width: ${({ theme }) => theme.sizes["4xl"]};
+  height: ${({ theme }) => theme.sizes["4xl"]};
 `;

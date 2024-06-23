@@ -107,7 +107,7 @@ export default function TransferNft() {
             />
           </SpacerUi>
         </SpacerUi>
-        <SpacerUi size="xl" style={{ flex: 1 }}>
+        <SpacerUi size="xl" fullHeight>
           {isCorrectAddress && (
             <NftDetails details={details} loading={isDetailsLoading} />
           )}
@@ -124,8 +124,3 @@ export default function TransferNft() {
     </ScrollContainerUi>
   );
 }
-
-const Image = styled.Image`
-  width: 100%;
-  height: 300px;
-`;

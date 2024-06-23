@@ -1,5 +1,6 @@
 import { Link } from "expo-router";
 import { View } from "react-native";
+import styled from "styled-components/native";
 
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
@@ -10,30 +11,40 @@ import SpacerUi from "@/components/ui/SpacerUi";
 export default function AuthError() {
   return (
     <ContainerUi>
-      <SpacerUi size="4xl" style={{ flex: 1, justifyContent: "center" }}>
-        <View style={{ alignItems: "center" }}>
+      <StyledSpacer size="4xl" fullHeight>
+        <CenteredView>
           <IconUi
             size="5xl"
             library="MaterialIcons"
             name="error-outline"
             color="red-100"
           />
-        </View>
+        </CenteredView>
         <SpacerUi size="xl">
-          <HeaderTextUi
-            color="red-100"
-            style={{ textAlign: "center" }}
-            size="2xl"
-          >
+          <CenteredText size="2xl">
             There is error during wallet creation
-          </HeaderTextUi>
+          </CenteredText>
         </SpacerUi>
         <SpacerUi size="xl">
           <Link href="/auth/" asChild>
             <ButtonUi>Start Again</ButtonUi>
           </Link>
         </SpacerUi>
-      </SpacerUi>
+      </StyledSpacer>
     </ContainerUi>
   );
 }
+
+const CenteredView = styled(View)`
+  align-items: center;
+  justify-content: center;
+`;
+
+const CenteredText = styled(HeaderTextUi)`
+  text-align: center;
+  color: ${({ theme }) => theme.colors["red-100"]};
+`;
+
+const StyledSpacer = styled(SpacerUi)`
+  justify-content: center;
+`;

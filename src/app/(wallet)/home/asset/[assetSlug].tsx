@@ -35,7 +35,7 @@ export default function Asset() {
       <SpacerUi size="4xl">
         <AssetDetails asset={asset} slug={slug} />
       </SpacerUi>
-      <SpacerUi size="4xl" style={{ flex: 1 }}>
+      <SpacerUi size="4xl" fullHeight>
         <AssetHistory />
       </SpacerUi>
     </ContainerUi>

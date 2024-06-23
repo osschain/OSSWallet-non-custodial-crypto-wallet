@@ -17,6 +17,7 @@ import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import styled from "styled-components/native";
 
 export default function History() {
   const [page, setPage] = useState(20);
@@ -147,7 +148,7 @@ const RenderHistoryITem = ({
       ListFooterComponent={() => (
         <>
           {nextPageToken && (
-            <SpacerUi style={{ padding: 20 }}>
+            <SpacerWithPadding>
               {isRefetching ? (
                 <ActivityIndicator />
               ) : (
@@ -157,7 +158,7 @@ const RenderHistoryITem = ({
                   </BodyTextUi>
                 </TouchableOpacity>
               )}
-            </SpacerUi>
+            </SpacerWithPadding>
           )}
         </>
       )}
@@ -172,3 +173,7 @@ const RenderHistoryITem = ({
     />
   );
 };
+
+const SpacerWithPadding = styled(SpacerUi)`
+  padding: ${({ theme }) => theme.spacing["2xl"]};
+`;

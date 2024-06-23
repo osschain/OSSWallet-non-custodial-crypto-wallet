@@ -89,14 +89,9 @@ function EnterPassCode({ onPasswordFull, header }: Props) {
             <HeaderTextUi adjustsFontSizeToFit size="3xl" weight="bold">
               {t("auth.index.header")}
             </HeaderTextUi>
-            <HeaderTextUi
-              style={{ textAlign: "right", marginTop: -15 }}
-              adjustsFontSizeToFit
-              size="sm"
-              weight="bold"
-            >
+            <ByOss adjustsFontSizeToFit size="sm" weight="bold">
               By OSS
-            </HeaderTextUi>
+            </ByOss>
           </SpacerUi>
         </View>
         <SpacerUi size="4xl">
@@ -151,7 +146,10 @@ const Body = styled.View`
 const HeaderText = styled(HeaderTextUi)`
   text-align: center;
 `;
-
+const ByOss = styled(HeaderTextUi)`
+  text-align: right;
+  margin-top: -15px;
+`;
 const Inputs = styled.View`
   flex-direction: row;
   justify-content: space-between;

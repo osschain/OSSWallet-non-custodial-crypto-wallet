@@ -61,7 +61,7 @@ export default function Nft() {
   }
 
   return (
-    <ScrollView style={{ flexBasis: 1 }}>
+    <ScrollViewCotainer>
       <BodyUi>
         <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
         <ContainerUi>
@@ -69,7 +69,7 @@ export default function Nft() {
             <HeaderTextUi size="md">{nft?.name}</HeaderTextUi>
           </SpacerUi>
           <SpacerUi size="sm">
-            <BodyTextUi weight="sm" color="text-second">
+            <BodyTextUi weight="light" color="text-second">
               {nft?.description}
             </BodyTextUi>
           </SpacerUi>
@@ -97,9 +97,12 @@ export default function Nft() {
           <ButtonUi>{t("shared.transfer")}</ButtonUi>
         </Link>
       </Footer>
-    </ScrollView>
+    </ScrollViewCotainer>
   );
 }
+const ScrollViewCotainer = styled(ScrollView)`
+  flex-basis: 1;
+`;
 
 const NftPropertyHeader = styled(HeaderTextUi)``;
 const NftPropertyValue = styled(BodyTextUi)``;

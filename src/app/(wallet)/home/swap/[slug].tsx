@@ -69,16 +69,14 @@ export default function Swap() {
           </SpacerUi>
         </SpacerUi>
         <SpacerUi size="2xl">
+          <HeaderTextUi>To</HeaderTextUi>
           <SpacerUi size="lg">
-            <HeaderTextUi>To</HeaderTextUi>
-            <SpacerUi size="lg">
-              <AssetQuantityInputUi
-                uri={target?.icon}
-                title={target?.name}
-                placeholder={t("wallet.home.swap.addres-input-placeholder")}
-                onAssetPress={handleTargetOptionsPress}
-              />
-            </SpacerUi>
+            <AssetQuantityInputUi
+              uri={target?.icon}
+              title={target?.name}
+              placeholder={t("wallet.home.swap.addres-input-placeholder")}
+              onAssetPress={handleTargetOptionsPress}
+            />
           </SpacerUi>
         </SpacerUi>
       </BodyUi>

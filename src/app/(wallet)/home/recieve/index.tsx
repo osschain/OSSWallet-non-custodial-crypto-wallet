@@ -56,7 +56,7 @@ export default function Recieve() {
           onSelect={(selected) => setNetwork(selected)}
         />
       </SpacerUi>
-      <SpacerUi size="xl" style={{ flex: 1 }}>
+      <SpacerUi size="xl" fullHeight>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={filteredAssets}

@@ -21,7 +21,7 @@ const BottomSheetModalUi = forwardRef<Ref, Props>(
   ({ children, ...rest }, ref) => {
     const theme = useTheme();
     const { currentMode } = useStyledTheme();
-    const snapPoints = useMemo(() => ["95%", "95%"], []);
+    const snapPoints = useMemo(() => ["90%", "90%"], []);
 
     return (
       <BottomSheetModal

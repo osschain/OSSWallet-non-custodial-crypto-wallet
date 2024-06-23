@@ -13,6 +13,7 @@ import SpacerUi from "../ui/SpacerUi";
 import { useAssets } from "@/app/api/assets";
 import { useHistory } from "@/app/api/history";
 import { findAsset } from "@/util/findAsset";
+import styled from "styled-components/native";
 
 const AssetHistory = () => {
   const { assetSlug: slug } = useLocalSearchParams();
@@ -112,11 +113,11 @@ const AssetHistory = () => {
       ListFooterComponent={() => (
         <>
           {history?.nextPageToken && (
-            <SpacerUi style={{ paddingBottom: 20 }}>
+            <SpacerWithPadding>
               {isRefetching ? (
-                <ActivityIndicator style={{ padding: 20 }} />
+                <IndicatorWithPadding />
               ) : (
-                <SpacerUi style={{ padding: 20 }}>
+                <SpacerWithPadding>
                   <TouchableOpacity onPress={handlePagination}>
                     <BodyTextUi
                       color="blue-500"
@@ -125,9 +126,9 @@ const AssetHistory = () => {
                       {t("shared.loadMore")}
                     </BodyTextUi>
                   </TouchableOpacity>
-                </SpacerUi>
+                </SpacerWithPadding>
               )}
-            </SpacerUi>
+            </SpacerWithPadding>
           )}
         </>
       )}
@@ -142,5 +143,12 @@ const AssetHistory = () => {
     />
   );
 };
+
+const SpacerWithPadding = styled(SpacerUi)`
+  padding: ${({ theme }) => theme.spacing["2xl"]};
+`;
+const IndicatorWithPadding = styled(SpacerUi)`
+  padding: ${({ theme }) => theme.spacing["2xl"]};
+`;
 
 export default AssetHistory;

@@ -15,6 +15,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useTheme } from "styled-components/native";
 import { useStyledTheme } from "@/providers/StyledThemeProvider";
+import BottomSheetModalUi from "../ui/BottomSheetModal";
 
 export type Ref = BottomSheetModal;
 
@@ -26,7 +27,6 @@ type Props = {
 
 const NetworkOptions = forwardRef<Ref, Props>(
   ({ networks, onSelect = () => {}, required }, ref) => {
-    const snapPoints = useMemo(() => ["95%", "95%"], []);
     const [selected, setSelected] = useState<string | null>(() => {
       if (networks && required) {
         const network = networks[0].label;
@@ -35,8 +35,6 @@ const NetworkOptions = forwardRef<Ref, Props>(
         return null;
       }
     });
-    const theme = useTheme();
-    const { currentMode } = useStyledTheme();
 
     const [searchQuery, setSearchQuery] = useState("");
     const { t } = useTranslation();
@@ -77,20 +75,7 @@ const NetworkOptions = forwardRef<Ref, Props>(
           {!selected && `${t("shared.all")} ${t("shared.network")}`}
           {selected && selected}
         </NetworkButton>
-        <BottomSheetModal
-          handleStyle={{
-            backgroundColor: theme.colors["bg-primary"],
-          }}
-          backgroundStyle={{ backgroundColor: theme.colors["bg-primary"] }}
-          handleIndicatorStyle={{
-            backgroundColor:
-              currentMode === "dark" ? theme.colors["pure-white"] : "black",
-            borderWidth: 0,
-          }}
-          ref={bottomSheetRef}
-          index={0}
-          snapPoints={snapPoints}
-        >
+        <BottomSheetModalUi ref={bottomSheetRef}>
           <ContainerUi>
             <SpacerUi size="3xl">
               <TextInputUi
@@ -130,7 +115,7 @@ const NetworkOptions = forwardRef<Ref, Props>(
               );
             })}
           </ContainerUi>
-        </BottomSheetModal>
+        </BottomSheetModalUi>
       </>
     );
   }

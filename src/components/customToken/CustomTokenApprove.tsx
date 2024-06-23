@@ -4,12 +4,11 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/native";
 
 import BodyTextUi from "../ui/BodyTextUi";
+import BottomSheetModalUi from "../ui/BottomSheetModal";
 import ButtonUi from "../ui/ButtonUi";
 import HeaderTextUi from "../ui/HeaderTextUi";
 import { BodyUi, FooterUi, ScrollContainerUi } from "../ui/LayoutsUi";
 import SpacerUi from "../ui/SpacerUi";
-
-import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 type Props = {
   onApprove: () => void;
@@ -17,25 +16,9 @@ type Props = {
 
 const CustomTokenApprove = forwardRef<BottomSheetModal, Props>(
   ({ onApprove }, ref) => {
-    const theme = useTheme();
-    const { currentMode } = useStyledTheme();
-    const snapPoints = useMemo(() => ["95%", "95%"], []);
     const { t } = useTranslation();
     return (
-      <BottomSheetModal
-        handleStyle={{
-          backgroundColor: theme.colors["bg-primary"],
-        }}
-        backgroundStyle={{ backgroundColor: theme.colors["bg-primary"] }}
-        handleIndicatorStyle={{
-          backgroundColor:
-            currentMode === "dark" ? theme.colors["pure-white"] : "black",
-          borderWidth: 0,
-        }}
-        index={0}
-        snapPoints={snapPoints}
-        ref={ref}
-      >
+      <BottomSheetModalUi ref={ref}>
         <ScrollContainerUi>
           <BodyUi>
             <SpacerUi size="xl">
@@ -72,7 +55,7 @@ const CustomTokenApprove = forwardRef<BottomSheetModal, Props>(
             </SpacerUi>
           </FooterUi>
         </ScrollContainerUi>
-      </BottomSheetModal>
+      </BottomSheetModalUi>
     );
   }
 );

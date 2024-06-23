@@ -2,6 +2,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native";
+import { useTheme } from "styled-components/native";
 
 import { AssetType } from "@/@types/assets";
 import IconUi from "@/components/ui/IconUi";
@@ -9,7 +10,6 @@ import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
-import { useTheme } from "styled-components/native";
 import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 export type Ref = BottomSheetModal;

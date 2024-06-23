@@ -1,23 +1,14 @@
 import { Stack } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components/native";
+
+import { useStackOptions } from "@/hooks/useStackOptions";
 
 export default function _layout() {
-  const theme = useTheme();
   const { t } = useTranslation();
-  return (
-    <Stack
-      screenOptions={{
-        headerShadowVisible: false,
-        headerTitleAlign: "center",
-        headerStyle: { backgroundColor: theme.colors["bg-primary"] },
-        headerTintColor: theme.colors["text-primary"],
+  const stackOptions = useStackOptions();
 
-        contentStyle: {
-          backgroundColor: theme.colors["bg-primary"],
-        },
-      }}
-    >
+  return (
+    <Stack screenOptions={stackOptions}>
       <Stack.Screen
         name="index"
         options={{ title: t("wallet.swap.index.title") }}

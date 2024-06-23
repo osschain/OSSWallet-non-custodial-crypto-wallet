@@ -1,23 +1,11 @@
 import { Stack } from "expo-router";
-import { Platform } from "react-native";
-import { useTheme } from "styled-components/native";
 
-import IosHeaderLeft from "@/components/layout/IosHeaderLeft";
+import { useStackOptions } from "@/hooks/useStackOptions";
 
 export default function _layout() {
-  const theme = useTheme();
-
+  const stackOptions = useStackOptions();
   return (
-    <Stack
-      screenOptions={{
-        headerLeft: () => (Platform.OS === "ios" ? <IosHeaderLeft /> : null),
-
-        contentStyle: {
-          backgroundColor: theme.colors["bg-primary"],
-        },
-        headerShadowVisible: false,
-      }}
-    >
+    <Stack screenOptions={stackOptions}>
       <Stack.Screen
         name="index"
         options={{

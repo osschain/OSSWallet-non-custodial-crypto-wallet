@@ -1,25 +1,12 @@
 import { Stack } from "expo-router";
-import { Platform } from "react-native";
-import { useTheme } from "styled-components/native";
 
-import IosHeaderLeft from "@/components/layout/IosHeaderLeft";
+import { useStackOptions } from "@/hooks/useStackOptions";
 
 export default function _layout() {
-  const theme = useTheme();
-  return (
-    <Stack
-      screenOptions={{
-        headerShadowVisible: false,
-        headerTitleAlign: "center",
-        headerLeft: () => (Platform.OS === "ios" ? <IosHeaderLeft /> : null),
-        headerStyle: { backgroundColor: theme.colors["bg-primary"] },
-        headerTintColor: theme.colors["text-primary"],
+  const stackOptions = useStackOptions();
 
-        contentStyle: {
-          backgroundColor: theme.colors["bg-primary"],
-        },
-      }}
-    >
+  return (
+    <Stack screenOptions={stackOptions}>
       <Stack.Screen name="swap-in-progress" options={{ headerShown: false }} />
     </Stack>
   );

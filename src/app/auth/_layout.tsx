@@ -1,13 +1,13 @@
 import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useTheme } from "styled-components/native";
 
+import { useStackOptions } from "@/hooks/useStackOptions";
 import { useAuth } from "@/providers/AuthProvider";
 import { useStyledTheme } from "@/providers/StyledThemeProvider";
 
 export default function AuthLayout() {
-  const theme = useTheme();
   const { currentMode } = useStyledTheme();
+  const stackOptions = useStackOptions();
   const { encryptedMnemonic, mnemonic } = useAuth();
   if (encryptedMnemonic && !mnemonic) {
     return <Redirect href="/enter-password" />;
@@ -20,13 +20,7 @@ export default function AuthLayout() {
   return (
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: theme.colors["bg-primary"] },
-        headerTintColor: theme.colors["text-primary"],
-
-        contentStyle: {
-          backgroundColor: theme.colors["bg-primary"],
-        },
-        headerShadowVisible: false,
+        ...stackOptions,
         title: "",
       }}
     >

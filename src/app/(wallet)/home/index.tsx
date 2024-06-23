@@ -53,7 +53,7 @@ const HomeSegment = () => {
         }}
       />
       <SegmentContainer>
-        <View style={{ display: segment === "Assets" ? "flex" : "none" }}>
+        <View style={{ display: segment !== "NFTs" ? "flex" : "none" }}>
           <HomeAssets />
         </View>
         <View

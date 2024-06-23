@@ -45,7 +45,7 @@ export const generateEvmAsset = (tokenProperties: TokenpropertiesType, assets: A
 
     const asset: AssetType = {
         id: address,
-        icon: defaultImage,
+        icon: "https://assets.osschain.com/icon/custom.svg",
         name,
         symbol,
         blockchain: network,

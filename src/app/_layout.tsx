@@ -60,7 +60,6 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const { t } = useTranslation();
-
   return (
     <>
       <ErrorBoundaryProvider>
@@ -84,10 +83,10 @@ function RootLayoutNav() {
                         options={{ headerShown: false }}
                       />
                       <Stack.Screen
-                        name="notificationsModal"
+                        name="notification"
                         options={{
+                          headerShown: false,
                           presentation: "modal",
-                          title: t("shared.notification"),
                         }}
                       />
                       <Stack.Screen

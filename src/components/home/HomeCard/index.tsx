@@ -119,7 +119,7 @@ const HomeCard = ({
             color="pure-white"
           />
         </TouchableOpacity>
-        <Link href="notificationsModal" asChild>
+        <Link href="notification" asChild>
           <TouchableOpacity>
             <IconUi
               library="Ionicons"

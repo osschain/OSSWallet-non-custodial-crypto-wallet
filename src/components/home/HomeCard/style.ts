@@ -1,8 +1,8 @@
 import { LinearGradient } from "expo-linear-gradient";
+import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import { Dimensions } from "react-native";
 
 const { width } = Dimensions
   .get("window");

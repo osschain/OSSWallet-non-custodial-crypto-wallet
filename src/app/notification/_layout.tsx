@@ -5,20 +5,14 @@ import { useStackOptions } from "@/hooks/useStackOptions";
 
 export default function _layout() {
   const { t } = useTranslation();
-  const stackOptions = useStackOptions({ headerLeft: () => null });
-
+  const stackOptions = useStackOptions({
+    headerLeft: () => null,
+  });
   return (
     <Stack screenOptions={stackOptions}>
       <Stack.Screen
         name="index"
-        options={{ title: t("wallet.swap.index.title") }}
-      />
-      <Stack.Screen
-        name="swap-in-progress"
-        options={{
-          headerShown: false,
-          title: t("wallet.swap.swap-in-progress.title"),
-        }}
+        options={{ title: t("shared.notification") }}
       />
     </Stack>
   );

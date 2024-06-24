@@ -10,7 +10,7 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useNotification } from "@/providers/NotificationsProvider";
 
-export default function ModalScreen() {
+export default function Notification() {
   const { notifs, setNotifNum } = useNotification();
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { useStackOptions } from "@/hooks/useStackOptions";
 
 export default function _layout() {
   const { t } = useTranslation();
-  const stackOptions = useStackOptions();
+  const stackOptions = useStackOptions({ headerLeft: () => null });
   return (
     <Stack screenOptions={stackOptions}>
       <Stack.Screen

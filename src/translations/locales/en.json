@@ -191,6 +191,9 @@
         "privacy-policy": "Privacy Policy",
         "choose-langnuage": "Choose Language"
       },
+      "check-mnemonic": {
+        "title": "Check Mnemonic"
+      },
       "change-passcode": {
         "title": "Change Passcode"
       }
@@ -245,10 +248,12 @@
     "dark-mode": "Dark Mode",
     "for-whom": "For Whom",
     "assets": "Assets",
+    "copy": "Copy",
     "updated": {
       "logout": "Log out",
       "dark-mode": "Dark Mode",
-      "for-whom": "For Whom"
+      "for-whom": "For Whom",
+      "copy": "Copy"
     }
   }
 }

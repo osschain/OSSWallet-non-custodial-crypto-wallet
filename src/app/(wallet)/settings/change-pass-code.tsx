@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 
@@ -10,20 +10,19 @@ function ChangePassCode() {
   const { encryptAndSaveMnemonic, checkPassword } = useAuth();
   const [isMatched, setIsMatched] = useState(false);
   const [password, setPassword] = useState<string | null>(null);
-  const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
   const { t } = useTranslation();
-  useEffect(() => {
-    if (password && password === confirmPassword) {
-      continueHandler(password);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confirmPassword, password]);
 
-  const continueHandler = (password: string) => {
-    encryptAndSaveMnemonic(password);
-    router.push("auth/congretulation");
+  // This function is responsible for handling the password match logic and navigation.
+  const handlePasswordMatch = (confirmPassword: string) => {
+    if (password && password === confirmPassword) {
+      encryptAndSaveMnemonic(password);
+      router.push("/(wallet)/home");
+    } else if (confirmPassword !== null) {
+      Alert.alert(t("shared.error-label"), t("pascode.password-incorrect"));
+    }
   };
 
+  // This function handles the scenario where the user enters their old password.
   const handleOldPasswordSet = async (password: string) => {
     const isMatched = await checkPassword(password);
 
@@ -34,29 +33,34 @@ function ChangePassCode() {
     }
   };
 
+  // Conditionally render the correct component based on the current state.
   if (!isMatched) {
     return (
       <EnterPassCode
         header={t("pascode.current-passcode")}
-        onPasswordFull={(password) => handleOldPasswordSet(password)}
+        onPasswordFull={handleOldPasswordSet}
       />
     );
   }
 
+  // If the password has not been set, prompt the user to set it.
+  if (!password) {
+    return (
+      <EnterPassCode
+        header={t("pascode.header")}
+        onPasswordFull={(password) => setPassword(password)}
+      />
+    );
+  }
+
+  // Prompt the user to confirm the password and immediately check for a match.
   return (
-    <>
-      {!password ? (
-        <EnterPassCode
-          header={t("pascode.header")}
-          onPasswordFull={(password) => setPassword(password)}
-        />
-      ) : (
-        <EnterPassCode
-          header={t("pascode.confirm-header")}
-          onPasswordFull={(password) => setConfirmPassword(password)}
-        />
-      )}
-    </>
+    <EnterPassCode
+      header={t("pascode.confirm-header")}
+      onPasswordFull={(password) => {
+        handlePasswordMatch(password);
+      }}
+    />
   );
 }
 

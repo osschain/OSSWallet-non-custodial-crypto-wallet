@@ -77,7 +77,7 @@ const HomeCard = ({
               size={width <= 375 ? "md" : "lg"}
               color="icon-primary"
             />
-            <BodyTextUi size={width <= 375 ? "sm" : "lg"} color="pure-white">
+            <BodyTextUi size={width <= 375 ? "sm" : "md"} color="pure-white">
               {t("shared.receive")}
             </BodyTextUi>
             <ButtonBacground />
@@ -89,7 +89,7 @@ const HomeCard = ({
               size={width <= 375 ? "md" : "lg"}
               color="icon-primary"
             />
-            <BodyTextUi size={width <= 375 ? "sm" : "lg"} color="pure-white">
+            <BodyTextUi size={width <= 375 ? "sm" : "md"} color="pure-white">
               {t("shared.send")}
             </BodyTextUi>
 
@@ -99,10 +99,10 @@ const HomeCard = ({
             <IconUi
               library="MaterialIcons"
               name="history"
-              size={width <= 375 ? "md" : "md"}
+              size={width <= 375 ? "md" : "lg"}
               color="icon-primary"
             />
-            <BodyTextUi size={width <= 375 ? "sm" : "lg"} color="pure-white">
+            <BodyTextUi size={width <= 375 ? "sm" : "md"} color="pure-white">
               {t("shared.history")}
             </BodyTextUi>
 

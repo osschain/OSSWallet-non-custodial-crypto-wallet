@@ -1,5 +1,5 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { ReactNode, forwardRef, useMemo } from "react";
+import { ReactNode, forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import BottomSheetModalUi from "../ui/BottomSheetModal";
@@ -33,6 +33,7 @@ const SendConfirm = forwardRef<BottomSheetModal, Props>(
             <SpacerUi size="xl">
               <ButtonUi
                 variant="secondary"
+                // @ts-ignore
                 onPress={() => ref?.current.close()}
               >
                 {t("shared.cancel")}

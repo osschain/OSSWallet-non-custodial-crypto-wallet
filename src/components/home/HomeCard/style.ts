@@ -2,7 +2,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import { getFontStyle } from "@/util/themeUtils";
+import { Dimensions } from "react-native";
+
+const { width } = Dimensions
+  .get("window");
+
+
 export const Card = styled.View`
   padding: ${({ theme }) => theme.spaces["xl"]};
   position: relative;
@@ -39,11 +44,10 @@ export const Button = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
   justify-content: center;
-  gap: ${({ theme }) => theme.spaces["lg"]};
+  gap:  ${({ theme }) => width <= 375 ? theme.spaces["md"] : theme.spaces["lg"]};
   position: relative;
   align-items: center;
   padding:  ${({ theme }) => theme.spaces["lg"]} ;
-
 `;
 export const ButtonIcon = styled.View``;
 export const ButtonBacground = styled.View`

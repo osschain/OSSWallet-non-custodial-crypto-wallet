@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import { ComponentPropsWithoutRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, TouchableOpacity } from "react-native";
+import { ActivityIndicator, Dimensions, TouchableOpacity } from "react-native";
 
 import {
   Card,
@@ -10,7 +10,6 @@ import {
   Buttons,
   Button,
   ButtonBacground,
-  ButtonIcon,
   MoneyAmount,
   TopRight,
   NotificationContainer,
@@ -32,6 +31,7 @@ type Props = {
   onHistory?: () => void;
 } & ComponentPropsWithoutRef<typeof Card>;
 
+const { width } = Dimensions.get("window");
 const HomeCard = ({
   label = "OSSWallet",
   onRecieve = () => {},
@@ -71,40 +71,40 @@ const HomeCard = ({
       <SpacerUi size="2xl">
         <Buttons>
           <Button onPress={onRecieve}>
-            <ButtonIcon>
-              <IconUi
-                library="Feather"
-                name="arrow-down-left"
-                size="lg"
-                color="icon-primary"
-              />
-            </ButtonIcon>
-            <BodyTextUi color="pure-white">{t("shared.receive")}</BodyTextUi>
+            <IconUi
+              library="Feather"
+              name="arrow-down-left"
+              size={width <= 375 ? "md" : "lg"}
+              color="icon-primary"
+            />
+            <BodyTextUi size={width <= 375 ? "sm" : "lg"} color="pure-white">
+              {t("shared.receive")}
+            </BodyTextUi>
             <ButtonBacground />
           </Button>
           <Button onPress={onSend}>
-            <ButtonIcon>
-              <IconUi
-                library="Feather"
-                name="arrow-up-right"
-                size="lg"
-                color="icon-primary"
-              />
-            </ButtonIcon>
-            <BodyTextUi color="pure-white">{t("shared.send")}</BodyTextUi>
+            <IconUi
+              library="Feather"
+              name="arrow-up-right"
+              size={width <= 375 ? "md" : "lg"}
+              color="icon-primary"
+            />
+            <BodyTextUi size={width <= 375 ? "sm" : "lg"} color="pure-white">
+              {t("shared.send")}
+            </BodyTextUi>
 
             <ButtonBacground />
           </Button>
           <Button onPress={onHistory}>
-            <ButtonIcon>
-              <IconUi
-                library="MaterialIcons"
-                name="history"
-                size="xl"
-                color="icon-primary"
-              />
-            </ButtonIcon>
-            <BodyTextUi color="pure-white">{t("shared.history")}</BodyTextUi>
+            <IconUi
+              library="MaterialIcons"
+              name="history"
+              size={width <= 375 ? "md" : "md"}
+              color="icon-primary"
+            />
+            <BodyTextUi size={width <= 375 ? "sm" : "lg"} color="pure-white">
+              {t("shared.history")}
+            </BodyTextUi>
 
             <ButtonBacground />
           </Button>

@@ -47,7 +47,7 @@ const HomeSegment = () => {
     <>
       <SegmentedControl
         options={segmentOptions}
-        selectedOption="Assets"
+        selectedOption={t("shared.assets")}
         onOptionPress={(option) => {
           setSegment(option as Segment);
         }}

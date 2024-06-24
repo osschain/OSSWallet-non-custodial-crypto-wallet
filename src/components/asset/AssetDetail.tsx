@@ -69,7 +69,7 @@ const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
             <BodyTextUi weight="bold">{t("shared.receive")}</BodyTextUi>
           </ActionButton>
           <ActionButton>
-            <Link href={`/(wallet)/home/swap/${slug}`} asChild>
+            <Link href={`/(wallet)/swap/${slug}`} asChild>
               <Button>
                 <IconUi
                   library="AntDesign"

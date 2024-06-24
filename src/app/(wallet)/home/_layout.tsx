@@ -15,10 +15,8 @@ export default function _layout() {
       <Stack.Screen name="recieve" options={{ headerShown: false }} />
       <Stack.Screen name="send" options={{ headerShown: false }} />
       <Stack.Screen name="asset" options={{ headerShown: false }} />
-      <Stack.Screen name="swap" options={{ headerShown: false }} />
       <Stack.Screen name="nft" options={{ headerShown: false }} />
       <Stack.Screen name="history" options={{ headerShown: false }} />
-
       <Stack.Screen name="custom-token" options={{ headerShown: false }} />
     </Stack>
   );

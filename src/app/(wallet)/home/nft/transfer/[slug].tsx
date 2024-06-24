@@ -1,7 +1,7 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { isAddress } from "ethers";
 import { useLocalSearchParams } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components/native";
 
@@ -37,14 +37,7 @@ export default function TransferNft() {
   const scanAddress = useRef<BottomSheetModal>(null);
   const isCorrectAddress = isAddress(address);
 
-  useEffect(() => {
-    if (isAddress(address)) {
-      setupDetails();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address]);
-
-  const setupDetails = async () => {
+  const setupDetails = useCallback(async () => {
     if (!contractAddress || !blockchain) {
       return;
     }
@@ -63,7 +56,13 @@ export default function TransferNft() {
     } finally {
       setIsDetailsLoading(false);
     }
-  };
+  }, [address, blockchain, contractAddress, fromAddress]);
+
+  useEffect(() => {
+    if (isAddress(address)) {
+      setupDetails();
+    }
+  }, [address, setupDetails]);
 
   //   if (isError) {
   //     return <AlertWithImageUI title={t("wallet.home.nft.slug.alert-error")} />;

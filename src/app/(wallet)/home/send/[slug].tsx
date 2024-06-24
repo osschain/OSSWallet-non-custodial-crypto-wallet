@@ -1,7 +1,7 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { isAddress } from "ethers";
 import { Stack, router, useLocalSearchParams } from "expo-router";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
@@ -31,156 +31,138 @@ import { decrypt } from "@/util/es";
 import { findAsset } from "@/util/findAsset";
 
 export type DetailsType = {
-  name: string; // Name of the asset
-  symbol: string; // Symbol of the asset
+  name: string;
+  symbol: string;
   from: string;
-  to: string; // Recipient address or identifier
-  fee: number; // Transaction fee
-  maxTotal: number | null; // Maximum total value, might be a string representing a large number,
+  to: string;
+  fee: number;
+  maxTotal: number | null;
   amount: string;
-  blockhain: string;
+  blockchain: string;
 };
 
-export default function SendChain() {
-  const [address, setAddress] = useState("");
-
+export default function SendChain(): JSX.Element {
+  const [address, setAddress] = useState<string>("");
   const [details, setDetails] = useState<DetailsType | null>(null);
-  const [loadingDetails, setLoadingDetails] = useState(false);
-  const [isTransactionCreting, setisTransactionCreating] = useState(false);
+  const [loadingDetails, setLoadingDetails] = useState<boolean>(false);
+  const [isTransactionCreating, setIsTransactionCreating] =
+    useState<boolean>(false);
   const { data: balances } = UseBalances();
-
   const [gasFeeWey, setGasFeeWey] = useState<number | undefined>();
-
-  const [amount, setAmont] = useState("");
+  const [amount, setAmount] = useState<string>("");
   const { setupPass } = useAuth();
   const { t } = useTranslation();
-  const { slug } = useLocalSearchParams();
+  const { slug } = useLocalSearchParams<{ slug: string }>();
   const { data: assetManager, isError } = useAssets();
-  const assets = assetManager?.assets;
-  const asset = findAsset(assets, slug as string);
+  const asset = findAsset(assetManager?.assets, slug as string);
   const { data: assetPrices } = useAssetPrices();
   const sendConfirm = useRef<BottomSheetModal>(null);
-  const handleApproveModalPress = () => {
-    sendConfirm.current?.present();
-  };
-
   const scanAddress = useRef<BottomSheetModal>(null);
-
-  const getPrice = (symbol: string) =>
-    assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4) ||
-    null;
 
   if (isError || !asset) {
     return (
       <ContainerUi>
         <SpacerUi>
-          <MessageUi> t("shared.asset-error")</MessageUi>
+          <MessageUi>{t("shared.asset-error")}</MessageUi>
         </SpacerUi>
       </ContainerUi>
     );
   }
 
-  const getGasFee = async () => {
-    const gasFee = await fetchGasFee({
+  const getPrice = (symbol: string): string | null => {
+    return (
+      assetPrices?.find((asset) => asset.symbol === symbol)?.price.toFixed(4) ||
+      null
+    );
+  };
+
+  const balance: number = calculateBalance(asset.id, balances);
+
+  const getGasFee = async (): Promise<
+    { gas_fee_wei: number; gas_fee_native: number } | undefined
+  > => {
+    return await fetchGasFee({
       contractAddress: asset.contractAddress,
       toAddress: address,
       fromAddress: asset.account.address,
       amount: Number(amount),
       blockchain: asset.blockchain,
     });
-    return gasFee;
   };
 
-  const balance = calculateBalance(asset.id, balances);
-
-  const sendHandler = async () => {
+  const sendHandler = async (): Promise<void> => {
     try {
-      setisTransactionCreating(true);
-      const enncryptedPrivateKey = await decrypt(
+      setIsTransactionCreating(true);
+      const encryptedPrivateKey = await decrypt(
         asset.account.privateKey,
         setupPass as string
       );
+      if (!encryptedPrivateKey) throw new Error();
 
-      if (!enncryptedPrivateKey) {
-        throw new Error();
-      }
-
-      const config = {
-        privateKey: enncryptedPrivateKey,
+      await sendTransaction({
+        privateKey: encryptedPrivateKey,
         toAddress: address,
         blockchain: asset.blockchain,
         contractAddress: asset.contractAddress,
         amount: Number(amount),
         gasFee: gasFeeWey as number,
         fromAddress: asset.account.address,
-      };
-
-      await sendTransaction(config);
+      });
       sendConfirm.current?.close();
       router.push(`/(wallet)/home/asset/${asset.id}`);
-    } catch (error) {
-      const status = error.response.status;
-      if (status === 409) {
-        Alert.alert(
-          t("shared.error-label"),
-          t("wallet.home.send.send-details.wrong-fee-error")
-        );
-        setDetaills();
-      } else if (status === 500) {
-        Alert.alert(
-          t("shared.error-label"),
-          t("wallet.home.send.send-details.no-balance-error")
-        );
-      } else {
-        Alert.alert(
-          t("shared.error-label"),
-          t("wallet.home.send.send-details.cant-send-transaction-error")
-        );
-      }
+    } catch (error: any) {
+      handleSendError(error.response?.status);
     } finally {
-      setisTransactionCreating(false);
+      setIsTransactionCreating(false);
     }
   };
 
-  const setDetaills = async () => {
+  const handleSendError = (status: number | undefined): void => {
+    const errorMessages: Record<number, string> = {
+      409: t("wallet.home.send.send-details.wrong-fee-error"),
+      500: t("wallet.home.send.send-details.no-balance-error"),
+    };
+    Alert.alert(
+      t("shared.error-label"),
+      // @ts-ignore
+      errorMessages[status] ||
+        t("wallet.home.send.send-details.cant-send-transaction-error")
+    );
+  };
+
+  const setDetailsAsync = async (): Promise<void> => {
     try {
       setLoadingDetails(true);
       const gasFee = await getGasFee();
-      if (!gasFee) {
-        throw new Error();
-      }
-      setGasFeeWey(gasFee?.gas_fee_wei);
+      if (!gasFee) throw new Error();
+
+      setGasFeeWey(gasFee.gas_fee_wei);
       const price = getPrice(asset.symbol);
-      const details: DetailsType = {
+      setDetails({
         name: asset.name,
         symbol: asset.symbol,
         to: address,
         from: asset.account.address,
-        fee: Number(gasFee?.gas_fee_native.toFixed(5)),
+        fee: Number(gasFee.gas_fee_native.toFixed(5)),
         maxTotal: price
           ? Number((Number(price) * Number(amount)).toFixed(5))
           : null,
         amount,
-        blockhain: asset.blockchain,
-      };
-      setDetails(details);
+        blockchain: asset.blockchain,
+      });
     } catch {
+      // Handle error if necessary
     } finally {
       setLoadingDetails(false);
     }
   };
 
-  const confirmSend = async () => {
+  const confirmSend = async (): Promise<void> => {
     if (!isAddress(address) || !Number(amount)) {
       Alert.alert(
         t("shared.error-label"),
         t("wallet.home.send.send-details.inputs-value-error")
       );
-      return;
-    }
-    try {
-      setDetaills();
-    } catch {
       return;
     }
     if (Number(amount) > balance) {
@@ -190,7 +172,8 @@ export default function SendChain() {
       );
       return;
     }
-    handleApproveModalPress();
+    await setDetailsAsync();
+    sendConfirm.current?.present();
   };
 
   return (
@@ -198,7 +181,7 @@ export default function SendChain() {
       <Stack.Screen options={{ title: `${t("shared.send")} ${asset?.name}` }} />
       <SendConfirm
         isDetialsLoading={loadingDetails}
-        isLoading={isTransactionCreting}
+        isLoading={isTransactionCreating}
         ref={sendConfirm}
         onConfirm={sendHandler}
       >
@@ -206,22 +189,20 @@ export default function SendChain() {
       </SendConfirm>
       <ScannerModalUi
         ref={scanAddress}
-        onBarcodeScanner={(address) => {
+        onBarcodeScanner={(address: string) => {
           setAddress(address);
           scanAddress.current?.close();
         }}
       />
-
       <BodyUi>
         <SpacerUi size="3xl">
           <MessageUi>{t("wallet.home.send.warning")}</MessageUi>
         </SpacerUi>
-
         <SpacerUi size="2xl">
           <HeaderTextUi>{t("wallet.home.send.for-whom")}</HeaderTextUi>
           <SpacerUi size="lg">
             <TextInputUi
-              onChangeText={(text) => setAddress(text)}
+              onChangeText={setAddress}
               value={address}
               right={
                 <IconUi
@@ -241,10 +222,8 @@ export default function SendChain() {
         <SpacerUi size="2xl">
           <SpacerUi size="lg">
             <SendAmountInput
-              onChangeText={(text) => setAmont(text)}
-              onMaxPress={() => {
-                setAmont(balance.toString());
-              }}
+              onChangeText={setAmount}
+              onMaxPress={() => setAmount(balance.toString())}
               value={amount}
               uri={asset.icon}
               title={asset.symbol}
@@ -253,12 +232,17 @@ export default function SendChain() {
         </SpacerUi>
       </BodyUi>
       <FooterUi marginSize="sm">
-        <Button onPress={confirmSend} variant="primary">
+        <StyledButton
+          onPress={confirmSend}
+          disabled={loadingDetails}
+          isLoading={loadingDetails}
+          variant={loadingDetails ? "secondary" : "primary"}
+        >
           {t("shared.send")}
-        </Button>
+        </StyledButton>
       </FooterUi>
     </ScrollContainerUi>
   );
 }
 
-const Button = styled(ButtonUi)``;
+const StyledButton = styled(ButtonUi)``;

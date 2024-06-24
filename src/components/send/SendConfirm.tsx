@@ -26,6 +26,7 @@ const SendConfirm = forwardRef<BottomSheetModal, Props>(
               onPress={onConfirm}
               disabled={isDetialsLoading || isLoading}
               isLoading={isLoading}
+              variant={isDetialsLoading || isLoading ? "secondary" : "primary"}
             >
               {t("shared.confirm")}
             </ButtonUi>

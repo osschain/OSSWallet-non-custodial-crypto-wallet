@@ -76,7 +76,7 @@ const SendDetails = ({
         <Details>
           <Detail
             label={`${t("wallet.home.send.send-details.fee")}:`}
-            value={details?.fee + " " + details?.blockhain}
+            value={details?.fee + " " + details?.symbol}
           />
           <SpacerUi size="xl">
             <Detail

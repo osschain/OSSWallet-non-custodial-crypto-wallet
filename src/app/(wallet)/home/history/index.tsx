@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import { FlatList, RefreshControl } from "react-native-gesture-handler";
 
+import styled from "styled-components/native";
 import { HistoryType } from "@/@types/history";
 import { useAssets } from "@/app/api/assets";
 import { useHistories } from "@/app/api/history";
@@ -17,7 +18,6 @@ import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import styled from "styled-components/native";
 
 export default function History() {
   const [page, setPage] = useState(20);

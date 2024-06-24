@@ -1,7 +1,8 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { forwardRef, useEffect, useMemo, useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 
 import BottomSheetModalUi from "../ui/BottomSheetModal";
 
@@ -20,7 +21,7 @@ type Props = {
 
 const LocaleOptions = forwardRef<Ref, Props>(
   ({ locales, defSelected, onSelect = () => {} }, ref) => {
-    const snapPoints = useMemo(() => ["45%", "45%"], []);
+    const snapPoints = useMemo(() => ["50%", "50%"], []);
     const [selected, setSelected] = useState(defSelected || null);
 
     useEffect(() => {
@@ -37,26 +38,23 @@ const LocaleOptions = forwardRef<Ref, Props>(
 
     return (
       <BottomSheetModalUi ref={ref} snapPoints={snapPoints}>
-        <ContainerUi
-          style={{
-            justifyContent: "flex-end",
-            marginBottom: 50,
-          }}
-        >
-          {locales?.map((language, index) => {
-            return (
-              <SpacerUi size="3xl" key={index}>
+        <ContainerUi>
+          <FlatList
+            data={locales}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <SpacerUi size="3xl">
                 <TouchableOpacity
                   onPress={() => {
-                    setSelected(language.locale);
-                    onSelect(language.locale);
+                    setSelected(item.locale);
+                    onSelect(item.locale);
                   }}
                 >
                   <ItemUi
-                    uri={language.flag}
-                    title={language.name}
+                    uri={item.flag}
+                    title={item.name}
                     right={
-                      selected === language.locale && (
+                      selected === item.locale && (
                         <IconUi
                           library="AntDesign"
                           name="check"
@@ -68,8 +66,11 @@ const LocaleOptions = forwardRef<Ref, Props>(
                   />
                 </TouchableOpacity>
               </SpacerUi>
-            );
-          })}
+            )}
+            keyExtractor={(item, index) => index.toString()} // Using index as key
+            ItemSeparatorComponent={() => <View style={{ height: 10 }} />} // Optional separator
+            contentContainerStyle={{ paddingBottom: 25 }} // Additional style if needed
+          />
         </ContainerUi>
       </BottomSheetModalUi>
     );

@@ -59,7 +59,7 @@ const HomeCard = ({
           {label}
         </HeaderTextUi>
         <SpacerUi size="xl">
-          <MoneyAmount size="2xl">
+          <MoneyAmount size="2xl" color="pure-white">
             {isLoading ? (
               <ActivityIndicator style={{ height: 41.3 }} />
             ) : (

@@ -15,7 +15,7 @@ export default function ModalScreen() {
 
   useEffect(() => {
     setNotifNum(0);
-  });
+  }, [setNotifNum]);
 
   const handleRouting = (title: string, type: string, url: string) => {
     if (type === "direct") {

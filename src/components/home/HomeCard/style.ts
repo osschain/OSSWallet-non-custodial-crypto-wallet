@@ -27,9 +27,6 @@ export const WalletAdressContainer = styled.View`
 export const CopyAddres = styled.TouchableOpacity``;
 
 export const MoneyAmount = styled(HeaderTextUi)`
-  color: ${({ theme }) => theme.colors["pure-white"]};
-  font-size: 28px;
-  font-family: ${({ theme }) => getFontStyle(theme, "heading", "bold")};
 `;
 
 export const Buttons = styled.View`

@@ -1,16 +1,14 @@
 import { Redirect, router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useTheme } from "styled-components/native";
 
 import EnterPassCode from "@/components/auth/EnterPassCode";
+import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import { useAuth } from "@/providers/AuthProvider";
 import { useStyledTheme } from "@/providers/StyledThemeProvider";
-import { StatusBar } from "expo-status-bar";
 
 function EnterPassowrd() {
-  const theme = useTheme();
   const { currentMode } = useStyledTheme();
   const { t } = useTranslation();
 
@@ -45,14 +43,12 @@ function EnterPassowrd() {
 
   return (
     <>
-      <SafeAreaView
-        style={{ flex: 1, backgroundColor: theme.colors["bg-primary"] }}
-      >
+      <ScrollContainerUi>
         <EnterPassCode
           header={t("pascode.header")}
           onPasswordFull={handlePasswordCheck}
         />
-      </SafeAreaView>
+      </ScrollContainerUi>
       <StatusBar style={currentMode === "dark" ? "light" : "dark"} />
     </>
   );

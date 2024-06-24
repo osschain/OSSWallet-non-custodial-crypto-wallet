@@ -14,13 +14,13 @@ import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function MnemonicBackUping() {
   const [words, setWords] = useState<string[]>([]);
-  const { mnemonic: myMnemonic } = useAuth();
+  const { mnemonic } = useAuth();
   const { t } = useTranslation();
   useEffect(() => {
-    if (myMnemonic) {
-      setWords(myMnemonic.trim().split(/\s+/));
+    if (mnemonic) {
+      setWords(mnemonic.trim().split(/\s+/));
     }
-  }, []);
+  }, [mnemonic]);
 
   return (
     <ScrollContainerUi>

@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import EnterPassCode from "@/components/auth/EnterPassCode";
@@ -10,17 +10,20 @@ function PasswordSetup() {
   const [password, setPassword] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
   const { t } = useTranslation();
+
+  const continueHandler = useCallback(
+    (password: string) => {
+      encryptAndSaveMnemonic(password);
+      router.push("/auth/wallet-creating");
+    },
+    [encryptAndSaveMnemonic]
+  );
+
   useEffect(() => {
     if (password && password === confirmPassword) {
       continueHandler(password);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confirmPassword, password]);
-
-  const continueHandler = (password: string) => {
-    encryptAndSaveMnemonic(password);
-    router.push("/auth/wallet-creating");
-  };
+  }, [confirmPassword, continueHandler, password]);
 
   return (
     <>

@@ -43,7 +43,7 @@ export default function MnemonicCreating() {
 
   useEffect(() => {
     addIsImporting(false);
-  }, []);
+  }, [addIsImporting]);
 
   useEffect(() => {
     const bootstrap = () => {
@@ -55,7 +55,7 @@ export default function MnemonicCreating() {
       addMnemonic(mnemonic as string);
     };
     bootstrap();
-  }, []);
+  }, [addMnemonic]);
 
   useEffect(() => {
     const startAnimation = () => {

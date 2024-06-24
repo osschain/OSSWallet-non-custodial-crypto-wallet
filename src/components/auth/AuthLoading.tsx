@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -39,8 +38,7 @@ const AuthLoading = ({ label }: { label: string }) => {
     return () => {
       animation.value = 0;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [animation]);
 
   return (
     <Body>

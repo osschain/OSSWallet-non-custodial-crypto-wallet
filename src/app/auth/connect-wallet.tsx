@@ -23,8 +23,7 @@ function ConnetWallet() {
 
   useEffect(() => {
     addIsImporting(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [addIsImporting]);
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const handlePresentModalPress = () => {

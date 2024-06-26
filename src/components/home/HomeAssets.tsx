@@ -80,7 +80,7 @@ const HomeAssets = () => {
       refreshControl={
         <RefreshControl
           onRefresh={async () => {
-            await queryClient.invalidateQueries({ queryKey: ["balances"] });
+            // await queryClient.invalidateQueries({ queryKey: ["balances"] });
             await queryClient.invalidateQueries({ queryKey: ["assetPrices"] });
           }}
           refreshing={false}
@@ -98,7 +98,7 @@ const AssetItem = ({
   networkUri?: string;
 }) => {
   const { data: assetPrices } = useAssetPrices();
-  const { data: balances } = UseBalances(item.account.address, item.blockchain);
+  const { data: balance } = UseBalances(item.account.address, item.blockchain);
 
   const theme = useTheme();
   const price = (symbol: string) =>
@@ -155,14 +155,14 @@ const AssetItem = ({
         right={
           <View>
             <BodyTextUi size="md" weight="medium">
-              {calculateBalance(item.id, balances)} {item.symbol}
+              {balance}
             </BodyTextUi>
             <BodyTextUi
               size="md"
               weight="medium"
               style={{ textAlign: "right" }}
             >
-              {calculateUsdBalance(item.id, balances)} $
+              {/* {calculateUsdBalance(item.id, balances)} $ */}
             </BodyTextUi>
           </View>
         }

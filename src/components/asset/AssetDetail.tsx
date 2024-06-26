@@ -17,7 +17,11 @@ import { pixelToNumber } from "@/util/pixelToNumber";
 const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const { data: balances } = UseBalances();
+
+  const { data: balance } = UseBalances(
+    asset.account.address,
+    asset.blockchain
+  );
 
   return (
     <>
@@ -33,10 +37,10 @@ const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
 
       <SpacerUi size="xl">
         <HeaderTextUi weight="semi" size="lg" style={{ textAlign: "center" }}>
-          {calculateBalance(asset?.id, balances)} {asset.symbol}
+          {balance} {asset.symbol}
         </HeaderTextUi>
         <BodyTextUi weight="regular" size="md" style={{ textAlign: "center" }}>
-          {calculateUsdBalance(asset.id, balances)} $
+          {/* {calculateUsdBalance(asset.id, balances)} $ */}
         </BodyTextUi>
       </SpacerUi>
       <SpacerUi size="3xl">

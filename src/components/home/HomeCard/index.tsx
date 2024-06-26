@@ -42,10 +42,10 @@ const HomeCard = ({
 }: Props) => {
   const { t } = useTranslation();
   const { newNotifsNumber } = useNotification();
-  const { data: balances, isLoading } = UseBalances();
-  const balance = useMemo(() => {
-    return totalBalance(balances) || 0;
-  }, [balances]);
+  // const { data: balances, isLoading } = UseBalances();
+  // const balance = useMemo(() => {
+  //   return totalBalance(balances) || 0;
+  // }, [balances]);
 
   return (
     <Card {...rest}>
@@ -60,11 +60,11 @@ const HomeCard = ({
         </HeaderTextUi>
         <SpacerUi size="xl">
           <MoneyAmount size="2xl" color="pure-white">
-            {isLoading ? (
+            {/* {isLoading ? (
               <ActivityIndicator style={{ height: 41.3 }} />
             ) : (
               "$" + balance
-            )}
+            )} */}
           </MoneyAmount>
         </SpacerUi>
       </Header>

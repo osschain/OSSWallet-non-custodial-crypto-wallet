@@ -10,7 +10,6 @@ import AlertWithImageUI from "../ui/AlertWithImageUi";
 import SpacerUi from "../ui/SpacerUi";
 
 import { useAssets } from "@/app/api/assets";
-import { UseBalances } from "@/app/api/balances";
 import { useNfts } from "@/app/api/nft";
 import { findAsset } from "@/util/findAsset";
 
@@ -20,9 +19,8 @@ const HomeNfts = () => {
   const { data: nfts, isError, isLoading: isNftLoading } = useNfts(10);
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
-  const { isLoading: isBalancesLoading } = UseBalances();
 
-  if (isNftLoading || isBalancesLoading) {
+  if (isNftLoading) {
     return (
       <SpacerUi size="xl">
         <ActivityIndicator />

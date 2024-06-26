@@ -47,14 +47,19 @@ export default function SendChain(): JSX.Element {
   const [loadingDetails, setLoadingDetails] = useState<boolean>(false);
   const [isTransactionCreating, setIsTransactionCreating] =
     useState<boolean>(false);
-  const { data: balances } = UseBalances();
   const [gasFeeWey, setGasFeeWey] = useState<number | undefined>();
   const [amount, setAmount] = useState<string>("");
   const { setupPass } = useAuth();
   const { t } = useTranslation();
-  const { slug } = useLocalSearchParams<{ slug: string }>();
+
+  const { slug, balance } = useLocalSearchParams<{
+    slug: string;
+    balance: string;
+  }>();
+
   const { data: assetManager, isError } = useAssets();
   const asset = findAsset(assetManager?.assets, slug as string);
+
   const { data: assetPrices } = useAssetPrices();
   const sendConfirm = useRef<BottomSheetModal>(null);
   const scanAddress = useRef<BottomSheetModal>(null);
@@ -75,8 +80,6 @@ export default function SendChain(): JSX.Element {
       null
     );
   };
-
-  const balance: number = calculateBalance(asset.id, balances);
 
   const getGasFee = async (): Promise<
     { gas_fee_wei: number; gas_fee_native: number } | undefined
@@ -165,7 +168,7 @@ export default function SendChain(): JSX.Element {
       );
       return;
     }
-    if (Number(amount) > balance) {
+    if (Number(amount) > Number(balance)) {
       Alert.alert(
         t("shared.error-label"),
         t("wallet.home.send.send-details.no-balance-error")

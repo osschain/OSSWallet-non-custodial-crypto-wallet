@@ -27,23 +27,11 @@ export const UseBalances = (
 
       if (AddresTypes.evm === type) {
         const balance = await getEvmBalance(address, blockchain);
-        console.log(balance);
+
+        return balance ? Number(balance).toFixed(4) : 0;
       }
-      const balances = await getBalances(assetsManager.addresses);
 
-      const shownIds = assetsManager.shownIds;
-
-      const uniqueIds = new Set();
-
-      const filteredBalances = balances.filter((balance) => {
-        if (shownIds.includes(balance.id) && !uniqueIds.has(balance.id)) {
-          uniqueIds.add(balance.id);
-          return true;
-        }
-        return false;
-      });
-
-      return filteredBalances;
+      return 0;
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,

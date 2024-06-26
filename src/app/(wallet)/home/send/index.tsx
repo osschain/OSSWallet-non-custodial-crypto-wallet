@@ -18,8 +18,6 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
-import { calculateBalance } from "@/services/balances.service";
-import { findAsset } from "@/util/findAsset";
 
 export default function Send() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
@@ -27,7 +25,6 @@ export default function Send() {
   const { data: networks } = UseNetworks();
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
-  const { data: balances } = UseBalances();
   const { t } = useTranslation();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -65,48 +62,45 @@ export default function Send() {
           showsVerticalScrollIndicator={false}
           data={filteredAssets}
           keyExtractor={(item) => item.name}
-          renderItem={({ item }) => (
-            <AssetItem
-              key={item.name}
-              asset={item}
-              balance={calculateBalance(item.id, balances)}
-              assets={assets}
-            />
-          )}
+          renderItem={({ item }) => <AssetItem key={item.name} asset={item} />}
         />
       </SpacerUi>
     </ContainerUi>
   );
 }
 
-const AssetItem = ({
-  asset,
-  balance,
-  assets,
-}: {
-  asset: AssetType;
-  balance: number;
-  assets: AssetType[];
-}) => (
-  <SpacerUi size="3xl">
-    <Link href={`/(wallet)/home/send/${asset.id}`} asChild>
-      <TouchableOpacity>
-        <ItemUi
-          title={asset.name}
-          uri={asset.icon}
-          descUri={
-            asset.contractAddress
-              ? findAsset(assets, asset.blockchain)?.icon
-              : undefined
-          }
-          leftBottom={<BodyTextUi>{asset.symbol}</BodyTextUi>}
-          right={
-            <BodyTextUi weight="regular">
-              {balance} {asset.symbol}
-            </BodyTextUi>
-          }
-        />
-      </TouchableOpacity>
-    </Link>
-  </SpacerUi>
-);
+const AssetItem = ({ asset }: { asset: AssetType }) => {
+  const { data: balance } = UseBalances(
+    asset.account.address,
+    asset.blockchain,
+    asset.contractAddress
+  );
+
+  return (
+    <SpacerUi size="3xl">
+      <Link
+        href={{
+          pathname: `/(wallet)/home/send/${asset.id}`,
+          params: {
+            balance,
+          },
+        }}
+        asChild
+      >
+        <TouchableOpacity>
+          <ItemUi
+            title={asset.name}
+            uri={asset.icon}
+            descUri={asset.contractAddress}
+            leftBottom={<BodyTextUi>{asset.symbol}</BodyTextUi>}
+            right={
+              <BodyTextUi weight="regular">
+                {balance} {asset.symbol}
+              </BodyTextUi>
+            }
+          />
+        </TouchableOpacity>
+      </Link>
+    </SpacerUi>
+  );
+};

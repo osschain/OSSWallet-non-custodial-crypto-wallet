@@ -17,7 +17,8 @@ const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
 
   const { data: balance } = UseBalances(
     asset.account.address,
-    asset.blockchain
+    asset.blockchain,
+    asset.contractAddress
   );
 
   return (

@@ -123,7 +123,11 @@ const AssetItem = ({
   price: number;
   priceChange: number;
 }) => {
-  const { data: balance } = UseBalances(item.account.address, item.blockchain);
+  const { data: balance } = UseBalances(
+    item.account.address,
+    item.blockchain,
+    item.contractAddress
+  );
 
   const theme = useTheme();
 
@@ -157,15 +161,19 @@ const AssetItem = ({
         descUri={networkUri}
         right={
           <View>
-            <BodyTextUi size="md" weight="medium">
-              {balance}
+            <BodyTextUi
+              style={{ textAlign: "right" }}
+              size="md"
+              weight="medium"
+            >
+              {balance || 0}
             </BodyTextUi>
             <BodyTextUi
               size="md"
               weight="medium"
               style={{ textAlign: "right" }}
             >
-              {/* {calculateUsdBalance(item.id, balances)} $ */}
+              {balance ? (balance * price).toFixed(3) : 0} $
             </BodyTextUi>
           </View>
         }

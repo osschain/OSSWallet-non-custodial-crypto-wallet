@@ -95,7 +95,7 @@ const AssetItem = ({ asset }: { asset: AssetType }) => {
             leftBottom={<BodyTextUi>{asset.symbol}</BodyTextUi>}
             right={
               <BodyTextUi weight="regular">
-                {balance} {asset.symbol}
+                {balance || 0} {asset.symbol}
               </BodyTextUi>
             }
           />

@@ -15,6 +15,7 @@ import BodyTextUi from "../ui/BodyTextUi";
 import ItemUi from "../ui/ItemUi";
 import SpacerUi from "../ui/SpacerUi";
 
+import { AssetType } from "@/@types/assets";
 import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import {
@@ -24,7 +25,6 @@ import {
 import { findAsset } from "@/util/findAsset";
 
 const HomeAssets = () => {
-  const theme = useTheme();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const {
@@ -33,31 +33,8 @@ const HomeAssets = () => {
     isLoading: isAssetLoading,
   } = useAssets();
   const assets = assetManager?.assets;
-  const { data: assetPrices } = useAssetPrices();
-  const { data: balances, isLoading: isBalancesLoading } = UseBalances();
 
-  const price = (symbol: string) =>
-    assetPrices
-      ?.find(
-        (asset) =>
-          asset.symbol === symbol ||
-          (asset.symbol === "MATIC" && symbol === "zkEVM")
-      )
-      ?.price.toFixed(4) || 0;
-
-  const priceChange = (symbol: string) =>
-    Number(
-      assetPrices
-        ?.find((asset) => {
-          return (
-            asset.symbol === symbol ||
-            (asset.symbol === "MATIC" && symbol === "zkEVM")
-          );
-        })
-        ?.price_change_24h.toFixed(2)
-    ) || 0;
-
-  if (isAssetLoading || isBalancesLoading) {
+  if (isAssetLoading) {
     return (
       <SpacerUi size="xl">
         <ActivityIndicator />
@@ -86,55 +63,14 @@ const HomeAssets = () => {
             >
               <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
                 <TouchableOpacity>
-                  <Asset>
-                    <ItemUi
-                      title={item.name}
-                      uri={item.icon}
-                      leftBottom={
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            gap: 5,
-                            alignItems: "center",
-                          }}
-                        >
-                          <BodyTextUi>{price(item.symbol)} $</BodyTextUi>
-                          <BodyTextUi
-                            size="sm"
-                            style={{
-                              color:
-                                priceChange(item.symbol) > 0
-                                  ? theme.colors["green-700"]
-                                  : theme.colors["red-700"],
-                            }}
-                          >
-                            {priceChange(item.symbol) > 0
-                              ? "+" + priceChange(item.symbol) + " %"
-                              : priceChange(item.symbol) + " %"}
-                          </BodyTextUi>
-                        </View>
-                      }
-                      descUri={
-                        item.contractAddress
-                          ? findAsset(assets, item.blockchain)?.icon
-                          : undefined
-                      }
-                      right={
-                        <View>
-                          <BodyTextUi size="md" weight="medium">
-                            {calculateBalance(item.id, balances)} {item.symbol}
-                          </BodyTextUi>
-                          <BodyTextUi
-                            size="md"
-                            weight="medium"
-                            style={{ textAlign: "right" }}
-                          >
-                            {calculateUsdBalance(item.id, balances)} $
-                          </BodyTextUi>
-                        </View>
-                      }
-                    />
-                  </Asset>
+                  <AssetItem
+                    item={item}
+                    networkUri={
+                      item.contractAddress
+                        ? findAsset(assets, item.blockchain)?.icon
+                        : undefined
+                    }
+                  />
                 </TouchableOpacity>
               </Link>
             </Spacer>
@@ -151,6 +87,87 @@ const HomeAssets = () => {
         />
       }
     />
+  );
+};
+
+const AssetItem = ({
+  item,
+  networkUri,
+}: {
+  item: AssetType;
+  networkUri?: string;
+}) => {
+  const { data: assetPrices } = useAssetPrices();
+  const { data: balances } = UseBalances();
+
+  const theme = useTheme();
+  const price = (symbol: string) =>
+    assetPrices
+      ?.find(
+        (asset) =>
+          asset.symbol === item.symbol ||
+          (asset.symbol === "MATIC" && item.symbol === "zkEVM")
+      )
+      ?.price.toFixed(4) || 0;
+
+  const priceChange = (symbol: string) =>
+    Number(
+      assetPrices
+        ?.find((asset) => {
+          return (
+            asset.symbol === item.symbol ||
+            (asset.symbol === "MATIC" && item.symbol === "zkEVM")
+          );
+        })
+        ?.price_change_24h.toFixed(2)
+    ) || 0;
+
+  return (
+    <Asset>
+      <ItemUi
+        title={item.name}
+        uri={item.icon}
+        leftBottom={
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 5,
+              alignItems: "center",
+            }}
+          >
+            <BodyTextUi>{price(item.symbol)} $</BodyTextUi>
+            <BodyTextUi
+              size="sm"
+              style={{
+                color:
+                  priceChange(item.symbol) > 0
+                    ? theme.colors["green-700"]
+                    : theme.colors["red-700"],
+              }}
+            >
+              {priceChange(item.symbol) > 0
+                ? "+" + priceChange(item.symbol) + " %"
+                : priceChange(item.symbol) + " %"}
+            </BodyTextUi>
+          </View>
+        }
+        descUri={networkUri}
+        right={
+          <View>
+            <BodyTextUi size="md" weight="medium">
+              {calculateBalance(item.id, balances)} {item.symbol}
+            </BodyTextUi>
+            <BodyTextUi
+              size="md"
+              weight="medium"
+              style={{ textAlign: "right" }}
+            >
+              {calculateUsdBalance(item.id, balances)} $
+            </BodyTextUi>
+          </View>
+        }
+      />
+    </Asset>
   );
 };
 

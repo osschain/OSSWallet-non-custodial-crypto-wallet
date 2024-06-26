@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
-import { getBalances } from "@/services/balances.service";
+import { getBalances, getEvmBalance } from "@/services/balances.service";
+import { AddresTypes } from "@/@types/balances";
 
 export const UseBalances = (
   address: string,
@@ -18,6 +19,15 @@ export const UseBalances = (
       console.log(address);
       if (!assets) {
         throw new Error("Asset is not presented");
+      }
+
+      const type = assetsManager.addresses.find(
+        (item) => item.address === address
+      )?.type;
+
+      if (AddresTypes.evm === type) {
+        const balance = await getEvmBalance(address, blockchain);
+        console.log(balance);
       }
       const balances = await getBalances(assetsManager.addresses);
 

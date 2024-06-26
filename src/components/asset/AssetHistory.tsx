@@ -5,25 +5,24 @@ import { useTranslation } from "react-i18next";
 import { ActivityIndicator, RefreshControl } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
+import styled from "styled-components/native";
+
 import HistoryItem, { variants } from "../history/history-item";
 import AlertWithImageUI from "../ui/AlertWithImageUi";
 import BodyTextUi from "../ui/BodyTextUi";
 import SpacerUi from "../ui/SpacerUi";
 
+import { AssetType } from "@/@types/assets";
 import { useAssets } from "@/app/api/assets";
 import { useHistory } from "@/app/api/history";
-import { findAsset } from "@/util/findAsset";
-import styled from "styled-components/native";
 
-const AssetHistory = () => {
-  const { assetSlug: slug } = useLocalSearchParams();
+const AssetHistory = ({ asset }: { asset: AssetType }) => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(10);
   const [pageToken, setPageToken] = useState<string | undefined>();
 
   const { data: assetManager } = useAssets();
   const queryClient = useQueryClient();
-  const assets = assetManager?.assets;
-  const asset = findAsset(assets, slug as string);
   const isToken = !!asset?.contractAddress;
   const { account, blockchain, id } = asset || {};
 
@@ -41,14 +40,15 @@ const AssetHistory = () => {
     pageToken,
   });
 
-  const { t } = useTranslation();
   const histories = history?.histories;
+
   const assetHistory = useMemo(() => {
     if (!histories) return;
     return histories?.filter(
       (history) => history.id.toLowerCase() === asset?.id.toLowerCase()
     );
   }, [asset?.id, histories]);
+
   if (isLoading) {
     return (
       <SpacerUi size="4xl">

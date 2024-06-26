@@ -9,11 +9,8 @@ import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import {
-  calculateBalance,
-  calculateUsdBalance,
-} from "@/services/balances.service";
 import { pixelToNumber } from "@/util/pixelToNumber";
+
 const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
   const { t } = useTranslation();
   const theme = useTheme();

@@ -27,7 +27,7 @@ export default function Home() {
             onCustomToken={() => router.push("(wallet)/home/custom-token")}
           />
         </CardContainer>
-        <SpacerUi size="sm" style={{ flex: 1 }}>
+        <SpacerUi size="sm" fullHeight>
           <HomeSegment />
         </SpacerUi>
       </Animated.View>
@@ -69,8 +69,8 @@ const HomeSegment = () => {
 const Container = styled.View`
   flex: 1;
 `;
-// prettier-ignore
 
+// prettier-ignore
 const CardContainer = styled.View`
   padding: ${({ theme }) => theme.spaces["lg"]} ${({ theme }) => theme.spaces["xl"]};
 `;

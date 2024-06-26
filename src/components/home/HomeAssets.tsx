@@ -18,10 +18,6 @@ import SpacerUi from "../ui/SpacerUi";
 import { AssetType } from "@/@types/assets";
 import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
-import {
-  calculateBalance,
-  calculateUsdBalance,
-} from "@/services/balances.service";
 import { findAsset } from "@/util/findAsset";
 
 const HomeAssets = () => {
@@ -33,6 +29,30 @@ const HomeAssets = () => {
     isLoading: isAssetLoading,
   } = useAssets();
   const assets = assetManager?.assets;
+  const { data: assetPrices } = useAssetPrices();
+
+  const price = (symbol: string) =>
+    Number(
+      assetPrices
+        ?.find(
+          (asset) =>
+            asset.symbol === symbol ||
+            (asset.symbol === "MATIC" && symbol === "zkEVM")
+        )
+        ?.price.toFixed(4)
+    ) || 0;
+
+  const priceChange = (symbol: string) =>
+    Number(
+      assetPrices
+        ?.find((asset) => {
+          return (
+            asset.symbol === symbol ||
+            (asset.symbol === "MATIC" && symbol === "zkEVM")
+          );
+        })
+        ?.price_change_24h.toFixed(2)
+    ) || 0;
 
   if (isAssetLoading) {
     return (
@@ -65,6 +85,8 @@ const HomeAssets = () => {
                 <TouchableOpacity>
                   <AssetItem
                     item={item}
+                    price={price(item.symbol)}
+                    priceChange={priceChange(item.symbol)}
                     networkUri={
                       item.contractAddress
                         ? findAsset(assets, item.blockchain)?.icon
@@ -93,34 +115,17 @@ const HomeAssets = () => {
 const AssetItem = ({
   item,
   networkUri,
+  price,
+  priceChange,
 }: {
   item: AssetType;
   networkUri?: string;
+  price: number;
+  priceChange: number;
 }) => {
-  const { data: assetPrices } = useAssetPrices();
   const { data: balance } = UseBalances(item.account.address, item.blockchain);
 
   const theme = useTheme();
-  const price = (symbol: string) =>
-    assetPrices
-      ?.find(
-        (asset) =>
-          asset.symbol === item.symbol ||
-          (asset.symbol === "MATIC" && item.symbol === "zkEVM")
-      )
-      ?.price.toFixed(4) || 0;
-
-  const priceChange = (symbol: string) =>
-    Number(
-      assetPrices
-        ?.find((asset) => {
-          return (
-            asset.symbol === item.symbol ||
-            (asset.symbol === "MATIC" && item.symbol === "zkEVM")
-          );
-        })
-        ?.price_change_24h.toFixed(2)
-    ) || 0;
 
   return (
     <Asset>
@@ -135,19 +140,17 @@ const AssetItem = ({
               alignItems: "center",
             }}
           >
-            <BodyTextUi>{price(item.symbol)} $</BodyTextUi>
+            <BodyTextUi>{price} $</BodyTextUi>
             <BodyTextUi
               size="sm"
               style={{
                 color:
-                  priceChange(item.symbol) > 0
+                  priceChange > 0
                     ? theme.colors["green-700"]
                     : theme.colors["red-700"],
               }}
             >
-              {priceChange(item.symbol) > 0
-                ? "+" + priceChange(item.symbol) + " %"
-                : priceChange(item.symbol) + " %"}
+              {priceChange > 0 ? "+" + priceChange + " %" : priceChange + " %"}
             </BodyTextUi>
           </View>
         }

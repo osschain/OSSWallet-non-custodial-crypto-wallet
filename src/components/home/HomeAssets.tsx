@@ -98,7 +98,7 @@ const AssetItem = ({
   networkUri?: string;
 }) => {
   const { data: assetPrices } = useAssetPrices();
-  const { data: balances } = UseBalances();
+  const { data: balances } = UseBalances(item.account.address, item.blockchain);
 
   const theme = useTheme();
   const price = (symbol: string) =>

@@ -4,34 +4,39 @@ import { useAssets } from "./assets";
 
 import { getBalances } from "@/services/balances.service";
 
-export const UseBalances = () => {
-    const { data: assetsManager } = useAssets()
-    const assets = assetsManager?.assets;
+export const UseBalances = (
+  address: string,
+  blockchain: string,
+  contractAddress = ""
+) => {
+  const { data: assetsManager } = useAssets();
+  const assets = assetsManager?.assets;
 
-    return useQuery({
-        queryKey: ["balances"],
-        queryFn: async () => {
-            if (!assets) {
-                throw new Error("Asset is not presented");
-            }
-            const balances = await getBalances(assetsManager.addresses)
+  return useQuery({
+    queryKey: ["balances", blockchain, contractAddress],
+    queryFn: async () => {
+      console.log(address);
+      if (!assets) {
+        throw new Error("Asset is not presented");
+      }
+      const balances = await getBalances(assetsManager.addresses);
 
-            const shownIds = assetsManager.shownIds;
+      const shownIds = assetsManager.shownIds;
 
-            const uniqueIds = new Set();
+      const uniqueIds = new Set();
 
-            const filteredBalances = balances.filter(balance => {
-                if (shownIds.includes(balance.id) && !uniqueIds.has(balance.id)) {
-                    uniqueIds.add(balance.id);
-                    return true;
-                }
-                return false;
-            });
+      const filteredBalances = balances.filter((balance) => {
+        if (shownIds.includes(balance.id) && !uniqueIds.has(balance.id)) {
+          uniqueIds.add(balance.id);
+          return true;
+        }
+        return false;
+      });
 
-            return filteredBalances
-        },
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        retry: true
-    });
+      return filteredBalances;
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    retry: true,
+  });
 };

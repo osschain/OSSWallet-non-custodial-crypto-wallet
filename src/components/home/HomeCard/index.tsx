@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { ComponentPropsWithoutRef, useMemo } from "react";
+import { ComponentPropsWithoutRef, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Dimensions, TouchableOpacity } from "react-native";
 
@@ -22,6 +22,7 @@ import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useNotification } from "@/providers/NotificationsProvider";
 import { totalBalance } from "@/services/balances.service";
+import { useStore } from "@/providers/StoreProvider";
 
 type Props = {
   label?: string;
@@ -42,10 +43,7 @@ const HomeCard = ({
 }: Props) => {
   const { t } = useTranslation();
   const { newNotifsNumber } = useNotification();
-  // const { data: balances, isLoading } = UseBalances();
-  // const balance = useMemo(() => {
-  //   return totalBalance(balances) || 0;
-  // }, [balances]);
+  const { totalBalance } = useStore();
 
   return (
     <Card {...rest}>
@@ -60,11 +58,7 @@ const HomeCard = ({
         </HeaderTextUi>
         <SpacerUi size="xl">
           <MoneyAmount size="2xl" color="pure-white">
-            {/* {isLoading ? (
-              <ActivityIndicator style={{ height: 41.3 }} />
-            ) : (
-              "$" + balance
-            )} */}
+            {totalBalance.toFixed(4)} $
           </MoneyAmount>
         </SpacerUi>
       </Header>

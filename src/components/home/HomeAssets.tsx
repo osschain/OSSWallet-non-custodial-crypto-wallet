@@ -123,7 +123,7 @@ const AssetItem = ({
   price: number;
   priceChange: number;
 }) => {
-  const { data: balance } = UseBalances(
+  const { data: balance, isLoading } = UseBalances(
     item.account.address,
     item.blockchain,
     item.contractAddress
@@ -160,22 +160,26 @@ const AssetItem = ({
         }
         descUri={networkUri}
         right={
-          <View>
-            <BodyTextUi
-              style={{ textAlign: "right" }}
-              size="md"
-              weight="medium"
-            >
-              {balance || 0}
-            </BodyTextUi>
-            <BodyTextUi
-              size="md"
-              weight="medium"
-              style={{ textAlign: "right" }}
-            >
-              {balance ? (balance * price).toFixed(3) : 0} $
-            </BodyTextUi>
-          </View>
+          isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <View>
+              <BodyTextUi
+                style={{ textAlign: "right" }}
+                size="md"
+                weight="medium"
+              >
+                {balance || 0}
+              </BodyTextUi>
+              <BodyTextUi
+                size="md"
+                weight="medium"
+                style={{ textAlign: "right" }}
+              >
+                {balance ? (Number(balance) * price).toFixed(3) : 0} $
+              </BodyTextUi>
+            </View>
+          )
         }
       />
     </Asset>

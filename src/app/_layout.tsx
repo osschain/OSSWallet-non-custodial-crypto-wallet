@@ -11,6 +11,7 @@ import AuthProvider from "@/providers/AuthProvider";
 import { ErrorBoundaryProvider } from "@/providers/ErrorBoundery";
 import NothificationProvider from "@/providers/NotificationsProvider";
 import QueryProvider from "@/providers/QueryProvider";
+import StoreProvider from "@/providers/StoreProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
 
 export {
@@ -64,45 +65,47 @@ function RootLayoutNav() {
     <>
       <ErrorBoundaryProvider>
         <NothificationProvider>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <StyledThemeProvider>
-              <AuthProvider>
-                <QueryProvider>
-                  <BottomSheetModalProvider>
-                    <Stack>
-                      <Stack.Screen
-                        name="index"
-                        options={{ headerShown: false }}
-                      />
-                      <Stack.Screen
-                        name="auth"
-                        options={{ headerShown: false }}
-                      />
-                      <Stack.Screen
-                        name="(wallet)"
-                        options={{ headerShown: false }}
-                      />
-                      <Stack.Screen
-                        name="notification"
-                        options={{
-                          headerShown: false,
-                          presentation: "modal",
-                        }}
-                      />
-                      <Stack.Screen
-                        name="enter-password"
-                        options={{ headerShown: false }}
-                      />
-                      <Stack.Screen
-                        name="web-view"
-                        options={{ headerShown: false }}
-                      />
-                    </Stack>
-                  </BottomSheetModalProvider>
-                </QueryProvider>
-              </AuthProvider>
-            </StyledThemeProvider>
-          </GestureHandlerRootView>
+          <StoreProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <StyledThemeProvider>
+                <AuthProvider>
+                  <QueryProvider>
+                    <BottomSheetModalProvider>
+                      <Stack>
+                        <Stack.Screen
+                          name="index"
+                          options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                          name="auth"
+                          options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                          name="(wallet)"
+                          options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                          name="notification"
+                          options={{
+                            headerShown: false,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="enter-password"
+                          options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                          name="web-view"
+                          options={{ headerShown: false }}
+                        />
+                      </Stack>
+                    </BottomSheetModalProvider>
+                  </QueryProvider>
+                </AuthProvider>
+              </StyledThemeProvider>
+            </GestureHandlerRootView>
+          </StoreProvider>
         </NothificationProvider>
       </ErrorBoundaryProvider>
     </>

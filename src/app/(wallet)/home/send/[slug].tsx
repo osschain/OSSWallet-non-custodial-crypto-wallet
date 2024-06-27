@@ -224,7 +224,7 @@ export default function SendChain(): JSX.Element {
           <SpacerUi size="lg">
             <SendAmountInput
               onChangeText={setAmount}
-              onMaxPress={() => setAmount(balance.toString())}
+              onMaxPress={() => setAmount(balance || "0")}
               value={amount}
               uri={asset.icon}
               title={asset.symbol}

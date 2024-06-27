@@ -40,7 +40,15 @@ const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
       <SpacerUi size="3xl">
         <Actions>
           <ActionButton>
-            <Link href={`/(wallet)/home/send/${slug}`} asChild>
+            <Link
+              href={{
+                pathname: `/(wallet)/home/send/${slug}`,
+                params: {
+                  balance,
+                },
+              }}
+              asChild
+            >
               <Button>
                 <IconUi
                   library="Feather"

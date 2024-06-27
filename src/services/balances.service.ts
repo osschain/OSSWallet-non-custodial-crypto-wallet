@@ -168,13 +168,12 @@ export const getEvmBalance = async (
       wallet_address: address,
       blockchain,
       token_contract_address: contractAddress,
-      symbol,
+      token_symbol: symbol,
     });
 
     if (!response.data.success) {
       throw new Error();
     }
-
     if (response.data.balance_native) {
       return {
         balance: response.data.balance_native,

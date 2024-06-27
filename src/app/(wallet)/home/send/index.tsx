@@ -70,11 +70,7 @@ export default function Send() {
 }
 
 const AssetItem = ({ asset }: { asset: AssetType }) => {
-  const { data: balance } = UseBalances(
-    asset.account.address,
-    asset.blockchain,
-    asset.contractAddress
-  );
+  const { data: balance } = UseBalances(asset);
 
   return (
     <SpacerUi size="3xl">

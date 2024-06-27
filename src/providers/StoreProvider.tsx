@@ -9,10 +9,12 @@ export enum StorageKeys {
 type StoreData = {
   totalBalance: number;
   updateTotalBalance: (amount: number) => void;
+  resetTotalBalance: () => void;
 };
 
 const StoreContext = createContext<StoreData>({
   totalBalance: 0,
+  resetTotalBalance: () => {},
   updateTotalBalance: () => {},
 });
 
@@ -24,8 +26,14 @@ export default function StoreProvider({ children }: PropsWithChildren) {
     setTotalBalance((current) => Number(amount) + Number(current));
   };
 
+  const resetTotalBalance = () => {
+    setTotalBalance(0);
+  };
+
   return (
-    <StoreContext.Provider value={{ totalBalance, updateTotalBalance }}>
+    <StoreContext.Provider
+      value={{ totalBalance, updateTotalBalance, resetTotalBalance }}
+    >
       {children}
     </StoreContext.Provider>
   );

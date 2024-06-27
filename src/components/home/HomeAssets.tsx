@@ -18,6 +18,7 @@ import SpacerUi from "../ui/SpacerUi";
 import { AssetType } from "@/@types/assets";
 import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
+import { useStore } from "@/providers/StoreProvider";
 import { findAsset } from "@/util/findAsset";
 
 const HomeAssets = () => {
@@ -30,6 +31,7 @@ const HomeAssets = () => {
   } = useAssets();
   const assets = assetManager?.assets;
   const { data: assetPrices } = useAssetPrices();
+  const { resetTotalBalance } = useStore();
 
   const price = (symbol: string) =>
     Number(
@@ -102,8 +104,8 @@ const HomeAssets = () => {
       refreshControl={
         <RefreshControl
           onRefresh={async () => {
-            // await queryClient.invalidateQueries({ queryKey: ["balances"] });
-            await queryClient.invalidateQueries({ queryKey: ["assetPrices"] });
+            resetTotalBalance();
+            await queryClient.invalidateQueries({ queryKey: ["balances"] });
           }}
           refreshing={false}
         />
@@ -123,11 +125,7 @@ const AssetItem = ({
   price: number;
   priceChange: number;
 }) => {
-  const { data: balance, isLoading } = UseBalances(
-    item.account.address,
-    item.blockchain,
-    item.contractAddress
-  );
+  const { data: balance, isLoading } = UseBalances(item);
 
   const theme = useTheme();
 

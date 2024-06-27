@@ -160,13 +160,15 @@ export const getBalances = async (addresses: AddressType[]) => {
 export const getEvmBalance = async (
   address: string,
   blockchain: string,
-  contractAddress: string
+  contractAddress: string,
+  symbol: string
 ) => {
   try {
     const response = await httpClient.post(ApiEndpoints.GET_ACCOUNT_BALANCE, {
       wallet_address: address,
       blockchain,
       token_contract_address: contractAddress,
+      symbol,
     });
 
     if (!response.data.success) {
@@ -174,9 +176,15 @@ export const getEvmBalance = async (
     }
 
     if (response.data.balance_native) {
-      return response.data.balance_native;
+      return {
+        balance: response.data.balance_native,
+        price: response.data.native_price,
+      };
     } else {
-      return response.data.token_balance;
+      return {
+        balance: response.data.token_balance,
+        price: response.data.native_price,
+      };
     }
   } catch (error) {
     console.log("balance", error);

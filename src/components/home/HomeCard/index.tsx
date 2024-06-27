@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { ComponentPropsWithoutRef, useEffect, useMemo } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Dimensions, TouchableOpacity } from "react-native";
 
@@ -15,13 +15,11 @@ import {
   NotificationContainer,
 } from "./style";
 
-import { UseBalances } from "@/app/api/balances";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useNotification } from "@/providers/NotificationsProvider";
-import { totalBalance } from "@/services/balances.service";
 import { useStore } from "@/providers/StoreProvider";
 
 type Props = {
@@ -57,8 +55,12 @@ const HomeCard = ({
           {label}
         </HeaderTextUi>
         <SpacerUi size="xl">
-          <MoneyAmount size="2xl" color="pure-white">
-            {totalBalance.toFixed(4)} $
+          <MoneyAmount size="2xl" color="pure-white" style={{ height: 40 }}>
+            {totalBalance <= 0 ? (
+              <ActivityIndicator />
+            ) : (
+              totalBalance.toFixed(4) + "$"
+            )}
           </MoneyAmount>
         </SpacerUi>
       </Header>

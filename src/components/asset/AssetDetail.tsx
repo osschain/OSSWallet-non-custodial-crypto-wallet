@@ -15,11 +15,7 @@ const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  const { data: balance } = UseBalances(
-    asset.account.address,
-    asset.blockchain,
-    asset.contractAddress
-  );
+  const { data: balance } = UseBalances(asset);
 
   return (
     <>

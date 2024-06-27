@@ -1,7 +1,7 @@
 export type BalancesType = { id: string; balance: string; balanceUsd: string };
 
 export enum AddresTypes {
-  evm = "ethereum",
+  evm = "eth",
   btc = "btc",
   solana = "solana",
 }

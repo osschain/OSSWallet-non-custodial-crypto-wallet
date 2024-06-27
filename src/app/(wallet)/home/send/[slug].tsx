@@ -7,7 +7,6 @@ import { Alert } from "react-native";
 import styled from "styled-components/native";
 
 import { useAssetPrices, useAssets } from "@/app/api/assets";
-import { UseBalances } from "@/app/api/balances";
 import SendAmountInput from "@/components/send/SendAddressInput";
 import SendConfirm from "@/components/send/SendConfirm";
 import SendDetails from "@/components/send/SendDetails";
@@ -25,7 +24,6 @@ import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { useAuth } from "@/providers/AuthProvider";
-import { calculateBalance } from "@/services/balances.service";
 import { fetchGasFee, sendTransaction } from "@/services/send.service";
 import { decrypt } from "@/util/es";
 import { findAsset } from "@/util/findAsset";

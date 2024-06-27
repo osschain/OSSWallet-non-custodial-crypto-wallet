@@ -3,24 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
+import { AssetType } from "@/@types/assets";
 import { AddresTypes } from "@/@types/balances";
-import { getEvmBalance } from "@/services/balances.service";
 import { useStore } from "@/providers/StoreProvider";
+import { getEvmBalance } from "@/services/balances.service";
 
-const updateTotalBalance = async (amount: number) => {
-  const currentBalance = Number(await AsyncStorage.getItem("totalBalance"));
+export const UseBalances = (asset: AssetType) => {
+  const { blockchain, contractAddress, account, symbol } = asset;
+  const address = account.address;
 
-  await AsyncStorage.setItem(
-    "totalBalance",
-    (currentBalance || 0 + amount).toString()
-  );
-};
-
-export const UseBalances = (
-  address: string,
-  blockchain: string,
-  contractAddress = ""
-) => {
   const { data: assetsManager } = useAssets();
   const assets = assetsManager?.assets;
   const { updateTotalBalance } = useStore();
@@ -37,13 +28,16 @@ export const UseBalances = (
       )?.type;
 
       if (AddresTypes.evm === type) {
-        const balance = await getEvmBalance(
+        const evmBalance = await getEvmBalance(
           address,
           blockchain,
-          contractAddress
+          contractAddress as string,
+          symbol
         );
 
-        updateTotalBalance(balance);
+        const { balance, price } = evmBalance;
+
+        updateTotalBalance(Number(balance) * price);
 
         return balance && Number(balance) > 0 ? Number(balance).toFixed(4) : 0;
       }

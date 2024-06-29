@@ -49,7 +49,8 @@ export const getEvmNfts = async (
       }
     );
 
-    return nft;
+    return nft.filter((nft) => nft.name);
+
   } catch (error) {
     console.log("ERROR NFT");
     console.log(error);

@@ -1,8 +1,9 @@
 import { Blockchain } from "@ankr.com/ankr.js";
+import * as Clipboard from "expo-clipboard";
 import { Link, useLocalSearchParams } from "expo-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
@@ -13,9 +14,13 @@ import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import IconUi from "@/components/ui/IconUi"; // Import your Icon component
 
 export default function Nft() {
   const { t } = useTranslation();
+  const [isAddressCopied, setisAddressCopied] = useState(false);
+  const [isTokenIdCopied, setisTokenIdCopied] = useState(false);
+
   const {
     nftSlug: contractAddress,
     blockchain,
@@ -31,21 +36,47 @@ export default function Nft() {
     tokenId as string
   );
 
+  const copyAddress = async () => {
+    await Clipboard.setStringAsync(contractAddress as string);
+    setisAddressCopied(true);
+    setisTokenIdCopied(false);
+  };
+
+  const copyTokenId = async () => {
+    await Clipboard.setStringAsync(tokenId as string);
+    setisTokenIdCopied(true);
+    setisAddressCopied(false);
+  };
+
   const properties = useMemo(
     () => [
       {
         label: t("wallet.home.nft.slug.contract-address"),
         value: contractAddress,
+        copyHandler: copyAddress,
+        isCopied: isAddressCopied,
       },
-      { label: t("wallet.home.nft.slug.token-id"), value: tokenId },
+      {
+        label: t("wallet.home.nft.slug.token-id"),
+        value: tokenId,
+        copyHandler: copyTokenId,
+        isCopied: isTokenIdCopied,
+      },
       { label: t("shared.network"), value: blockchain },
       {
         label: t("wallet.home.nft.slug.contract-type"),
         value: nft?.contractType,
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [contractAddress, tokenId, blockchain, nft?.contractType]
+    [
+      contractAddress,
+      tokenId,
+      blockchain,
+      nft?.contractType,
+      t,
+      isAddressCopied,
+      isTokenIdCopied,
+    ]
   );
 
   if (isLoading) {
@@ -61,7 +92,7 @@ export default function Nft() {
   }
 
   return (
-    <ScrollViewCotainer>
+    <ScrollViewContainer>
       <BodyUi>
         <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
         <ContainerUi>
@@ -76,9 +107,22 @@ export default function Nft() {
           {properties.map((prop, index) => (
             <SpacerUi key={index} size="xl">
               <NftPropertyHeader size="md">{prop.label}</NftPropertyHeader>
-              <NftPropertyValue size="sm" weight="medium" color="text-second">
-                {prop.value}
-              </NftPropertyValue>
+              <View
+                style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
+              >
+                <NftPropertyValue size="sm" weight="medium" color="text-second">
+                  {prop.value}{" "}
+                </NftPropertyValue>
+                {prop.copyHandler && (
+                  <IconUi
+                    onPress={prop.copyHandler}
+                    library="Feather"
+                    name={prop.isCopied ? "check" : "copy"}
+                    size="lg"
+                    color="icon-second"
+                  />
+                )}
+              </View>
             </SpacerUi>
           ))}
         </ContainerUi>
@@ -97,10 +141,11 @@ export default function Nft() {
           <ButtonUi>{t("shared.transfer")}</ButtonUi>
         </Link>
       </Footer>
-    </ScrollViewCotainer>
+    </ScrollViewContainer>
   );
 }
-const ScrollViewCotainer = styled(ScrollView)`
+
+const ScrollViewContainer = styled(ScrollView)`
   flex-basis: 1;
 `;
 

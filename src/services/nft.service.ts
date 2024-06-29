@@ -62,13 +62,17 @@ export const getEvmNft = async (
   tokenId: string
 ) => {
   try {
-    const response = (await httpClient.post(ApiEndpoints.GET_NFT_METADATA, {
+    const config = {
       id: 1,
       contract_address: contractAddress,
       blockchain,
-      page_size: 1,
       token_id: tokenId,
-    })) as ApiResponse<GetNFTMetadataReply>;
+    };
+
+    const response = (await httpClient.post(
+      ApiEndpoints.GET_NFT_METADATA,
+      config
+    )) as ApiResponse<GetNFTMetadataReply>;
 
     if (!response.data.success) {
       throw new Error();
@@ -78,6 +82,7 @@ export const getEvmNft = async (
 
     return nfts.attributes;
   } catch (error) {
+    console.log("nft Error", error);
     throw error;
   }
 };

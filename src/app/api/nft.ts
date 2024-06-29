@@ -3,49 +3,45 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
-
 import { getEvmNft, getEvmNfts } from "@/services/nft.service";
 
-
 export const useNfts = (page: number) => {
-    const { data: assetsManager } = useAssets()
+  const { data: assetsManager } = useAssets();
 
-    return useQuery({
-        queryKey: ["nfts", page],
-        queryFn: async () => {
+  return useQuery({
+    queryKey: ["nfts", page],
+    queryFn: async () => {
+      if (!assetsManager) {
+        throw new Error("assets is not presented");
+      }
 
-            if (!assetsManager) {
-                throw new Error("assets is not presented");
-            }
+      const nfts = await getEvmNfts(assetsManager.evmAddress, page, undefined);
 
-            const nfts = await getEvmNfts(assetsManager.evmAddress, page, undefined)
-
-            if (!nfts) {
-                throw new Error()
-            }
-            return nfts
-        },
-        placeholderData: keepPreviousData,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-    });
-
+      if (!nfts) {
+        throw new Error();
+      }
+      return nfts;
+    },
+    placeholderData: keepPreviousData,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
 };
 
-
-export const useNft = (address: string, blockchain: Blockchain, tokenId: string) => {
-    return useQuery({
-        queryKey: ["nft", address],
-        queryFn: async () => {
-
-            const nft = await getEvmNft(address, blockchain, tokenId)
-
-            return nft
-        },
-        placeholderData: keepPreviousData,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        retry: false
-    });
-
+export const useNft = (
+  address: string,
+  blockchain: Blockchain,
+  tokenId: string
+) => {
+  return useQuery({
+    queryKey: ["nft", address],
+    queryFn: async () => {
+      const nft = await getEvmNft(address, blockchain, tokenId);
+      return nft;
+    },
+    placeholderData: keepPreviousData,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    retry: false,
+  });
 };

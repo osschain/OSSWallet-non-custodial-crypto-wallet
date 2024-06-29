@@ -148,7 +148,7 @@ const RenderHistoryITem = ({
       ListFooterComponent={() => (
         <>
           {nextPageToken && (
-            <SpacerWithPadding>
+            <SpacerUi style={{ padding: 20 }}>
               {isRefetching ? (
                 <ActivityIndicator />
               ) : (
@@ -158,7 +158,7 @@ const RenderHistoryITem = ({
                   </BodyTextUi>
                 </TouchableOpacity>
               )}
-            </SpacerWithPadding>
+            </SpacerUi>
           )}
         </>
       )}
@@ -173,7 +173,3 @@ const RenderHistoryITem = ({
     />
   );
 };
-
-const SpacerWithPadding = styled(SpacerUi)`
-  padding: ${({ theme }) => theme.spacing["2xl"]};
-`;

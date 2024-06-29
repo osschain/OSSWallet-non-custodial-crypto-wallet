@@ -113,11 +113,11 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
       ListFooterComponent={() => (
         <>
           {history?.nextPageToken && (
-            <SpacerWithPadding>
+            <SpacerUi style={{ padding: 20 }}>
               {isRefetching ? (
-                <IndicatorWithPadding />
+                <ActivityIndicator />
               ) : (
-                <SpacerWithPadding>
+                <SpacerUi>
                   <TouchableOpacity onPress={handlePagination}>
                     <BodyTextUi
                       color="blue-500"
@@ -126,9 +126,9 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
                       {t("shared.loadMore")}
                     </BodyTextUi>
                   </TouchableOpacity>
-                </SpacerWithPadding>
+                </SpacerUi>
               )}
-            </SpacerWithPadding>
+            </SpacerUi>
           )}
         </>
       )}
@@ -143,12 +143,5 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
     />
   );
 };
-
-const SpacerWithPadding = styled(SpacerUi)`
-  padding: ${({ theme }) => theme.spacing["2xl"]};
-`;
-const IndicatorWithPadding = styled(SpacerUi)`
-  padding: ${({ theme }) => theme.spacing["2xl"]};
-`;
 
 export default AssetHistory;

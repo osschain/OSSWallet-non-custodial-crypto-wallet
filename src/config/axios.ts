@@ -6,7 +6,7 @@ export enum ApiEndpoints {
   CRYPTO_CHAIN_TRANSFER = "/crypto_chain_transfer",
   CRYPTO_TOKEN_TRANSFER = "/crypto_token_transfer",
   GET_NFT_METADATA = "/get_nft_metadata",
-  GET_NFT_BY_OWNER = "/get_nft_by_owner",
+  GET_NFT_BY_OWNER = "/get_nft_transactions_by_owner",
   GET_TOKEN_TRANSFER = "/get_token_transfer",
   GET_CHAIN_TRANSFER = "/get_transaction_by_address",
   GET_ACCOUNT_BALANCE = "/get_account_balance",

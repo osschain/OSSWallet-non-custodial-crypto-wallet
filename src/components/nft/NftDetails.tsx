@@ -39,12 +39,6 @@ const NftDetails = ({
       <HeaderTextUi style={{ textAlign: "center" }}>
         {t("wallet.home.send.send-details.title")}
       </HeaderTextUi>
-
-      <SpacerUi size="4xl">
-        <HeaderTextUi size="xl" style={{ textAlign: "center" }}>
-          -{details?.amount} {details?.symbol}
-        </HeaderTextUi>
-      </SpacerUi>
       <SpacerUi size="4xl">
         <Details>
           <Detail
@@ -67,19 +61,12 @@ const NftDetails = ({
               numberOfLines={1}
             />
           </SpacerUi>
-        </Details>
-      </SpacerUi>
 
-      <SpacerUi size="xl">
-        <Details>
-          <Detail
-            label={`${t("wallet.home.send.send-details.fee")}:`}
-            value={details?.fee + " " + details?.blockhain}
-          />
           <SpacerUi size="xl">
             <Detail
-              label={`${t("wallet.home.send.send-details.max-total")}:`}
-              value={details?.maxTotal + " $"}
+              label={`${t("wallet.home.send.send-details.fee")}:`}
+              value={`${details?.fee} ${details.symbol}`}
+              numberOfLines={1}
             />
           </SpacerUi>
         </Details>

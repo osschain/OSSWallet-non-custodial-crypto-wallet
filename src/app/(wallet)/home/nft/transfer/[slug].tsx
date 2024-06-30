@@ -17,7 +17,7 @@ import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import { OSSblockchain } from "@/services/history.service";
-import { fetchGasFee } from "@/services/send.service";
+import { getNftFee } from "@/services/nft.service";
 
 export default function TransferNft() {
   const { t } = useTranslation();
@@ -25,7 +25,13 @@ export default function TransferNft() {
   const [isDetailsLoading, setIsDetailsLoading] = useState(false);
 
   const [address, setAddress] = useState("");
-  const { slug: contractAddress, blockchain, tokenId } = useLocalSearchParams();
+  const {
+    slug: contractAddress,
+    blockchain,
+    tokenId,
+    contractType,
+    name,
+  } = useLocalSearchParams();
 
   const { data: assetManager } = useAssets();
 
@@ -44,19 +50,37 @@ export default function TransferNft() {
 
     setIsDetailsLoading(true);
     try {
-      const gasFee = await fetchGasFee({
+      const fee = (await getNftFee({
         contractAddress: contractAddress as string,
         toAddress: address,
         fromAddress: fromAddress as string,
         blockchain: blockchain as OSSblockchain,
-        amount: 1,
+        tokenId: tokenId as string,
+        tokenStandart: contractType as string,
+      })) as unknown;
+
+      setDetails({
+        name: name as string,
+        symbol: fee.native_currency,
+        from: fromAddress,
+        to: address,
+        fee: fee.total_fee_native,
+        blockchain: blockchain as string,
       });
     } catch (error) {
-      console.log(error.code);
+      console.log(error);
     } finally {
       setIsDetailsLoading(false);
     }
-  }, [address, blockchain, contractAddress, fromAddress]);
+  }, [
+    address,
+    blockchain,
+    contractAddress,
+    contractType,
+    fromAddress,
+    name,
+    tokenId,
+  ]);
 
   useEffect(() => {
     if (isAddress(address)) {

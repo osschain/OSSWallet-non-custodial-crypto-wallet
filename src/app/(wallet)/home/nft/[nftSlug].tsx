@@ -12,9 +12,14 @@ import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
-import SpacerUi from "@/components/ui/SpacerUi";
 import IconUi from "@/components/ui/IconUi"; // Import your Icon component
+import {
+  BodyUi,
+  ContainerUi,
+  FooterUi,
+  ScrollContainerUi,
+} from "@/components/ui/LayoutsUi";
+import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function Nft() {
   const { t } = useTranslation();
@@ -68,6 +73,7 @@ export default function Nft() {
         value: nft?.contractType,
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       contractAddress,
       tokenId,
@@ -92,7 +98,7 @@ export default function Nft() {
   }
 
   return (
-    <ScrollViewContainer>
+    <ScrollContainerUi>
       <BodyUi>
         <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
         <ContainerUi>
@@ -134,6 +140,8 @@ export default function Nft() {
             params: {
               blockchain,
               tokenId,
+              contractType: nft?.contractType,
+              name: nft?.name,
             },
           }}
           asChild
@@ -141,13 +149,9 @@ export default function Nft() {
           <ButtonUi>{t("shared.transfer")}</ButtonUi>
         </Link>
       </Footer>
-    </ScrollViewContainer>
+    </ScrollContainerUi>
   );
 }
-
-const ScrollViewContainer = styled(ScrollView)`
-  flex-basis: 1;
-`;
 
 const NftPropertyHeader = styled(HeaderTextUi)``;
 const NftPropertyValue = styled(BodyTextUi)``;

@@ -50,7 +50,6 @@ export const getEvmNfts = async (
     );
 
     return nft.filter((nft) => nft.name);
-
   } catch (error) {
     console.log("ERROR NFT");
     console.log(error);
@@ -84,6 +83,104 @@ export const getEvmNft = async (
     return nfts.attributes;
   } catch (error) {
     console.log("nft Error", error);
+    throw error;
+  }
+};
+
+type nftFeeProps = {
+  fromAddress: string;
+  toAddress: string;
+  tokenId: string;
+  blockchain: string;
+  contractAddress: string;
+  tokenStandart: string;
+};
+
+export const getNftFee = async ({
+  fromAddress,
+  toAddress,
+  tokenId,
+  blockchain,
+  contractAddress,
+  tokenStandart,
+}: nftFeeProps) => {
+  try {
+    const config = {
+      sender_address: fromAddress,
+      receiver_address: toAddress,
+      nft_token_id: tokenId,
+      blockchain,
+      nft_contract_address: contractAddress,
+      token_standard: tokenStandart,
+    };
+
+    const response = (await httpClient.post(
+      ApiEndpoints.CALCULATE_NFT_FEE,
+      config
+    )) as ApiResponse<GetNFTMetadataReply>;
+
+    console.log(response, "QNAS IQNEBA");
+
+    if (!response.data.success) {
+      throw new Error();
+    }
+
+    const nfts = response.data;
+
+    return nfts;
+  } catch (error) {
+    console.log("fee error", error);
+    throw error;
+  }
+};
+
+type nftTransfer = {
+  fromAddress: string;
+  toAddress: string;
+  tokenId: string;
+  blockchain: string;
+  contractAddress: string;
+  tokenStandart: string;
+  privateKey: string;
+  fee: string;
+};
+
+export const transferNft = async ({
+  fromAddress,
+  toAddress,
+  tokenId,
+  blockchain,
+  contractAddress,
+  tokenStandart,
+  privateKey,
+  fee,
+}: nftTransfer) => {
+  try {
+    const config = {
+      sender_address: fromAddress,
+      receiver_address: toAddress,
+      nft_token_id: tokenId,
+      blockchain,
+      nft_contract_address: contractAddress,
+      token_standard: tokenStandart,
+      calculated_gas_fee: fee,
+      private_key: privateKey,
+    };
+
+    const response = (await httpClient.post(
+      ApiEndpoints.NFT_TRANSFER,
+      config
+    )) as ApiResponse<GetNFTMetadataReply>;
+
+    if (!response.data.success) {
+      throw new Error();
+    }
+
+    const nfts = response.data.ans.result;
+
+    return nfts.attributes;
+  } catch (error) {
+    console.log("fee error", error);
     throw error;
   }
 };

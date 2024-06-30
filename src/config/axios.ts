@@ -10,6 +10,8 @@ export enum ApiEndpoints {
   GET_TOKEN_TRANSFER = "/get_token_transfer",
   GET_CHAIN_TRANSFER = "/get_transaction_by_address",
   GET_ACCOUNT_BALANCE = "/get_account_balance",
+  CALCULATE_NFT_FEE = "/calculate_nft_fee",
+  NFT_TRANSFER = "/nft_transfer",
 }
 
 const baseUrl = "https://hidden-slice-426318-j1.ey.r.appspot.com";

@@ -34,7 +34,7 @@ const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
           {balance} {asset.symbol}
         </HeaderTextUi>
         <BodyTextUi weight="regular" size="md" style={{ textAlign: "center" }}>
-          {/* {calculateUsdBalance(asset.id, balances)} $ */}
+          {/* {balance}$ */}
         </BodyTextUi>
       </SpacerUi>
       <SpacerUi size="3xl">

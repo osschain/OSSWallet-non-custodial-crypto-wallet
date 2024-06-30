@@ -104,7 +104,8 @@
         },
         "transfer": {
           "alert-text": " The NFT will be send to this address. Be careful when sending an NFTto another user.",
-          "address-input-placeholder": "Enter Adress"
+          "address-input-placeholder": "Enter Adress",
+          "transter-error": "There is error can't transfer nft"
         },
         "updated": {
           "alert-text": " The NFT will be send to this address. Be careful when sending an NFTto another user.",

@@ -20,6 +20,7 @@ import { useAuth } from "@/providers/AuthProvider";
 import { OSSblockchain } from "@/services/history.service";
 import { getNftFee, transferNft } from "@/services/nft.service";
 import { decrypt } from "@/util/es";
+import { Alert } from "react-native";
 
 export default function TransferNft() {
   const { t } = useTranslation();
@@ -117,6 +118,10 @@ export default function TransferNft() {
 
       router.push("(wallet)/home");
     } catch (error) {
+      Alert.alert(
+        t("shared.error-label"),
+        t("wallet.home.nft.transfer.transter-error")
+      );
       console.log(error, "nft send error");
     } finally {
       setIsTranfering(false);

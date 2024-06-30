@@ -175,10 +175,6 @@ export const transferNft = async ({
     if (!response.data.success) {
       throw new Error();
     }
-
-    const nfts = response.data.ans.result;
-
-    return nfts.attributes;
   } catch (error) {
     console.log("fee error", error);
     throw error;

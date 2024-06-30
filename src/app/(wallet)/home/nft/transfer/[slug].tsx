@@ -1,6 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { isAddress } from "ethers";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components/native";
@@ -16,13 +16,19 @@ import { BodyUi, FooterUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import ScannerModalUi from "@/components/ui/ScannerModalUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
+import { useAuth } from "@/providers/AuthProvider";
 import { OSSblockchain } from "@/services/history.service";
-import { getNftFee } from "@/services/nft.service";
+import { getNftFee, transferNft } from "@/services/nft.service";
+import { decrypt } from "@/util/es";
 
 export default function TransferNft() {
   const { t } = useTranslation();
   const [details, setDetails] = useState<object | null>(null);
+  const [fee, setFee] = useState<string | null>(null);
+  const { setupPass } = useAuth();
+
   const [isDetailsLoading, setIsDetailsLoading] = useState(false);
+  const [isTranfering, setIsTranfering] = useState(false);
 
   const [address, setAddress] = useState("");
   const {
@@ -36,6 +42,7 @@ export default function TransferNft() {
   const { data: assetManager } = useAssets();
 
   const adresses = assetManager?.addresses;
+
   const fromAddress = useMemo(() => {
     return adresses?.find((adress) => adress.type === AddresTypes.evm)?.address;
   }, [adresses]);
@@ -67,6 +74,8 @@ export default function TransferNft() {
         fee: fee.total_fee_native,
         blockchain: blockchain as string,
       });
+
+      setFee(fee.total_fee_wei);
     } catch (error) {
       console.log(error);
     } finally {
@@ -81,6 +90,38 @@ export default function TransferNft() {
     name,
     tokenId,
   ]);
+
+  const handleTransfer = async () => {
+    try {
+      setIsTranfering(true);
+      const asset = assetManager?.getAsset(AddresTypes.evm);
+
+      const decryptedPrivateKEy = await decrypt(
+        asset.account.privateKey,
+        setupPass as string
+      );
+      if (!decryptedPrivateKEy) throw new Error();
+
+      const config = {
+        fromAddress,
+        toAddress: address,
+        tokenId,
+        blockchain,
+        contractAddress,
+        tokenStandart: contractType,
+        privateKey: decryptedPrivateKEy,
+        fee,
+      };
+
+      await transferNft(config);
+
+      router.push("(wallet)/home");
+    } catch (error) {
+      console.log(error, "nft send error");
+    } finally {
+      setIsTranfering(false);
+    }
+  };
 
   useEffect(() => {
     if (isAddress(address)) {
@@ -138,7 +179,9 @@ export default function TransferNft() {
       </BodyUi>
       <FooterUi>
         <ButtonUi
-          disabled={!isCorrectAddress || !details}
+          onPress={handleTransfer}
+          disabled={!isCorrectAddress || !details || isTranfering}
+          isLoading={isTranfering}
           variant={isCorrectAddress && details ? "primary" : "secondary"}
         >
           {t("shared.confirm")}

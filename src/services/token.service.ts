@@ -1,12 +1,11 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { JsonRpcProvider, Contract } from "ethers";
 
-import { ERC20_ABI } from "@/config/abi"
 import { AssetType, TokenpropertiesType } from "@/@types/assets";
-import { defaultImage } from "@/util/DefaultImage";
+import { ERC20_ABI } from "@/config/abi"
 
 export const getContract = (address: string, blockchain: Blockchain) => {
-    const endPoint = `https://rpc.ankr.com/${blockchain}/f7c0df84b43c7f9f2c529c76efc01da4b30271a66608da4728f9830ea17d29bc`;
+    const endPoint = ``;
     const provider = new JsonRpcProvider(endPoint);
     const contract = new Contract(address, ERC20_ABI, provider);
 
@@ -16,6 +15,7 @@ export const getContract = (address: string, blockchain: Blockchain) => {
 
 export const getTokenProperties = async (address: string, blockchain: Blockchain) => {
     try {
+        throw Error()
         const contract = getContract(address, blockchain);
 
         const name = await contract.name();

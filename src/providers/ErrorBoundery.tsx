@@ -7,18 +7,19 @@ import HeaderTextUi from "@/components/ui/HeaderTextUi";
 // Error logging function that matches the expected type
 const logError = async (error: Error, info: React.ErrorInfo) => {
   try {
-    await fetch("https://your-logging-api.com/log", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        error: error.message,
-        stack: error.stack,
-        componentStack: info.componentStack ?? "", // Handle potential undefined or null
-        timestamp: new Date().toISOString(),
-      }),
-    });
+    console.log(error, "BOUNDARY");
+    // await fetch("https://your-logging-api.com/log", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     error: error.message,
+    //     stack: error.stack,
+    //     componentStack: info.componentStack ?? "", // Handle potential undefined or null
+    //     timestamp: new Date().toISOString(),
+    //   }),
+    // });
   } catch (error) {
     console.log(error);
   }

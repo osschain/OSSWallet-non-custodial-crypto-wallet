@@ -94,14 +94,14 @@ export default function SendChain(): JSX.Element {
   const sendHandler = async (): Promise<void> => {
     try {
       setIsTransactionCreating(true);
-      const encryptedPrivateKey = await decrypt(
+      const decyptedPrivateKey = await decrypt(
         asset.account.privateKey,
         setupPass as string
       );
-      if (!encryptedPrivateKey) throw new Error();
-
+      if (!decyptedPrivateKey) throw new Error();
+      console.log(decyptedPrivateKey);
       await sendTransaction({
-        privateKey: encryptedPrivateKey,
+        privateKey: decyptedPrivateKey,
         toAddress: address,
         blockchain: asset.blockchain,
         contractAddress: asset.contractAddress,

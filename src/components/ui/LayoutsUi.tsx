@@ -31,7 +31,10 @@ export const FooterUi = styled(View)<{ marginSize?: MarginSize }>`
 export const ScrollContainerUi = ({ children }: { children: ReactNode }) => {
   return (
     <ContainerUi>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsHorizontalScrollIndicator={false}
+      >
         {children}
       </ScrollView>
     </ContainerUi>

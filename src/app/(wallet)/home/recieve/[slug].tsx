@@ -36,7 +36,6 @@ export default function RecieveDetails() {
   const shareHandler = async () => {
     await Share.share({ message: asset.account.address });
   };
-
   return (
     <ScrollContainerUi>
       <Stack.Screen options={{ title: `Recieve ${asset?.name}` }} />

@@ -1,17 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
-import {
-  ActivityIndicator,
-  FlatList,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { RefreshControl } from "react-native-gesture-handler";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 
 import AlertWithImageUI from "../ui/AlertWithImageUi";
 import BodyTextUi from "../ui/BodyTextUi";
+import FlatListUi from "../ui/FlatListUi";
 import ItemUi from "../ui/ItemUi";
 import SpacerUi from "../ui/SpacerUi";
 
@@ -20,7 +15,6 @@ import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import { useStore } from "@/providers/StoreProvider";
 import { findAsset } from "@/util/findAsset";
-import FlatListUi from "../ui/FlatListUi";
 
 const HomeAssets = () => {
   const { t } = useTranslation();

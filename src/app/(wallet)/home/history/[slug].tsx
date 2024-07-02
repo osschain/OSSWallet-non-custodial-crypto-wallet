@@ -1,7 +1,5 @@
-import * as Clipboard from "expo-clipboard";
 import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
-import { ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components/native";
 
@@ -9,10 +7,9 @@ import { useAssets } from "@/app/api/assets";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
-import IconUi from "@/components/ui/IconUi";
 import { BodyUi, ScrollContainerUi } from "@/components/ui/LayoutsUi";
+import { PropertiesUi, PropertyUi } from "@/components/ui/PropertyUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import TruncatedText from "@/components/ui/TruncatedTextUi";
 import { findAsset } from "@/util/findAsset";
 
 const blockExplorer = {
@@ -35,8 +32,6 @@ const explorers = [
 
 export default function HistoryDetails() {
   const { t } = useTranslation();
-  const [isFromCopied, setIsFromCopied] = useState(false);
-  const [isToCopied, setIsToCopied] = useState(false);
 
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
@@ -52,18 +47,6 @@ export default function HistoryDetails() {
     );
 
     return !isFromMe;
-  };
-
-  const copyFrom = async () => {
-    await Clipboard.setStringAsync(item.from as string);
-    setIsFromCopied(true);
-    setIsToCopied(false);
-  };
-
-  const copyTo = async () => {
-    await Clipboard.setStringAsync(item.from as string);
-    setIsToCopied(true);
-    setIsFromCopied(false);
   };
 
   if (!asset || !item) {
@@ -84,9 +67,26 @@ export default function HistoryDetails() {
     });
   };
 
+  const properties = [
+    {
+      label: t("shared.recipent"),
+      value: item.to as string,
+      truncated: true,
+      copy: true,
+    },
+    {
+      label: t("shared.from"),
+      value: item.from as string,
+      truncated: true,
+      copy: true,
+    },
+    { label: t("shared.amount"), value: `${item.value} ${asset?.symbol}` },
+    { label: t("shared.nonce"), value: (item.nonce as string) || "" },
+    { label: t("shared.date"), value: item.date as string },
+  ];
+
   return (
     <ScrollContainerUi>
-      {/* <Stack.Screen options={{ title: nft?.title }} /> */}
       <BodyUi>
         <SpacerUi size="2xl">
           <Header>
@@ -100,48 +100,20 @@ export default function HistoryDetails() {
           </Header>
         </SpacerUi>
         <SpacerUi size="4xl">
-          <HistoryProperties>
-            <HistoryProperty
-              isTruncated
-              label={t("shared.recipent")}
-              value={item.to as string}
-              action={
-                <IconUi
-                  onPress={copyTo}
-                  library="Feather"
-                  name={isToCopied ? "check" : "copy"}
-                  size="lg"
-                  color="icon-second"
-                />
-              }
-            />
-            <HistoryProperty
-              isTruncated
-              label={t("shared.from")}
-              value={item.from as string}
-              action={
-                <IconUi
-                  onPress={copyFrom}
-                  library="Feather"
-                  name={isFromCopied ? "check" : "copy"}
-                  size="lg"
-                  color="icon-second"
-                />
-              }
-            />
-            <HistoryProperty
-              label={t("shared.amount")}
-              value={`${item.value}  ${asset?.symbol}`}
-            />
-            <HistoryProperty
-              label={t("shared.nonce")}
-              value={(item.nonce as string) || ""}
-            />
-            <HistoryProperty
-              label={t("shared.date")}
-              value={item.date as string}
-            />
-          </HistoryProperties>
+          <PropertiesUi>
+            {properties.map(
+              (property, index) =>
+                property.value && (
+                  <PropertyUi
+                    key={index}
+                    truncated={property.truncated}
+                    label={property.label}
+                    value={property.value}
+                    copy={property.copy}
+                  />
+                )
+            )}
+          </PropertiesUi>
         </SpacerUi>
 
         <SpacerUi size="2xl">
@@ -155,63 +127,9 @@ export default function HistoryDetails() {
     </ScrollContainerUi>
   );
 }
-const HistoryProperty = ({
-  label,
-  value,
-  action,
-  isTruncated,
-}: {
-  label: string;
-  value: string;
-  action?: ReactNode;
-  isTruncated?: boolean;
-}) => (
-  <Row>
-    <LeftContent>
-      <BodyTextUi weight="medium">{label}</BodyTextUi>
-    </LeftContent>
-    <RightContent>
-      {isTruncated ? (
-        <TruncatedText
-          endLength={7}
-          startLength={7}
-          maxLength={7}
-          text={value}
-        />
-      ) : (
-        <BodyTextUi weight="medium" color="text-second">
-          {value}
-        </BodyTextUi>
-      )}
-
-      {action && action}
-    </RightContent>
-  </Row>
-);
 
 const Header = styled.View`
   align-items: center;
-`;
-
-const HistoryProperties = styled.View`
-  padding: ${({ theme }) => theme.spaces["xl"]};
-  background-color: ${({ theme }) => theme.colors["bg-second"]};
-  border-radius: ${({ theme }) => theme.sizes["md"]};
-  gap: 15px;
-`;
-
-const LeftContent = styled.View``;
-
-const RightContent = styled.View`
-  flex-direction: row;
-  width: 70%;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 const HistoryImage = styled(Image)`

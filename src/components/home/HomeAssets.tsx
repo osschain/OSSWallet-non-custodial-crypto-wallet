@@ -20,6 +20,7 @@ import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import { useStore } from "@/providers/StoreProvider";
 import { findAsset } from "@/util/findAsset";
+import FlatListUi from "../ui/FlatListUi";
 
 const HomeAssets = () => {
   const { t } = useTranslation();
@@ -71,45 +72,38 @@ const HomeAssets = () => {
   }
 
   return (
-    <FlatList
+    <FlatListUi
       data={assets}
       showsVerticalScrollIndicator={false}
       renderItem={({ item, index }) => (
         <>
-          {item.isShown && (
-            <Spacer
-              style={{
-                marginTop: index === 0 ? 14 : 7,
-                marginBottom: assets.length - 1 === index ? 14 : 7,
-              }}
-            >
-              <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
-                <TouchableOpacity>
-                  <AssetItem
-                    item={item}
-                    price={price(item.symbol)}
-                    priceChange={priceChange(item.symbol)}
-                    networkUri={
-                      item.contractAddress
-                        ? findAsset(assets, item.blockchain)?.icon
-                        : undefined
-                    }
-                  />
-                </TouchableOpacity>
-              </Link>
-            </Spacer>
-          )}
+          <Spacer
+            style={{
+              marginTop: index === 0 ? 14 : 7,
+              marginBottom: assets.length - 1 === index ? 14 : 7,
+            }}
+          >
+            <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
+              <TouchableOpacity>
+                <AssetItem
+                  item={item}
+                  price={price(item.symbol)}
+                  priceChange={priceChange(item.symbol)}
+                  networkUri={
+                    item.contractAddress
+                      ? findAsset(assets, item.blockchain)?.icon
+                      : undefined
+                  }
+                />
+              </TouchableOpacity>
+            </Link>
+          </Spacer>
         </>
       )}
-      refreshControl={
-        <RefreshControl
-          onRefresh={async () => {
-            resetTotalBalance();
-            await queryClient.invalidateQueries({ queryKey: ["balances"] });
-          }}
-          refreshing={false}
-        />
-      }
+      onRefresh={async () => {
+        resetTotalBalance();
+        await queryClient.invalidateQueries({ queryKey: ["balances"] });
+      }}
     />
   );
 };

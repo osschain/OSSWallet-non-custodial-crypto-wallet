@@ -13,7 +13,7 @@ import SpacerUi from "./SpacerUi";
 type FlatListUiProps = {
   data: any[];
   renderItem: ListRenderItem<any>;
-  onRefresh: () => void;
+  onRefresh?: () => void;
   pageToken?: string;
   isRefetching?: boolean;
   onLoadMore?: () => void;

@@ -9,7 +9,9 @@ import styled from "styled-components/native";
 import { useAssetPrices, useAssets } from "@/app/api/assets";
 import SendAmountInput from "@/components/send/SendAddressInput";
 import SendConfirm from "@/components/send/SendConfirm";
-import SendDetails from "@/components/send/SendDetails";
+import SendTokenProperties, {
+  SendTokenPropertiesType,
+} from "@/components/send/SendTokenProperties";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import IconUi from "@/components/ui/IconUi";
@@ -41,7 +43,9 @@ export type DetailsType = {
 
 export default function SendChain(): JSX.Element {
   const [address, setAddress] = useState<string>("");
-  const [details, setDetails] = useState<DetailsType | null>(null);
+  const [properties, setProperties] = useState<SendTokenPropertiesType | null>(
+    null
+  );
   const [loadingDetails, setLoadingDetails] = useState<boolean>(false);
   const [isTransactionCreating, setIsTransactionCreating] =
     useState<boolean>(false);
@@ -99,7 +103,6 @@ export default function SendChain(): JSX.Element {
         setupPass as string
       );
       if (!decyptedPrivateKey) throw new Error();
-      console.log(decyptedPrivateKey);
       await sendTransaction({
         privateKey: decyptedPrivateKey,
         toAddress: address,
@@ -131,7 +134,7 @@ export default function SendChain(): JSX.Element {
     );
   };
 
-  const setDetailsAsync = async (): Promise<void> => {
+  const setPropertiesAsync = async (): Promise<void> => {
     try {
       setLoadingDetails(true);
       const gasFee = await getGasFee();
@@ -139,7 +142,7 @@ export default function SendChain(): JSX.Element {
 
       setGasFeeWey(gasFee.gas_fee_wei);
       const price = getPrice(asset.symbol);
-      setDetails({
+      setProperties({
         name: asset.name,
         symbol: asset.symbol,
         to: address,
@@ -173,7 +176,7 @@ export default function SendChain(): JSX.Element {
       );
       return;
     }
-    await setDetailsAsync();
+    await setPropertiesAsync();
     sendConfirm.current?.present();
   };
 
@@ -186,7 +189,7 @@ export default function SendChain(): JSX.Element {
         ref={sendConfirm}
         onConfirm={sendHandler}
       >
-        <SendDetails details={details} loading={loadingDetails} />
+        <SendTokenProperties properties={properties} loading={loadingDetails} />
       </SendConfirm>
       <ScannerModalUi
         ref={scanAddress}
@@ -215,7 +218,7 @@ export default function SendChain(): JSX.Element {
                 />
               }
               placeholder={t(
-                "wallet.home.send.send-details.addres-input-placeholder"
+                "wallet.home.send.send-properties.addres-input-placeholder"
               )}
             />
           </SpacerUi>

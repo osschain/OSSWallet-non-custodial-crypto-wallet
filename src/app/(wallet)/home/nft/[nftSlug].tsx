@@ -1,9 +1,7 @@
 import { Blockchain } from "@ankr.com/ankr.js";
-import * as Clipboard from "expo-clipboard";
 import { Link, useLocalSearchParams } from "expo-router";
-import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 

@@ -3,10 +3,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
-import { FlatList, RefreshControl } from "react-native-gesture-handler";
 
 import NftItem from "../nft/NftItem";
 import AlertWithImageUI from "../ui/AlertWithImageUi";
+import FlatListUi from "../ui/FlatListUi";
 import SpacerUi from "../ui/SpacerUi";
 
 import { useAssets } from "@/app/api/assets";
@@ -33,9 +33,8 @@ const HomeNfts = () => {
   }
 
   return (
-    <FlatList
+    <FlatListUi
       data={nfts}
-      showsVerticalScrollIndicator={false}
       key={2}
       numColumns={2}
       columnWrapperStyle={{
@@ -65,14 +64,9 @@ const HomeNfts = () => {
           </Link>
         </SpacerUi>
       )}
-      refreshControl={
-        <RefreshControl
-          onRefresh={async () => {
-            await queryClient.invalidateQueries({ queryKey: ["nfts"] });
-          }}
-          refreshing={false}
-        />
-      }
+      onRefresh={async () => {
+        await queryClient.invalidateQueries({ queryKey: ["nfts"] });
+      }}
     />
   );
 };

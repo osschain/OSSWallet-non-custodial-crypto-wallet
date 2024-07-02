@@ -26,6 +26,7 @@ const FlatListUi: React.FC<FlatListUiProps> = ({
   pageToken,
   isRefetching,
   onLoadMore,
+  ...rest
 }) => {
   return (
     <FlatList
@@ -53,6 +54,7 @@ const FlatListUi: React.FC<FlatListUiProps> = ({
           ) : null}
         </>
       }
+      {...rest}
     />
   );
 };

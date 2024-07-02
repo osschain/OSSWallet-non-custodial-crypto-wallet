@@ -18,6 +18,7 @@ import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import FlatListUi from "@/components/ui/FlatListUi";
 
 export default function History() {
   const [page, setPage] = useState(20);
@@ -101,7 +102,6 @@ const RenderHistoryITem = ({
   isRefetching: boolean;
   nextPageToken: string | undefined;
 }) => {
-  const { t } = useTranslation();
   const { data: assetManager } = useAssets();
   const queryClient = useQueryClient();
 
@@ -124,9 +124,8 @@ const RenderHistoryITem = ({
     }
   };
   return (
-    <FlatList
+    <FlatListUi
       data={histories}
-      showsVerticalScrollIndicator={false}
       renderItem={({ item }) => (
         <SpacerUi size="xl" position="bottom">
           <TouchableOpacity
@@ -145,31 +144,12 @@ const RenderHistoryITem = ({
           </TouchableOpacity>
         </SpacerUi>
       )}
-      ListFooterComponent={() => (
-        <>
-          {nextPageToken && (
-            <SpacerUi style={{ padding: 20 }}>
-              {isRefetching ? (
-                <ActivityIndicator />
-              ) : (
-                <TouchableOpacity onPress={onLoadMore}>
-                  <BodyTextUi color="blue-500" style={{ textAlign: "center" }}>
-                    {t("shared.loadMore")}
-                  </BodyTextUi>
-                </TouchableOpacity>
-              )}
-            </SpacerUi>
-          )}
-        </>
-      )}
-      refreshControl={
-        <RefreshControl
-          onRefresh={async () => {
-            await queryClient.invalidateQueries({ queryKey: ["histories"] });
-          }}
-          refreshing={false}
-        />
-      }
+      pageToken={nextPageToken}
+      isRefetching={isRefetching}
+      onLoadMore={onLoadMore}
+      onRefresh={async () => {
+        await queryClient.invalidateQueries({ queryKey: ["histories"] });
+      }}
     />
   );
 };

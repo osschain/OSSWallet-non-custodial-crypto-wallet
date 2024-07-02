@@ -218,7 +218,7 @@ export default function SendChain(): JSX.Element {
                 />
               }
               placeholder={t(
-                "wallet.home.send.send-properties.addres-input-placeholder"
+                "wallet.home.send.send-details.addres-input-placeholder"
               )}
             />
           </SpacerUi>

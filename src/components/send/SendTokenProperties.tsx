@@ -12,8 +12,9 @@ export type SendTokenPropertiesType = {
   to: string;
   symbol: string;
   fee: number;
-  maxTotal: number;
+  maxTotal: number | null;
   amount: string;
+  blockchain: string;
 };
 
 const SendTokenProperties = ({
@@ -77,10 +78,12 @@ const SendTokenProperties = ({
             label={`${t("wallet.home.send.send-details.fee")}:`}
             value={properties?.fee + " " + properties?.symbol}
           />
-          <PropertyUi
-            label={`${t("wallet.home.send.send-details.max-total")}:`}
-            value={properties?.maxTotal + " $"}
-          />
+          {properties.maxTotal && (
+            <PropertyUi
+              label={`${t("wallet.home.send.send-details.max-total")}:`}
+              value={properties?.maxTotal + " $"}
+            />
+          )}
         </PropertiesUi>
       </SpacerUi>
     </>

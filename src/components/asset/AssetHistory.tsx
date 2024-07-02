@@ -1,15 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, RefreshControl } from "react-native";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
-
-import styled from "styled-components/native";
+import { ActivityIndicator } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import HistoryItem, { variants } from "../history/history-item";
 import AlertWithImageUI from "../ui/AlertWithImageUi";
-import BodyTextUi from "../ui/BodyTextUi";
+import FlatListUi from "../ui/FlatListUi";
 import SpacerUi from "../ui/SpacerUi";
 
 import { AssetType } from "@/@types/assets";
@@ -87,9 +85,8 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
     }
   };
   return (
-    <FlatList
+    <FlatListUi
       data={assetHistory}
-      showsVerticalScrollIndicator={false}
       renderItem={({ item }) => (
         <>
           <SpacerUi size="xl" position="bottom">
@@ -110,36 +107,12 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
           </SpacerUi>
         </>
       )}
-      ListFooterComponent={() => (
-        <>
-          {history?.nextPageToken && (
-            <SpacerUi style={{ padding: 20 }}>
-              {isRefetching ? (
-                <ActivityIndicator />
-              ) : (
-                <SpacerUi>
-                  <TouchableOpacity onPress={handlePagination}>
-                    <BodyTextUi
-                      color="blue-500"
-                      style={{ textAlign: "center" }}
-                    >
-                      {t("shared.loadMore")}
-                    </BodyTextUi>
-                  </TouchableOpacity>
-                </SpacerUi>
-              )}
-            </SpacerUi>
-          )}
-        </>
-      )}
-      refreshControl={
-        <RefreshControl
-          onRefresh={async () => {
-            await queryClient.invalidateQueries({ queryKey: ["history"] });
-          }}
-          refreshing={false}
-        />
-      }
+      pageToken={history?.nextPageToken}
+      isRefetching={isRefetching}
+      onLoadMore={handlePagination}
+      onRefresh={async () => {
+        await queryClient.invalidateQueries({ queryKey: ["history"] });
+      }}
     />
   );
 };

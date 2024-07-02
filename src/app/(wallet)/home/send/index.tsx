@@ -18,6 +18,7 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
+import FlatListUi from "@/components/ui/FlatListUi";
 
 export default function Send() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
@@ -58,8 +59,7 @@ export default function Send() {
         />
       </SpacerUi>
       <SpacerUi size="xl" fullHeight>
-        <FlatList
-          showsVerticalScrollIndicator={false}
+        <FlatListUi
           data={filteredAssets}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <AssetItem key={item.name} asset={item} />}

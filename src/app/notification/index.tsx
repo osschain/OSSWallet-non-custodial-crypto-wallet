@@ -5,6 +5,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import FlatListUi from "@/components/ui/FlatListUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
@@ -31,9 +32,8 @@ export default function Notification() {
   return (
     <ContainerUi>
       <SpacerUi size="xl" />
-      <FlatList
+      <FlatListUi
         data={notifs}
-        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <SpacerUi size="xl" position="bottom">
             <TouchableOpacity

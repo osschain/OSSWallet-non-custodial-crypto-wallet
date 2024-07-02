@@ -8,6 +8,7 @@ import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import ItemUi from "@/components/ui/ItemUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
+import FlatListUi from "../ui/FlatListUi";
 
 const CustomTokenAssetList = ({ query }: { query: string }) => {
   const { data: assetManager } = useAssets();
@@ -41,9 +42,8 @@ const CustomTokenAssetList = ({ query }: { query: string }) => {
     );
   }
   return (
-    <FlatList
+    <FlatListUi
       contentContainerStyle={{ paddingTop: 10 }}
-      showsVerticalScrollIndicator={false}
       data={filteredAssets}
       renderItem={({ item }) => (
         <SpacerUi size="xl" position="bottom">

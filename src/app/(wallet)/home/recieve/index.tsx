@@ -2,7 +2,7 @@ import { Blockchain } from "@ankr.com/ankr.js";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { AssetType } from "@/@types/assets";
 import { useAssets } from "@/app/api/assets";
@@ -10,6 +10,7 @@ import { UseNetworks } from "@/app/api/network";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import FlatListUi from "@/components/ui/FlatListUi";
 import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
@@ -57,8 +58,7 @@ export default function Recieve() {
         />
       </SpacerUi>
       <SpacerUi size="xl" fullHeight>
-        <FlatList
-          showsVerticalScrollIndicator={false}
+        <FlatListUi
           data={filteredAssets}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <AssetItem asset={item} assets={assets} />}

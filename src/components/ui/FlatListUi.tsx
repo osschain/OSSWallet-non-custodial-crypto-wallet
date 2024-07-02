@@ -11,7 +11,7 @@ import BodyTextUi from "./BodyTextUi";
 import SpacerUi from "./SpacerUi";
 
 type FlatListUiProps = {
-  data: any[];
+  data: any[] | undefined | null;
   renderItem: ListRenderItem<any>;
   onRefresh?: () => void;
   pageToken?: string;

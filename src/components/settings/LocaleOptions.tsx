@@ -2,9 +2,9 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { forwardRef, useEffect, useMemo, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
 
 import BottomSheetModalUi from "../ui/BottomSheetModal";
+import FlatListUi from "../ui/FlatListUi";
 
 import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
@@ -39,9 +39,8 @@ const LocaleOptions = forwardRef<Ref, Props>(
     return (
       <BottomSheetModalUi ref={ref} snapPoints={snapPoints}>
         <ContainerUi>
-          <FlatList
+          <FlatListUi
             data={locales}
-            showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <SpacerUi size="3xl">
                 <TouchableOpacity

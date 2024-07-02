@@ -119,7 +119,6 @@ export const getNftFee = async ({
       config
     )) as ApiResponse<GetNFTMetadataReply>;
 
-    console.log(response, "QNAS IQNEBA");
 
     if (!response.data.success) {
       throw new Error();

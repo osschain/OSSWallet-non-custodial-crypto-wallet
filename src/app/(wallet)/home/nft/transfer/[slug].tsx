@@ -3,11 +3,13 @@ import { isAddress } from "ethers";
 import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components/native";
+import { Alert } from "react-native";
 
 import { AddresTypes } from "@/@types/balances";
 import { useAssets } from "@/app/api/assets";
-import NftDetails from "@/components/nft/NftDetails";
+import NftTransferProperties, {
+  NftTransferPropertiesType,
+} from "@/components/nft/NftTransferProperties";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
@@ -20,11 +22,11 @@ import { useAuth } from "@/providers/AuthProvider";
 import { OSSblockchain } from "@/services/history.service";
 import { getNftFee, transferNft } from "@/services/nft.service";
 import { decrypt } from "@/util/es";
-import { Alert } from "react-native";
 
 export default function TransferNft() {
   const { t } = useTranslation();
-  const [details, setDetails] = useState<object | null>(null);
+  const [properties, setProperties] =
+    useState<NftTransferPropertiesType | null>(null);
   const [fee, setFee] = useState<string | null>(null);
   const { setupPass } = useAuth();
 
@@ -67,13 +69,12 @@ export default function TransferNft() {
         tokenStandart: contractType as string,
       })) as unknown;
 
-      setDetails({
+      setProperties({
         name: name as string,
         symbol: fee.native_currency,
         from: fromAddress,
         to: address,
         fee: fee.total_fee_native,
-        blockchain: blockchain as string,
       });
 
       setFee(fee.total_fee_wei);
@@ -178,16 +179,19 @@ export default function TransferNft() {
         </SpacerUi>
         <SpacerUi size="xl" fullHeight>
           {isCorrectAddress && (
-            <NftDetails details={details} loading={isDetailsLoading} />
+            <NftTransferProperties
+              properties={properties}
+              loading={isDetailsLoading}
+            />
           )}
         </SpacerUi>
       </BodyUi>
       <FooterUi>
         <ButtonUi
           onPress={handleTransfer}
-          disabled={!isCorrectAddress || !details || isTranfering}
+          disabled={!isCorrectAddress || !properties || isTranfering}
           isLoading={isTranfering}
-          variant={isCorrectAddress && details ? "primary" : "secondary"}
+          variant={isCorrectAddress && properties ? "primary" : "secondary"}
         >
           {t("shared.confirm")}
         </ButtonUi>

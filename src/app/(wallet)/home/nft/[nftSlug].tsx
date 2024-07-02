@@ -12,19 +12,12 @@ import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import ButtonUi from "@/components/ui/ButtonUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
-import IconUi from "@/components/ui/IconUi"; // Import your Icon component
-import {
-  BodyUi,
-  ContainerUi,
-  FooterUi,
-  ScrollContainerUi,
-} from "@/components/ui/LayoutsUi";
+import { BodyUi, ContainerUi, FooterUi } from "@/components/ui/LayoutsUi";
+import { PropertyUi } from "@/components/ui/PropertyUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function Nft() {
   const { t } = useTranslation();
-  const [isAddressCopied, setisAddressCopied] = useState(false);
-  const [isTokenIdCopied, setisTokenIdCopied] = useState(false);
 
   const {
     nftSlug: contractAddress,
@@ -41,49 +34,23 @@ export default function Nft() {
     tokenId as string
   );
 
-  const copyAddress = async () => {
-    await Clipboard.setStringAsync(contractAddress as string);
-    setisAddressCopied(true);
-    setisTokenIdCopied(false);
-  };
-
-  const copyTokenId = async () => {
-    await Clipboard.setStringAsync(tokenId as string);
-    setisTokenIdCopied(true);
-    setisAddressCopied(false);
-  };
-
-  const properties = useMemo(
-    () => [
-      {
-        label: t("wallet.home.nft.slug.contract-address"),
-        value: contractAddress,
-        copyHandler: copyAddress,
-        isCopied: isAddressCopied,
-      },
-      {
-        label: t("wallet.home.nft.slug.token-id"),
-        value: tokenId,
-        copyHandler: copyTokenId,
-        isCopied: isTokenIdCopied,
-      },
-      { label: t("shared.network"), value: blockchain },
-      {
-        label: t("wallet.home.nft.slug.contract-type"),
-        value: nft?.contractType,
-      },
-    ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      contractAddress,
-      tokenId,
-      blockchain,
-      nft?.contractType,
-      t,
-      isAddressCopied,
-      isTokenIdCopied,
-    ]
-  );
+  const properties = [
+    {
+      label: t("wallet.home.nft.slug.contract-address"),
+      value: contractAddress,
+      copy: true,
+    },
+    {
+      label: t("wallet.home.nft.slug.token-id"),
+      value: tokenId,
+      copy: true,
+    },
+    { label: t("shared.network"), value: blockchain },
+    {
+      label: t("wallet.home.nft.slug.contract-type"),
+      value: nft?.contractType,
+    },
+  ];
 
   if (isLoading) {
     return (
@@ -98,7 +65,7 @@ export default function Nft() {
   }
 
   return (
-    <ScrollContainerUi>
+    <ScrollView style={{ flex: 1 }}>
       <BodyUi>
         <Image source={{ uri: nft?.imageUrl }} resizeMode="cover" />
         <ContainerUi>
@@ -110,27 +77,17 @@ export default function Nft() {
               {nft?.description}
             </BodyTextUi>
           </SpacerUi>
-          {properties.map((prop, index) => (
-            <SpacerUi key={index} size="xl">
-              <NftPropertyHeader size="md">{prop.label}</NftPropertyHeader>
-              <View
-                style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
-              >
-                <NftPropertyValue size="sm" weight="medium" color="text-second">
-                  {prop.value}{" "}
-                </NftPropertyValue>
-                {prop.copyHandler && (
-                  <IconUi
-                    onPress={prop.copyHandler}
-                    library="Feather"
-                    name={prop.isCopied ? "check" : "copy"}
-                    size="lg"
-                    color="icon-second"
-                  />
-                )}
-              </View>
-            </SpacerUi>
-          ))}
+          <SpacerUi size="xl">
+            {properties.map((prop) => (
+              <SpacerUi size="lg">
+                <PropertyUi
+                  label={prop.label}
+                  value={prop.value as string}
+                  copy={prop.copy}
+                />
+              </SpacerUi>
+            ))}
+          </SpacerUi>
         </ContainerUi>
       </BodyUi>
       <Footer marginSize="sm">
@@ -149,12 +106,9 @@ export default function Nft() {
           <ButtonUi>{t("shared.transfer")}</ButtonUi>
         </Link>
       </Footer>
-    </ScrollContainerUi>
+    </ScrollView>
   );
 }
-
-const NftPropertyHeader = styled(HeaderTextUi)``;
-const NftPropertyValue = styled(BodyTextUi)``;
 
 const Footer = styled(FooterUi)`
   padding: 0 ${({ theme }) => theme.spaces["xl"]};

@@ -5,9 +5,7 @@ import { router } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
-import { FlatList, RefreshControl } from "react-native-gesture-handler";
 
-import styled from "styled-components/native";
 import { HistoryType } from "@/@types/history";
 import { useAssets } from "@/app/api/assets";
 import { useHistories } from "@/app/api/history";
@@ -15,14 +13,14 @@ import { UseNetworks } from "@/app/api/network";
 import HistoryItem, { variants } from "@/components/history/history-item";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
-import BodyTextUi from "@/components/ui/BodyTextUi";
+import FlatListUi from "@/components/ui/FlatListUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import FlatListUi from "@/components/ui/FlatListUi";
+import { PageTokensType } from "@/models/history.model";
 
 export default function History() {
-  const [page, setPage] = useState(20);
-  const [pageToken, setPageToken] = useState<string | undefined>();
+  const [page, setPage] = useState(10);
+  const [pageTokens, setPageToken] = useState<PageTokensType | undefined>();
 
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -32,7 +30,7 @@ export default function History() {
     isLoading,
     isError,
     isRefetching,
-  } = useHistories(page, pageToken);
+  } = useHistories(page, pageTokens);
   const histories = history?.histories;
   const { data: networks } = UseNetworks();
 
@@ -61,8 +59,8 @@ export default function History() {
   }
 
   const handlePagination = () => {
-    if (history?.nextPageToken) {
-      setPageToken(history.nextPageToken);
+    if (history?.hasPageToken) {
+      setPageToken(history.pageTokens);
       setPage((prev) => prev + 40);
     }
   };
@@ -84,7 +82,7 @@ export default function History() {
           histories={filteredHistories}
           onLoadMore={handlePagination}
           isRefetching={isRefetching}
-          nextPageToken={history?.nextPageToken}
+          showLoadMore={history?.hasPageToken}
         />
       </SpacerUi>
     </ContainerUi>
@@ -95,12 +93,12 @@ const RenderHistoryITem = ({
   histories,
   onLoadMore,
   isRefetching,
-  nextPageToken,
+  showLoadMore,
 }: {
   histories: HistoryType[];
   onLoadMore: () => void;
   isRefetching: boolean;
-  nextPageToken: string | undefined;
+  showLoadMore: boolean | undefined;
 }) => {
   const { data: assetManager } = useAssets();
   const queryClient = useQueryClient();
@@ -144,7 +142,7 @@ const RenderHistoryITem = ({
           </TouchableOpacity>
         </SpacerUi>
       )}
-      pageToken={nextPageToken}
+      showLoadMore={showLoadMore}
       isRefetching={isRefetching}
       onLoadMore={onLoadMore}
       onRefresh={async () => {

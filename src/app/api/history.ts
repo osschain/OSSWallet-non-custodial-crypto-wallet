@@ -2,7 +2,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
-import History from "@/models/history.model";
+import History, { PageTokensType } from "@/models/history.model";
 import {
   OSSblockchain,
   getEvmChainHistories,
@@ -10,7 +10,7 @@ import {
   getEvmHistory,
 } from "@/services/history.service";
 
-export const useHistories = (page: number, pageToken: string | undefined) => {
+export const useHistories = (page: number, pageTokens: PageTokensType | undefined) => {
   const { data: assetManager } = useAssets();
   return useQuery({
     queryKey: ["histories", page],
@@ -23,14 +23,14 @@ export const useHistories = (page: number, pageToken: string | undefined) => {
         assetManager.evmAddress,
         page,
         assetManager.shownEvmBlockchain,
-        pageToken
+        pageTokens
       );
 
       const filteredHistory = history.histories.filter((history) =>
         assetManager.shownIds.includes(history.id.toLowerCase())
       );
 
-      return new History(filteredHistory, history.nextPageToken);
+      return new History(filteredHistory, history.pageTokens);
     },
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,

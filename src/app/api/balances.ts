@@ -1,5 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
@@ -33,6 +32,8 @@ export const UseBalances = (asset: AssetType) => {
           contractAddress as string,
           symbol
         );
+        const { balance, price } = evmBalance
+
 
 
         return { balance: balance && Number(balance) > 0 ? Number(balance).toFixed(4) : 0, price };

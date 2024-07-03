@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "expo-router";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import styled, { useTheme } from "styled-components/native";
@@ -15,7 +16,6 @@ import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import { useStore } from "@/providers/StoreProvider";
 import { findAsset } from "@/util/findAsset";
-import { useEffect } from "react";
 
 const HomeAssets = () => {
   const { t } = useTranslation();
@@ -27,7 +27,6 @@ const HomeAssets = () => {
   } = useAssets();
   const assets = assetManager?.assets;
   const { data: assetPrices } = useAssetPrices();
-  const { resetTotalBalance } = useStore();
 
   const price = (symbol: string) =>
     Number(
@@ -82,7 +81,7 @@ const HomeAssets = () => {
               <TouchableOpacity>
                 <AssetItem
                   item={item}
-                  prPrice={price(item.symbol)}
+                  price={price(item.symbol)}
                   priceChange={priceChange(item.symbol)}
                   networkUri={
                     item.contractAddress
@@ -96,8 +95,7 @@ const HomeAssets = () => {
         </>
       )}
       onRefresh={async () => {
-        resetTotalBalance();
-        await queryClient.invalidateQueries({ queryKey: ["balances"] });
+        await queryClient.invalidateQueries({ queryKey: ["assetPrices"] });
       }}
     />
   );
@@ -107,25 +105,28 @@ const AssetItem = ({
   item,
   networkUri,
   priceChange,
-  prPrice,
+  price,
 }: {
   item: AssetType;
   networkUri?: string;
   priceChange: number;
-  prPrice: number;
+  price: number;
 }) => {
   const { data: balances, isLoading } = UseBalances(item);
-  const { updateTotalBalance } = useStore();
-  console.log(balances);
-  const balance = balances?.balance;
-  const price = balances?.price.toFixed(6);
+  const { updateBalances } = useStore();
   const theme = useTheme();
+
+  const balance = useMemo(() => balances?.balance, [balances?.balance]);
 
   useEffect(() => {
     if (balance && price) {
-      updateTotalBalance(Number(balance) * price);
+      updateBalances({
+        asset: item.name,
+        balance: Number(balance) * price,
+      });
     }
-  }, [balance, price, updateTotalBalance]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [balance, price, item.name]);
 
   return (
     <Asset>
@@ -140,7 +141,7 @@ const AssetItem = ({
               alignItems: "center",
             }}
           >
-            <BodyTextUi>{prPrice} $</BodyTextUi>
+            <BodyTextUi>{price} $</BodyTextUi>
             <BodyTextUi
               size="sm"
               style={{
@@ -165,7 +166,7 @@ const AssetItem = ({
                 size="md"
                 weight="medium"
               >
-                {balance || 0}
+                {balance || 0} {item.symbol}
               </BodyTextUi>
               <BodyTextUi
                 size="md"

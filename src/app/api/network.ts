@@ -20,6 +20,9 @@ export const UseNetworks = () => {
             return networks
         },
         refetchOnWindowFocus: false,
-        refetchOnMount: false
+        refetchOnMount: false,
+        meta: {
+            persist: false
+        }
     });
 };

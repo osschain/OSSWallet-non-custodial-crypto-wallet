@@ -2,7 +2,6 @@ import { Blockchain } from "@ankr.com/ankr.js";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { AssetType } from "@/@types/assets";
@@ -12,13 +11,13 @@ import { UseNetworks } from "@/app/api/network";
 import NetworkOptions from "@/components/network/NetworkOptions";
 import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import BodyTextUi from "@/components/ui/BodyTextUi";
+import FlatListUi from "@/components/ui/FlatListUi";
 import IconUi from "@/components/ui/IconUi";
 import ItemUi from "@/components/ui/ItemUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { TextInputUi } from "@/components/ui/TextInputUi";
 import useFilteredAssets from "@/hooks/useFilteredAssets";
-import FlatListUi from "@/components/ui/FlatListUi";
 
 export default function Send() {
   const [network, setNetwork] = useState<Blockchain | null>(null);
@@ -70,8 +69,8 @@ export default function Send() {
 }
 
 const AssetItem = ({ asset }: { asset: AssetType }) => {
-  const { data: balance } = UseBalances(asset);
-
+  const { data: balances } = UseBalances(asset);
+  const balance = balances?.balance;
   return (
     <SpacerUi size="3xl">
       <Link

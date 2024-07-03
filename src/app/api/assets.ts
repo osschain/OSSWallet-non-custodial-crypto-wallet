@@ -27,7 +27,10 @@ export const useAssets = () => {
       return new AssetsManager(assets)
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false
+    refetchOnMount: false,
+    meta: {
+      persist: false
+    }
   });
 
 };
@@ -102,7 +105,6 @@ export const useAssetPrices = () => {
       const response = await fetch("https://assets.osschain.com/market-data");
       const data = await response.json();
 
-
       if (!data) {
         throw new Error("asset's not found");
       }
@@ -111,7 +113,8 @@ export const useAssetPrices = () => {
       return data as AssetPrices[]
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false
+    refetchOnMount: false,
+
   });
 
 };

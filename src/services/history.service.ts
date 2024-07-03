@@ -31,6 +31,14 @@ export const getEvmHistory = async (
       pageToken,
     });
 
+    const nftHistory = await getEvmNftHistories({
+      address,
+      blockchain,
+      page,
+      pageToken,
+    });
+
+
     const nextPageToken = tokenHistory.nextPageToken
       ? tokenHistory.nextPageToken
       : chainHistory.nextPageToken;
@@ -162,6 +170,65 @@ export const getEvmTokenHistories = async ({
     return new History(histories, transactions.nextPageToken);
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+};
+
+export const getEvmNftHistories = async ({
+  address,
+  blockchain,
+  page,
+  pageToken,
+}: EvmHistoriesParams) => {
+  try {
+    const response = (await httpClient.post(ApiEndpoints.GET_NFT_TRANSFERS, {
+      id: 1,
+      wallet_address: address,
+      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
+      page_size: page,
+      page_token: pageToken,
+    })) as ApiResponse<GetTransactionsByAddressReply>;
+    if (!response.data.success) {
+      throw new Error();
+    }
+
+    const transactions = response.data.ans.result;
+    console.log(transactions)
+    // const histories = transactions.transactions
+    //   .map(
+    //     ({
+    //       hash,
+    //       timestamp,
+    //       gasPrice,
+    //       gasUsed,
+    //       nonce,
+    //       to,
+    //       from,
+    //       value,
+    //       blockchain,
+    //     }) => {
+    //       if (!blockchain || !to) {
+    //         return;
+    //       }
+
+    //       return {
+    //         to,
+    //         from,
+    //         id: blockchain,
+    //         key: uuidv4(),
+    //         value: formatEther(value),
+    //         blockchain: blockchain as OSSblockchain,
+    //         nonce,
+    //         fee: Number(gasPrice) * Number(gasUsed),
+    //         date: timestamp ? unixTimestampToDate(timestamp) : null,
+    //         hash,
+    //       };
+    //     }
+    //   )
+    //   .filter(Boolean) as HistoryType[];
+
+    // return new History(histories, transactions.nextPageToken);
+  } catch (error) {
     throw error;
   }
 };

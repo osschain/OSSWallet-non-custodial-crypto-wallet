@@ -25,6 +25,7 @@ export const useNfts = (page: number) => {
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+
   });
 };
 
@@ -43,5 +44,6 @@ export const useNft = (
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     retry: false,
+
   });
 };

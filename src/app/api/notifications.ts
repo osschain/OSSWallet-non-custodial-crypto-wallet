@@ -22,7 +22,8 @@ export const useNotifications = () => {
             return notifications
         },
         refetchOnWindowFocus: false,
-        refetchOnMount: false
+        refetchOnMount: false,
+
     });
 
 };
@@ -44,7 +45,8 @@ export const useNotificationsNum = () => {
             return notifications
         },
         refetchOnWindowFocus: false,
-        refetchOnMount: false
+        refetchOnMount: false,
+
     });
 
 };

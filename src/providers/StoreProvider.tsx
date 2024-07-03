@@ -1,4 +1,10 @@
-import { PropsWithChildren, createContext, useContext, useState } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 
 export enum StorageKeys {
   Notifications = "notifications",
@@ -21,10 +27,10 @@ const StoreContext = createContext<StoreData>({
 export default function StoreProvider({ children }: PropsWithChildren) {
   const [totalBalance, setTotalBalance] = useState<number>(0);
 
-  const updateTotalBalance = (amount: number = 0) => {
+  const updateTotalBalance = useCallback((amount: number = 0) => {
     console.log(Number(amount), "OK");
     setTotalBalance((current) => Number(amount) + Number(current));
-  };
+  }, []);
 
   const resetTotalBalance = () => {
     setTotalBalance(0);

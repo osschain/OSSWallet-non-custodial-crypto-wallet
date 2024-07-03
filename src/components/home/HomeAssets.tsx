@@ -15,6 +15,7 @@ import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import { useStore } from "@/providers/StoreProvider";
 import { findAsset } from "@/util/findAsset";
+import { useEffect } from "react";
 
 const HomeAssets = () => {
   const { t } = useTranslation();
@@ -81,7 +82,7 @@ const HomeAssets = () => {
               <TouchableOpacity>
                 <AssetItem
                   item={item}
-                  price={price(item.symbol)}
+                  prPrice={price(item.symbol)}
                   priceChange={priceChange(item.symbol)}
                   networkUri={
                     item.contractAddress
@@ -105,17 +106,26 @@ const HomeAssets = () => {
 const AssetItem = ({
   item,
   networkUri,
-  price,
   priceChange,
+  prPrice,
 }: {
   item: AssetType;
   networkUri?: string;
-  price: number;
   priceChange: number;
+  prPrice: number;
 }) => {
-  const { data: balance, isLoading } = UseBalances(item);
-
+  const { data: balances, isLoading } = UseBalances(item);
+  const { updateTotalBalance } = useStore();
+  console.log(balances);
+  const balance = balances?.balance;
+  const price = balances?.price.toFixed(6);
   const theme = useTheme();
+
+  useEffect(() => {
+    if (balance && price) {
+      updateTotalBalance(Number(balance) * price);
+    }
+  }, [balance, price, updateTotalBalance]);
 
   return (
     <Asset>
@@ -130,7 +140,7 @@ const AssetItem = ({
               alignItems: "center",
             }}
           >
-            <BodyTextUi>{price} $</BodyTextUi>
+            <BodyTextUi>{prPrice} $</BodyTextUi>
             <BodyTextUi
               size="sm"
               style={{

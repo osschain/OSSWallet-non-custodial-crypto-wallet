@@ -35,6 +35,7 @@ export const useHistories = (page: number, pageToken: string | undefined) => {
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+
   });
 };
 
@@ -107,5 +108,6 @@ export const useHistory = ({
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+
   });
 };

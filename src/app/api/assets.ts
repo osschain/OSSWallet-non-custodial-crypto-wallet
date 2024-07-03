@@ -27,7 +27,10 @@ export const useAssets = () => {
       return new AssetsManager(assets)
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false
+    refetchOnMount: false,
+    meta: {
+      persist: false
+    }
   });
 
 };
@@ -111,7 +114,8 @@ export const useAssetPrices = () => {
       return data as AssetPrices[]
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false
+    refetchOnMount: false,
+
   });
 
 };

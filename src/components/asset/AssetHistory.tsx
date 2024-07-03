@@ -13,12 +13,13 @@ import SpacerUi from "../ui/SpacerUi";
 import { AssetType } from "@/@types/assets";
 import { useAssets } from "@/app/api/assets";
 import { useHistory } from "@/app/api/history";
+import { PageTokensType } from "@/models/history.model";
 
 const AssetHistory = ({ asset }: { asset: AssetType }) => {
   const { t } = useTranslation();
-  const [page, setPage] = useState(10);
-  const [pageToken, setPageToken] = useState<string | undefined>();
-
+  const page = 10;
+  const [pageTokens, setPageTokens] = useState<PageTokensType | undefined>();
+  console.log("RERENDER");
   const { data: assetManager } = useAssets();
   const queryClient = useQueryClient();
   const isToken = !!asset?.contractAddress;
@@ -35,7 +36,7 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
     blockchain,
     isToken,
     page,
-    pageToken,
+    pageTokens,
   });
 
   const histories = history?.histories;
@@ -60,9 +61,8 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
   }
 
   const handlePagination = () => {
-    if (history?.nextPageToken) {
-      setPageToken(history.nextPageToken);
-      setPage((prev) => prev + 10);
+    if (history?.hasPageToken) {
+      setPageTokens(history.pageTokens);
     }
   };
 
@@ -107,7 +107,7 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
           </SpacerUi>
         </>
       )}
-      pageToken={history?.nextPageToken}
+      showLoadMore={history?.hasPageToken}
       isRefetching={isRefetching}
       onLoadMore={handlePagination}
       onRefresh={async () => {

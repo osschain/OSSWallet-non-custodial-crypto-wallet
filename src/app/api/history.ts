@@ -13,7 +13,7 @@ import {
 export const useHistories = (page: number, pageTokens: PageTokensType | undefined) => {
   const { data: assetManager } = useAssets();
   return useQuery({
-    queryKey: ["histories", page],
+    queryKey: ["histories", pageTokens],
     queryFn: async () => {
       if (!assetManager) {
         throw new Error("assets is not presented");
@@ -45,7 +45,7 @@ type UseHistoryProps = {
   blockchain: OSSblockchain | undefined;
   isToken: boolean;
   page: number;
-  pageToken: string | undefined;
+  pageTokens: PageTokensType | undefined;
 };
 
 export const useHistory = ({
@@ -54,10 +54,10 @@ export const useHistory = ({
   blockchain,
   isToken,
   page,
-  pageToken,
+  pageTokens,
 }: UseHistoryProps) => {
   return useQuery({
-    queryKey: ["history", id, page],
+    queryKey: ["history", id, pageTokens],
     queryFn: async () => {
       if (!blockchain) {
         console.log("blockchain is not presented");
@@ -84,9 +84,10 @@ export const useHistory = ({
           address,
           blockchain,
           page,
-          pageToken,
+          pageToken: pageTokens?.chain,
         });
-        history = evmChainHistory;
+
+        history = new History(evmChainHistory.histories, { chain: evmChainHistory.pageToken, token: undefined, nft: undefined });
       }
 
       if (isToken) {
@@ -94,9 +95,11 @@ export const useHistory = ({
           address,
           blockchain,
           page,
-          pageToken,
+          pageToken: pageTokens
+            ?.token,
         });
-        history = evmTokenHistory;
+
+        history = new History(evmTokenHistory.histories, { chain: undefined, token: evmTokenHistory.pageToken, nft: undefined });
       }
 
       if (!history) {

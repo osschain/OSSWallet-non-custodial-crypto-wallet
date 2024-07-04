@@ -8,7 +8,7 @@ import { ActivityIndicator } from "react-native";
 
 import { HistoryType } from "@/@types/history";
 import { useAssets } from "@/app/api/assets";
-import { useHistories } from "@/app/api/history";
+import { useInfiniteHistories } from "@/app/api/history";
 import { UseNetworks } from "@/app/api/network";
 import HistoryItem, { variants } from "@/components/history/history-item";
 import NetworkOptions from "@/components/network/NetworkOptions";
@@ -16,55 +16,48 @@ import AlertWithImageUi from "@/components/ui/AlertWithImageUi";
 import FlatListUi from "@/components/ui/FlatListUi";
 import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import { PageTokensType } from "@/models/history.model";
 
 export default function History() {
-  const [page, setPage] = useState(10);
-  const [pageTokens, setPageToken] = useState<PageTokensType | undefined>();
-
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
   const {
-    data: history,
+    data,
     isLoading,
     isError,
-    isRefetching,
-  } = useHistories(page, pageTokens);
-  const histories = history?.histories;
+    isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteHistories();
   const { data: networks } = UseNetworks();
+
+  const histories = useMemo(() => {
+    return data?.pages.flatMap((page) => page.histories) || [];
+  }, [data]);
 
   const filteredHistories = useMemo(() => {
     if (!network) {
       return histories;
     }
 
-    return histories?.filter(
+    return histories.filter(
       (history) => history.blockchain === network.toLowerCase()
     );
   }, [histories, network]);
 
-  if (isLoading) {
+  if (isFetching && !isFetchingNextPage) {
     return (
       <SpacerUi size="xl">
         <ActivityIndicator />
       </SpacerUi>
     );
   }
-
-  if (!filteredHistories || isError || !histories?.length) {
+  if (isError) {
     return (
       <AlertWithImageUi title={t("wallet.home.history.no-history-alert")} />
     );
   }
-
-  const handlePagination = () => {
-    if (history?.hasPageToken) {
-      setPageToken(history.pageTokens);
-      setPage((prev) => prev + 40);
-    }
-  };
-
   return (
     <ContainerUi>
       <SpacerUi size="xl" position="bottom">
@@ -74,53 +67,54 @@ export default function History() {
           onSelect={(selected) => setNetwork(selected)}
         />
       </SpacerUi>
-      {!filteredHistories?.length && (
+      {!filteredHistories.length && (
         <AlertWithImageUi title={t("wallet.home.history.index.alert-error")} />
       )}
-      <SpacerUi size="xl" style={{ flex: filteredHistories?.length ? 1 : 0 }}>
-        <RenderHistoryITem
+      <SpacerUi size="xl" style={{ flex: filteredHistories.length ? 1 : 0 }}>
+        <RenderHistoryItem
           histories={filteredHistories}
-          onLoadMore={handlePagination}
-          isRefetching={isRefetching}
-          showLoadMore={history?.hasPageToken}
+          onLoadMore={fetchNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          showLoadMore={hasNextPage}
         />
       </SpacerUi>
     </ContainerUi>
   );
 }
 
-const RenderHistoryITem = ({
+const RenderHistoryItem = ({
   histories,
   onLoadMore,
-  isRefetching,
+  isFetchingNextPage,
   showLoadMore,
 }: {
   histories: HistoryType[];
   onLoadMore: () => void;
-  isRefetching: boolean;
+  isFetchingNextPage: boolean;
   showLoadMore: boolean | undefined;
 }) => {
   const { data: assetManager } = useAssets();
   const queryClient = useQueryClient();
 
-  const checkAddres = (from: string | undefined): variants | undefined => {
+  const checkAddress = (from: string | undefined): variants | undefined => {
     if (!assetManager || !from) return;
 
     try {
-      const isFromMe = assetManager.addresses.find((adress) => {
-        return adress.address.toLowerCase() === from.toLocaleLowerCase();
+      const isFromMe = assetManager.addresses.find((address) => {
+        return address.address.toLowerCase() === from.toLowerCase();
       });
 
       if (isFromMe) {
         return "send";
-      } else if (!isFromMe) {
-        return "recieved";
+      } else {
+        return "received";
       }
     } catch (error) {
       console.log(error);
       return "error";
     }
   };
+
   return (
     <FlatListUi
       data={histories}
@@ -136,14 +130,14 @@ const RenderHistoryITem = ({
           >
             <HistoryItem
               walletAddress={item.from}
-              variant={checkAddres(item.from)}
+              variant={checkAddress(item.from)}
               amount={item.value}
             />
           </TouchableOpacity>
         </SpacerUi>
       )}
       showLoadMore={showLoadMore}
-      isRefetching={isRefetching}
+      isRefetching={isFetchingNextPage}
       onLoadMore={onLoadMore}
       onRefresh={async () => {
         await queryClient.invalidateQueries({ queryKey: ["histories"] });

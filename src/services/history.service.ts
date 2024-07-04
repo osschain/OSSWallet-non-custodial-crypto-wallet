@@ -11,13 +11,17 @@ import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
 import History, { PageTokensType } from "@/models/history.model";
 import { unixTimestampToDate } from "@/util/unixToDate";
 
+type EvmHistoryProps = {
+  pageParam: { page: number, pageTokens: PageTokensType | undefined };
+  address: string;
+  blockchain: Blockchain[]
+}
+
 export const getEvmHistory = async (
-  address: string,
-  page: number = 1,
-  blockchain: Blockchain[],
-  pageTokens: PageTokensType | undefined
+  { address, pageParam, blockchain }: EvmHistoryProps
 ) => {
   try {
+    const { page, pageTokens } = pageParam || {}
     const isInitial = typeof pageTokens === 'undefined'
     const histories: HistoryType[] = [];
     const pageTokensHolder: PageTokensType = {
@@ -25,7 +29,6 @@ export const getEvmHistory = async (
       token: undefined,
       chain: undefined
     }
-
     if (pageTokens?.token || isInitial) {
       const tokenHistory = await getEvmTokenHistories({
         address,

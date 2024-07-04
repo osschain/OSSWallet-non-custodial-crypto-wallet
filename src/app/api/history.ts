@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
@@ -10,20 +10,33 @@ import {
   getEvmHistory,
 } from "@/services/history.service";
 
-export const useHistories = (page: number, pageTokens: PageTokensType | undefined) => {
+const fetchProjects = async ({ pageParam = 0 }) => {
+  const res = await fetch('/api/projects?cursor=' + pageParam)
+  return res.json()
+}
+
+
+interface PageParam {
+  page: number;
+  pageTokens: PageTokensType | undefined;
+}
+
+export const useInfiniteHistories = () => {
   const { data: assetManager } = useAssets();
-  return useQuery({
-    queryKey: ["histories", pageTokens],
-    queryFn: async () => {
+
+  return useInfiniteQuery<History, Error, History, string[], PageParam>({
+    queryKey: ['histories'],
+    queryFn: async ({ pageParam }) => {
       if (!assetManager) {
-        throw new Error("assets is not presented");
+        throw new Error('assets is not presented');
       }
 
       const history = await getEvmHistory(
-        assetManager.evmAddress,
-        page,
-        assetManager.shownEvmBlockchain,
-        pageTokens
+        {
+          address: assetManager.evmAddress,
+          blockchain: assetManager.shownEvmBlockchain,
+          pageParam
+        }
       );
 
       const filteredHistory = history.histories.filter((history) =>
@@ -32,10 +45,15 @@ export const useHistories = (page: number, pageTokens: PageTokensType | undefine
 
       return new History(filteredHistory, history.pageTokens);
     },
-    placeholderData: keepPreviousData,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.hasPageToken
+        ? { page: 3, pageTokens: lastPage.pageTokens }
+        : undefined;
+    },
+    initialPageParam: { page: 3, pageTokens: undefined },
+    placeholderData: { pages: [], pageParams: [] },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-
   });
 };
 
@@ -108,9 +126,9 @@ export const useHistory = ({
 
       return history;
     },
-    placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+    placeholderData: keepPreviousData,
 
   });
 };

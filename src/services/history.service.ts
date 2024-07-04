@@ -1,5 +1,6 @@
 import {
   Blockchain,
+  GetNftTransfersReply,
   GetTokenTransfersReply,
   GetTransactionsByAddressReply,
 } from "@ankr.com/ankr.js";
@@ -61,8 +62,8 @@ export const getEvmHistory = async (
         pageParam,
       });
 
-      // pageTokensHolder.nft = nftHistory.pagetoken
-      // histories.push(...nftHistory.history)
+      pageTokensHolder.nft = nftHistory.pageToken
+      histories.push(...nftHistory.histories)
     }
     console.log(pageTokensHolder)
 
@@ -132,6 +133,7 @@ export const getEvmChainHistories = async ({
             fee: Number(gasPrice) * Number(gasUsed),
             date: timestamp ? unixTimestampToDate(timestamp) : null,
             hash,
+            type: "TOKEN"
           };
         }
       )
@@ -186,6 +188,7 @@ export const getEvmTokenHistories = async ({
             blockchain: blockchain as OSSblockchain,
             date: timestamp ? unixTimestampToDate(timestamp) : null,
             hash: transactionHash,
+            type: "TOKEN"
           };
         }
       )
@@ -210,7 +213,7 @@ export const getEvmNftHistories = async ({
       blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
       page_size: page,
       page_token: pageTokens?.nft,
-    })) as ApiResponse<GetTransactionsByAddressReply>;
+    })) as ApiResponse<GetNftTransfersReply>;
 
 
 
@@ -218,41 +221,35 @@ export const getEvmNftHistories = async ({
       throw new Error();
     }
 
-    // const transactions = response.data.ans.result;
-    // const histories = transactions.transactions
-    //   .map(
-    //     ({
-    //       hash,
-    //       timestamp,
-    //       gasPrice,
-    //       gasUsed,
-    //       nonce,
-    //       to,
-    //       from,
-    //       value,
-    //       blockchain,
-    //     }) => {
-    //       if (!blockchain || !to) {
-    //         return;
-    //       }
+    const transactions = response.data.ans.result.transfers;
 
-    //       return {
-    //         to,
-    //         from,
-    //         id: blockchain,
-    //         key: uuidv4(),
-    //         value: formatEther(value),
-    //         blockchain: blockchain as OSSblockchain,
-    //         nonce,
-    //         fee: Number(gasPrice) * Number(gasUsed),
-    //         date: timestamp ? unixTimestampToDate(timestamp) : null,
-    //         hash,
-    //       };
-    //     }
-    //   )
-    //   .filter(Boolean) as HistoryType[];
+    const histories = transactions
+      .map(
+        ({
+          transactionHash,
+          timestamp,
+          toAddress,
+          fromAddress,
+          value,
+          blockchain,
 
-    // return new History(histories, transactions.nextPageToken);
+        }) => {
+          return {
+            to: toAddress,
+            from: fromAddress,
+            id: blockchain,
+            key: uuidv4(),
+            value: formatEther(value),
+            blockchain: blockchain as OSSblockchain,
+            date: timestamp ? unixTimestampToDate(timestamp) : null,
+            hash: transactionHash,
+            type: "NFT"
+          };
+        }
+      )
+      .filter(Boolean) as HistoryType[];
+    return { histories, pageToken: response.data.ans.result.nextPageToken };
+
   } catch (error) {
     throw error;
   }

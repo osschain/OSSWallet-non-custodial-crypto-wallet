@@ -1,4 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import {
@@ -19,14 +20,18 @@ type Props = {
   variant?: variants;
   walletAddress?: string;
   amount?: string;
+  type: "NFT" | "TOKEN";
 } & ComponentPropsWithoutRef<typeof Item>;
 
 const HistoryItem = ({
+  type = "TOKEN",
   variant = "send",
   walletAddress = "",
   amount = "2.5",
   ...rest
 }: Props) => {
+  const { t } = useTranslation();
+
   const iconVariant = () => {
     type Names = "arrow-down-right" | "x" | "arrow-up-right";
 
@@ -55,7 +60,9 @@ const HistoryItem = ({
       <LeftContent>
         <IconContainer>{iconVariant()}</IconContainer>
         <View>
-          <Label size="md">{variant}:</Label>
+          <Label size="md">
+            {type === "NFT" ? t("shared.NFT") : t("shared.token")} - Transfer
+          </Label>
           <TruncatedText
             startLength={7}
             endLength={7}
@@ -70,7 +77,13 @@ const HistoryItem = ({
       {variant !== "error" && (
         <RightContent>
           <Amount numberOfLines={1} size="md" variant={variant}>
-            {variant === "recieved" ? "+" : "-"} {amount}
+            {variant === "recieved" ? "+" : "-"}{" "}
+            <TruncatedText
+              text={amount}
+              maxLength={5}
+              startLength={3}
+              endLength={2}
+            />
           </Amount>
         </RightContent>
       )}

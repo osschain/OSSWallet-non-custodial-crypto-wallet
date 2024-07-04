@@ -1,5 +1,7 @@
 import { OSSblockchain } from "@/services/history.service";
 
+type Type = "NFT" | "TOKEN"
+
 export type HistoryType = {
     blockchain: OSSblockchain,
     from: string | undefined;
@@ -11,4 +13,5 @@ export type HistoryType = {
     key: string;
     fee: number;
     hash: string;
+    type: Type;
 };

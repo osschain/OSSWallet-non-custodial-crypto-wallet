@@ -13,6 +13,8 @@ import {
 
 import IconUi from "@/components/ui/IconUi";
 import TruncatedText from "@/components/ui/TruncatedTextUi";
+import { BodyUi } from "@/components/ui/LayoutsUi";
+import BodyTextUi from "@/components/ui/BodyTextUi";
 
 export type variants = "recieved" | "send" | "error";
 
@@ -79,12 +81,7 @@ const HistoryItem = ({
           <Amount numberOfLines={1} size="md" variant={variant}>
             {variant === "recieved" ? "+" : "-"}{" "}
           </Amount>
-          <TruncatedText
-            text={amount}
-            maxLength={5}
-            startLength={3}
-            endLength={2}
-          />
+          <BodyTextUi>{Number(amount).toFixed(2)}</BodyTextUi>
         </RightContent>
       )}
     </Item>

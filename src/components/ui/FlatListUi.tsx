@@ -14,7 +14,7 @@ type FlatListUiProps = {
   data: any[] | undefined | null;
   renderItem: ListRenderItem<any>;
   onRefresh?: () => void;
-  pageToken?: string;
+  showLoadMore?: boolean;
   isRefetching?: boolean;
   onLoadMore?: () => void;
 } & ComponentPropsWithoutRef<typeof FlatList>;
@@ -23,7 +23,7 @@ const FlatListUi: React.FC<FlatListUiProps> = ({
   data,
   renderItem,
   onRefresh,
-  pageToken,
+  showLoadMore = false,
   isRefetching,
   onLoadMore,
   ...rest
@@ -36,7 +36,7 @@ const FlatListUi: React.FC<FlatListUiProps> = ({
       ListFooterComponent={() => (
         <>
           <LoadMore
-            nextPageToken={pageToken}
+            showLoadMore={showLoadMore}
             onLoadMore={onLoadMore}
             isRefetching={isRefetching}
           />
@@ -60,19 +60,19 @@ const FlatListUi: React.FC<FlatListUiProps> = ({
 };
 
 type LoadMoreProps = {
-  nextPageToken?: string;
+  showLoadMore?: boolean;
   isRefetching?: boolean;
   onLoadMore?: () => void;
 };
 
 const LoadMore: React.FC<LoadMoreProps> = ({
-  nextPageToken,
+  showLoadMore,
   isRefetching,
   onLoadMore,
 }) => {
   const { t } = useTranslation();
 
-  if (nextPageToken) {
+  if (showLoadMore) {
     return (
       <SpacerUi style={{ padding: 20 }}>
         {isRefetching ? (

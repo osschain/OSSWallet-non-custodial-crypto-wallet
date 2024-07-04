@@ -1,113 +1,151 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, InfiniteData } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
-import History from "@/models/history.model";
+import { HistoryType } from "@/@types/history";
+import History, { PageTokensType } from "@/models/history.model";
 import {
   OSSblockchain,
   getEvmChainHistories,
   getEvmTokenHistories,
   getEvmHistory,
+  getEvmNftHistories,
 } from "@/services/history.service";
 
-export const useHistories = (page: number, pageToken: string | undefined) => {
+
+
+
+interface PageParam {
+  page: number;
+  pageTokens: PageTokensType | undefined;
+}
+
+export const useInfiniteHistories = () => {
   const { data: assetManager } = useAssets();
-  return useQuery({
-    queryKey: ["histories", page],
-    queryFn: async () => {
+
+  return useInfiniteQuery<History, Error, InfiniteData<History>, string[], PageParam>({
+    queryKey: ['histories'],
+    queryFn: async ({ pageParam }) => {
       if (!assetManager) {
-        throw new Error("assets is not presented");
+        throw new Error('assets is not presented');
       }
 
       const history = await getEvmHistory(
-        assetManager.evmAddress,
-        page,
-        assetManager.shownEvmBlockchain,
-        pageToken
+        {
+          address: assetManager.evmAddress,
+          blockchain: assetManager.shownEvmBlockchain,
+          pageParam
+        }
       );
 
       const filteredHistory = history.histories.filter((history) =>
         assetManager.shownIds.includes(history.id.toLowerCase())
       );
 
-      return new History(filteredHistory, history.nextPageToken);
+      return new History(filteredHistory, history.pageTokens);
     },
-    placeholderData: keepPreviousData,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.hasPageToken
+        ? { page: 3, pageTokens: lastPage.pageTokens }
+        : undefined;
+    },
+    initialPageParam: { page: 3, pageTokens: undefined },
+    placeholderData: { pages: [], pageParams: [] },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-
   });
 };
 
 type UseHistoryProps = {
   address: string | undefined;
-  id: string | undefined;
+  id: string;
   blockchain: OSSblockchain | undefined;
   isToken: boolean;
-  page: number;
-  pageToken: string | undefined;
-};
 
-export const useHistory = ({
+};
+export const useInfiniteHistory = ({
   address,
   id,
   blockchain,
   isToken,
-  page,
-  pageToken,
 }: UseHistoryProps) => {
-  return useQuery({
-    queryKey: ["history", id, page],
-    queryFn: async () => {
+  return useInfiniteQuery<History, Error, InfiniteData<History>, string[], PageParam>({
+    queryKey: ['history', id],
+    queryFn: async ({ pageParam }) => {
       if (!blockchain) {
-        console.log("blockchain is not presented");
-        throw new Error();
+        throw new Error('blockchain is not presented');
       }
       if (!address) {
-        console.log("address is not presented");
-        throw new Error();
+        throw new Error('address is not presented');
       }
-
       if (!id) {
-        console.log("id is not presented");
-        throw new Error();
+        throw new Error('id is not presented');
       }
-
-      if (blockchain === "btc" || blockchain === "solana") {
-        throw new Error();
+      if (blockchain === 'btc' || blockchain === 'solana') {
+        throw new Error('Unsupported blockchain');
       }
 
       let history: History | undefined;
+      const isInitial = !pageParam.pageTokens
 
       if (!isToken) {
-        const evmChainHistory = await getEvmChainHistories({
-          address,
-          blockchain,
-          page,
-          pageToken,
+        const historiesPlaceholder: HistoryType[] = [];
+        const pageTokensHolder: PageTokensType = {
+          nft: undefined,
+          token: undefined,
+          chain: undefined,
+        };
+
+        const chainHistoryPromise = (pageParam.pageTokens?.chain || isInitial) && getEvmChainHistories({ address, blockchain, pageParam });
+        const nftHistoryPromise = (pageParam.pageTokens?.nft || isInitial) && getEvmNftHistories({ address, blockchain, pageParam });
+
+        const [chainHistory, nftHistory] = await Promise.all([chainHistoryPromise, nftHistoryPromise]);
+
+        if (chainHistory) {
+          historiesPlaceholder.push(...chainHistory.histories);
+          pageTokensHolder.chain = chainHistory.pageToken;
+        }
+
+        if (nftHistory) {
+          historiesPlaceholder.push(...nftHistory.histories);
+          pageTokensHolder.nft = nftHistory.pageToken;
+        }
+
+        history = new History(historiesPlaceholder, {
+          chain: pageTokensHolder.chain,
+          token: undefined,
+          nft: pageTokensHolder.nft,
         });
-        history = evmChainHistory;
       }
 
       if (isToken) {
         const evmTokenHistory = await getEvmTokenHistories({
           address,
           blockchain,
-          page,
-          pageToken,
+          pageParam: pageParam as PageParam
         });
-        history = evmTokenHistory;
+
+        history = new History(evmTokenHistory.histories, {
+          chain: undefined,
+          token: evmTokenHistory.pageToken,
+          nft: undefined,
+        });
       }
 
       if (!history) {
-        throw new Error();
+        throw new Error('No history found');
       }
 
       return history;
     },
-    placeholderData: keepPreviousData,
+    getNextPageParam: (lastPage) => {
+      return lastPage.hasPageToken
+        ? { page: 10, pageTokens: lastPage.pageTokens }
+        : undefined;
+    },
+    initialPageParam: { page: 10, pageTokens: undefined },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-
+    placeholderData: { pages: [], pageParams: [] },
   });
 };

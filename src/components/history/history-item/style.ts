@@ -13,6 +13,7 @@ export const Item = styled.View`
 export const LeftContent = styled.View`
   flex-direction: row;
   flex: 1;
+  width: 40%;
   gap: ${({ theme }) => theme.spaces["xl"]};
 `;
 
@@ -30,8 +31,12 @@ export const Label = styled(HeaderTextUi)`
 `;
 
 export const RightContent = styled.View`
-   width: 60%;
-   align-items: flex-end;
+   width: 40%;
+  flex-direction: row;
+   align-items: center;
+   gap: 6px;
+   justify-content: flex-end;
+   
 `;
 
 export const Amount = styled(HeaderTextUi) <{ variant: variants }>`
@@ -39,6 +44,4 @@ export const Amount = styled(HeaderTextUi) <{ variant: variants }>`
     props.variant === "recieved"
       ? props.theme.colors["green-500"]
       : props.theme.colors["red-500"]};
-    width: 60%;
-    text-align: right;
 `;

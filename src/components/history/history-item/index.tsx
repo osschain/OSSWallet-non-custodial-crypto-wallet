@@ -11,10 +11,9 @@ import {
   Amount,
 } from "./style";
 
+import BodyTextUi from "@/components/ui/BodyTextUi";
 import IconUi from "@/components/ui/IconUi";
 import TruncatedText from "@/components/ui/TruncatedTextUi";
-import { BodyUi } from "@/components/ui/LayoutsUi";
-import BodyTextUi from "@/components/ui/BodyTextUi";
 
 export type variants = "recieved" | "send" | "error";
 

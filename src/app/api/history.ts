@@ -1,7 +1,8 @@
-import { keepPreviousData, useQuery, useInfiniteQuery, InfiniteData } from "@tanstack/react-query";
+import { useInfiniteQuery, InfiniteData } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
+import { HistoryType } from "@/@types/history";
 import History, { PageTokensType } from "@/models/history.model";
 import {
   OSSblockchain,
@@ -10,7 +11,6 @@ import {
   getEvmHistory,
   getEvmNftHistories,
 } from "@/services/history.service";
-import { HistoryType } from "@/@types/history";
 
 
 
@@ -58,7 +58,7 @@ export const useInfiniteHistories = () => {
 
 type UseHistoryProps = {
   address: string | undefined;
-  id: string | undefined;
+  id: string;
   blockchain: OSSblockchain | undefined;
   isToken: boolean;
 
@@ -69,9 +69,9 @@ export const useInfiniteHistory = ({
   blockchain,
   isToken,
 }: UseHistoryProps) => {
-  return useInfiniteQuery<History, Error, InfiniteData<History>>({
+  return useInfiniteQuery<History, Error, InfiniteData<History>, string[], PageParam>({
     queryKey: ['history', id],
-    queryFn: async ({ pageParam }: { pageParam: PageParam }) => {
+    queryFn: async ({ pageParam }) => {
       if (!blockchain) {
         throw new Error('blockchain is not presented');
       }

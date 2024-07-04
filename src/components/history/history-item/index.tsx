@@ -78,13 +78,13 @@ const HistoryItem = ({
         <RightContent>
           <Amount numberOfLines={1} size="md" variant={variant}>
             {variant === "recieved" ? "+" : "-"}{" "}
-            <TruncatedText
-              text={amount}
-              maxLength={5}
-              startLength={3}
-              endLength={2}
-            />
           </Amount>
+          <TruncatedText
+            text={amount}
+            maxLength={5}
+            startLength={3}
+            endLength={2}
+          />
         </RightContent>
       )}
     </Item>

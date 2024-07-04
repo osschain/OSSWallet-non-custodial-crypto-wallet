@@ -32,7 +32,11 @@ export const Label = styled(HeaderTextUi)`
 
 export const RightContent = styled.View`
    width: 40%;
-   align-items: flex-end;
+  flex-direction: row;
+   align-items: center;
+   gap: 6px;
+   justify-content: flex-end;
+   
 `;
 
 export const Amount = styled(HeaderTextUi) <{ variant: variants }>`
@@ -40,5 +44,4 @@ export const Amount = styled(HeaderTextUi) <{ variant: variants }>`
     props.variant === "recieved"
       ? props.theme.colors["green-500"]
       : props.theme.colors["red-500"]};
-    text-align: right;
 `;

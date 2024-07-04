@@ -23,7 +23,6 @@ export default function History() {
   const { t } = useTranslation();
   const {
     data,
-    isLoading,
     isError,
     isFetching,
     isFetchingNextPage,
@@ -107,7 +106,7 @@ const RenderHistoryItem = ({
       if (isFromMe) {
         return "send";
       } else {
-        return "received";
+        return "recieved";
       }
     } catch (error) {
       console.log(error);

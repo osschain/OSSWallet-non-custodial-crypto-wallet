@@ -11,8 +11,10 @@ import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
 import History, { PageTokensType } from "@/models/history.model";
 import { unixTimestampToDate } from "@/util/unixToDate";
 
+export type PageParam = { page: number, pageTokens: PageTokensType | undefined };
+
 type EvmHistoryProps = {
-  pageParam: { page: number, pageTokens: PageTokensType | undefined };
+  pageParam: PageParam;
   address: string;
   blockchain: Blockchain[]
 }
@@ -21,7 +23,7 @@ export const getEvmHistory = async (
   { address, pageParam, blockchain }: EvmHistoryProps
 ) => {
   try {
-    const { page, pageTokens } = pageParam || {}
+    const { pageTokens } = pageParam || {}
     const isInitial = typeof pageTokens === 'undefined'
     const histories: HistoryType[] = [];
     const pageTokensHolder: PageTokensType = {
@@ -33,8 +35,7 @@ export const getEvmHistory = async (
       const tokenHistory = await getEvmTokenHistories({
         address,
         blockchain,
-        page,
-        pageToken: pageTokens?.token,
+        pageParam
       });
       pageTokensHolder.token = tokenHistory.pageToken
       console.log(pageTokensHolder)
@@ -46,8 +47,7 @@ export const getEvmHistory = async (
       const chainHistory = await getEvmChainHistories({
         address,
         blockchain,
-        page,
-        pageToken: pageTokens?.chain,
+        pageParam
       });
 
       pageTokensHolder.chain = chainHistory.pageToken
@@ -58,8 +58,7 @@ export const getEvmHistory = async (
       const nftHistory = await getEvmNftHistories({
         address,
         blockchain,
-        page,
-        pageToken: pageTokens?.nft,
+        pageParam,
       });
 
       // pageTokensHolder.nft = nftHistory.pagetoken
@@ -80,24 +79,23 @@ export type OSSblockchain = Blockchain | "solana" | "btc";
 type EvmHistoriesParams = {
   address: string;
   blockchain: Blockchain[] | Blockchain;
-  page: number;
-  pageToken: undefined | string;
+  pageParam: PageParam
 };
 
 export const getEvmChainHistories = async ({
   address,
   blockchain,
-  page,
-  pageToken,
+  pageParam
 }: EvmHistoriesParams) => {
-
+  const { page, pageTokens } = pageParam
   try {
     const response = (await httpClient.post(ApiEndpoints.GET_CHAIN_TRANSFER, {
       id: 1,
       wallet_address: address,
       blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
       page_size: page,
-      page_token: pageToken,
+      page_token: pageTokens?.chain
+      ,
     })) as ApiResponse<GetTransactionsByAddressReply>;
 
     if (!response.data.success) {
@@ -150,18 +148,17 @@ export const getEvmChainHistories = async ({
 export const getEvmTokenHistories = async ({
   address,
   blockchain,
-  page,
-  pageToken,
+  pageParam
 }: EvmHistoriesParams) => {
 
-
+  const { page, pageTokens } = pageParam
   try {
     const response = (await httpClient.post(ApiEndpoints.GET_TOKEN_TRANSFER, {
       id: 1,
       wallet_address: address,
       blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
       page_size: page,
-      page_token: pageToken,
+      page_token: pageTokens?.token,
     })) as ApiResponse<GetTokenTransfersReply>;
     const transactions = response.data.ans.result;
 
@@ -203,17 +200,16 @@ export const getEvmTokenHistories = async ({
 export const getEvmNftHistories = async ({
   address,
   blockchain,
-  page,
-  pageToken,
+  pageParam
 }: EvmHistoriesParams) => {
-
+  const { page, pageTokens } = pageParam
   try {
     const response = (await httpClient.post(ApiEndpoints.GET_NFT_TRANSFERS, {
       id: 1,
       wallet_address: address,
       blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
       page_size: page,
-      page_token: pageToken,
+      page_token: pageTokens?.nft,
     })) as ApiResponse<GetTransactionsByAddressReply>;
 
 

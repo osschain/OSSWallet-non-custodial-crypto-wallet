@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -12,43 +12,42 @@ import SpacerUi from "../ui/SpacerUi";
 
 import { AssetType } from "@/@types/assets";
 import { useAssets } from "@/app/api/assets";
-import { useHistory } from "@/app/api/history";
-import { PageTokensType } from "@/models/history.model";
+import { useInfiniteHistory } from "@/app/api/history";
 
 const AssetHistory = ({ asset }: { asset: AssetType }) => {
   const { t } = useTranslation();
-  const page = 10;
-  const [pageTokens, setPageTokens] = useState<PageTokensType | undefined>();
-  console.log("RERENDER");
   const { data: assetManager } = useAssets();
   const queryClient = useQueryClient();
   const isToken = !!asset?.contractAddress;
   const { account, blockchain, id } = asset || {};
 
   const {
-    data: history,
-    isLoading,
+    data,
     isError,
-    isRefetching,
-  } = useHistory({
+    isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteHistory({
     address: account?.address,
     id,
     blockchain,
     isToken,
-    page,
-    pageTokens,
   });
 
-  const histories = history?.histories;
+  const histories = useMemo(() => {
+    console.log(data?.pages);
+    return data?.pages.flatMap((page) => page.histories) || [];
+  }, [data]);
 
   const assetHistory = useMemo(() => {
-    if (!histories) return;
-    return histories?.filter(
+    if (!histories) return [];
+    return histories.filter(
       (history) => history.id.toLowerCase() === asset?.id.toLowerCase()
     );
   }, [asset?.id, histories]);
 
-  if (isLoading) {
+  if (isFetching && !isFetchingNextPage) {
     return (
       <SpacerUi size="4xl">
         <ActivityIndicator />
@@ -56,27 +55,25 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
     );
   }
 
-  if (isError || !assetHistory?.length) {
+  if (isError || !assetHistory.length) {
     return <AlertWithImageUI title={t("wallet.home.asset.history-error")} />;
   }
 
   const handlePagination = () => {
-    if (history?.hasPageToken) {
-      setPageTokens(history.pageTokens);
-    }
+    fetchNextPage();
   };
 
-  const checkAddres = (from: string | undefined): variants | undefined => {
+  const checkAddress = (from: string | undefined): variants | undefined => {
     if (!assetManager || !from) return;
 
     try {
-      const isFromMe = assetManager.addresses.find((adress) => {
-        return adress.address.toLowerCase() === from.toLocaleLowerCase();
+      const isFromMe = assetManager.addresses.find((address) => {
+        return address.address.toLowerCase() === from.toLowerCase();
       });
 
       if (isFromMe) {
         return "send";
-      } else if (!isFromMe) {
+      } else {
         return "recieved";
       }
     } catch (error) {
@@ -84,34 +81,33 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
       return "error";
     }
   };
+
   return (
     <FlatListUi
       data={assetHistory}
       renderItem={({ item }) => (
-        <>
-          <SpacerUi size="xl" position="bottom">
-            <TouchableOpacity
-              onPress={() =>
-                router.push({
-                  pathname: `/(wallet)/home/history/${item.id}`,
-                  params: item,
-                })
-              }
-            >
-              <HistoryItem
-                walletAddress={item.from}
-                variant={checkAddres(item.from)}
-                amount={item.value}
-              />
-            </TouchableOpacity>
-          </SpacerUi>
-        </>
+        <SpacerUi size="xl" position="bottom">
+          <TouchableOpacity
+            onPress={() =>
+              router.push({
+                pathname: `/(wallet)/home/history/${item.id}`,
+                params: item,
+              })
+            }
+          >
+            <HistoryItem
+              walletAddress={item.from}
+              variant={checkAddress(item.from)}
+              amount={item.value}
+            />
+          </TouchableOpacity>
+        </SpacerUi>
       )}
-      showLoadMore={history?.hasPageToken}
-      isRefetching={isRefetching}
+      showLoadMore={hasNextPage}
+      isRefetching={isFetchingNextPage}
       onLoadMore={handlePagination}
       onRefresh={async () => {
-        await queryClient.invalidateQueries({ queryKey: ["history"] });
+        await queryClient.invalidateQueries({ queryKey: ["history", id] });
       }}
     />
   );

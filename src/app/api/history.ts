@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery, useInfiniteQuery, InfiniteData } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
@@ -10,10 +10,7 @@ import {
   getEvmHistory,
 } from "@/services/history.service";
 
-const fetchProjects = async ({ pageParam = 0 }) => {
-  const res = await fetch('/api/projects?cursor=' + pageParam)
-  return res.json()
-}
+
 
 
 interface PageParam {
@@ -24,7 +21,7 @@ interface PageParam {
 export const useInfiniteHistories = () => {
   const { data: assetManager } = useAssets();
 
-  return useInfiniteQuery<History, Error, History, string[], PageParam>({
+  return useInfiniteQuery<History, Error, InfiniteData<History>, string[], PageParam>({
     queryKey: ['histories'],
     queryFn: async ({ pageParam }) => {
       if (!assetManager) {
@@ -62,37 +59,28 @@ type UseHistoryProps = {
   id: string | undefined;
   blockchain: OSSblockchain | undefined;
   isToken: boolean;
-  page: number;
-  pageTokens: PageTokensType | undefined;
-};
 
-export const useHistory = ({
+};
+export const useInfiniteHistory = ({
   address,
   id,
   blockchain,
   isToken,
-  page,
-  pageTokens,
 }: UseHistoryProps) => {
-  return useQuery({
-    queryKey: ["history", id, pageTokens],
-    queryFn: async () => {
+  return useInfiniteQuery<History, Error, InfiniteData<History>>({
+    queryKey: ['history', id],
+    queryFn: async ({ pageParam }) => {
       if (!blockchain) {
-        console.log("blockchain is not presented");
-        throw new Error();
+        throw new Error('blockchain is not presented');
       }
       if (!address) {
-        console.log("address is not presented");
-        throw new Error();
+        throw new Error('address is not presented');
       }
-
       if (!id) {
-        console.log("id is not presented");
-        throw new Error();
+        throw new Error('id is not presented');
       }
-
-      if (blockchain === "btc" || blockchain === "solana") {
-        throw new Error();
+      if (blockchain === 'btc' || blockchain === 'solana') {
+        throw new Error('Unsupported blockchain');
       }
 
       let history: History | undefined;
@@ -101,34 +89,44 @@ export const useHistory = ({
         const evmChainHistory = await getEvmChainHistories({
           address,
           blockchain,
-          page,
-          pageToken: pageTokens?.chain,
+          pageParam: pageParam as PageParam
         });
 
-        history = new History(evmChainHistory.histories, { chain: evmChainHistory.pageToken, token: undefined, nft: undefined });
+        history = new History(evmChainHistory.histories, {
+          chain: evmChainHistory.pageToken,
+          token: undefined,
+          nft: undefined,
+        });
       }
 
       if (isToken) {
         const evmTokenHistory = await getEvmTokenHistories({
           address,
           blockchain,
-          page,
-          pageToken: pageTokens
-            ?.token,
+          pageParam: pageParam as PageParam
         });
 
-        history = new History(evmTokenHistory.histories, { chain: undefined, token: evmTokenHistory.pageToken, nft: undefined });
+        history = new History(evmTokenHistory.histories, {
+          chain: undefined,
+          token: evmTokenHistory.pageToken,
+          nft: undefined,
+        });
       }
 
       if (!history) {
-        throw new Error();
+        throw new Error('No history found');
       }
 
       return history;
     },
+    getNextPageParam: (lastPage) => {
+      return lastPage.hasPageToken
+        ? { page: 10, pageTokens: lastPage.pageTokens }
+        : undefined;
+    },
+    initialPageParam: { page: 10, pageTokens: undefined },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    placeholderData: keepPreviousData,
-
+    placeholderData: { pages: [], pageParams: [] },
   });
 };

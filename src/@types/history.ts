@@ -6,12 +6,12 @@ export type HistoryType = {
     blockchain: OSSblockchain,
     from: string | undefined;
     to: string | undefined;
-    date: string;
-    nonce: string;
+    date: string | undefined;
+    nonce?: string;
     value: string;
     id: string;
     key: string;
-    fee: number;
-    hash: string;
+    fee?: number;
+    hash?: string;
     type: Type;
 };

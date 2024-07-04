@@ -89,36 +89,26 @@ export const useInfiniteHistory = ({
       const isInitial = !pageParam.pageTokens
 
       if (!isToken) {
-
-        const historiesPlaceholder: HistoryType[] = []
+        const historiesPlaceholder: HistoryType[] = [];
         const pageTokensHolder: PageTokensType = {
           nft: undefined,
           token: undefined,
-          chain: undefined
+          chain: undefined,
+        };
+
+        const chainHistoryPromise = (pageParam.pageTokens?.chain || isInitial) && getEvmChainHistories({ address, blockchain, pageParam });
+        const nftHistoryPromise = (pageParam.pageTokens?.nft || isInitial) && getEvmNftHistories({ address, blockchain, pageParam });
+
+        const [chainHistory, nftHistory] = await Promise.all([chainHistoryPromise, nftHistoryPromise]);
+
+        if (chainHistory) {
+          historiesPlaceholder.push(...chainHistory.histories);
+          pageTokensHolder.chain = chainHistory.pageToken;
         }
 
-        if (pageParam.pageTokens?.chain || isInitial) {
-          const evmChainHistory = await getEvmChainHistories({
-            address,
-            blockchain,
-            pageParam: pageParam as PageParam
-          });
-
-          historiesPlaceholder.push(...evmChainHistory.histories)
-          pageTokensHolder.chain = evmChainHistory.pageToken
-        }
-
-        if (pageParam.pageTokens?.nft || isInitial) {
-
-          const evmNftHistory = await getEvmNftHistories({
-            address,
-            blockchain,
-            pageParam: pageParam as PageParam
-          });
-
-          historiesPlaceholder.push(...evmNftHistory.histories)
-          pageTokensHolder.nft = evmNftHistory.pageToken
-
+        if (nftHistory) {
+          historiesPlaceholder.push(...nftHistory.histories);
+          pageTokensHolder.nft = nftHistory.pageToken;
         }
 
         history = new History(historiesPlaceholder, {

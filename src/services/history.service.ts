@@ -88,7 +88,11 @@ export const getEvmChainHistories = async ({
   blockchain,
   pageParam
 }: EvmHistoriesParams) => {
+
+
+
   const { page, pageTokens } = pageParam
+
   try {
     const response = (await httpClient.post(ApiEndpoints.GET_CHAIN_TRANSFER, {
       id: 1,

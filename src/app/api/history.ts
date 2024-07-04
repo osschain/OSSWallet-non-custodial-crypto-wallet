@@ -8,7 +8,9 @@ import {
   getEvmChainHistories,
   getEvmTokenHistories,
   getEvmHistory,
+  getEvmNftHistories,
 } from "@/services/history.service";
+import { HistoryType } from "@/@types/history";
 
 
 
@@ -69,7 +71,7 @@ export const useInfiniteHistory = ({
 }: UseHistoryProps) => {
   return useInfiniteQuery<History, Error, InfiniteData<History>>({
     queryKey: ['history', id],
-    queryFn: async ({ pageParam }) => {
+    queryFn: async ({ pageParam }: { pageParam: PageParam }) => {
       if (!blockchain) {
         throw new Error('blockchain is not presented');
       }
@@ -84,18 +86,45 @@ export const useInfiniteHistory = ({
       }
 
       let history: History | undefined;
+      const isInitial = !pageParam.pageTokens
 
       if (!isToken) {
-        const evmChainHistory = await getEvmChainHistories({
-          address,
-          blockchain,
-          pageParam: pageParam as PageParam
-        });
 
-        history = new History(evmChainHistory.histories, {
-          chain: evmChainHistory.pageToken,
-          token: undefined,
+        const historiesPlaceholder: HistoryType[] = []
+        const pageTokensHolder: PageTokensType = {
           nft: undefined,
+          token: undefined,
+          chain: undefined
+        }
+
+        if (pageParam.pageTokens?.chain || isInitial) {
+          const evmChainHistory = await getEvmChainHistories({
+            address,
+            blockchain,
+            pageParam: pageParam as PageParam
+          });
+
+          historiesPlaceholder.push(...evmChainHistory.histories)
+          pageTokensHolder.chain = evmChainHistory.pageToken
+        }
+
+        if (pageParam.pageTokens?.nft || isInitial) {
+
+          const evmNftHistory = await getEvmNftHistories({
+            address,
+            blockchain,
+            pageParam: pageParam as PageParam
+          });
+
+          historiesPlaceholder.push(...evmNftHistory.histories)
+          pageTokensHolder.nft = evmNftHistory.pageToken
+
+        }
+
+        history = new History(historiesPlaceholder, {
+          chain: pageTokensHolder.chain,
+          token: undefined,
+          nft: pageTokensHolder.nft,
         });
       }
 

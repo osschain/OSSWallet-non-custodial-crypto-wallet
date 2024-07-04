@@ -96,6 +96,7 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
             }
           >
             <HistoryItem
+              type={item.type}
               walletAddress={item.from}
               variant={checkAddress(item.from)}
               amount={item.value}

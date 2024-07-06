@@ -71,27 +71,29 @@ const HomeAssets = () => {
       showsVerticalScrollIndicator={false}
       renderItem={({ item, index }) => (
         <>
-          <Spacer
-            style={{
-              marginTop: index === 0 ? 14 : 7,
-              marginBottom: assets.length - 1 === index ? 14 : 7,
-            }}
-          >
-            <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
-              <TouchableOpacity>
-                <AssetItem
-                  item={item}
-                  price={price(item.symbol)}
-                  priceChange={priceChange(item.symbol)}
-                  networkUri={
-                    item.contractAddress
-                      ? findAsset(assets, item.blockchain)?.icon
-                      : undefined
-                  }
-                />
-              </TouchableOpacity>
-            </Link>
-          </Spacer>
+          {item.isShown ? (
+            <Spacer
+              style={{
+                marginTop: index === 0 ? 14 : 7,
+                marginBottom: assets.length - 1 === index ? 14 : 7,
+              }}
+            >
+              <Link href={`/(wallet)/home/asset/${item.id}`} asChild>
+                <TouchableOpacity>
+                  <AssetItem
+                    item={item}
+                    price={price(item.symbol)}
+                    priceChange={priceChange(item.symbol)}
+                    networkUri={
+                      item.contractAddress
+                        ? findAsset(assets, item.blockchain)?.icon
+                        : undefined
+                    }
+                  />
+                </TouchableOpacity>
+              </Link>
+            </Spacer>
+          ) : null}
         </>
       )}
       onRefresh={async () => {

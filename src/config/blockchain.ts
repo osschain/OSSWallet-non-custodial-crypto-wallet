@@ -1,12 +1,13 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 
+
 export const chainIds = {
     "arbitrum": 42161, // Official Chain ID for Arbitrum One
     "avalanche": 43114, // Official Chain ID for Avalanche C-Chain
     "avalanche_fuji": 43113, // Official Chain ID for Avalanche Fuji Testnet
     "base": 8453, // Official Chain ID for Base Mainnet
     "bsc": 56, // Official Chain ID for Binance Smart Chain
-    "eth": 1, // Official Chain ID for Ethereum Mainnet
+    "ethereum": 1, // Official Chain ID for Ethereum Mainnet
     "eth_goerli": 5, // Official Chain ID for Ethereum Goerli Testnet
     "fantom": 250, // Official Chain ID for Fantom Opera
     "flare": 14, // Official Chain ID for Flare Mainnet
@@ -23,6 +24,13 @@ export const chainIds = {
     "btc": 0, // Not applicable, but traditionally BTC is identified as 0
     "solana": 101, // Solana does not use EVM-based Chain IDs, but it’s often referenced with 101 for Mainnet Beta
 };
+
+
+export const blockhainToTatumChains: { [key: string]: string } = {
+    polygon: "MATIC",
+    ethereum: "ETH",
+    bsc: "BSC",
+}
 
 
 

@@ -33,7 +33,7 @@ export default class AssetsManager {
     return getAdresses(this.assets);
   }
 
-  get shownBlockchains(): AssetType[] {
+  get shownAssets(): AssetType[] {
     return this.assets.filter((asset) => asset.isShown);
   }
 
@@ -42,7 +42,15 @@ export default class AssetsManager {
   }
 
   get shownIds(): string[] {
-    return this.shownBlockchains.map((asset) => asset.id.toLowerCase());
+    return this.shownAssets.map((asset) => asset.id.toLowerCase());
+  }
+
+  get shownBlockhains(): AssetType[] {
+    const evmBlockchains = this.assets.filter(
+      (asset) => !asset.contractAddress && asset.isShown
+    );
+
+    return evmBlockchains;
   }
 
   get getEvmlockchains(): AssetType[] {

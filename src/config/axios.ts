@@ -12,7 +12,8 @@ export enum ApiEndpoints {
   GET_ACCOUNT_BALANCE = "/get_account_balance",
   CALCULATE_NFT_FEE = "/calculate_nft_fee",
   NFT_TRANSFER = "/nft_transfer",
-  GET_NFT_TRANSFERS = "get_nft_transfers"
+  GET_NFT_TRANSFERS = "get_nft_transfers",
+  SUBSCRIBE_TO_WALLET = "subscribe_to_wallet"
 }
 
 const baseUrl = "https://hidden-slice-426318-j1.ey.r.appspot.com";

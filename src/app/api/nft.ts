@@ -38,6 +38,15 @@ export const useInfiniteNfts = () => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     enabled: !!assetManager,
+    select: (data) => {
+      const newPages = data.pages.map((page) => {
+        return new Nft(page.nfts, page.pageTokens)
+      });
+      return {
+        ...data,
+        pages: newPages,
+      };
+    }
   });
 };
 

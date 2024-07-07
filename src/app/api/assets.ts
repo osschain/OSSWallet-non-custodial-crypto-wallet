@@ -24,12 +24,12 @@ export const useAssets = () => {
 
       const assets = JSON.parse(assetReference) as AssetType[];
 
-      return new AssetsManager(assets)
+      return assets
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    meta: {
-      persist: false
+    select: (data) => {
+      return new AssetsManager(data)
     }
   });
 

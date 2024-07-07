@@ -14,13 +14,14 @@ export const useInfiniteNfts = () => {
   const { data: assetManager } = useAssets();
 
   return useInfiniteQuery<Nft, Error, InfiniteData<Nft>, string[], PageParam>({
-    queryKey: ['histories'],
+    queryKey: ['nfts'],
     queryFn: async ({ pageParam }) => {
       if (!assetManager) {
         throw new Error("assets is not presented");
       }
+      console.log("RUN NFTS")
 
-      const nfts = await getEvmNfts(assetManager.evmAddress, pageParam.page, undefined);
+      const nfts = await getEvmNfts(assetManager.evmAddress, pageParam.page, pageParam.pageTokens?.evm);
 
       if (!nfts) {
         throw new Error();
@@ -32,36 +33,14 @@ export const useInfiniteNfts = () => {
         ? { page: 10, pageTokens: lastPage.pageTokens }
         : undefined;
     },
-    initialPageParam: { page: 3, pageTokens: undefined },
+    initialPageParam: { page: 10, pageTokens: undefined },
     placeholderData: { pages: [], pageParams: [] },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+    enabled: !!assetManager,
   });
 };
 
-export const useNfts = (page: number) => {
-  const { data: assetsManager } = useAssets();
-
-  return useQuery({
-    queryKey: ["nfts", page],
-    queryFn: async () => {
-      if (!assetsManager) {
-        throw new Error("assets is not presented");
-      }
-
-      const nfts = await getEvmNfts(assetsManager.evmAddress, page, undefined);
-
-      if (!nfts) {
-        throw new Error();
-      }
-      return nfts;
-    },
-    placeholderData: keepPreviousData,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-
-  });
-};
 
 export const useNft = (
   address: string,

@@ -102,7 +102,7 @@ export const getEvmChainHistories = async ({ address, blockchain, pageParam }: E
     const response = await httpClient.post(ApiEndpoints.GET_CHAIN_TRANSFER, {
       id: 1,
       wallet_address: address,
-      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain === "ethereum" ? 'eth' : blockchain],
+      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain as blockchain === "ethereum" ? 'eth' : blockchain],
       page_size: page,
       page_token: pageTokens?.chain,
     }) as ApiResponse<GetTransactionsByAddressReply>;

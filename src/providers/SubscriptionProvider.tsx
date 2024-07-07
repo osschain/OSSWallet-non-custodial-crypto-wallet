@@ -30,7 +30,7 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (assetManager?.assets) {
+    if (assetManager?.assets && shownAsset) {
       for (const asset of shownAsset) {
         subscribe({
           blockchain: blockhainToTatumChains[asset.blockchain],
@@ -41,14 +41,14 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assetManager?.assets]);
 
-  useEffect(() => {
-    setInterval(async () => {
-      const respo = await getLastTransactions({
-        address: "0x0e03d6230e5aB5745956368450eE5765f1D048cD",
-      });
-      console.log(respo, "NEW RES");
-    }, 10000);
-  }, []);
+  // useEffect(() => {
+  //   setInterval(async () => {
+  //     const respo = await getLastTransactions({
+  //       address: "0x0e03d6230e5aB5745956368450eE5765f1D048cD",
+  //     });
+  //     console.log(respo, "NEW RES");
+  //   }, 10000);
+  // }, []);
 
   const updateHistory = (history: HistoryType) => {
     queryClient.setQueryData(

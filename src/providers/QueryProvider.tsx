@@ -29,7 +29,12 @@ export default function QueryProvider({ children }: PropsWithChildren) {
               const { queryKey } = query;
 
               const excludeFromPersisting =
-                queryKey.includes("balances") || queryKey.includes("nfts");
+                queryKey.includes("balances") ||
+                queryKey.includes("assets") ||
+                queryKey.includes("nfts") ||
+                queryKey.includes("history") ||
+                queryKey.includes("histories");
+
               return excludeFromPersisting;
             }
             return queryIsReadyForPersistance;

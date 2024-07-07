@@ -1,8 +1,8 @@
 import { Blockchain } from "@ankr.com/ankr.js";
 import { BottomSheetModal, TouchableOpacity } from "@gorhom/bottom-sheet";
-import { useQueryClient } from "@tanstack/react-query";
+import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 
@@ -18,6 +18,7 @@ import { ContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 
 export default function History() {
+  const queryClient = useQueryClient();
   const [network, setNetwork] = useState<Blockchain | null>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { t } = useTranslation();
@@ -30,6 +31,18 @@ export default function History() {
     hasNextPage,
   } = useInfiniteHistories();
   const { data: networks } = UseNetworks();
+
+  useEffect(() => {
+    return () => {
+      queryClient.setQueryData(
+        ["histories"],
+        (data: InfiniteData<History>) => ({
+          pages: data.pages.slice(0, 1),
+          pageParams: data.pageParams.slice(0, 1),
+        })
+      );
+    };
+  }, [queryClient]);
 
   const histories = useMemo(() => {
     return data?.pages.flatMap((page) => page.histories) || [];
@@ -66,10 +79,10 @@ export default function History() {
           onSelect={(selected) => setNetwork(selected)}
         />
       </SpacerUi>
-      {!filteredHistories.length && (
+      {!filteredHistories?.length && (
         <AlertWithImageUi title={t("wallet.home.history.index.alert-error")} />
       )}
-      <SpacerUi size="xl" style={{ flex: filteredHistories.length ? 1 : 0 }}>
+      <SpacerUi size="xl" style={{ flex: filteredHistories?.length ? 1 : 0 }}>
         <RenderHistoryItem
           histories={filteredHistories}
           onLoadMore={fetchNextPage}

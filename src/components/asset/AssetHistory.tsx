@@ -1,6 +1,6 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -20,6 +20,18 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
   const queryClient = useQueryClient();
   const isToken = !!asset?.contractAddress;
   const { account, blockchain, id } = asset || {};
+
+  useEffect(() => {
+    return () => {
+      queryClient.setQueryData(
+        ["history", id],
+        (data: InfiniteData<History>) => ({
+          pages: data.pages.slice(0, 1),
+          pageParams: data.pageParams.slice(0, 1),
+        })
+      );
+    };
+  }, [id, queryClient]);
 
   const {
     data,

@@ -44,7 +44,7 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     setInterval(async () => {
       const respo = await getLastTransactions({
-        address: "0x0e03d6230e5ab5745956368450ee5765f1d048cd",
+        address: "0x0e03d6230e5aB5745956368450eE5765f1D048cD",
       });
       console.log(respo, "NEW RES");
     }, 10000);

@@ -1,4 +1,4 @@
-import { useInfiniteQuery, InfiniteData } from "@tanstack/react-query";
+import { useInfiniteQuery, InfiniteData, useQueryClient } from "@tanstack/react-query";
 
 import { useAssets } from "./assets";
 
@@ -22,14 +22,13 @@ interface PageParam {
 
 export const useInfiniteHistories = () => {
   const { data: assetManager } = useAssets();
-
   return useInfiniteQuery<History, Error, InfiniteData<History>, string[], PageParam>({
     queryKey: ['histories'],
     queryFn: async ({ pageParam }) => {
+
       if (!assetManager) {
         throw new Error('assets is not presented');
       }
-
       const history = await getEvmHistory(
         {
           address: assetManager.evmAddress,
@@ -45,7 +44,8 @@ export const useInfiniteHistories = () => {
       return new History(filteredHistory, history.pageTokens);
     },
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.hasPageToken
+      const hasPageToken = Object.values(lastPage.pageTokens).some(value => value !== undefined);
+      return hasPageToken
         ? { page: 3, pageTokens: lastPage.pageTokens }
         : undefined;
     },
@@ -53,6 +53,15 @@ export const useInfiniteHistories = () => {
     placeholderData: { pages: [], pageParams: [] },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+    select: (data) => {
+      const newPages = data.pages.map((page) => {
+        return new History(page.histories, page.pageTokens)
+      });
+      return {
+        ...data,
+        pages: newPages,
+      };
+    },
   });
 };
 
@@ -135,11 +144,11 @@ export const useInfiniteHistory = ({
       if (!history) {
         throw new Error('No history found');
       }
-      history.histories.reverse()
       return history;
     },
     getNextPageParam: (lastPage) => {
-      return lastPage.hasPageToken
+      const hasPageToken = Object.values(lastPage.pageTokens).some(value => value !== undefined);
+      return hasPageToken
         ? { page: 10, pageTokens: lastPage.pageTokens }
         : undefined;
     },
@@ -147,5 +156,14 @@ export const useInfiniteHistory = ({
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     placeholderData: { pages: [], pageParams: [] },
+    select: (data) => {
+      const newPages = data.pages.map((page) => {
+        return new History(page.histories, page.pageTokens)
+      });
+      return {
+        ...data,
+        pages: newPages,
+      };
+    },
   });
 };

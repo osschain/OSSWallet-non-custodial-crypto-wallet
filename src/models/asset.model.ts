@@ -7,7 +7,7 @@ import { getAddress, getAdresses } from "@/services/balances.service";
 export default class AssetsManager {
   public assets: AssetType[];
 
-  constructor(assets: AssetType[]) {
+  constructor(assets: AssetType[] | undefined) {
     this.assets = assets;
   }
 

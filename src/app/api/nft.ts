@@ -29,7 +29,9 @@ export const useInfiniteNfts = () => {
       return nfts;
     },
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.hasPageToken
+      const hasPageToken = Object.values(lastPage.pageTokens).some(value => value !== undefined);
+
+      return hasPageToken
         ? { page: 10, pageTokens: lastPage.pageTokens }
         : undefined;
     },

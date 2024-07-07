@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import { useQueryClient } from "@tanstack/react-query";
+import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { Link } from "expo-router";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 
@@ -12,6 +12,7 @@ import SpacerUi from "../ui/SpacerUi";
 
 import { useAssets } from "@/app/api/assets";
 import { useInfiniteNfts } from "@/app/api/nft";
+import Nft from "@/models/nft.model";
 import { findAsset } from "@/util/findAsset";
 
 const HomeNfts = () => {
@@ -25,6 +26,18 @@ const HomeNfts = () => {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteNfts();
+
+  useEffect(() => {
+    return () => {
+      console.log("KEY");
+
+      queryClient.setQueryData(["nfts"], (data: InfiniteData<Nft>) => ({
+        pages: data.pages.slice(0, 1),
+        pageParams: data.pageParams.slice(0, 1),
+      }));
+    };
+  }, [queryClient]);
+
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
 
@@ -51,6 +64,7 @@ const HomeNfts = () => {
       isRefetching={isFetchingNextPage}
       onLoadMore={fetchNextPage}
       key={2}
+      keyExtractor={(data) => data.image}
       numColumns={2}
       columnWrapperStyle={{
         justifyContent: "space-between",

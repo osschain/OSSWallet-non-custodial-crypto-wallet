@@ -19,7 +19,6 @@ export const getLastTransactions = async ({ address }: { address: string }) => {
         const response = await httpClient.post(
             ApiEndpoints.GET_LAST_TRANSACTIONS,
             { wallet_address: address }
-
         )
 
         return response.data

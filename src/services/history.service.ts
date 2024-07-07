@@ -102,7 +102,7 @@ export const getEvmChainHistories = async ({ address, blockchain, pageParam }: E
     const response = await httpClient.post(ApiEndpoints.GET_CHAIN_TRANSFER, {
       id: 1,
       wallet_address: address,
-      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
+      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain === "ethereum" ? 'eth' : blockchain],
       page_size: page,
       page_token: pageTokens?.chain,
     }) as ApiResponse<GetTransactionsByAddressReply>;
@@ -152,10 +152,11 @@ export const getEvmTokenHistories = async ({ address, blockchain, pageParam }: E
     const response = await httpClient.post(ApiEndpoints.GET_TOKEN_TRANSFER, {
       id: 1,
       wallet_address: address,
-      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
+      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain === "ethereum" ? 'eth' : blockchain],
       page_size: page,
       page_token: pageTokens?.token,
     }) as ApiResponse<GetTokenTransfersReply>;
+
 
     const transactions = response.data.ans.result;
     const histories = transactions.transfers.map(mapTokenHistory).filter(Boolean) as HistoryType[];
@@ -193,7 +194,7 @@ export const getEvmNftHistories = async ({ address, blockchain, pageParam }: Evm
     const response = await httpClient.post(ApiEndpoints.GET_NFT_TRANSFERS, {
       id: 1,
       wallet_address: address,
-      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain],
+      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain === "ethereum" ? 'eth' : blockchain],
       page_size: page,
       page_token: pageTokens?.nft,
     }) as ApiResponse<GetNftTransfersReply>;

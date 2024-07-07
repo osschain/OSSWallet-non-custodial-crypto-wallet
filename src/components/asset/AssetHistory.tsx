@@ -25,10 +25,13 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
     return () => {
       queryClient.setQueryData(
         ["history", id],
-        (data: InfiniteData<History>) => ({
-          pages: data.pages.slice(0, 1),
-          pageParams: data.pageParams.slice(0, 1),
-        })
+        (data: InfiniteData<History>) => {
+          if (!data) return;
+          return {
+            pages: data.pages.slice(0, 1),
+            pageParams: data.pageParams.slice(0, 1),
+          };
+        }
       );
     };
   }, [id, queryClient]);

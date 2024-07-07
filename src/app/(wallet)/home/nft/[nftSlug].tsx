@@ -77,7 +77,7 @@ export default function Nft() {
           </SpacerUi>
           <SpacerUi size="xl">
             {properties.map((prop) => (
-              <SpacerUi size="lg">
+              <SpacerUi key={prop.label} size="lg">
                 <PropertyUi
                   label={prop.label}
                   value={prop.value as string}

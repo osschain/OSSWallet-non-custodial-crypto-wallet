@@ -42,7 +42,8 @@ export const UseBalances = (asset: AssetType) => {
       return { balance: 0, price: 0 };
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
+    staleTime: 1000 * 60 * 60 * 24
 
   });
 };

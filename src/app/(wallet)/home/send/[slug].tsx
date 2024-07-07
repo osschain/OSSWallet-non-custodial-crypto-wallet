@@ -5,6 +5,7 @@ import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
+import { v4 as uuidv4 } from "uuid";
 
 import { useAssetPrices, useAssets } from "@/app/api/assets";
 import SendAmountInput from "@/components/send/SendAddressInput";
@@ -29,6 +30,8 @@ import { useAuth } from "@/providers/AuthProvider";
 import { fetchGasFee, sendTransaction } from "@/services/send.service";
 import { decrypt } from "@/util/es";
 import { findAsset } from "@/util/findAsset";
+import { useSubsraptions } from "@/providers/SubscriptionProvider";
+import { unixTimestampToDate } from "@/util/unixToDate";
 
 export type DetailsType = {
   name: string;
@@ -43,6 +46,7 @@ export type DetailsType = {
 
 export default function SendChain(): JSX.Element {
   const [address, setAddress] = useState<string>("");
+  const { updateHistory } = useSubsraptions();
   const [properties, setProperties] = useState<SendTokenPropertiesType | null>(
     null
   );
@@ -112,9 +116,21 @@ export default function SendChain(): JSX.Element {
         gasFee: gasFeeWey as number,
         fromAddress: asset.account.address,
       });
+
+      // updateHistory({
+      //   id: asset.contractAddress ? asset.contractAddress : asset.blockchain,
+      //   from: asset.account.address,
+      //   to: address,
+      //   key: uuidv4(),
+      //   value: amount,
+      //   blockchain: asset.blockchain,
+      //   date: unixTimestampToDate(Date.now()),
+      //   type: "TOKEN",
+      // });
       sendConfirm.current?.close();
       router.push(`/(wallet)/home/asset/${asset.id}`);
     } catch (error: any) {
+      console.log(error);
       handleSendError(error.response?.status);
     } finally {
       setIsTransactionCreating(false);

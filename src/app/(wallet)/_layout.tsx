@@ -5,6 +5,7 @@ import { useTheme } from "styled-components/native";
 
 import { useAuth } from "@/providers/AuthProvider";
 import { useStyledTheme } from "@/providers/StyledThemeProvider";
+import SubscriptionProvider from "@/providers/SubscriptionProvider";
 import { pixelToNumber } from "@/util/pixelToNumber";
 
 export default function TabLayout() {
@@ -21,74 +22,76 @@ export default function TabLayout() {
 
   return (
     <>
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: theme.colors["text-primary"],
-          tabBarInactiveTintColor: theme.colors["text-second"],
-          headerTintColor: theme.colors["text-primary"],
+      <SubscriptionProvider>
+        <Tabs
+          screenOptions={{
+            tabBarActiveTintColor: theme.colors["text-primary"],
+            tabBarInactiveTintColor: theme.colors["text-second"],
+            headerTintColor: theme.colors["text-primary"],
 
-          tabBarStyle: {
-            paddingTop: 10,
+            tabBarStyle: {
+              paddingTop: 10,
+              backgroundColor: theme.colors["bg-primary"],
+              borderTopColor: theme.colors["border-color"],
+              borderTopWidth: 1,
+            },
+          }}
+          sceneContainerStyle={{
             backgroundColor: theme.colors["bg-primary"],
-            borderTopColor: theme.colors["border-color"],
-            borderTopWidth: 1,
-          },
-        }}
-        sceneContainerStyle={{
-          backgroundColor: theme.colors["bg-primary"],
-        }}
-      >
-        <Tabs.Screen
-          name="home"
-          options={{
-            headerShown: false,
-            title: "",
-            tabBarIcon: ({ color }) => (
-              <Ionicons
-                size={pixelToNumber(theme.sizes["xl"])}
-                name="wallet-outline"
-                color={color}
-              />
-            ),
           }}
-        />
-        <Tabs.Screen
-          name="swap"
-          options={{
-            title: "",
-            headerShown: false,
-            tabBarIcon: ({ color }) => (
-              <AntDesign
-                name="swap"
-                size={pixelToNumber(theme.sizes["xl"])}
-                color={color}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="settings"
-          options={{
-            title: "",
-            headerShown: false,
-            tabBarIcon: ({ color }) => (
-              <AntDesign
-                name="setting"
-                size={pixelToNumber(theme.sizes["xl"])}
-                color={color}
-              />
-            ),
-          }}
-        />
+        >
+          <Tabs.Screen
+            name="home"
+            options={{
+              headerShown: false,
+              title: "",
+              tabBarIcon: ({ color }) => (
+                <Ionicons
+                  size={pixelToNumber(theme.sizes["xl"])}
+                  name="wallet-outline"
+                  color={color}
+                />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="swap"
+            options={{
+              title: "",
+              headerShown: false,
+              tabBarIcon: ({ color }) => (
+                <AntDesign
+                  name="swap"
+                  size={pixelToNumber(theme.sizes["xl"])}
+                  color={color}
+                />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="settings"
+            options={{
+              title: "",
+              headerShown: false,
+              tabBarIcon: ({ color }) => (
+                <AntDesign
+                  name="setting"
+                  size={pixelToNumber(theme.sizes["xl"])}
+                  color={color}
+                />
+              ),
+            }}
+          />
 
-        <Tabs.Screen
-          name="index"
-          options={{
-            headerShown: false,
-            href: null,
-          }}
-        />
-      </Tabs>
+          <Tabs.Screen
+            name="index"
+            options={{
+              headerShown: false,
+              href: null,
+            }}
+          />
+        </Tabs>
+      </SubscriptionProvider>
       <StatusBar style={currentMode === "dark" ? "light" : "dark"} />
     </>
   );

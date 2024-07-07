@@ -7,7 +7,7 @@ import { PropsWithChildren } from "react";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity,
+      gcTime: Infinity,
     },
   },
 });

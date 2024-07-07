@@ -36,7 +36,6 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
   });
 
   const histories = useMemo(() => {
-    console.log(data?.pages);
     return data?.pages.flatMap((page) => page.histories) || [];
   }, [data]);
 

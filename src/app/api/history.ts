@@ -135,7 +135,7 @@ export const useInfiniteHistory = ({
       if (!history) {
         throw new Error('No history found');
       }
-
+      history.histories.reverse()
       return history;
     },
     getNextPageParam: (lastPage) => {

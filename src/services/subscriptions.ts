@@ -11,6 +11,20 @@ export const subscribe = async ({ blockchain, address }: { blockchain: string, a
         )
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const getLastTransactions = async ({ address }: { address: string }) => {
+    try {
+        const response = await httpClient.post(
+            ApiEndpoints.GET_LAST_TRANSACTIONS,
+            { wallet_address: address }
+
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error)
         throw error
     }
 }

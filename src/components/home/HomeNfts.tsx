@@ -1,6 +1,7 @@
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "expo-router";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator } from "react-native";
 
@@ -10,17 +11,28 @@ import FlatListUi from "../ui/FlatListUi";
 import SpacerUi from "../ui/SpacerUi";
 
 import { useAssets } from "@/app/api/assets";
-import { useNfts } from "@/app/api/nft";
+import { useInfiniteNfts } from "@/app/api/nft";
 import { findAsset } from "@/util/findAsset";
 
 const HomeNfts = () => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const { data: nfts, isError, isLoading: isNftLoading } = useNfts(10);
+  const {
+    data,
+    isError,
+    isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteNfts();
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
 
-  if (isNftLoading) {
+  const nfts = useMemo(() => {
+    return data?.pages.flatMap((page) => page.nfts) || [];
+  }, [data]);
+
+  if (isFetching && !isFetchingNextPage) {
     return (
       <SpacerUi size="xl">
         <ActivityIndicator />
@@ -35,6 +47,9 @@ const HomeNfts = () => {
   return (
     <FlatListUi
       data={nfts}
+      showLoadMore={hasNextPage}
+      isRefetching={isFetchingNextPage}
+      onLoadMore={fetchNextPage}
       key={2}
       numColumns={2}
       columnWrapperStyle={{

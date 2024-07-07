@@ -6,6 +6,7 @@ import {
 
 import { nftType } from "@/@types/nft";
 import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
+import Nft from "@/models/nft.model";
 
 export const getEvmNfts = async (
   address: string,
@@ -24,7 +25,6 @@ export const getEvmNfts = async (
     if (!response.data.success) {
       throw new Error();
     }
-
     const nfts = response.data.ans.result;
 
     const nft: nftType[] = nfts.assets.map(
@@ -48,8 +48,8 @@ export const getEvmNfts = async (
         };
       }
     );
-
-    return nft.filter((nft) => nft.name);
+    const filter = nft.filter((nft) => nft.name)
+    return new Nft(filter, { evm: nfts.nextPageToken });
   } catch (error) {
     console.log("ERROR NFT");
     console.log(error);

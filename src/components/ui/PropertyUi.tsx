@@ -9,7 +9,7 @@ export const PropertiesUi = styled.View`
   padding: ${({ theme }) => theme.spaces["xl"]};
   background-color: ${({ theme }) => theme.colors["bg-second"]};
   border-radius: ${({ theme }) => theme.sizes["md"]};
-  gap: 12;
+  gap: 12px;
 `;
 
 type PropertUiType = {

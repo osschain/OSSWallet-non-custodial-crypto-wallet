@@ -32,6 +32,12 @@ export const blockhainToTatumChains: { [key: string]: string } = {
     bsc: "BSC",
 }
 
+export const tatumChainToBlockhain: { [key: string]: string } = {
+    "MATIC": 'polygon',
+    "ETH": "ethereum",
+    "BSC": "bsc"
+}
+
 
 
 

@@ -79,8 +79,9 @@ export const useInfiniteHistory = ({
   isToken,
 }: UseHistoryProps) => {
   return useInfiniteQuery<History, Error, InfiniteData<History>, string[], PageParam>({
-    queryKey: ['history', id],
+    queryKey: ['history', id.toLocaleLowerCase()],
     queryFn: async ({ pageParam }) => {
+      console.log(id.toLocaleLowerCase(), "THIS ONE")
       if (!blockchain) {
         throw new Error('blockchain is not presented');
       }
@@ -93,6 +94,7 @@ export const useInfiniteHistory = ({
       if (blockchain === 'btc' || blockchain === 'solana') {
         throw new Error('Unsupported blockchain');
       }
+
 
       let history: History | undefined;
       const isInitial = !pageParam.pageTokens

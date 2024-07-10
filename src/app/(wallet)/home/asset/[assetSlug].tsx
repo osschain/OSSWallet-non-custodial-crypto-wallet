@@ -15,7 +15,6 @@ export default function Asset() {
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
   const asset = findAsset(assets, slug as string);
-
   if (!asset || !slug || typeof slug !== "string") {
     return (
       <ContainerUi>

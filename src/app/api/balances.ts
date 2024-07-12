@@ -7,7 +7,7 @@ import { AddresTypes } from "@/@types/balances";
 import { getEvmBalance } from "@/services/balances.service";
 
 export const UseBalances = (asset: AssetType) => {
-  const { blockchain, contractAddress, account, symbol } = asset;
+  const { blockchain, contractAddress, account, symbol, id } = asset;
   const address = account.address;
 
   const { data: assetsManager } = useAssets();
@@ -15,7 +15,7 @@ export const UseBalances = (asset: AssetType) => {
   const assets = assetsManager?.assets;
 
   return useQuery({
-    queryKey: ["balances", blockchain, contractAddress],
+    queryKey: ["balances", id.toLocaleLowerCase()],
     queryFn: async () => {
       if (!assets) {
         throw new Error("Asset is not presented");

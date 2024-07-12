@@ -55,12 +55,8 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
 
       const data = respo[0]?.data;
       console.log(data);
-
       if (!data) return;
-      // const counterAddres = data?.counterAddress;
-      // const asset = data?.asset;
 
-      // console.log(counterAddres, asset);
       const {
         chain,
         asset,
@@ -71,12 +67,18 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
         timestamp,
         tokenId,
       } = data;
+
+      const isRecieved = counterAddress === evmAddress;
+      const isNft = tokenId;
+
+      const id =
+        tatumChainToBlockhain[asset] !== undefined
+          ? tatumChainToBlockhain[asset]
+          : (asset as string).toLocaleLowerCase();
+
       const transaction: HistoryType = {
+        id,
         blockchain: chain as OSSblockchain,
-        id:
-          tatumChainToBlockhain[asset] !== undefined
-            ? tatumChainToBlockhain[asset]
-            : (asset as string).toLocaleLowerCase(),
         to: counterAddress,
         from: address,
         value: amount,
@@ -88,6 +90,7 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
 
       console.log(transaction);
       updateHistory(transaction);
+      updateBalance(id, amount, isRecieved, isNft);
     }, 10000);
   }, []);
 
@@ -116,6 +119,41 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
         return {
           ...oldData,
           pages: newPages,
+        };
+      }
+    );
+  };
+
+  const updateBalance = (
+    id: string,
+    amount: number,
+    isReceived: boolean,
+    isNft: boolean
+  ) => {
+    queryClient.setQueryData(
+      ["balances", id.toLocaleLowerCase()],
+      (oldData: { balance: string | number; price: any }) => {
+        let newBalance;
+
+        console.log(isReceived);
+
+        if (isNft && !isReceived) {
+          newBalance = Number(oldData.balance) - Number(amount);
+        } else if (isReceived) {
+          newBalance = Number(oldData.balance) + Number(amount);
+        } else {
+          newBalance = Number(oldData.balance) - Number(amount);
+        }
+
+        if (newBalance < 0) {
+          newBalance = 0;
+        }
+
+        console.log(newBalance);
+
+        return {
+          ...oldData,
+          balance: newBalance.toFixed(4),
         };
       }
     );

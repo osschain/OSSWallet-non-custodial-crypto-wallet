@@ -53,16 +53,19 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
         const respo = await getLastTransactions({
           address: evmAddress as string,
         });
-        if (!respo || !respo.length) return;
+
+        if (!respo || !respo.length)
+          throw new Error("Resppo is not defined or it is empty");
+
         const filterResponse = respo?.filter((item: any) => {
           return item?.data?.type !== "fee";
         });
 
         const data = filterResponse[0]?.data;
-
+        console.log(respo);
         if (!data) return;
 
-        const { reciver_address: counterAddress, sender_address: address } =
+        const { receiver_address: counterAddress, sender_address: address } =
           filterResponse[0];
 
         const { chain, asset, amount, txId, timestamp, tokenId } = data;

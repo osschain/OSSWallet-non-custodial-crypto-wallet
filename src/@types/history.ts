@@ -14,4 +14,5 @@ export type HistoryType = {
     fee?: number;
     hash?: string;
     type: Type;
+    timeStamp: number;
 };

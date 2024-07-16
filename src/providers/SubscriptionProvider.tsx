@@ -88,9 +88,9 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
           hash: txId,
           date: timestamp ? unixTimestampToDate(timestamp) : undefined,
           type: tokenId ? "NFT" : "TOKEN",
+          timeStamp: timestamp,
         };
 
-        console.log(transaction);
         updateHistory(transaction);
         updateBalance(id, amount, isRecieved, isNft);
       } catch (error) {
@@ -118,6 +118,8 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
     queryClient.setQueryData(
       ["history", history.id],
       (oldData: InfiniteData<History>) => {
+        if (!oldData) return;
+
         const newPages = oldData.pages.map((page) => ({
           ...page,
           histories: [history, ...page.histories],

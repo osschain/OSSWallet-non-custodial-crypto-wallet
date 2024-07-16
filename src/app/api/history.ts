@@ -40,7 +40,6 @@ export const useInfiniteHistories = () => {
       const filteredHistory = history.histories.filter((history) =>
         assetManager.shownIds.includes(history.id.toLowerCase())
       );
-
       return new History(filteredHistory, history.pageTokens);
     },
     getNextPageParam: (lastPage, allPages) => {
@@ -55,13 +54,15 @@ export const useInfiniteHistories = () => {
     refetchOnMount: false,
     select: (data) => {
       const newPages = data.pages.map((page) => {
-        return new History(page.histories, page.pageTokens)
+
+        return new History(page.histories.sort((a, b) => b.timeStamp - a.timeStamp), page.pageTokens)
       });
       return {
         ...data,
         pages: newPages,
       };
     },
+
   });
 };
 
@@ -160,7 +161,7 @@ export const useInfiniteHistory = ({
     placeholderData: { pages: [], pageParams: [] },
     select: (data) => {
       const newPages = data.pages.map((page) => {
-        return new History(page.histories, page.pageTokens)
+        return new History(page.histories.sort((a, b) => b.timeStamp - a.timeStamp), page.pageTokens)
       });
       return {
         ...data,

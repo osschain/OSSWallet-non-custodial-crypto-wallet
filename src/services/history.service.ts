@@ -92,6 +92,7 @@ const mapChainHistory = ({
     date: timestamp ? unixTimestampToDate(timestamp) : undefined,
     hash,
     type: "TOKEN",
+    timeStamp: Number(timestamp)
   };
 };
 
@@ -102,7 +103,7 @@ export const getEvmChainHistories = async ({ address, blockchain, pageParam }: E
     const response = await httpClient.post(ApiEndpoints.GET_CHAIN_TRANSFER, {
       id: 1,
       wallet_address: address,
-      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain as blockchain === "ethereum" ? 'eth' : blockchain],
+      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain === "ethereum" ? 'eth' : blockchain],
       page_size: page,
       page_token: pageTokens?.chain,
     }) as ApiResponse<GetTransactionsByAddressReply>;
@@ -142,6 +143,8 @@ const mapTokenHistory = ({
     date: timestamp ? unixTimestampToDate(timestamp) : undefined,
     hash: transactionHash,
     type: "TOKEN",
+    timeStamp: Number(timestamp)
+
   };
 };
 
@@ -185,6 +188,7 @@ const mapNftHistory = ({
   date: timestamp ? unixTimestampToDate(timestamp) : undefined,
   hash: transactionHash,
   type: "NFT",
+  timeStamp: Number(timestamp)
 });
 
 export const getEvmNftHistories = async ({ address, blockchain, pageParam }: EvmHistoriesParams) => {

@@ -49,48 +49,50 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     setInterval(async () => {
-      const respo = await getLastTransactions({
-        address: evmAddress as string,
-      });
+      try {
+        const respo = await getLastTransactions({
+          address: evmAddress as string,
+        });
+        if (!respo || !respo.length) return;
+        const filterResponse = respo?.filter((item: any) => {
+          return item?.data?.type !== "fee";
+        });
 
-      const data = respo[0]?.data;
-      console.log(data);
-      if (!data) return;
+        const data = filterResponse[0]?.data;
 
-      const {
-        chain,
-        asset,
-        counterAddress,
-        address,
-        amount,
-        txId,
-        timestamp,
-        tokenId,
-      } = data;
+        if (!data) return;
 
-      const isRecieved = counterAddress === evmAddress;
-      const isNft = tokenId;
+        const { reciver_address: counterAddress, sender_address: address } =
+          filterResponse[0];
 
-      const id =
-        tatumChainToBlockhain[asset] !== undefined
-          ? tatumChainToBlockhain[asset]
-          : (asset as string).toLocaleLowerCase();
+        const { chain, asset, amount, txId, timestamp, tokenId } = data;
 
-      const transaction: HistoryType = {
-        id,
-        blockchain: chain as OSSblockchain,
-        to: counterAddress,
-        from: address,
-        value: amount,
-        key: uuidv4(),
-        hash: txId,
-        date: timestamp ? unixTimestampToDate(timestamp) : undefined,
-        type: tokenId ? "NFT" : "TOKEN",
-      };
+        const isRecieved = counterAddress === evmAddress?.toLocaleLowerCase();
+        const isNft = tokenId;
 
-      console.log(transaction);
-      updateHistory(transaction);
-      updateBalance(id, amount, isRecieved, isNft);
+        const id =
+          tatumChainToBlockhain[asset] !== undefined
+            ? tatumChainToBlockhain[asset]
+            : (asset as string).toLocaleLowerCase();
+
+        const transaction: HistoryType = {
+          id,
+          blockchain: chain as OSSblockchain,
+          to: counterAddress,
+          from: address,
+          value: amount,
+          key: uuidv4(),
+          hash: txId,
+          date: timestamp ? unixTimestampToDate(timestamp) : undefined,
+          type: tokenId ? "NFT" : "TOKEN",
+        };
+
+        console.log(transaction);
+        updateHistory(transaction);
+        updateBalance(id, amount, isRecieved, isNft);
+      } catch (error) {
+        console.log(error, "realtime error");
+      }
     }, 10000);
   }, []);
 
@@ -98,6 +100,7 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
     queryClient.setQueryData(
       ["histories"],
       (oldData: InfiniteData<History>) => {
+        if (!oldData) return;
         const newPages = oldData.pages.map((page) => ({
           ...page,
           histories: [history, ...page.histories],
@@ -135,7 +138,7 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
       (oldData: { balance: string | number; price: any }) => {
         let newBalance;
 
-        console.log(isReceived);
+        console.log(":sad", isReceived);
 
         if (isNft && !isReceived) {
           newBalance = Number(oldData.balance) - Number(amount);

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
+import { usePushNotifications } from "@/hooks/usePushNotifications";
 import AuthProvider from "@/providers/AuthProvider";
 import { ErrorBoundaryProvider } from "@/providers/ErrorBoundery";
 import NothificationProvider from "@/providers/NotificationsProvider";
@@ -29,6 +30,9 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { fontsLoaded: loaded, fontError: error } = useFont();
+  const { expoPushToken, notification } = usePushNotifications();
+
+  const data = JSON.stringify(notification, undefined);
 
   const { i18n } = useTranslation();
   useEffect(() => {

@@ -61,38 +61,39 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
           return item?.data?.type !== "fee";
         });
 
-        const data = filterResponse[0]?.data;
-        console.log(respo);
-        if (!data) return;
+        for (const resp of filterResponse) {
+          const data = resp.data;
+          if (!data) return;
 
-        const { receiver_address: counterAddress, sender_address: address } =
-          filterResponse[0];
+          const { receiver_address: counterAddress, sender_address: address } =
+            resp;
 
-        const { chain, asset, amount, txId, timestamp, tokenId } = data;
+          const { chain, asset, amount, txId, timestamp, tokenId } = data;
 
-        const isRecieved = counterAddress === evmAddress?.toLocaleLowerCase();
-        const isNft = tokenId;
+          const isRecieved = counterAddress === evmAddress?.toLocaleLowerCase();
+          const isNft = tokenId;
 
-        const id =
-          tatumChainToBlockhain[asset] !== undefined
-            ? tatumChainToBlockhain[asset]
-            : (asset as string).toLocaleLowerCase();
+          const id =
+            tatumChainToBlockhain[asset] !== undefined
+              ? tatumChainToBlockhain[asset]
+              : (asset as string).toLocaleLowerCase();
 
-        const transaction: HistoryType = {
-          id,
-          blockchain: chain as OSSblockchain,
-          to: counterAddress,
-          from: address,
-          value: amount,
-          key: uuidv4(),
-          hash: txId,
-          date: timestamp ? unixTimestampToDate(timestamp) : undefined,
-          type: tokenId ? "NFT" : "TOKEN",
-          timeStamp: timestamp,
-        };
+          const transaction: HistoryType = {
+            id,
+            blockchain: chain as OSSblockchain,
+            to: counterAddress,
+            from: address,
+            value: amount,
+            key: uuidv4(),
+            hash: txId,
+            date: timestamp ? unixTimestampToDate(timestamp) : undefined,
+            type: tokenId ? "NFT" : "TOKEN",
+            timeStamp: timestamp,
+          };
 
-        updateHistory(transaction);
-        updateBalance(id, amount, isRecieved, isNft);
+          updateHistory(transaction);
+          updateBalance(id, amount, isRecieved, isNft);
+        }
       } catch (error) {
         console.log(error, "realtime error");
       }

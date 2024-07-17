@@ -16,7 +16,8 @@ const LogoOut = () => {
 
   const logoutHandler = async () => {
     await logOut();
-    queryClient.resetQueries();
+    // queryClient.resetQueries();
+    queryClient.clear();
     router.replace("/auth");
   };
   return (

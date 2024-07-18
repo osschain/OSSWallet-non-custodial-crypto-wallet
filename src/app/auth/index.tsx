@@ -1,3 +1,4 @@
+import * as Notifications from "expo-notifications";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components/native";
@@ -46,11 +47,21 @@ function Auth() {
         <Link href="/auth/mnemonic-creating" asChild>
           <ButtonUi>{t("auth.index.create-new")}</ButtonUi>
         </Link>
+        <ButtonUi onPress={schedulePushNotification}>NOTIFICATION</ButtonUi>
       </Footer>
     </ScrollContainerUi>
   );
 }
-
+async function schedulePushNotification() {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "You've got mail! 📬",
+      body: "Here is the notification body",
+      data: { data: "goes here", test: { test1: "more data" } },
+    },
+    trigger: { seconds: 2 },
+  });
+}
 const Body = styled(BodyUi)`
   align-items: center;
   justify-content: center;

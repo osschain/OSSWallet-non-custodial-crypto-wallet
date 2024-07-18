@@ -26,7 +26,9 @@
       "permissions": [
         "android.permission.USE_BIOMETRIC",
         "android.permission.USE_FINGERPRINT"
-      ]
+      ],
+      "googleServicesFile": "./google-services.json",
+      "package": "com.osswallet"
     },
     "web": {
       "bundler": "metro",

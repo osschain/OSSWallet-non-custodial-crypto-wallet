@@ -31,20 +31,21 @@ const explorers = [
 ];
 
 export default function HistoryDetails() {
+  const item = useLocalSearchParams();
+
   const { t } = useTranslation();
 
   const { data: assetManager } = useAssets();
   const assets = assetManager?.assets;
 
-  const item = useLocalSearchParams();
   const asset = findAsset(assets, item.slug as string);
 
   const isRecieved = (from: string | undefined): boolean | undefined => {
     if (!assets || !from) return;
-
-    const isFromMe = assetManager.addresses.find(
-      (adress) => adress.address.toLowerCase() === from.toLowerCase()
-    );
+    console.log(assetManager.addresses);
+    const isFromMe = assetManager.addresses.find((adress) => {
+      return adress.address?.toLowerCase() === from?.toLowerCase();
+    });
 
     return !isFromMe;
   };

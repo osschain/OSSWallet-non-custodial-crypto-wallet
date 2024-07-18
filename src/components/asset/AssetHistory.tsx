@@ -2,7 +2,7 @@ import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import HistoryItem, { variants } from "../history/history-item";

@@ -78,7 +78,7 @@
     "tweetnacl": "^1.0.3",
     "uuid": "^9.0.1",
     "yup": "^1.4.0",
-    "expo-notifications": "~0.28.9",
+    "expo-notifications": "~0.28.10",
     "expo-device": "~6.0.2",
     "expo-constants": "~16.0.2"
   },

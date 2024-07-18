@@ -57,7 +57,7 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
   const assetHistory = useMemo(() => {
     if (!histories) return [];
     return histories.filter(
-      (history) => history.id.toLowerCase() === asset?.id.toLowerCase()
+      (history) => history.id?.toLowerCase() === asset?.id.toLowerCase()
     );
   }, [asset?.id, histories]);
 
@@ -82,7 +82,7 @@ const AssetHistory = ({ asset }: { asset: AssetType }) => {
 
     try {
       const isFromMe = assetManager.addresses.find((address) => {
-        return address.address.toLowerCase() === from.toLowerCase();
+        return address.address?.toLowerCase() === from?.toLowerCase();
       });
 
       if (isFromMe) {

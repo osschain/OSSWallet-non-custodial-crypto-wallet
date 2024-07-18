@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import styled, { useTheme } from "styled-components/native";
 
 import { AssetType } from "@/@types/assets";
+import { useAssetPrices } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
 import BodyTextUi from "@/components/ui/BodyTextUi";
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
@@ -17,7 +18,7 @@ const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
 
   const { data: balances } = UseBalances(asset);
   const balance = balances?.balance;
-
+  const price = balances?.price;
   return (
     <>
       <ChainDetails>
@@ -35,7 +36,7 @@ const AssetDetails = ({ asset, slug }: { asset: AssetType; slug: string }) => {
           {balance} {asset.symbol}
         </HeaderTextUi>
         <BodyTextUi weight="regular" size="md" style={{ textAlign: "center" }}>
-          {/* {balance}$ */}
+          {(Number(balance) * price).toFixed(2)}$
         </BodyTextUi>
       </SpacerUi>
       <SpacerUi size="3xl">

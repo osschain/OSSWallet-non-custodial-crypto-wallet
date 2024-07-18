@@ -175,7 +175,7 @@ const AssetItem = ({
                 weight="medium"
                 style={{ textAlign: "right" }}
               >
-                {balance ? (Number(balance) * price).toFixed(3) : 0} $
+                {balance ? (Number(balance) * price).toFixed(2) : 0} $
               </BodyTextUi>
             </View>
           )

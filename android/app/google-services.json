@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "632181734583",
+    "project_id": "expo-push-c89d5",
+    "storage_bucket": "expo-push-c89d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632181734583:android:8bac49247a857b3323a132",
+        "android_client_info": {
+          "package_name": "com.osswallet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7FqY-s8d2i9sG0SJHaCobTnMtT_mrRxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

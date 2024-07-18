@@ -32,18 +32,18 @@ export const UseBalances = (asset: AssetType) => {
           contractAddress as string,
           symbol
         );
-        const { balance, price } = evmBalance
+        const { balance, price } = evmBalance;
 
-
-
-        return { balance: balance && Number(balance) > 0 ? Number(balance).toFixed(4) : 0, price };
+        return {
+          balance:
+            balance && Number(balance) > 0 ? Number(balance).toFixed(4) : 0,
+          price,
+        };
       }
 
       return { balance: 0, price: 0 };
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-
   });
 };
-

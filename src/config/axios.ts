@@ -14,7 +14,8 @@ export enum ApiEndpoints {
   NFT_TRANSFER = "/nft_transfer",
   GET_NFT_TRANSFERS = "get_nft_transfers",
   SUBSCRIBE_TO_WALLET = "subscribe_to_wallet",
-  GET_LAST_TRANSACTIONS = "get_last_transactions"
+  GET_LAST_TRANSACTIONS = "get_last_transactions",
+  GET_TOKEN_PROPERTIES = "get_custom_token_info",
 }
 
 const baseUrl = "https://hidden-slice-426318-j1.ey.r.appspot.com";

@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-
 import { AssetPrices, AssetType } from "@/@types/assets";
 import AssetsManager from "@/models/asset.model";
 import { useAuth } from "@/providers/AuthProvider";
@@ -11,7 +10,6 @@ export const useAssets = () => {
   return useQuery({
     queryKey: ["assets"],
     queryFn: async () => {
-
       if (!mnemonic) {
         throw new Error("No mnemonic phrase");
       }
@@ -24,15 +22,14 @@ export const useAssets = () => {
 
       const assets = JSON.parse(assetReference) as AssetType[];
 
-      return assets
+      return assets;
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     select: (data) => {
-      return new AssetsManager(data)
-    }
+      return new AssetsManager(data);
+    },
   });
-
 };
 
 export const useAddAssets = () => {
@@ -64,9 +61,17 @@ export const useAddAssets = () => {
 
       return updatedAssets;
     },
-    async onSuccess() {
+    onSuccess: async (data, variables) => {
+      // Access the assets used in the mutation
+      const assets = variables;
       await queryClient.invalidateQueries({ queryKey: ["assets"] });
-      await queryClient.invalidateQueries({ queryKey: ["balances"] });
+
+      // Perform any additional actions with the assets
+      assets.forEach(async (asset) => {
+        await queryClient.invalidateQueries({
+          queryKey: ["balances", asset.id.toLocaleLowerCase()],
+        });
+      });
     },
   });
 };
@@ -82,7 +87,9 @@ export const useUpdateAsset = () => {
         updatedAssets = JSON.parse(fetchedAssets);
       }
 
-      const assetIndex = updatedAssets.findIndex(asset => asset.id === updatedAsset.id);
+      const assetIndex = updatedAssets.findIndex(
+        (asset) => asset.id === updatedAsset.id
+      );
 
       if (assetIndex !== -1) {
         updatedAssets[assetIndex] = updatedAsset;
@@ -97,7 +104,6 @@ export const useUpdateAsset = () => {
   });
 };
 
-
 export const useAssetPrices = () => {
   return useQuery({
     queryKey: ["assetPrices"],
@@ -109,12 +115,9 @@ export const useAssetPrices = () => {
         throw new Error("asset's not found");
       }
 
-
-      return data as AssetPrices[]
+      return data as AssetPrices[];
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-
   });
-
 };

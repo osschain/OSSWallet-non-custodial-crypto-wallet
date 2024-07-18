@@ -44,6 +44,8 @@ export default function AddCustomToken() {
       setLoading(true);
       const properties = await getTokenProperties(address.trim(), network);
       const props = { ...properties, address, network };
+      console.log(props, "PROPS");
+
       setTokenProperties(props);
     } catch {
       setTokenProperties(undefined);
@@ -68,7 +70,6 @@ export default function AddCustomToken() {
     if (!tokenProperties || !assets) return;
 
     const evmAsset = generateEvmAsset(tokenProperties, assets);
-
     if (!evmAsset) {
       Alert.alert(
         t("shared.error-label"),

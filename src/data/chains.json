@@ -10,16 +10,7 @@
     "contractAddress": "0x655304E9Cc103b47f0afa0825767D6cCe426717C",
     "isNetwork": false
   },
-  {
-    "id": "btc",
-    "name": "Bitcoin",
-    "icon": "https://assets.osschain.com/icon/bitcoin.svg",
-    "symbol": "BTC",
-    "slip-0044": 0,
-    "blockchain": "btc",
-    "isShown": true,
-    "isNetwork": false
-  },
+
   {
     "id": "eth",
     "name": "Ethereum",
@@ -40,16 +31,7 @@
     "isShown": true,
     "isNetwork": true
   },
-  {
-    "id": "solana",
-    "name": "Solana",
-    "icon": "https://assets.osschain.com/icon/solana.svg",
-    "symbol": "SOL",
-    "slip-0044": 501,
-    "blockchain": "solana",
-    "isShown": true,
-    "isNetwork": false
-  },
+  
   {
     "id": "bsc",
     "name": "BNB Smart Chain",
@@ -59,35 +41,6 @@
     "blockchain": "bsc",
     "isShown": true,
     "isNetwork": true
-  },
-  {
-    "id": "avalanche",
-    "name": "Avalanche",
-    "icon": "https://assets.osschain.com/icon/avalanche.svg",
-    "symbol": "AVAX",
-    "slip-0044": 60,
-    "blockchain": "avalanche",
-    "isShown": true,
-    "isNetwork": true
-  },
-  {
-    "id": "polygon_zkevm",
-    "name": "Polygon zkEVM",
-    "icon": "https://assets.osschain.com/icon/polygon-zkevm.svg",
-    "symbol": "zkEVM",
-    "slip-0044": 60,
-    "blockchain": "polygon_zkevm",
-    "isShown": true,
-    "isNetwork": true
-  },
-  {
-    "id": "optimism",
-    "name": "Optimism",
-    "icon": "https://assets.osschain.com/icon/optimismpp.svg",
-    "symbol": "OP",
-    "slip-0044": 60,
-    "blockchain": "optimism",
-    "isShown": true,
-    "isNetwork": true
   }
+  
 ]

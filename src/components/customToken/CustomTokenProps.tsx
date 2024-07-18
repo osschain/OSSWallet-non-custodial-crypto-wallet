@@ -23,6 +23,7 @@ const CustomTokenProps = ({
       )
     );
   }
+
   if (!tokenProperties) {
     return null;
   }
@@ -31,15 +32,15 @@ const CustomTokenProps = ({
     <PropertiesUi>
       <PropertyUi
         label={`${t("wallet.home.custom-token.add-custom-token.name")}:`}
-        value={tokenProperties.name}
+        value={tokenProperties?.name}
       />
       <PropertyUi
         label={`${t("wallet.home.custom-token.add-custom-token.symbol")}:`}
-        value={tokenProperties.symbol}
+        value={tokenProperties?.symbol}
       />
       <PropertyUi
         label={`${t("wallet.home.custom-token.add-custom-token.decimals")}:`}
-        value={tokenProperties.decimals.toString()}
+        value={tokenProperties?.decimals?.toString()}
       />
     </PropertiesUi>
   );

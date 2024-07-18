@@ -48,7 +48,7 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
   }, [assetManager?.assets]);
 
   useEffect(() => {
-    setInterval(async () => {
+    const interval = setInterval(async () => {
       try {
         const respo = await getLastTransactions({
           address: evmAddress as string,
@@ -97,7 +97,11 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
       } catch (error) {
         console.log(error, "realtime error");
       }
-    }, 10000);
+    }, 20000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const updateHistory = (history: HistoryType) => {

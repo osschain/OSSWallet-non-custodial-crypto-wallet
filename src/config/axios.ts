@@ -16,6 +16,7 @@ export enum ApiEndpoints {
   SUBSCRIBE_TO_WALLET = "subscribe_to_wallet",
   GET_LAST_TRANSACTIONS = "get_last_transactions",
   GET_TOKEN_PROPERTIES = "get_custom_token_info",
+  SAVE_PUSH_TOKEN = "/save_push_info",
 }
 
 const baseUrl = "https://hidden-slice-426318-j1.ey.r.appspot.com";

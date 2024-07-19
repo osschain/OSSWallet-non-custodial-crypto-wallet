@@ -4,7 +4,6 @@ import { JsonRpcProvider, Contract } from "ethers";
 import { AssetType, TokenpropertiesType } from "@/@types/assets";
 import { ERC20_ABI } from "@/config/abi";
 import { ApiEndpoints, httpClient } from "@/config/axios";
-import { blockhainToTatumChains } from "@/config/blockchain";
 
 export const getContract = (address: string, blockchain: Blockchain) => {
   const endPoint = ``;

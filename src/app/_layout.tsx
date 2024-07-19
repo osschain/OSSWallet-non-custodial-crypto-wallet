@@ -17,8 +17,6 @@ import NothificationProvider from "@/providers/NotificationsProvider";
 import QueryProvider from "@/providers/QueryProvider";
 import StoreProvider from "@/providers/StoreProvider";
 import StyledThemeProvider from "@/providers/StyledThemeProvider";
-import ButtonUi from "@/components/ui/ButtonUi";
-import { usePushNotifications } from "@/hooks/usePushNotifications";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -35,8 +33,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { fontsLoaded: loaded, fontError: error } = useFont();
-  const { expoPushToken } = usePushNotifications();
-  console.log(expoPushToken);
   const { i18n } = useTranslation();
   useEffect(() => {
     const bootstrapAsync = async () => {

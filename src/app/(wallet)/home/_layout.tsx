@@ -6,6 +6,7 @@ import { useAssets } from "@/app/api/assets";
 import { ApiEndpoints, httpClient } from "@/config/axios";
 import { usePushNotifications } from "@/hooks/usePushNotifications";
 import { useStackOptions } from "@/hooks/useStackOptions";
+import { AuthStorageTypes } from "@/providers/AuthProvider";
 
 export default function _layout() {
   const stackOptions = useStackOptions();
@@ -13,8 +14,15 @@ export default function _layout() {
   const { data: assetManager } = useAssets();
   useEffect(() => {
     const bootstrapAsync = async () => {
+      const isPushTokenSaved = await AsyncStorage.getItem(
+        AuthStorageTypes.is_AUTH_TOKEN_SAVED
+      );
+
+      if (isPushTokenSaved === "true") {
+        return;
+      }
+
       if (expoPushToken !== undefined) {
-        console.log(expoPushToken);
         try {
           const evmAddress = assetManager?.evmAddress;
 
@@ -22,6 +30,8 @@ export default function _layout() {
             wallet_address: evmAddress,
             push_token: expoPushToken.data,
           });
+
+          AsyncStorage.setItem(AuthStorageTypes.is_AUTH_TOKEN_SAVED, "true");
 
           console.log(expoPushToken);
         } catch (e) {

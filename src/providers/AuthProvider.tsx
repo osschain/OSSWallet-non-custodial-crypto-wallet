@@ -11,6 +11,11 @@ import {
 
 import { decrypt, encrypt } from "@/util/es";
 
+export enum AuthStorageTypes {
+  IS_SUBSCRIBER = "isSubscriber",
+  is_AUTH_TOKEN_SAVED = "isAuthTokenSaved",
+}
+
 type AuthData = {
   mnemonic: string | null;
   loading: boolean;

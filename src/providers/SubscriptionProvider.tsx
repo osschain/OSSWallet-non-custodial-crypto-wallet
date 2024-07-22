@@ -36,16 +36,23 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
   const queryClient = useQueryClient();
   const evmAddress = assetManager?.evmAddress;
   useEffect(() => {
-    if (assetManager?.assets && shownAsset) {
-      for (const asset of shownAsset) {
-        subscribe({
-          blockchain: blockhainToTatumChains[asset.blockchain],
-          address: asset.account.address,
-        });
+    const bootstrapAsync = async () => {
+      try {
+        if (assetManager?.assets && shownAsset) {
+          for (const asset of shownAsset) {
+            subscribe({
+              blockchain: blockhainToTatumChains[asset.blockchain],
+              address: asset.account.address,
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Error in bootstrapAsync", error);
       }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [assetManager?.assets]);
+    };
+
+    bootstrapAsync();
+  }, [assetManager?.assets, shownAsset]);
 
   useEffect(() => {
     const interval = setInterval(async () => {

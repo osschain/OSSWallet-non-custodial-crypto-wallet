@@ -19,7 +19,7 @@ import SpacerUi from "@/components/ui/SpacerUi";
 import { findAsset } from "@/util/findAsset";
 
 export default function Swap() {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   // const { slug } = useLocalSearchParams();
   // const { data: assetManager, isError } = useAssets();
   // const assets = assetManager?.assets;
@@ -105,7 +105,7 @@ export default function Swap() {
     //   </FooterUi>
     // </ScrollContainerUi>
     <ContainerUi>
-      <Stack.Screen options={{ headerShown: false }} />
+      <Stack.Screen options={{ title: t("shared.swap") }} />
       <BodyUi style={{ alignItems: "center", justifyContent: "center" }}>
         <HeaderTextUi size="xl">Coming soon ...</HeaderTextUi>
       </BodyUi>

@@ -105,6 +105,7 @@ export default function Swap() {
     //   </FooterUi>
     // </ScrollContainerUi>
     <ContainerUi>
+      <Stack.Screen options={{ headerShown: false }} />
       <BodyUi style={{ alignItems: "center", justifyContent: "center" }}>
         <HeaderTextUi size="xl">Coming soon ...</HeaderTextUi>
       </BodyUi>

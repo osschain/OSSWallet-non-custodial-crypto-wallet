@@ -70,7 +70,10 @@ function ConnetWallet() {
       <Body>
         <BannerImage source={require("@/assets/images/cpu.png")} />
         <SpacerUi size="3.5xl">
-          <HeaderText adjustsFontSizeToFit>
+          <HeaderText
+            accessibilityLabel="Enter the Secret Key"
+            adjustsFontSizeToFit
+          >
             {t("auth.connect-wallet.header")}
           </HeaderText>
         </SpacerUi>

@@ -1,13 +1,6 @@
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
-import {
-  Alert,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Alert, KeyboardAvoidingView, Platform, View } from "react-native";
 import styled from "styled-components/native";
 
 import BodyTextUi from "@/components/ui/BodyTextUi";
@@ -97,6 +90,7 @@ export default function MnemonicChecking() {
               ) => (
                 <SpacerUi size="xl" key={order}>
                   <TextInputUi
+                    accessibilityLabel={`check word number${order}`}
                     left={
                       <View>
                         <BodyTextUi color="text-second" weight="medium">

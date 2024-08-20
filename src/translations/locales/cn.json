@@ -92,7 +92,9 @@
         }
       },
       "settings": {
-        "change-passcode": "更改密码"
+        "change-passcode": "更改密码",
+        "delete-account": "删除帐户",
+        "delete-account-alert": "警告：如果您删除钱包，您的所有加密货币和交易历史记录都将从您的设备中永久删除。您只能使用 12 字的秘密恢复短语来恢复您的资金并查看您的交易历史记录。如果您删除钱包和资金，您需要自行承担风险。"
       }
     },
     "pascode": {

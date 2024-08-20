@@ -11,6 +11,7 @@ import PasswordSeting from "@/components/settings/PasswordSetting";
 import SocialLinks from "@/components/settings/SocialLinks";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
+import DeleteAccount from "@/components/settings/DeleteAccount";
 
 export default function Settings() {
   return (
@@ -40,6 +41,9 @@ export default function Settings() {
       </SpacerUi>
       <SpacerUi size="xl">
         <LogoOut />
+      </SpacerUi>
+      <SpacerUi size="xl">
+        <DeleteAccount />
       </SpacerUi>
       <SpacerUi size="xl" />
     </ScrollContainerUi>

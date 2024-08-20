@@ -92,7 +92,9 @@
         }
       },
       "settings": {
-        "change-passcode": "Cambiar contraseña"
+        "change-passcode": "Cambiar contraseña",
+        "delete-account": "Eliminar cuenta",
+        "delete-account-alert": "Advertencia: si elimina su billetera, todo su historial de transacciones y criptomonedas se eliminará permanentemente de su dispositivo. Sólo podrás recuperar tus fondos y ver tu historial de transacciones con tu frase secreta de recuperación de 12 palabras. Si elimina su billetera y sus fondos, lo hace bajo su propio riesgo."
       }
     },
     "pascode": {

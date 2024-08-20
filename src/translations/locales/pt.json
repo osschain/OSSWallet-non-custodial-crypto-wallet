@@ -92,7 +92,9 @@
         }
       },
       "settings": {
-        "change-passcode": "Alterar senha"
+        "change-passcode": "Alterar senha",
+        "delete-account": "Apagar conta",
+        "delete-account-alert": "Aviso: Se eliminar a sua carteira, todo o seu histórico de encriptação e transações será eliminado permanentemente do seu dispositivo. Só poderá recuperar os seus fundos e visualizar o seu histórico de transações com a sua frase secreta de recuperação de 12 palavras. Se eliminar a sua carteira e os seus fundos, fá-lo-á por sua conta e risco."
       }
     },
     "pascode": {

@@ -190,8 +190,11 @@
         "support": "Support",
         "terms-and-conditions": "Terms and condition",
         "privacy-policy": "Privacy Policy",
-        "choose-langnuage": "Choose Language"
+        "choose-langnuage": "Choose Language",
+        "delete-account": "Delete account",
+        "delete-account-alert": "Warning: If you delete your wallet, all your crypto and transaction history will be permanently deleted from your device. You will only be able to recover your funds and view your transaction history with your 12-word secret recovery phrase. If you delete your wallet and your funds, you do so at your own risk."
       },
+      
       "check-mnemonic": {
         "title": "Check Mnemonic"
       },

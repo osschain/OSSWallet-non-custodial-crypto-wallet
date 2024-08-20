@@ -211,7 +211,7 @@
     "current-passcode": "Current Pass Code"
   },
   "camera": {
-    "ask-permision": "We need your permission to show the camera",
+    "ask-permision": "Wee need your permission to show the camer for scan your QR Code",
     "grant-permision": "Grant Permission"
   },
   "networks": {

@@ -43,11 +43,13 @@ export default function StoreProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     setTimeout(() => {
-      if (totalBalance) return;
+      if (balances) return;
 
       resetTotalBalance();
     }, 7000);
+  }, []);
 
+  useEffect(() => {
     const totalBalance = balances.reduce((prev, current) => {
       return prev + current.balance;
     }, 0);

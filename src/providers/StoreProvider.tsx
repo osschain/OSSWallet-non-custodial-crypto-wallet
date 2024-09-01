@@ -42,6 +42,12 @@ export default function StoreProvider({ children }: PropsWithChildren) {
   const [balances, setBalances] = useState<Balance[]>([]);
 
   useEffect(() => {
+    setTimeout(() => {
+      if (totalBalance) return;
+
+      resetTotalBalance();
+    }, 7000);
+
     const totalBalance = balances.reduce((prev, current) => {
       return prev + current.balance;
     }, 0);

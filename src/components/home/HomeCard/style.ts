@@ -4,9 +4,7 @@ import styled from "styled-components/native";
 
 import HeaderTextUi from "@/components/ui/HeaderTextUi";
 
-const { width } = Dimensions
-  .get("window");
-
+const { width } = Dimensions.get("window");
 
 export const Card = styled.View`
   padding: ${({ theme }) => theme.spaces["xl"]};
@@ -22,8 +20,6 @@ export const BackgroundGradient = styled(LinearGradient)`
 `;
 export const Header = styled.View``;
 
-
-
 export const WalletAdressContainer = styled.View`
   flex-direction: row;
   gap: ${({ theme }) => theme.spaces["lg"]};
@@ -31,8 +27,7 @@ export const WalletAdressContainer = styled.View`
 
 export const CopyAddres = styled.TouchableOpacity``;
 
-export const MoneyAmount = styled(HeaderTextUi)`
-`;
+export const MoneyAmount = styled(HeaderTextUi)``;
 
 export const Buttons = styled.View`
   flex-direction: row;
@@ -63,12 +58,11 @@ export const ButtonBacground = styled.View`
 `;
 
 export const TopRight = styled.View`
-top: ${({ theme }) => theme.spaces["xl"]};
-position: absolute;
-flex-direction: row;
-right: ${({ theme }) => theme.spaces["xl"]};
-gap: ${({ theme }) => theme.spaces["lg"]};
-
+  top: ${({ theme }) => theme.spaces["xl"]};
+  position: absolute;
+  flex-direction: row;
+  right: ${({ theme }) => theme.spaces["xl"]};
+  gap: ${({ theme }) => theme.spaces["lg"]};
 `;
 
 export const NotificationContainer = styled.View`
@@ -76,11 +70,8 @@ export const NotificationContainer = styled.View`
   justify-content: center;
   align-items: center;
   top: -10px;
-  right: -8px;
+  right: -5px;
   width: 20px;
   height: 20px;
   border-radius: 100px;
-  background-color: ${({ theme }) => theme.colors["blue-100"]};
-
 `;
-

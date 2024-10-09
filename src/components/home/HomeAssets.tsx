@@ -12,9 +12,9 @@ import ItemUi from "../ui/ItemUi";
 import SpacerUi from "../ui/SpacerUi";
 
 import { AssetType } from "@/@types/assets";
+import { BalancesType } from "@/@types/balances";
 import { useAssetPrices, useAssets } from "@/app/api/assets";
 import { UseBalances } from "@/app/api/balances";
-import { useStore } from "@/providers/StoreProvider";
 import { findAsset } from "@/util/findAsset";
 
 const HomeAssets = () => {
@@ -27,6 +27,7 @@ const HomeAssets = () => {
   } = useAssets();
   const assets = assetManager?.assets;
   const { data: assetPrices } = useAssetPrices();
+  const { data: balancesManager, isLoading: isBalancesLoading } = UseBalances();
 
   const price = (symbol: string) =>
     Number(
@@ -83,7 +84,9 @@ const HomeAssets = () => {
                   <AssetItem
                     item={item}
                     price={price(item.symbol)}
+                    isBalancesLoading={isBalancesLoading}
                     priceChange={priceChange(item.symbol)}
+                    balance={balancesManager?.findbalance(item.id)}
                     networkUri={
                       item.contractAddress
                         ? findAsset(assets, item.blockchain)?.icon
@@ -108,27 +111,17 @@ const AssetItem = ({
   networkUri,
   priceChange,
   price,
+  balance,
+  isBalancesLoading,
 }: {
   item: AssetType;
+  isBalancesLoading: boolean;
   networkUri?: string;
   priceChange: number;
+  balance: BalancesType | undefined;
   price: number;
 }) => {
-  const { data: balances, isLoading } = UseBalances(item);
-  const { updateBalances } = useStore();
   const theme = useTheme();
-
-  const balance = useMemo(() => balances?.balance, [balances?.balance]);
-
-  useEffect(() => {
-    if (balance && price) {
-      updateBalances({
-        asset: item.name,
-        balance: Number(balance) * price,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [balance, price, item.name]);
 
   return (
     <Asset>
@@ -159,7 +152,7 @@ const AssetItem = ({
         }
         descUri={networkUri}
         right={
-          isLoading ? (
+          isBalancesLoading ? (
             <ActivityIndicator />
           ) : (
             <View>
@@ -168,14 +161,14 @@ const AssetItem = ({
                 size="md"
                 weight="medium"
               >
-                {balance || 0} {item.symbol}
+                {balance?.balance || 0}
               </BodyTextUi>
               <BodyTextUi
                 size="md"
                 weight="medium"
                 style={{ textAlign: "right" }}
               >
-                {balance ? (Number(balance) * price).toFixed(2) : 0} $
+                {balance?.balanceUsd || 0} $
               </BodyTextUi>
             </View>
           )

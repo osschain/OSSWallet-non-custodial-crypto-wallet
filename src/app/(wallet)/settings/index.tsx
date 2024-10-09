@@ -2,6 +2,7 @@ import Animated, { FadeInRight } from "react-native-reanimated";
 import styled from "styled-components/native";
 
 import DarkModeSetting from "@/components/settings/DarkModeSetting";
+import DeleteAccount from "@/components/settings/DeleteAccount";
 import HelpCenter from "@/components/settings/HelpCenter";
 import LanguageSetting from "@/components/settings/LanguageSetting";
 import LogoOut from "@/components/settings/Logout";
@@ -11,7 +12,6 @@ import PasswordSeting from "@/components/settings/PasswordSetting";
 import SocialLinks from "@/components/settings/SocialLinks";
 import { ScrollContainerUi } from "@/components/ui/LayoutsUi";
 import SpacerUi from "@/components/ui/SpacerUi";
-import DeleteAccount from "@/components/settings/DeleteAccount";
 
 export default function Settings() {
   return (

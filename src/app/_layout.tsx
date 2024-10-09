@@ -1,13 +1,9 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Constants from "expo-constants";
-import * as Device from "expo-device";
-import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useFont from "@/hooks/useFonts";
@@ -63,7 +59,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { t } = useTranslation();
   return (
     <>
       <ErrorBoundaryProvider>

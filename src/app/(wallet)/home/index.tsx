@@ -11,6 +11,7 @@ import HomeCard from "@/components/home/HomeCard";
 import HomeNfts from "@/components/home/HomeNfts";
 import SegmentedControl from "@/components/segment";
 import SpacerUi from "@/components/ui/SpacerUi";
+import { UseBalances } from "@/app/api/balances";
 
 type Segment = "Assets" | "NFTs";
 export default function Home() {

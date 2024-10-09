@@ -12,15 +12,16 @@ export default function _layout() {
   const stackOptions = useStackOptions();
   const { expoPushToken } = usePushNotifications();
   const { data: assetManager } = useAssets();
+  console.log(expoPushToken);
   useEffect(() => {
     const bootstrapAsync = async () => {
-      const isPushTokenSaved = await AsyncStorage.getItem(
-        AuthStorageTypes.is_AUTH_TOKEN_SAVED
-      );
+      // const isPushTokenSaved = await AsyncStorage.getItem(
+      //   AuthStorageTypes.is_AUTH_TOKEN_SAVED
+      // );
 
-      if (isPushTokenSaved === "true") {
-        return;
-      }
+      // if (isPushTokenSaved === "true") {
+      //   return;
+      // }
 
       if (expoPushToken !== undefined) {
         try {
@@ -30,8 +31,6 @@ export default function _layout() {
             wallet_address: evmAddress,
             push_token: expoPushToken.data,
           });
-
-          AsyncStorage.setItem(AuthStorageTypes.is_AUTH_TOKEN_SAVED, "true");
 
           console.log(expoPushToken);
         } catch (e) {

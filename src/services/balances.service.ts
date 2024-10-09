@@ -1,7 +1,9 @@
+import { GetAccountBalanceReply } from "@ankr.com/ankr.js";
 
 import { AssetType } from "@/@types/assets";
 import { AddresTypes, BalancesType, AddressType } from "@/@types/balances";
-import { ApiEndpoints, httpClient } from "@/config/axios";
+import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
+import { err } from "react-native-svg";
 
 export const totalBalance = (balances: BalancesType[] | undefined) => {
   const balance = balances?.reduce((prev, current) => {
@@ -64,36 +66,62 @@ export const getAdresses = (assets: AssetType[] | undefined) => {
   return addresses;
 };
 
-export const getEvmBalance = async (
-  address: string,
-  blockchain: string,
-  contractAddress: string,
-  symbol: string
+export const getChainBalances = async (
+  addresses: { address: string; type: AddresTypes }[]
 ) => {
+  const result: BalancesType[] = [];
   try {
-    const response = await httpClient.post(ApiEndpoints.GET_ACCOUNT_BALANCE, {
-      wallet_address: address,
-      blockchain,
-      token_contract_address: contractAddress,
-      token_symbol: symbol,
+    for (const { address, type } of addresses) {
+      if (type === AddresTypes.evm) {
+        const response = (await httpClient.post(
+          ApiEndpoints.GET_ACCOUNT_BALANCE,
+          {
+            wallet_address: address,
+            blockchain: [],
+            id: 1,
+          }
+        )) as ApiResponse<GetAccountBalanceReply>;
+
+        console.log(response.data.ans.result, "responsa");
+        if (!response.data.success) {
+          throw new Error();
+        }
+
+        const balances = response.data.ans.result;
+
+        result.push(
+          ...balances.assets.map((balance) => {
+            return {
+              ...balance,
+              id: balance.contractAddress
+                ? balance.contractAddress
+                : balance.blockchain,
+            };
+          })
+        );
+      }
+    }
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getBalances = async (addresses: AddressType[]) => {
+  try {
+    const chainBalances = await getChainBalances(addresses);
+
+    const filteredBalane = chainBalances.map(({ balance, balanceUsd, id }) => {
+      return {
+        balance: Number(balance).toFixed(3),
+        balanceUsd: Number(balanceUsd).toFixed(2),
+        id,
+      };
     });
 
-    if (!response.data.success) {
-      throw new Error();
-    }
-    if (response.data.balance_native) {
-      return {
-        balance: response.data.balance_native,
-        price: response.data.native_price,
-      };
-    } else {
-      return {
-        balance: response.data.token_balance,
-        price: response.data.native_price,
-      };
-    }
+    return filteredBalane;
   } catch (error) {
-    console.log("balance", error);
+    console.log(error, "BALANCE ERROR");
     throw error;
   }
 };

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList } from "react-native";
+
+import FlatListUi from "../ui/FlatListUi";
 
 import { AssetType } from "@/@types/assets";
 import { useAssets, useUpdateAsset } from "@/app/api/assets";
@@ -8,7 +9,6 @@ import AlertWithImageUI from "@/components/ui/AlertWithImageUi";
 import ItemUi from "@/components/ui/ItemUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { SwitchUi } from "@/components/ui/SwitchUi";
-import FlatListUi from "../ui/FlatListUi";
 
 const CustomTokenAssetList = ({ query }: { query: string }) => {
   const { data: assetManager } = useAssets();

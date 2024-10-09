@@ -1,5 +1,11 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
-import { PropsWithChildren, createContext, useContext, useEffect } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+} from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { HistoryType } from "@/@types/history";
@@ -13,6 +19,7 @@ import History from "@/models/history.model";
 import { OSSblockchain } from "@/services/history.service";
 import { getLastTransactions, subscribe } from "@/services/subscriptions";
 import { unixTimestampToDate } from "@/util/unixToDate";
+import Balance from "@/models/balance.model";
 
 export enum StorageKeys {
   Notifications = "notifications",
@@ -23,11 +30,13 @@ export enum StorageKeys {
 type SubscriptionData = {
   updateHistory: (history: HistoryType) => void;
   updateNfts: (nft: nftType) => void;
+  checkUpdate: () => void;
 };
 
 const SubscriptionContext = createContext<SubscriptionData>({
   updateHistory: () => {},
   updateNfts: () => {},
+  checkUpdate: () => {},
 });
 
 export default function SubscriptionProvider({ children }: PropsWithChildren) {
@@ -54,62 +63,67 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
     bootstrapAsync();
   }, [assetManager?.assets, shownAsset]);
 
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      try {
-        const respo = await getLastTransactions({
-          address: evmAddress as string,
-        });
+  const checkUpdate = useCallback(async () => {
+    console.log("CHECKS");
+    try {
+      const respo = await getLastTransactions({
+        address: evmAddress as string,
+      });
 
-        if (!respo || !respo.length)
-          throw new Error("Resppo is not defined or it is empty");
+      if (!respo || !respo.length)
+        throw new Error("Resppo is not defined or it is empty");
 
-        const filterResponse = respo?.filter((item: any) => {
-          return item?.data?.type !== "fee";
-        });
+      const filterResponse = respo?.filter((item: any) => {
+        return item?.data?.type !== "fee";
+      });
 
-        for (const resp of filterResponse) {
-          const data = resp.data;
-          if (!data) return;
+      for (const resp of filterResponse) {
+        const data = resp.data;
+        if (!data) return;
 
-          const { receiver_address: counterAddress, sender_address: address } =
-            resp;
+        const { receiver_address: counterAddress, sender_address: address } =
+          resp;
+        console.log(data, "?WTF IS THIS");
+        const { chain, asset, amount, txId, timestamp, tokenId } = data;
 
-          const { chain, asset, amount, txId, timestamp, tokenId } = data;
+        const isRecieved = counterAddress === evmAddress?.toLocaleLowerCase();
+        const isNft = tokenId;
 
-          const isRecieved = counterAddress === evmAddress?.toLocaleLowerCase();
-          const isNft = tokenId;
+        const id =
+          tatumChainToBlockhain[asset] !== undefined
+            ? tatumChainToBlockhain[asset]
+            : (asset as string).toLocaleLowerCase();
 
-          const id =
-            tatumChainToBlockhain[asset] !== undefined
-              ? tatumChainToBlockhain[asset]
-              : (asset as string).toLocaleLowerCase();
+        const transaction: HistoryType = {
+          id,
+          blockchain: chain as OSSblockchain,
+          to: counterAddress,
+          from: address,
+          value: amount,
+          key: uuidv4(),
+          hash: txId,
+          date: timestamp ? unixTimestampToDate(timestamp) : undefined,
+          type: tokenId ? "NFT" : "TOKEN",
+          timeStamp: timestamp,
+        };
 
-          const transaction: HistoryType = {
-            id,
-            blockchain: chain as OSSblockchain,
-            to: counterAddress,
-            from: address,
-            value: amount,
-            key: uuidv4(),
-            hash: txId,
-            date: timestamp ? unixTimestampToDate(timestamp) : undefined,
-            type: tokenId ? "NFT" : "TOKEN",
-            timeStamp: timestamp,
-          };
-
-          updateHistory(transaction);
-          updateBalance(id, amount, isRecieved, isNft);
-        }
-      } catch (error) {
-        console.log(error, "realtime error");
+        updateHistory(transaction);
+        updateBalance(id, amount, isRecieved, isNft);
       }
-    }, 20000);
+    } catch (error) {
+      console.log(error, "realtime error");
+    }
+  }, []);
 
+  useEffect(() => {
+    checkUpdate();
+    const interval = setInterval(async () => {
+      checkUpdate();
+    }, 20000);
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [checkUpdate]);
 
   const updateHistory = (history: HistoryType) => {
     queryClient.setQueryData(
@@ -150,39 +164,38 @@ export default function SubscriptionProvider({ children }: PropsWithChildren) {
     isReceived: boolean,
     isNft: boolean
   ) => {
-    queryClient.setQueryData(
-      ["balances", id.toLocaleLowerCase()],
-      (oldData: { balance: string | number; price: any }) => {
-        let newBalance;
-
-        console.log(":sad", isReceived);
-
-        if (isNft && !isReceived) {
-          newBalance = Number(oldData.balance) - Number(amount);
-        } else if (isReceived) {
-          newBalance = Number(oldData.balance) + Number(amount);
-        } else {
-          newBalance = Number(oldData.balance) - Number(amount);
-        }
-
-        if (newBalance < 0) {
-          newBalance = 0;
-        }
-
-        console.log(newBalance);
+    queryClient.setQueryData(["balances"], (oldData: Balance) => {
+      let newBalance = oldData.balances.map((balance) => {
+        if (balance.id.toLocaleLowerCase() !== id.toLocaleLowerCase())
+          return balance;
 
         return {
-          ...oldData,
-          balance: newBalance.toFixed(4),
+          ...balance,
+          balance: Number(balance.balance) - Number(amount),
         };
-      }
-    );
+      });
+
+      // if (isNft && !isReceived) {
+      //   newBalance = Number(oldData.balance) - Number(amount);
+      // } else if (isReceived) {
+      //   newBalance = Number(oldData.balance) + Number(amount);
+      // } else {
+      //   newBalance = Number(oldData.balance) - Number(amount);
+      // }
+
+      return {
+        ...oldData,
+        balance: newBalance.toFixed(4),
+      };
+    });
   };
 
   const updateNfts = (nft: nftType) => {};
 
   return (
-    <SubscriptionContext.Provider value={{ updateHistory, updateNfts }}>
+    <SubscriptionContext.Provider
+      value={{ updateHistory, updateNfts, checkUpdate }}
+    >
       {children}
     </SubscriptionContext.Provider>
   );

@@ -21,9 +21,11 @@ import IconUi from "@/components/ui/IconUi";
 import SpacerUi from "@/components/ui/SpacerUi";
 import { useNotification } from "@/providers/NotificationsProvider";
 import { useStore } from "@/providers/StoreProvider";
+import { UseBalances } from "@/app/api/balances";
 
 type Props = {
   label?: string;
+
   onRecieve?: () => void;
   onSend?: () => void;
   onCustomToken?: () => void;
@@ -41,7 +43,9 @@ const HomeCard = ({
 }: Props) => {
   const { t } = useTranslation();
   const { newNotifsNumber } = useNotification();
-  const { totalBalance } = useStore();
+  const { data: balanceManager, isLoading } = UseBalances();
+
+  const total = balanceManager?.total;
 
   return (
     <Card {...rest}>
@@ -56,11 +60,7 @@ const HomeCard = ({
         </HeaderTextUi>
         <SpacerUi size="xl">
           <MoneyAmount size="2xl" color="pure-white" style={{ height: 40 }}>
-            {totalBalance <= 0 ? (
-              <ActivityIndicator />
-            ) : (
-              totalBalance.toFixed(4) + "$"
-            )}
+            {isLoading ? <ActivityIndicator /> : total + "$"}
           </MoneyAmount>
         </SpacerUi>
       </Header>

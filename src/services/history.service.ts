@@ -12,7 +12,10 @@ import { ApiEndpoints, ApiResponse, httpClient } from "@/config/axios";
 import History, { PageTokensType } from "@/models/history.model";
 import { unixTimestampToDate } from "@/util/unixToDate";
 
-export type PageParam = { page: number; pageTokens: PageTokensType | undefined };
+export type PageParam = {
+  page: number;
+  pageTokens: PageTokensType | undefined;
+};
 
 type EvmHistoryProps = {
   pageParam: PageParam;
@@ -20,10 +23,14 @@ type EvmHistoryProps = {
   blockchain: Blockchain[];
 };
 
-export const getEvmHistory = async ({ address, pageParam, blockchain }: EvmHistoryProps) => {
+export const getEvmHistory = async ({
+  address,
+  pageParam,
+  blockchain,
+}: EvmHistoryProps) => {
   try {
     const { pageTokens } = pageParam || {};
-    const isInitial = typeof pageTokens === 'undefined';
+    const isInitial = typeof pageTokens === "undefined";
     const histories: HistoryType[] = [];
     const pageTokensHolder: PageTokensType = {
       nft: undefined,
@@ -31,11 +38,21 @@ export const getEvmHistory = async ({ address, pageParam, blockchain }: EvmHisto
       chain: undefined,
     };
 
-    const tokenHistoryPromise = (pageTokens?.token || isInitial) && getEvmTokenHistories({ address, blockchain, pageParam });
-    const chainHistoryPromise = (pageTokens?.chain || isInitial) && getEvmChainHistories({ address, blockchain, pageParam });
-    const nftHistoryPromise = (pageTokens?.nft || isInitial) && getEvmNftHistories({ address, blockchain, pageParam });
+    const tokenHistoryPromise =
+      (pageTokens?.token || isInitial) &&
+      getEvmTokenHistories({ address, blockchain, pageParam });
+    const chainHistoryPromise =
+      (pageTokens?.chain || isInitial) &&
+      getEvmChainHistories({ address, blockchain, pageParam });
+    const nftHistoryPromise =
+      (pageTokens?.nft || isInitial) &&
+      getEvmNftHistories({ address, blockchain, pageParam });
 
-    const [tokenHistory, chainHistory, nftHistory] = await Promise.all([tokenHistoryPromise, chainHistoryPromise, nftHistoryPromise]);
+    const [tokenHistory, chainHistory, nftHistory] = await Promise.all([
+      tokenHistoryPromise,
+      chainHistoryPromise,
+      nftHistoryPromise,
+    ]);
 
     if (tokenHistory) {
       pageTokensHolder.token = tokenHistory.pageToken;
@@ -52,7 +69,11 @@ export const getEvmHistory = async ({ address, pageParam, blockchain }: EvmHisto
       histories.push(...nftHistory.histories);
     }
 
-    return new History(histories, { token: pageTokensHolder.token, chain: pageTokensHolder.chain, nft: pageTokensHolder.nft });
+    return new History(histories, {
+      token: pageTokensHolder.token,
+      chain: pageTokensHolder.chain,
+      nft: pageTokensHolder.nft,
+    });
   } catch (error) {
     console.error("Error fetching histories:", error);
     throw error;
@@ -77,7 +98,9 @@ const mapChainHistory = ({
   from,
   value,
   blockchain,
-}: GetTransactionsByAddressReply['transactions'][0]): HistoryType | undefined => {
+}: GetTransactionsByAddressReply["transactions"][0]):
+  | HistoryType
+  | undefined => {
   if (!blockchain || !to) return;
 
   return {
@@ -92,28 +115,36 @@ const mapChainHistory = ({
     date: timestamp ? unixTimestampToDate(timestamp) : undefined,
     hash,
     type: "TOKEN",
-    timeStamp: Number(timestamp)
+    timeStamp: Number(timestamp),
   };
 };
 
-export const getEvmChainHistories = async ({ address, blockchain, pageParam }: EvmHistoriesParams) => {
+export const getEvmChainHistories = async ({
+  address,
+  blockchain,
+  pageParam,
+}: EvmHistoriesParams) => {
   const { page, pageTokens } = pageParam;
 
   try {
-    const response = await httpClient.post(ApiEndpoints.GET_CHAIN_TRANSFER, {
+    const response = (await httpClient.post(ApiEndpoints.GET_CHAIN_TRANSFER, {
       id: 1,
       wallet_address: address,
-      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain === "ethereum" ? 'eth' : blockchain],
+      blockchain: Array.isArray(blockchain)
+        ? blockchain
+        : [blockchain === "ethereum" ? "eth" : blockchain],
       page_size: page,
       page_token: pageTokens?.chain,
-    }) as ApiResponse<GetTransactionsByAddressReply>;
+    })) as ApiResponse<GetTransactionsByAddressReply>;
 
     if (!response.data.success) {
-      throw new Error('Failed to fetch chain histories');
+      throw new Error("Failed to fetch chain histories");
     }
 
     const transactions = response.data.ans.result;
-    const histories = transactions.transactions.map(mapChainHistory).filter(Boolean) as HistoryType[];
+    const histories = transactions.transactions
+      .map(mapChainHistory)
+      .filter(Boolean) as HistoryType[];
 
     return { histories, pageToken: transactions.nextPageToken };
   } catch (error) {
@@ -130,7 +161,7 @@ const mapTokenHistory = ({
   fromAddress,
   value,
   contractAddress,
-}: GetTokenTransfersReply['transfers'][0]): HistoryType | undefined => {
+}: GetTokenTransfersReply["transfers"][0]): HistoryType | undefined => {
   if (!contractAddress || !toAddress || !fromAddress) return;
 
   return {
@@ -143,26 +174,32 @@ const mapTokenHistory = ({
     date: timestamp ? unixTimestampToDate(timestamp) : undefined,
     hash: transactionHash,
     type: "TOKEN",
-    timeStamp: Number(timestamp)
-
+    timeStamp: Number(timestamp),
   };
 };
 
-export const getEvmTokenHistories = async ({ address, blockchain, pageParam }: EvmHistoriesParams) => {
+export const getEvmTokenHistories = async ({
+  address,
+  blockchain,
+  pageParam,
+}: EvmHistoriesParams) => {
   const { page, pageTokens } = pageParam;
 
   try {
-    const response = await httpClient.post(ApiEndpoints.GET_TOKEN_TRANSFER, {
+    const response = (await httpClient.post(ApiEndpoints.GET_TOKEN_TRANSFER, {
       id: 1,
       wallet_address: address,
-      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain === "ethereum" ? 'eth' : blockchain],
+      blockchain: Array.isArray(blockchain)
+        ? blockchain
+        : [blockchain === "ethereum" ? "eth" : blockchain],
       page_size: page,
       page_token: pageTokens?.token,
-    }) as ApiResponse<GetTokenTransfersReply>;
-
+    })) as ApiResponse<GetTokenTransfersReply>;
 
     const transactions = response.data.ans.result;
-    const histories = transactions.transfers.map(mapTokenHistory).filter(Boolean) as HistoryType[];
+    const histories = transactions.transfers
+      .map(mapTokenHistory)
+      .filter(Boolean) as HistoryType[];
 
     return { histories, pageToken: transactions.nextPageToken };
   } catch (error) {
@@ -178,7 +215,7 @@ const mapNftHistory = ({
   fromAddress,
   value,
   blockchain,
-}: GetNftTransfersReply['transfers'][0]): HistoryType => ({
+}: GetNftTransfersReply["transfers"][0]): HistoryType => ({
   to: toAddress,
   from: fromAddress,
   id: blockchain,
@@ -188,27 +225,35 @@ const mapNftHistory = ({
   date: timestamp ? unixTimestampToDate(timestamp) : undefined,
   hash: transactionHash,
   type: "NFT",
-  timeStamp: Number(timestamp)
+  timeStamp: Number(timestamp),
 });
 
-export const getEvmNftHistories = async ({ address, blockchain, pageParam }: EvmHistoriesParams) => {
+export const getEvmNftHistories = async ({
+  address,
+  blockchain,
+  pageParam,
+}: EvmHistoriesParams) => {
   const { page, pageTokens } = pageParam;
 
   try {
-    const response = await httpClient.post(ApiEndpoints.GET_NFT_TRANSFERS, {
+    const response = (await httpClient.post(ApiEndpoints.GET_NFT_TRANSFERS, {
       id: 1,
       wallet_address: address,
-      blockchain: Array.isArray(blockchain) ? blockchain : [blockchain === "ethereum" ? 'eth' : blockchain],
+      blockchain: Array.isArray(blockchain)
+        ? blockchain
+        : [blockchain === "ethereum" ? "eth" : blockchain],
       page_size: page,
       page_token: pageTokens?.nft,
-    }) as ApiResponse<GetNftTransfersReply>;
+    })) as ApiResponse<GetNftTransfersReply>;
 
     if (!response.data.success) {
-      throw new Error('Failed to fetch NFT histories');
+      throw new Error("Failed to fetch NFT histories");
     }
 
     const transactions = response.data.ans.result.transfers;
-    const histories = transactions.map(mapNftHistory).filter(Boolean) as HistoryType[];
+    const histories = transactions
+      .map(mapNftHistory)
+      .filter(Boolean) as HistoryType[];
 
     return { histories, pageToken: response.data.ans.result.nextPageToken };
   } catch (error) {
